@@ -2,495 +2,816 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#2563eb">
-<title>JobFlow AI 2.0</title>
+<meta name="description" content="JobFlow AI - AI-powered career and job application workspace">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<title>JobFlow AI</title>
+
+<link rel="manifest" href="manifest.json">
 
 <style>
 *{
-box-sizing:border-box;
-margin:0;
-padding:0
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+  --border:#e2e8f0;
+  --success:#16a34a;
+  --warning:#f59e0b;
+  --danger:#dc2626;
+  --sidebar:#0f172a;
+  --radius:16px;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-font-family:Arial,Helvetica,sans-serif;
-background:#f4f7fb;
-color:#111827;
-line-height:1.5
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
 }
 
-header{
-height:64px;
-background:#fff;
-border-bottom:1px solid #e5e7eb;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 5%;
-position:sticky;
-top:0;
-z-index:20
-}
-
-.logo{
-font-size:21px;
-font-weight:800;
-white-space:nowrap
-}
-
-.logo span{
-color:#2563eb
-}
-
-nav{
-display:flex;
-gap:3px;
-overflow:auto
-}
-
-nav button{
-background:transparent;
-color:#475569;
-padding:8px;
-font-size:12px
-}
-
-button{
-border:0;
-border-radius:9px;
-padding:11px 15px;
-font:inherit;
-font-weight:700;
-cursor:pointer
-}
-
-button:active{
-transform:scale(.98)
-}
-
-.primary{
-background:#2563eb;
-color:#fff
-}
-
-.secondary{
-background:#eaf1ff;
-color:#1d4ed8
-}
-
-.danger{
-background:#fee2e2;
-color:#b91c1c
-}
-
-.hero{
-max-width:950px;
-margin:auto;
-text-align:center;
-padding:48px 20px 25px
-}
-
-.tag{
-display:inline-block;
-background:#eaf1ff;
-color:#2563eb;
-padding:6px 12px;
-border-radius:20px;
-font-size:11px;
-font-weight:800;
-margin-bottom:14px
-}
-
-.hero h1{
-font-size:clamp(35px,8vw,60px);
-line-height:1.04;
-letter-spacing:-2px
-}
-
-.hero h1 span{
-color:#2563eb
-}
-
-.hero p{
-max-width:680px;
-margin:16px auto;
-color:#64748b
-}
-
-.section{
-max-width:950px;
-margin:auto;
-padding:20px
-}
-
-.card{
-background:#fff;
-border:1px solid #e5e7eb;
-border-radius:15px;
-padding:20px;
-margin-bottom:18px;
-box-shadow:0 2px 8px rgba(15,23,42,.03)
-}
-
-.card h2{
-font-size:21px;
-margin-bottom:4px
-}
-
-.sub{
-font-size:13px;
-color:#64748b;
-margin-bottom:16px
-}
-
-label{
-display:block;
-font-size:13px;
-font-weight:700;
-margin:12px 0 6px
-}
-
+button,
 input,
 textarea,
 select{
-width:100%;
-border:1px solid #d6dce6;
-border-radius:9px;
-padding:12px;
-font:inherit;
-outline:0;
-background:#fff;
-color:#111827
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* ================================
+   APP SHELL
+================================ */
+
+.app{
+  min-height:100vh;
+  display:flex;
+}
+
+.sidebar{
+  width:245px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  background:var(--sidebar);
+  color:#fff;
+  padding:20px 14px;
+  z-index:100;
+  overflow-y:auto;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:8px 10px 25px;
+}
+
+.logo-mark{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:var(--primary);
+  font-weight:800;
+  font-size:18px;
+}
+
+.logo-text strong{
+  display:block;
+  font-size:18px;
+}
+
+.logo-text span{
+  display:block;
+  margin-top:2px;
+  color:#94a3b8;
+  font-size:11px;
+}
+
+.nav-title{
+  padding:15px 10px 7px;
+  color:#64748b;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:10px;
+  font-weight:700;
+}
+
+.nav-btn{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#cbd5e1;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 12px;
+  margin:2px 0;
+  border-radius:11px;
+  text-align:left;
+  transition:.18s;
+}
+
+.nav-btn:hover{
+  background:#1e293b;
+  color:#fff;
+}
+
+.nav-btn.active{
+  background:var(--primary);
+  color:#fff;
+}
+
+.nav-icon{
+  width:20px;
+  text-align:center;
+}
+
+.main{
+  width:calc(100% - 245px);
+  margin-left:245px;
+  min-width:0;
+}
+
+.topbar{
+  height:68px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 26px;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.menu-btn{
+  display:none;
+  border:0;
+  background:#f1f5f9;
+  width:40px;
+  height:40px;
+  border-radius:10px;
+}
+
+.top-title{
+  font-size:19px;
+  font-weight:750;
+}
+
+.top-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.avatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#dbeafe;
+  color:#1d4ed8;
+  font-weight:700;
+}
+
+.content{
+  padding:26px;
+  max-width:1500px;
+  margin:auto;
+}
+
+/* ================================
+   VIEWS
+================================ */
+
+.view{
+  display:none;
+  animation:fadeIn .18s ease;
+}
+
+.view.active{
+  display:block;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(3px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.page-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:22px;
+}
+
+.page-head h1{
+  font-size:27px;
+  margin-bottom:5px;
+}
+
+.page-head p{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+/* ================================
+   CARDS
+================================ */
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  box-shadow:0 3px 15px rgba(15,23,42,.035);
+}
+
+.card-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.card-title h2,
+.card-title h3{
+  font-size:17px;
+}
+
+.card-title span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* ================================
+   BUTTONS
+================================ */
+
+.btn{
+  border:0;
+  border-radius:10px;
+  min-height:40px;
+  padding:0 15px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  font-weight:650;
+  transition:.15s;
+}
+
+.btn-primary{
+  background:var(--primary);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:var(--primary-dark);
+}
+
+.btn-secondary{
+  background:#eef2f7;
+  color:#334155;
+}
+
+.btn-secondary:hover{
+  background:#e2e8f0;
+}
+
+.btn-success{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.btn-danger{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.btn-small{
+  min-height:34px;
+  padding:0 11px;
+  font-size:12px;
+}
+
+/* ================================
+   DASHBOARD
+================================ */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:18px;
+}
+
+.stat{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:18px;
+}
+
+.stat-top{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stat-icon{
+  width:35px;
+  height:35px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  background:#eff6ff;
+  color:var(--primary);
+}
+
+.stat-value{
+  display:block;
+  font-size:27px;
+  font-weight:800;
+  margin-top:12px;
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:18px;
+}
+
+/* ================================
+   JOB ANALYZER
+================================ */
+
+.analyzer{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+textarea,
+input,
+select{
+  width:100%;
+  border:1px solid #d8e0ea;
+  border-radius:11px;
+  background:#fff;
+  color:var(--text);
+  outline:none;
+}
+
+input,
+select{
+  min-height:43px;
+  padding:0 12px;
+}
+
+textarea{
+  min-height:300px;
+  padding:13px;
+  resize:vertical;
+  line-height:1.55;
 }
 
 input:focus,
 textarea:focus,
 select:focus{
-border-color:#2563eb
+  border-color:#93c5fd;
+  box-shadow:0 0 0 3px #dbeafe;
 }
 
-textarea{
-min-height:125px;
-resize:vertical
+.field{
+  margin-bottom:15px;
 }
 
-.full{
-width:100%;
-margin-top:12px
+.field label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:7px;
 }
 
-.result,
-.resume,
-.letter,
-.interview,
-.match,
-.gap,
-.ats,
-.notes{
-display:none;
-margin-top:15px;
-background:#f8fafc;
-border:1px solid #e2e8f0;
-border-radius:11px;
-padding:16px;
-font-size:13px
+.analysis-result{
+  min-height:300px;
 }
 
-.resume,
-.letter,
-.interview,
-.match{
-background:#fff
+.keyword-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:12px;
 }
 
-.chip{
-display:inline-block;
-background:#eaf1ff;
-color:#1d4ed8;
-padding:5px 9px;
-border-radius:20px;
-font-size:11px;
-font-weight:700;
-margin:3px
-}
-
-.chip.missing{
-background:#fff1f2;
-color:#be123c
+.keyword{
+  padding:7px 9px;
+  background:#eff6ff;
+  color:#1d4ed8;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:600;
 }
 
 .score{
-display:inline-block;
-background:#eaf1ff;
-color:#2563eb;
-padding:8px 13px;
-border-radius:9px;
-font-size:20px;
-font-weight:800
-}
-
-.bigscore{
-font-size:42px;
-font-weight:900;
-color:#2563eb
-}
-
-.notice{
-background:#eef6ff;
-color:#1d4ed8;
-padding:11px;
-border-radius:9px;
-font-size:13px;
-margin-top:12px
-}
-
-.warning{
-background:#fff7ed;
-color:#c2410c;
-padding:11px;
-border-radius:9px;
-font-size:13px;
-margin-top:12px
-}
-
-.success{
-background:#ecfdf5;
-color:#047857;
-padding:11px;
-border-radius:9px;
-font-size:13px;
-margin-top:12px
-}
-
-.actions{
-display:flex;
-gap:8px;
-margin-top:10px
-}
-
-.actions button{
-flex:1
-}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:10px;
-margin-top:15px
-}
-
-.stat{
-background:#f8fafc;
-border:1px solid #e5e7eb;
-padding:14px 10px;
-border-radius:10px;
-text-align:center
-}
-
-.stat b{
-display:block;
-font-size:23px;
-color:#2563eb
-}
-
-.stat small{
-color:#64748b
-}
-
-.command-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-top:15px
-}
-
-.command{
-background:#f8fafc;
-border:1px solid #e5e7eb;
-border-radius:11px;
-padding:15px
-}
-
-.command b{
-display:block;
-font-size:19px;
-color:#2563eb
-}
-
-.command span{
-font-size:12px;
-color:#64748b
-}
-
-.app{
-border:1px solid #e5e7eb;
-border-radius:10px;
-padding:14px;
-margin-top:10px;
-background:#fff
-}
-
-.apphead{
-display:flex;
-justify-content:space-between;
-gap:10px;
-align-items:center
-}
-
-.status{
-padding:5px 8px;
-border-radius:15px;
-background:#eaf1ff;
-color:#2563eb;
-font-size:11px;
-font-weight:700
-}
-
-.app small{
-color:#64748b
-}
-
-.empty{
-text-align:center;
-padding:25px;
-color:#64748b
-}
-
-.saved-job{
-border:1px solid #e5e7eb;
-border-radius:10px;
-padding:14px;
-margin-top:10px;
-background:#fff
-}
-
-.saved-job b{
-display:block;
-margin-bottom:3px
-}
-
-.note{
-border:1px solid #e5e7eb;
-background:#fff;
-border-radius:10px;
-padding:13px;
-margin-top:10px
-}
-
-.note small{
-color:#64748b
-}
-
-.roadmap{
-border-left:3px solid #2563eb;
-padding-left:15px;
-margin-top:12px
-}
-
-.road-step{
-padding:10px 0
-}
-
-.road-step b{
-display:block
+  font-size:45px;
+  font-weight:850;
+  color:var(--primary);
 }
 
 .progress{
-height:9px;
-background:#e5e7eb;
-border-radius:20px;
-overflow:hidden;
-margin-top:8px
+  height:9px;
+  background:#e2e8f0;
+  border-radius:20px;
+  overflow:hidden;
+  margin:10px 0 18px;
 }
 
-.progress i{
-display:block;
-height:100%;
-background:#2563eb;
-width:0
+.progress > div{
+  height:100%;
+  background:var(--primary);
+  border-radius:20px;
+  transition:width .3s;
 }
 
-.resume h1{
-font-size:28px;
-letter-spacing:0
+/* ================================
+   RESUME
+================================ */
+
+.resume-grid{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:18px;
 }
 
-.resume h3{
-margin-top:18px;
-border-bottom:1px solid #ddd;
-padding-bottom:5px
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 
-.resume p,
-.letter p{
-font-size:14px;
-margin-top:9px
+.form-full{
+  grid-column:1/-1;
 }
 
-.resume ul{
-padding-left:20px;
-margin-top:7px
+.resume-preview{
+  background:#fff;
+  min-height:600px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:35px;
 }
 
-footer{
-text-align:center;
-padding:25px;
-color:#64748b;
-font-size:12px;
-border-top:1px solid #e5e7eb;
-margin-top:10px
+.resume-preview h1{
+  font-size:27px;
+  margin-bottom:5px;
 }
 
-@media(max-width:700px){
-
-header{
-padding:0 4%
+.resume-preview .resume-contact{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:22px;
 }
 
-header>button{
-padding:8px 10px;
-font-size:11px
+.resume-section{
+  margin-top:20px;
 }
 
-nav{
-display:none
+.resume-section h3{
+  font-size:13px;
+  border-bottom:2px solid #e2e8f0;
+  padding-bottom:6px;
+  margin-bottom:9px;
 }
 
-.hero{
-padding-top:40px
+/* ================================
+   APPLICATIONS
+================================ */
+
+.toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
 }
 
-.stats{
-grid-template-columns:repeat(2,1fr)
+.application-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
 }
 
-.command-grid{
-grid-template-columns:repeat(2,1fr)
+.application-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:17px;
 }
 
-.actions{
-flex-direction:column
+.application-card h3{
+  font-size:16px;
+  margin-bottom:4px;
 }
+
+.application-card p{
+  color:var(--muted);
+  font-size:12px;
+  margin:3px 0;
+}
+
+.badge{
+  display:inline-flex;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+  background:#f1f5f9;
+  color:#475569;
+  margin:9px 0;
+}
+
+/* ================================
+   INTERVIEW
+================================ */
+
+.interview-layout{
+  display:grid;
+  grid-template-columns:.75fr 1.25fr;
+  gap:18px;
+}
+
+.question{
+  font-size:20px;
+  line-height:1.4;
+  font-weight:750;
+  margin:12px 0 20px;
+}
+
+.answer-box{
+  min-height:190px;
+}
+
+.interview-score{
+  font-size:42px;
+  font-weight:850;
+  color:var(--primary);
+}
+
+/* ================================
+   COVER LETTER
+================================ */
+
+.cover-layout{
+  display:grid;
+  grid-template-columns:.7fr 1.3fr;
+  gap:18px;
+}
+
+.letter-preview{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:35px;
+  min-height:600px;
+  line-height:1.7;
+  white-space:pre-wrap;
+}
+
+/* ================================
+   ATS
+================================ */
+
+.ats-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.ats-card{
+  padding:20px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:15px;
+}
+
+.ats-number{
+  font-size:30px;
+  font-weight:850;
+  margin-top:8px;
+}
+
+/* ================================
+   SETTINGS
+================================ */
+
+.settings-grid{
+  max-width:800px;
+  display:grid;
+  gap:14px;
+}
+
+.setting-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:15px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.setting-row:last-child{
+  border-bottom:0;
+}
+
+.setting-row strong{
+  display:block;
+  margin-bottom:3px;
+}
+
+.setting-row span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* ================================
+   EMPTY / QUICK ACTION
+================================ */
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.quick{
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fff;
+  padding:14px;
+  text-align:left;
+  transition:.15s;
+}
+
+.quick:hover{
+  border-color:#93c5fd;
+  transform:translateY(-1px);
+}
+
+.quick strong{
+  display:block;
+  margin-bottom:4px;
+}
+
+.quick span{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:1050px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .dashboard-grid,
+  .analyzer,
+  .resume-grid,
+  .interview-layout,
+  .cover-layout{
+    grid-template-columns:1fr;
+  }
+
+  .application-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .ats-grid{
+    grid-template-columns:1fr 1fr;
+  }
 
 }
 
-@media print{
+@media(max-width:750px){
 
-header,
-.hero,
-.actions,
-footer{
-display:none!important
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.2s;
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    width:100%;
+    margin-left:0;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .topbar{
+    padding:0 14px;
+  }
+
+  .content{
+    padding:17px 13px 30px;
+  }
+
+  .page-head{
+    flex-direction:column;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .application-grid,
+  .ats-grid{
+    grid-template-columns:1fr;
+  }
+
+  .quick-grid{
+    grid-template-columns:1fr;
+  }
+
 }
 
-body{
-background:#fff
-}
+@media(max-width:450px){
 
-.section{
-padding:0
-}
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+  }
+
+  .stat{
+    padding:13px;
+  }
+
+  .stat-value{
+    font-size:22px;
+  }
+
+  .page-head h1{
+    font-size:23px;
+  }
+
+  .card{
+    padding:15px;
+  }
+
+  .resume-preview,
+  .letter-preview{
+    padding:20px;
+  }
 
 }
 </style>
@@ -498,3044 +819,3624 @@ padding:0
 
 <body>
 
-<header>
+<div class="app">
 
-<div class="logo">
-Job<span>Flow</span> AI
-</div>
+<!-- =====================================
+     SIDEBAR
+===================================== -->
 
-<nav>
-<button onclick="show('command')">Command</button>
-<button onclick="show('analyzer')">Analyze</button>
-<button onclick="show('builder')">Resume</button>
-<button onclick="show('tracker')">Tracker</button>
-</nav>
+<aside class="sidebar" id="sidebar">
 
-<button class="primary" onclick="show('command')">
-Command Center
-</button>
+  <div class="logo">
+    <div class="logo-mark">JF</div>
+    <div class="logo-text">
+      <strong>JobFlow AI</strong>
+      <span>Career Intelligence</span>
+    </div>
+  </div>
+
+  <div class="nav-title">Workspace</div>
+
+  <button class="nav-btn active" data-page="dashboard">
+    <span class="nav-icon">⌂</span>
+    Dashboard
+  </button>
+
+  <button class="nav-btn" data-page="analyzer">
+    <span class="nav-icon">⌕</span>
+    Job Analyzer
+  </button>
+
+  <button class="nav-btn" data-page="resume">
+    <span class="nav-icon">▤</span>
+    Resume Builder
+  </button>
+
+  <button class="nav-btn" data-page="applications">
+    <span class="nav-icon">✓</span>
+    Applications
+  </button>
+
+  <button class="nav-btn" data-page="interview">
+    <span class="nav-icon">◉</span>
+    Interview Prep
+  </button>
+
+  <button class="nav-btn" data-page="cover">
+    <span class="nav-icon">✉</span>
+    Cover Letter
+  </button>
+
+  <div class="nav-title">Tools</div>
+
+  <button class="nav-btn" data-page="ats">
+    <span class="nav-icon">▣</span>
+    ATS Checker
+  </button>
+
+  <button class="nav-btn" data-page="career">
+    <span class="nav-icon">↗</span>
+    Career Insights
+  </button>
+
+  <button class="nav-btn" data-page="analytics">
+    <span class="nav-icon">◒</span>
+    Analytics
+  </button>
+
+  <div class="nav-title">System</div>
+
+  <button class="nav-btn" data-page="settings">
+    <span class="nav-icon">⚙</span>
+    Settings
+  </button>
+
+</aside>
+
+
+<!-- =====================================
+     MAIN
+===================================== -->
+
+<main class="main">
+
+<header class="topbar">
+
+  <div style="display:flex;align-items:center;gap:12px">
+
+    <button class="menu-btn" id="menuBtn">
+      ☰
+    </button>
+
+    <div class="top-title" id="topTitle">
+      Dashboard
+    </div>
+
+  </div>
+
+  <div class="top-right">
+
+    <span style="font-size:12px;color:#64748b">
+      AI Career Workspace
+    </span>
+
+    <div class="avatar">
+      J
+    </div>
+
+  </div>
 
 </header>
 
 
-<section class="hero">
+<div class="content">
 
-<div class="tag">
-JOBFLOW AI 2.0
-</div>
 
-<h1>
-Your personal<br>
-<span>career command center.</span>
-</h1>
+<!-- =====================================
+     DASHBOARD
+===================================== -->
 
-<p>
-Analyze jobs, build resumes, measure your match,
-find skill gaps and manage applications from one place.
-</p>
+<section class="view active" id="dashboard">
 
-<button class="primary" onclick="show('command')">
-Open Command Center →
-</button>
+  <div class="page-head">
+
+    <div>
+      <h1>Good to see you 👋</h1>
+      <p>
+        Your career workspace is ready.
+      </p>
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="btn btn-primary"
+        data-page="analyzer">
+        + Analyze Job
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="stats">
+
+    <div class="stat">
+      <div class="stat-top">
+        <span>Applications</span>
+        <div class="stat-icon">✓</div>
+      </div>
+      <span class="stat-value" id="statApplications">0</span>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <span>Interviews</span>
+        <div class="stat-icon">◉</div>
+      </div>
+      <span class="stat-value" id="statInterviews">0</span>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <span>Offers</span>
+        <div class="stat-icon">★</div>
+      </div>
+      <span class="stat-value" id="statOffers">0</span>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <span>Response Rate</span>
+        <div class="stat-icon">%</div>
+      </div>
+      <span class="stat-value" id="statResponse">0%</span>
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-grid">
+
+    <div class="card">
+
+      <div class="card-title">
+        <h2>Start your next move</h2>
+        <span>Quick tools</span>
+      </div>
+
+      <div class="quick-grid">
+
+        <button class="quick" data-page="analyzer">
+          <strong>Analyze a Job</strong>
+          <span>Find skills and requirements.</span>
+        </button>
+
+        <button class="quick" data-page="resume">
+          <strong>Build Resume</strong>
+          <span>Create a targeted resume.</span>
+        </button>
+
+        <button class="quick" data-page="interview">
+          <strong>Practice Interview</strong>
+          <span>Prepare with interview questions.</span>
+        </button>
+
+        <button class="quick" data-page="cover">
+          <strong>Create Cover Letter</strong>
+          <span>Generate a professional letter.</span>
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-title">
+        <h2>Career Readiness</h2>
+      </div>
+
+      <div id="readinessBox">
+        <div class="score">0%</div>
+
+        <div class="progress">
+          <div style="width:0%"></div>
+        </div>
+
+        <p style="color:#64748b;font-size:13px">
+          Complete your resume and analyze a job
+          to improve your readiness score.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
 
-<section class="section">
+<!-- =====================================
+     JOB ANALYZER
+===================================== -->
+
+<section class="view" id="analyzer">
+
+  <div class="page-head">
+
+    <div>
+      <h1>Job Analyzer</h1>
+      <p>
+        Paste a job description and identify important requirements.
+      </p>
+    </div>
+
+  </div>
 
 
-<!-- COMMAND CENTER -->
+  <div class="analyzer">
 
-<div class="card" id="command">
+    <div class="card">
 
-<h2>
-⚡ Career Command Center
-</h2>
+      <div class="card-title">
+        <h2>Job Description</h2>
+      </div>
 
-<p class="sub">
-Your complete job-search overview.
-</p>
+      <div class="field">
+        <label>Company</label>
+        <input
+          id="jobCompany"
+          placeholder="Company name">
+      </div>
 
-<div class="command-grid">
+      <div class="field">
+        <label>Job Title</label>
+        <input
+          id="jobTitle"
+          placeholder="Software Engineer">
+      </div>
 
-<div class="command">
-<b id="dashApplications">0</b>
-<span>Applications</span>
+      <div class="field">
+
+        <label>Paste Job Description</label>
+
+        <textarea
+          id="jobDescription"
+          data-job-description
+          placeholder="Paste the complete job description here..."></textarea>
+
+      </div>
+
+      <button
+        class="btn btn-primary"
+        id="analyzeBtn">
+        Analyze Job
+      </button>
+
+    </div>
+
+
+    <div class="card analysis-result">
+
+      <div class="card-title">
+        <h2>Analysis</h2>
+        <span id="analysisStatus">Waiting</span>
+      </div>
+
+      <div id="analysisOutput">
+
+        <p style="color:#64748b">
+          Your detected keywords and job insights
+          will appear here.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================
+     RESUME BUILDER
+===================================== -->
+
+<section class="view" id="resume">
+
+  <div class="page-head">
+
+    <div>
+      <h1>Resume Builder</h1>
+      <p>
+        Create and save your professional resume.
+      </p>
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="btn btn-secondary"
+        id="loadResumeBtn">
+        Load Saved
+      </button>
+
+      <button
+        class="btn btn-primary"
+        id="saveResumeBtn">
+        Save Resume
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="resume-grid">
+
+    <div class="card">
+
+      <div class="card-title">
+        <h2>Your Information</h2>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Full Name</label>
+          <input id="resumeName" placeholder="Your name">
+        </div>
+
+        <div class="field">
+          <label>Job Title</label>
+          <input id="resumeRole" placeholder="Software Engineer">
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input id="resumeEmail" type="email" placeholder="you@email.com">
+        </div>
+
+        <div class="field">
+          <label>Phone</label>
+          <input id="resumePhone" placeholder="+91">
+        </div>
+
+        <div class="field form-full">
+          <label>Professional Summary</label>
+          <textarea
+            id="resumeSummary"
+            style="min-height:120px"
+            placeholder="Write a concise professional summary..."></textarea>
+        </div>
+
+        <div class="field form-full">
+          <label>Skills</label>
+          <textarea
+            id="resumeSkills"
+            style="min-height:110px"
+            placeholder="JavaScript, HTML, CSS, REST APIs..."></textarea>
+        </div>
+
+        <div class="field form-full">
+          <label>Experience</label>
+          <textarea
+            id="resumeExperience"
+            style="min-height:160px"
+            placeholder="Your
+professional experience, responsibilities, achievements and measurable results..."
+></textarea>
 </div>
 
-<div class="command">
-<b id="dashInterviews">0</b>
-<span>Interviews</span>
+<div class="field full">
+  <label>Education</label>
+  <textarea
+    id="resumeEducation"
+    style="min-height:120px"
+    placeholder="Degree, institution, graduation year and relevant details..."
+  ></textarea>
 </div>
 
-<div class="command">
-<b id="dashOffers">0</b>
-<span>Offers</span>
+<div class="field full">
+  <label>Skills</label>
+  <input
+    id="resumeSkills"
+    placeholder="JavaScript, React, Python, SQL, Communication..."
+  >
 </div>
 
-<div class="command">
-<b id="dashSaved">0</b>
-<span>Saved Jobs</span>
+<div class="field full">
+  <label>Certifications</label>
+  <textarea
+    id="resumeCertifications"
+    style="min-height:100px"
+    placeholder="Certification name, organization and year..."
+  ></textarea>
 </div>
 
-<div class="command">
-<b id="dashSkills">0</b>
-<span>Detected Skills</span>
+<div class="field full">
+  <label>Projects</label>
+  <textarea
+    id="resumeProjects"
+    style="min-height:130px"
+    placeholder="Project name, technologies, your contribution and results..."
+  ></textarea>
 </div>
 
-<div class="command">
-<b id="dashMatch">—</b>
-<span>Job Match</span>
+<div class="field full">
+  <label>Achievements</label>
+  <textarea
+    id="resumeAchievements"
+    style="min-height:110px"
+    placeholder="Awards, achievements, recognitions and measurable results..."
+  ></textarea>
 </div>
 
+<div class="field">
+  <label>LinkedIn Profile</label>
+  <input
+    id="resumeLinkedIn"
+    type="url"
+    placeholder="https://linkedin.com/in/your-name"
+  >
 </div>
 
-<div class="notice">
-Tip: Analyze a job first, then run the Match Score and Skill Gap Analyzer.
+<div class="field">
+  <label>Portfolio</label>
+  <input
+    id="resumePortfolio"
+    type="url"
+    placeholder="https://yourportfolio.com"
+  >
 </div>
 
+<div class="field">
+  <label>Location</label>
+  <input
+    id="resumeLocation"
+    placeholder="City, State, Country"
+  >
 </div>
 
-
-<!-- JOB ANALYZER -->
-
-<div class="card" id="analyzer">
-
-<h2>
-1. Smart Job Analyzer
-</h2>
-
-<p class="sub">
-Paste a job description to extract skills, requirements and responsibilities.
-</p>
-
-<label>
-Job Description
-</label>
-
-<textarea
-id="job"
-placeholder="Paste the complete job description here...">
-</textarea>
-
-<button
-class="primary full"
-onclick="analyze()">
-Analyze Job →
-</button>
-
-<div
-class="result"
-id="analysis">
+<div class="field">
+  <label>Resume Template</label>
+  <select id="resumeTemplate">
+    <option value="professional">Professional</option>
+    <option value="modern">Modern</option>
+    <option value="minimal">Minimal</option>
+    <option value="ats">ATS Friendly</option>
+    <option value="executive">Executive</option>
+  </select>
 </div>
 
+<div class="field full">
+  <label>Languages</label>
+  <input
+    id="resumeLanguages"
+    placeholder="English, Hindi, Telugu..."
+  >
 </div>
 
+<div class="row end field full">
+  <button
+    class="btn"
+    id="resumeClearBtn"
+    type="button"
+  >
+    Clear
+  </button>
 
-<!-- RESUME BUILDER -->
-
-<div class="card" id="builder">
-
-<h2>
-2. Resume Builder Pro
-</h2>
-
-<p class="sub">
-Build and save your professional resume directly in your browser.
-</p>
-
-<label>
-Full Name
-</label>
-
-<input
-id="name"
-placeholder="Your full name">
-
-<label>
-Professional Title
-</label>
-
-<input
-id="title"
-placeholder="Software Engineer">
-
-<label>
-Email
-</label>
-
-<input
-id="email"
-placeholder="you@example.com">
-
-<label>
-Phone
-</label>
-
-<input
-id="phone"
-placeholder="+91 98765 43210">
-
-<label>
-Location
-</label>
-
-<input
-id="location"
-placeholder="City, India">
-
-<label>
-Professional Summary
-</label>
-
-<textarea
-id="summary"
-placeholder="Write a short professional summary...">
-</textarea>
-
-<label>
-Skills
-</label>
-
-<textarea
-id="skills"
-placeholder="JavaScript, HTML, CSS, Git, SQL...">
-</textarea>
-
-<label>
-Experience
-</label>
-
-<textarea
-id="experience"
-placeholder="Company — Job Title&#10;Responsibilities and achievements...">
-</textarea>
-
-<label>
-Education
-</label>
-
-<textarea
-id="education"
-placeholder="Degree — College — Year">
-</textarea>
-
-<button
-class="primary full"
-onclick="buildResume()">
-Create Resume →
-</button>
-
-<div
-class="resume"
-id="resume">
-</div>
-
-<div class="actions">
-
-<button
-class="secondary"
-onclick="window.print()">
-Print / Save PDF
-</button>
-
-<button
-onclick="copyBox('resume')">
-Copy Resume
-</button>
-
-</div>
-
-</div>
-
-
-<!-- ATS SCORE -->
-
-<div class="card" id="atsCard">
-
-<h2>
-3. ATS Readiness Scanner
-</h2>
-
-<p class="sub">
-Check whether your resume is prepared for automated screening.
-</p>
-
-<button
-class="primary full"
-onclick="atsScan()">
-Scan Resume →
-</button>
-
-<div
-class="ats"
-id="ats">
-</div>
-
-</div>
-
-
-<!-- SKILL GAP -->
-
-<div class="card" id="skillGapCard">
-
-<h2>
-4. Skill Gap Analyzer
-</h2>
-
-<p class="sub">
-Find what skills are missing between your resume and the target job.
-</p>
-
-<button
-class="primary full"
-onclick="skillGap()">
-Find Skill Gaps →
-</button>
-
-<div
-class="gap"
-id="gap">
-</div>
-
-</div>
-
-
-<!-- CAREER ROADMAP -->
-
-<div class="card" id="roadmapCard">
-
-<h2>
-5. Career Roadmap
-</h2>
-
-<p class="sub">
-Turn your missing skills into a practical learning path.
-</p>
-
-<button
-class="primary full"
-onclick="careerRoadmap()">
-Build My Roadmap →
-</button>
-
-<div
-class="result"
-id="roadmap">
+  <button
+    class="btn primary"
+    id="resumeGenerateBtn"
+    type="button"
+  >
+    Generate Resume
+  </button>
 </div>
 
 </div>
-<!-- COVER LETTER -->
-
-<div class="card" id="cover">
-
-<h2>
-6. Cover Letter Generator
-</h2>
-
-<p class="sub">
-Create a tailored application letter from your target job.
-</p>
-
-<label>
-Company Name
-</label>
-
-<input
-id="company"
-placeholder="Company name">
-
-<label>
-Job Title
-</label>
-
-<input
-id="jobtitle"
-placeholder="Software Engineer">
-
-<label>
-Hiring Manager
-</label>
-
-<input
-id="manager"
-placeholder="Hiring Manager">
-
-<button
-class="primary full"
-onclick="coverLetter()">
-Generate Cover Letter →
-</button>
-
-<div
-class="letter"
-id="letter">
 </div>
-
-<div class="actions">
-
-<button
-class="secondary"
-onclick="window.print()">
-Print / Save PDF
-</button>
-
-<button
-onclick="copyBox('letter')">
-Copy Letter
-</button>
-
-</div>
-
-</div>
-
-
-<!-- INTERVIEW PREP -->
-
-<div class="card" id="interviewCard">
-
-<h2>
-7. Interview Simulator
-</h2>
-
-<p class="sub">
-Generate technical and HR questions from the analyzed job.
-</p>
-
-<button
-class="primary full"
-onclick="interview()">
-Start Interview Prep →
-</button>
-
-<div
-class="interview"
-id="interview">
-</div>
-
-</div>
-
-
-<!-- JOB MATCH -->
-
-<div class="card" id="matchCard">
-
-<h2>
-8. Job Match Engine
-</h2>
-
-<p class="sub">
-Compare your resume skills with the target job.
-</p>
-
-<button
-class="primary full"
-onclick="matchScore()">
-Calculate Match →
-</button>
-
-<div
-class="match"
-id="match">
-</div>
-
-</div>
-
-
-<!-- SAVED JOBS -->
-
-<div class="card" id="savedJobs">
-
-<h2>
-9. Saved Jobs
-</h2>
-
-<p class="sub">
-Bookmark opportunities you want to apply to later.
-</p>
-
-<label>
-Company
-</label>
-
-<input
-id="savedCompany"
-placeholder="Company name">
-
-<label>
-Job Title
-</label>
-
-<input
-id="savedRole"
-placeholder="Software Engineer">
-
-<label>
-Job Link
-</label>
-
-<input
-id="savedLink"
-placeholder="https://example.com/job">
-
-<button
-class="primary full"
-onclick="saveJob()">
-Save Job →
-</button>
-
-<div id="savedList">
-</div>
-
-</div>
-
-
-<!-- APPLICATION TRACKER -->
-
-<div class="card" id="tracker">
-
-<h2>
-10. Application Tracker
-</h2>
-
-<p class="sub">
-Manage your complete application pipeline.
-</p>
-
-<label>
-Company
-</label>
-
-<input
-id="appCompany"
-placeholder="Company name">
-
-<label>
-Job Title
-</label>
-
-<input
-id="appRole"
-placeholder="Software Engineer">
-
-<label>
-Job Link
-</label>
-
-<input
-id="appLink"
-placeholder="https://example.com/job">
-
-<label>
-Status
-</label>
-
-<select id="appStatus">
-
-<option value="Saved">
-Saved
-</option>
-
-<option value="Applied">
-Applied
-</option>
-
-<option value="Interview">
-Interview
-</option>
-
-<option value="Offer">
-Offer
-</option>
-
-<option value="Rejected">
-Rejected
-</option>
-
-</select>
-
-<label>
-Application Note
-</label>
-
-<textarea
-id="appNote"
-placeholder="Recruiter name, follow-up details, interview notes...">
-</textarea>
-
-<button
-class="primary full"
-onclick="addApplication()">
-Add Application →
-</button>
-
-<div class="stats">
-
-<div class="stat">
-<b id="totalApps">0</b>
-<small>Total</small>
-</div>
-
-<div class="stat">
-<b id="appliedApps">0</b>
-<small>Applied</small>
-</div>
-
-<div class="stat">
-<b id="interviewApps">0</b>
-<small>Interviews</small>
-</div>
-
-<div class="stat">
-<b id="offerApps">0</b>
-<small>Offers</small>
-</div>
-
-</div>
-
-<div id="applications">
-</div>
-
-</div>
-
-
-<!-- NOTES -->
-
-<div class="card" id="notesCard">
-
-<h2>
-11. Career Notes
-</h2>
-
-<p class="sub">
-Keep useful job-search notes inside JobFlow.
-</p>
-
-<label>
-Note Title
-</label>
-
-<input
-id="noteTitle"
-placeholder="Example: Google interview preparation">
-
-<label>
-Note
-</label>
-
-<textarea
-id="noteText"
-placeholder="Write your note here...">
-</textarea>
-
-<button
-class="primary full"
-onclick="addNote()">
-Save Note →
-</button>
-
-<div
-class="notes"
-id="notes">
-</div>
-
-</div>
-
-
-<!-- ACHIEVEMENT BUILDER -->
-
-<div class="card" id="achievementCard">
-
-<h2>
-12. Achievement Builder
-</h2>
-
-<p class="sub">
-Turn basic work into stronger resume achievement statements.
-</p>
-
-<label>
-What did you do?
-</label>
-
-<input
-id="achievementAction"
-placeholder="Built a website">
-
-<label>
-What technology or method did you use?
-</label>
-
-<input
-id="achievementTool"
-placeholder="HTML, CSS and JavaScript">
-
-<label>
-What was the result?
-</label>
-
-<input
-id="achievementResult"
-placeholder="Improved user experience">
-
-<button
-class="primary full"
-onclick="buildAchievement()">
-Improve Achievement →
-</button>
-
-<div
-class="result"
-id="achievement">
-</div>
-
-</div>
-
-
-<!-- INTERVIEW ANSWER BANK -->
-
-<div class="card" id="answerBank">
-
-<h2>
-13. Interview Answer Bank
-</h2>
-
-<p class="sub">
-Save answers you want to practice repeatedly.
-</p>
-
-<label>
-Question
-</label>
-
-<input
-id="answerQuestion"
-placeholder="Tell me about yourself">
-
-<label>
-Your Answer
-</label>
-
-<textarea
-id="answerText"
-placeholder="Write your answer...">
-</textarea>
-
-<button
-class="primary full"
-onclick="saveAnswer()">
-Save Answer →
-</button>
-
-<div id="answers">
-</div>
-
-</div>
-
-
-<!-- PROFILE -->
-
-<div class="card" id="profile">
-
-<h2>
-14. Career Profile
-</h2>
-
-<p class="sub">
-Your reusable career information.
-</p>
-
-<label>
-Target Role
-</label>
-
-<input
-id="targetRole"
-placeholder="Frontend Developer">
-
-<label>
-Years of Experience
-</label>
-
-<input
-id="years"
-type="number"
-min="0"
-placeholder="1">
-
-<label>
-Preferred Location
-</label>
-
-<input
-id="preferredLocation"
-placeholder="Remote / Hyderabad / Bengaluru">
-
-<label>
-Career Goal
-</label>
-
-<textarea
-id="careerGoal"
-placeholder="Describe the type of career you want...">
-</textarea>
-
-<button
-class="primary full"
-onclick="saveProfile()">
-Save Career Profile →
-</button>
-
-<div
-class="notice"
-id="profileMessage"
-style="display:none">
-Profile saved.
-</div>
-
-</div>
-
-
-<!-- DATA BACKUP -->
 
 <div class="card">
+  <div class="card-head">
+    <h3>Live Resume Preview</h3>
 
-<h2>
-15. Data Center
-</h2>
+    <div class="row">
+      <button
+        class="btn small"
+        id="resumeRefreshBtn"
+        type="button"
+      >
+        Refresh
+      </button>
 
-<p class="sub">
-Protect your JobFlow information.
-</p>
+      <button
+        class="btn small"
+        id="resumeDownloadBtn"
+        type="button"
+      >
+        Export
+      </button>
+    </div>
+  </div>
 
-<div class="actions">
-
-<button
-class="secondary"
-onclick="exportData()">
-Export Backup
-</button>
-
-<button
-onclick="document.getElementById('importFile').click()">
-Import Backup
-</button>
-
-</div>
-
-<input
-id="importFile"
-type="file"
-accept=".json"
-style="display:none"
-onchange="importData(event)">
-
-<div class="notice">
-Your data is stored locally in this browser. Export a backup before clearing browser data.
+  <div id="resumePreview" class="resume-preview">
+    <div class="empty">
+      Complete your resume information and select
+      <strong>Generate Resume</strong>.
+    </div>
+  </div>
 </div>
 
 </div>
+</section>
+<!-- COVER LETTER BUILDER -->
+<section class="page" id="page-cover">
+  <div class="page-head">
+    <div>
+      <h1>Cover Letter Builder</h1>
+      <p>Create a tailored cover letter for your target job.</p>
+    </div>
+    <button class="btn primary" id="generateCoverBtn">
+      ✨ Generate
+    </button>
+  </div>
 
+  <div class="grid two">
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Job Information</h3>
+        <span class="badge">AI Ready</span>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Company</label>
+          <input
+            id="coverCompany"
+            placeholder="Company name"
+          >
+        </div>
+
+        <div class="field">
+          <label>Job Title</label>
+          <input
+            id="coverJobTitle"
+            placeholder="Software Engineer"
+          >
+        </div>
+
+        <div class="field">
+          <label>Hiring Manager</label>
+          <input
+            id="coverHiringManager"
+            placeholder="Hiring Manager"
+          >
+        </div>
+
+        <div class="field">
+          <label>Tone</label>
+          <select id="coverTone">
+            <option>Professional</option>
+            <option>Confident</option>
+            <option>Friendly</option>
+            <option>Concise</option>
+            <option>Executive</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>Job Description</label>
+          <textarea
+            id="coverJobDescription"
+            style="min-height:220px"
+            placeholder="Paste the job description here..."
+          ></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Why are you interested?</label>
+          <textarea
+            id="coverInterest"
+            placeholder="Explain why you want this position..."
+          ></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Your strongest qualifications</label>
+          <textarea
+            id="coverQualifications"
+            placeholder="Mention your strongest skills, experience and achievements..."
+          ></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Cover Letter</h3>
+
+        <div class="row">
+          <button
+            class="btn small"
+            id="coverCopyBtn"
+            type="button"
+          >
+            Copy
+          </button>
+
+          <button
+            class="btn small"
+            id="coverClearBtn"
+            type="button"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <textarea
+        id="coverOutput"
+        style="width:100%;min-height:520px;border:1px solid var(--line);border-radius:12px;padding:15px;line-height:1.7;resize:vertical"
+        placeholder="Your personalized cover letter will appear here..."
+      ></textarea>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- JOB SEARCH -->
+<section class="page" id="page-jobs">
+
+  <div class="page-head">
+    <div>
+      <h1>Job Search</h1>
+      <p>Find, organize and save opportunities.</p>
+    </div>
+
+    <button
+      class="btn primary"
+      id="addJobBtn"
+    >
+      ＋ Add Job
+    </button>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+
+    <div class="card-head">
+      <h3>Smart Job Filters</h3>
+      <button
+        class="btn small"
+        id="clearJobFilters"
+      >
+        Reset
+      </button>
+    </div>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>Search</label>
+        <input
+          id="jobSearchInput"
+          placeholder="Job title, company or skill"
+        >
+      </div>
+
+      <div class="field">
+        <label>Location</label>
+        <input
+          id="jobLocationInput"
+          placeholder="Hyderabad, Bengaluru, Remote..."
+        >
+      </div>
+
+      <div class="field">
+        <label>Work Mode</label>
+        <select id="jobModeInput">
+          <option value="">Any mode</option>
+          <option>Remote</option>
+          <option>Hybrid</option>
+          <option>On-site</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Experience</label>
+        <select id="jobExperienceInput">
+          <option value="">Any experience</option>
+          <option>Entry Level</option>
+          <option>Mid Level</option>
+          <option>Senior</option>
+          <option>Lead</option>
+        </select>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="card-head">
+      <h3>Saved Jobs</h3>
+
+      <span
+        class="badge"
+        id="jobsTotalBadge"
+      >
+        0 Jobs
+      </span>
+    </div>
+
+    <div class="table-wrap">
+
+      <table class="table">
+
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Company</th>
+            <th>Location</th>
+            <th>Mode</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody id="jobsTableBody"></tbody>
+
+      </table>
+
+    </div>
+
+    <div
+      id="jobsEmpty"
+      class="empty"
+      style="display:none;margin-top:12px"
+    >
+      No jobs found. Add your first opportunity.
+    </div>
+
+  </div>
+
+</section>
+
+<!-- APPLICATION TRACKER -->
+<section class="page" id="page-applications">
+
+  <div class="page-head">
+    <div>
+      <h1>Application Tracker</h1>
+      <p>Track every application from submission to offer.</p>
+    </div>
+
+    <button
+      class="btn primary"
+      id="addApplicationBtn"
+    >
+      ＋ Add Application
+    </button>
+  </div>
+
+  <div class="grid stats">
+
+    <div class="stat">
+      <div class="stat-top">
+        <span>Total</span>
+        <span>▤</span>
+      </div>
+      <h2 id="applicationTotal">0</h2>
+      <span class="muted">Applications</span>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <span>Screening</span>
+        <span>◌</span>
+      </div>
+      <h2 id="applicationScreening">0</h2>
+      <span class="muted">In progress</span>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <span>Interviews</span>
+        <span>◉</span>
+      </div>
+      <h2 id="applicationInterviews">0</h2>
+      <span class="muted">Interview stage</span>
+    </div>
+
+    <div class="stat">
+      <div class="stat-top">
+        <span>Offers</span>
+        <span>★</span>
+      </div>
+      <h2 id="applicationOffers">0</h2>
+      <span class="muted">Offers received</span>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="card-head">
+      <h3>Application Pipeline</h3>
+
+      <select
+        id="applicationFilter"
+        class="btn small"
+      >
+        <option value="">All statuses</option>
+        <option>Applied</option>
+        <option>Screening</option>
+        <option>Interview</option>
+        <option>Offer</option>
+        <option>Rejected</option>
+      </select>
+    </div>
+
+    <div
+      class="kanban"
+      id="applicationBoard"
+    ></div>
+
+  </div>
+
+</section>
+<!-- INTERVIEW CENTER -->
+<section class="page" id="page-interviews">
+
+  <div class="page-head">
+    <div>
+      <h1>Interview Center</h1>
+      <p>Prepare, practice and manage your upcoming interviews.</p>
+    </div>
+
+    <button
+      class="btn primary"
+      id="addInterviewBtn"
+    >
+      ＋ Add Interview
+    </button>
+  </div>
+
+  <div class="grid two">
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Upcoming Interviews</h3>
+
+        <span
+          class="badge"
+          id="interviewCountBadge"
+        >
+          0
+        </span>
+      </div>
+
+      <div
+        class="list"
+        id="interviewList"
+      ></div>
+
+      <div
+        id="interviewEmpty"
+        class="empty"
+        style="display:none"
+      >
+        No interviews scheduled yet.
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Interview Practice</h3>
+        <span class="badge">Practice</span>
+      </div>
+
+      <div class="quick">
+
+        <button
+          type="button"
+          data-practice="behavioral"
+        >
+          🧠 Behavioral
+        </button>
+
+        <button
+          type="button"
+          data-practice="technical"
+        >
+          💻 Technical
+        </button>
+
+        <button
+          type="button"
+          data-practice="hr"
+        >
+          👤 HR Questions
+        </button>
+
+        <button
+          type="button"
+          data-practice="leadership"
+        >
+          ⭐ Leadership
+        </button>
+
+        <button
+          type="button"
+          data-practice="situational"
+        >
+          🎯 Situational
+        </button>
+
+        <button
+          type="button"
+          data-practice="salary"
+        >
+          💰 Salary
+        </button>
+
+      </div>
+
+      <div
+        id="practiceQuestion"
+        class="notice"
+        style="margin-top:15px"
+      >
+        Choose a practice category to receive a question.
+      </div>
+
+      <div
+        class="row end"
+        style="margin-top:12px"
+      >
+        <button
+          class="btn small"
+          id="nextQuestionBtn"
+          type="button"
+        >
+          Next Question
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div
+    class="card"
+    style="margin-top:16px"
+  >
+
+    <div class="card-head">
+      <h3>Interview Preparation</h3>
+    </div>
+
+    <div class="grid three">
+
+      <div class="list-item">
+        <strong>Research the company</strong>
+        <small>
+          Understand its products, customers and recent developments.
+        </small>
+      </div>
+
+      <div class="list-item">
+        <strong>Prepare your stories</strong>
+        <small>
+          Use the STAR method for behavioral questions.
+        </small>
+      </div>
+
+      <div class="list-item">
+        <strong>Prepare questions</strong>
+        <small>
+          Have thoughtful questions ready for the interviewer.
+        </small>
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
 
-<footer>
-© 2026 JobFlow AI · Career Command Center
-</footer>
+<!-- CAREER PLANNER -->
+<section class="page" id="page-career">
 
+  <div class="page-head">
+
+    <div>
+      <h1>Career Planner</h1>
+      <p>
+        Build a clear roadmap for your next career move.
+      </p>
+    </div>
+
+    <button
+      class="btn primary"
+      id="saveCareerBtn"
+    >
+      Save Career Plan
+    </button>
+
+  </div>
+
+  <div class="grid three">
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Target Role</h3>
+      </div>
+
+      <div class="field">
+        <label>Desired Position</label>
+
+        <input
+          id="careerTargetRole"
+          placeholder="Product Manager"
+        >
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Target Industry</h3>
+      </div>
+
+      <div class="field">
+        <label>Industry</label>
+
+        <input
+          id="careerTargetIndustry"
+          placeholder="SaaS, FinTech, AI..."
+        >
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Target Compensation</h3>
+      </div>
+
+      <div class="field">
+        <label>Expected Salary</label>
+
+        <input
+          id="careerTargetSalary"
+          placeholder="₹12 LPA"
+        >
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="grid two"
+    style="margin-top:16px"
+  >
+
+    <div class="card">
+
+      <div class="card-head">
+
+        <h3>Skill Roadmap</h3>
+
+        <button
+          class="btn small"
+          id="addSkillGoalBtn"
+        >
+          ＋ Skill
+        </button>
+
+      </div>
+
+      <div
+        class="list"
+        id="careerSkills"
+      ></div>
+
+      <div
+        id="careerSkillsEmpty"
+        class="empty"
+      >
+        Add skills you want to develop.
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-head">
+
+        <h3>90-Day Goals</h3>
+
+        <button
+          class="btn small"
+          id="addCareerGoalBtn"
+        >
+          ＋ Goal
+        </button>
+
+      </div>
+
+      <div
+        class="list"
+        id="careerGoals"
+      ></div>
+
+      <div
+        id="careerGoalsEmpty"
+        class="empty"
+      >
+        Create your first career goal.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ATS SCANNER -->
+<section class="page" id="page-ats">
+
+  <div class="page-head">
+
+    <div>
+      <h1>ATS Scanner</h1>
+
+      <p>
+        Compare your resume with a target job description.
+      </p>
+    </div>
+
+    <button
+      class="btn primary"
+      id="runATSBtn"
+    >
+      ✓ Scan Resume
+    </button>
+
+  </div>
+
+
+  <div class="grid two">
+
+    <div class="card">
+
+      <div class="field">
+
+        <label>Resume Text</label>
+
+        <textarea
+          id="atsResumeText"
+          style="min-height:300px"
+          placeholder="Paste your complete resume here..."
+        ></textarea>
+
+      </div>
+
+
+      <div
+        class="field"
+        style="margin-top:14px"
+      >
+
+        <label>Target Job Description</label>
+
+        <textarea
+          id="atsJobText"
+          style="min-height:300px"
+          placeholder="Paste the target job description here..."
+        ></textarea>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-head">
+
+        <h3>ATS Results</h3>
+
+        <span
+          class="badge"
+          id="atsScoreBadge"
+        >
+          Not scanned
+        </span>
+
+      </div>
+
+
+      <div
+        id="atsResult"
+        class="empty"
+      >
+        Run a scan to see your ATS score,
+        keyword matches and recommendations.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="grid three"
+    style="margin-top:16px"
+  >
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Keyword Match</h3>
+      </div>
+
+      <div
+        class="progress"
+        style="margin-top:20px"
+      >
+        <i
+          id="atsKeywordBar"
+          style="width:0%"
+        ></i>
+      </div>
+
+      <p
+        class="muted"
+        id="atsKeywordText"
+        style="font-size:11px"
+      >
+        No scan yet.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Structure</h3>
+      </div>
+
+      <div
+        class="progress"
+        style="margin-top:20px"
+      >
+        <i
+          id="atsStructureBar"
+          style="width:0%"
+        ></i>
+      </div>
+
+      <p
+        class="muted"
+        id="atsStructureText"
+        style="font-size:11px"
+      >
+        No scan yet.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Recommendations</h3>
+      </div>
+
+      <div
+        id="atsRecommendations"
+        class="list"
+      >
+        <div class="list-item">
+          <strong>Ready to analyze</strong>
+          <small>
+            Run the scanner to receive recommendations.
+          </small>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ANALYTICS -->
+<section class="page" id="page-analytics">
+
+  <div class="page-head">
+
+    <div>
+      <h1>Career Analytics</h1>
+
+      <p>
+        Measure your job search performance.
+      </p>
+    </div>
+
+    <button
+      class="btn"
+      id="refreshAnalyticsBtn"
+    >
+      Refresh
+    </button>
+
+  </div>
+
+
+  <div class="grid stats">
+
+    <div class="stat">
+
+      <div class="stat-top">
+        <span>Applications</span>
+        <span>▤</span>
+      </div>
+
+      <h2 id="analyticsApplications">
+        0
+      </h2>
+
+      <span class="muted">
+        Total applications
+      </span>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-top">
+        <span>Response Rate</span>
+        <span>↗</span>
+      </div>
+
+      <h2 id="analyticsResponse">
+        0%
+      </h2>
+
+      <span class="muted">
+        Employer responses
+      </span>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-top">
+        <span>Interview Rate</span>
+        <span>◉</span>
+      </div>
+
+      <h2 id="analyticsInterview">
+        0%
+      </h2>
+
+      <span class="muted">
+        Interview conversion
+      </span>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-top">
+        <span>Offer Rate</span>
+        <span>★</span>
+      </div>
+
+      <h2 id="analyticsOffer">
+        0%
+      </h2>
+
+      <span class="muted">
+        Offer conversion
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="grid two"
+    style="margin-top:16px"
+  >
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Application Activity</h3>
+      </div>
+
+      <div
+        class="chart"
+        id="analyticsChart"
+      ></div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Smart Recommendations</h3>
+      </div>
+
+      <div
+        class="list"
+        id="analyticsRecommendations"
+      ></div>
+
+    </div>
+
+  </div>
+
+</section>
+<!-- SETTINGS -->
+<section class="page" id="page-settings">
+
+  <div class="page-head">
+    <div>
+      <h1>Settings</h1>
+      <p>Manage your JobFlow AI workspace preferences.</p>
+    </div>
+
+    <button
+      class="btn primary"
+      id="saveSettingsBtn"
+    >
+      Save Settings
+    </button>
+  </div>
+
+  <div class="grid two">
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Interface</h3>
+      </div>
+
+      <div class="settings">
+
+        <div class="setting">
+          <div>
+            <strong>Compact Interface</strong>
+            <small class="muted">
+              Use smaller spacing throughout the workspace.
+            </small>
+          </div>
+
+          <button
+            class="toggle"
+            data-setting="compact"
+            type="button"
+          >
+            <i></i>
+          </button>
+        </div>
+
+        <div class="setting">
+          <div>
+            <strong>Notifications</strong>
+            <small class="muted">
+              Show reminders and workspace notifications.
+            </small>
+          </div>
+
+          <button
+            class="toggle on"
+            data-setting="notifications"
+            type="button"
+          >
+            <i></i>
+          </button>
+        </div>
+
+        <div class="setting">
+          <div>
+            <strong>Local Storage</strong>
+            <small class="muted">
+              Keep your workspace data inside this browser.
+            </small>
+          </div>
+
+          <button
+            class="toggle on"
+            data-setting="local"
+            type="button"
+          >
+            <i></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-head">
+        <h3>Workspace</h3>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Your Name</label>
+          <input
+            id="settingsName"
+            placeholder="Your name"
+          >
+        </div>
+
+        <div class="field">
+          <label>Professional Title</label>
+          <input
+            id="settingsTitle"
+            placeholder="Your professional title"
+          >
+        </div>
+
+        <div class="field">
+          <label>Default Job Location</label>
+          <input
+            id="settingsLocation"
+            placeholder="Remote / Hyderabad..."
+          >
+        </div>
+
+        <div class="field">
+          <label>Preferred Industry</label>
+          <input
+            id="settingsIndustry"
+            placeholder="Technology, SaaS..."
+          >
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="card"
+    style="margin-top:16px"
+  >
+
+    <div class="card-head">
+      <h3>Data Management</h3>
+    </div>
+
+    <div class="row">
+
+      <button
+        class="btn"
+        id="exportDataBtn"
+        type="button"
+      >
+        Export Workspace
+      </button>
+
+      <button
+        class="btn"
+        id="importDataBtn"
+        type="button"
+      >
+        Import Workspace
+      </button>
+
+      <button
+        class="btn danger"
+        id="deleteAllDataBtn"
+        type="button"
+      >
+        Delete All Data
+      </button>
+
+      <input
+        type="file"
+        id="importDataFile"
+        accept=".json,application/json"
+        hidden
+      >
+
+    </div>
+
+    <div
+      class="notice warn"
+      style="margin-top:14px"
+    >
+      Export your workspace before clearing browser data.
+      Imported files should be trusted JSON workspace backups.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section class="page" id="page-about">
+
+  <div class="page-head">
+
+    <div>
+      <h1>About JobFlow AI</h1>
+      <p>
+        A unified career operating system built around modular engines.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="hero">
+
+    <h2>JobFlow AI Career Command Center</h2>
+
+    <p>
+      Resume building, job discovery, application tracking,
+      interview preparation, ATS analysis, career planning,
+      cover letters and analytics in one workspace.
+    </p>
+
+  </div>
+
+
+  <div class="grid three">
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Resume Engine</h3>
+        <span class="badge good">Connected</span>
+      </div>
+      <p class="muted">
+        Builds and manages structured professional resume data.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Job Engine</h3>
+        <span class="badge good">Connected</span>
+      </div>
+      <p class="muted">
+        Organizes jobs, searches and saved opportunities.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Application Engine</h3>
+        <span class="badge good">Connected</span>
+      </div>
+      <p class="muted">
+        Tracks applications throughout the hiring pipeline.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Interview Engine</h3>
+        <span class="badge good">Connected</span>
+      </div>
+      <p class="muted">
+        Supports interview schedules and preparation workflows.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>ATS Engine</h3>
+        <span class="badge good">Connected</span>
+      </div>
+      <p class="muted">
+        Analyzes resume and job-description alignment.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Analytics Engine</h3>
+        <span class="badge good">Connected</span>
+      </div>
+      <p class="muted">
+        Converts career activity into useful performance metrics.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div
+    class="card"
+    style="margin-top:16px"
+  >
+
+    <div class="card-head">
+      <h3>Engine Status</h3>
+      <button
+        class="btn small"
+        id="checkEnginesBtn"
+      >
+        Check
+      </button>
+    </div>
+
+    <div
+      class="list"
+      id="engineStatusList"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- GLOBAL MODAL -->
+<div
+  class="modal"
+  id="globalModal"
+  aria-hidden="true"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <strong id="globalModalTitle">
+        Add Item
+      </strong>
+
+      <button
+        class="close"
+        id="globalModalClose"
+        type="button"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div
+      class="modal-body"
+      id="globalModalBody"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- TOAST -->
+<div
+  class="toast"
+  id="toast"
+  role="status"
+  aria-live="polite"
+></div>
+
+
+<!-- CONFIRM MODAL -->
+<div
+  class="modal"
+  id="confirmModal"
+  aria-hidden="true"
+>
+
+  <div
+    class="modal-box"
+    style="max-width:420px"
+  >
+
+    <div class="modal-head">
+
+      <strong id="confirmTitle">
+        Confirm Action
+      </strong>
+
+      <button
+        class="close"
+        id="confirmClose"
+        type="button"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <p
+        id="confirmMessage"
+        class="muted"
+      >
+        Are you sure?
+      </p>
+
+      <div
+        class="row end"
+        style="margin-top:18px"
+      >
+
+        <button
+          class="btn"
+          id="confirmCancel"
+          type="button"
+        >
+          Cancel
+        </button>
+
+        <button
+          class="btn danger"
+          id="confirmOk"
+          type="button"
+        >
+          Confirm
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<!-- CORE ENGINE CONNECTIONS -->
+<script src="storage-engine.js"></script>
+<script src="resume-engine.js"></script>
+<script src="cover-letter-engine.js"></script>
+<script src="job-engine.js"></script>
+<script src="application-engine.js"></script>
+<script src="interview-engine.js"></script>
+<script src="career-engine.js"></script>
+<script src="ats-engine.js"></script>
+<script src="analytics-engine.js"></script>
+<script src="ui-engine.js"></script>
+<script src="app-engine.js"></script>
+<script src="app.js"></script>
 
 <script>
+(function () {
+  "use strict";
+
+  const $ = (id) => document.getElementById(id);
+
+  const state = {
+    jobs: [],
+    applications: [],
+    interviews: [],
+    career: {
+      skills: [],
+      goals: []
+    },
+    settings: {}
+  };
+
+  /* ---------- SAFE STORAGE ---------- */
+
+  function loadJSON(key, fallback) {
+    try {
+      const value = localStorage.getItem(key);
+      return value ? JSON.parse(value) : fallback;
+    } catch (error) {
+      console.warn("Storage read failed:", key, error);
+      return fallback;
+    }
+  }
+
+  function saveJSON(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (error) {
+      console.warn("Storage write failed:", key, error);
+      return false;
+    }
+  }
+
+  /* ---------- TOAST ---------- */
+
+  function toast(message) {
+    const box = $("toast");
+
+    if (!box) return;
+
+    box.textContent = message;
+    box.classList.add("show");
+
+    clearTimeout(window.__jobflowToast);
+
+    window.__jobflowToast = setTimeout(() => {
+      box.classList.remove("show");
+    }, 2200);
+  }
+
+  /* ---------- NAVIGATION ---------- */
 
-let jobSkills=[];
-let jobReq=[];
-let jobDuties=[];
-
-let applications=[];
-let savedJobs=[];
-let notes=[];
-let answers=[];
-
-try{
-
-applications=
-JSON.parse(
-localStorage.getItem("jobflow_applications")
-)||[];
+  function showPage(page) {
+    document.querySelectorAll(".page").forEach(section => {
+      section.classList.remove("active");
+    });
 
-}catch(e){
-
-applications=[];
-
-}
-
-try{
-
-savedJobs=
-JSON.parse(
-localStorage.getItem("jobflow_saved_jobs")
-)||[];
-
-}catch(e){
-
-savedJobs=[];
-
-}
-
-try{
-
-notes=
-JSON.parse(
-localStorage.getItem("jobflow_notes")
-)||[];
-
-}catch(e){
-
-notes=[];
-
-}
-
-try{
-
-answers=
-JSON.parse(
-localStorage.getItem("jobflow_answers")
-)||[];
-
-}catch(e){
-
-answers=[];
-
-}
-
-
-const skillsList=[
-
-"javascript",
-"typescript",
-"html",
-"css",
-"react",
-"vue",
-"angular",
-"node.js",
-"node",
-"python",
-"java",
-"c++",
-"sql",
-"mongodb",
-"mysql",
-"postgresql",
-"api",
-"apis",
-"rest",
-"rest api",
-"git",
-"github",
-"aws",
-"azure",
-"docker",
-"kubernetes",
-"figma",
-"excel",
-"power bi",
-"machine learning",
-"artificial intelligence",
-"ai",
-"php",
-"ruby",
-"swift",
-"kotlin",
-"next.js",
-"nextjs",
-"express",
-"firebase",
-"flutter",
-"android",
-"ios"
+    const target = $("page-" + page);
 
-];
+    if (target) {
+      target.classList.add("active");
+    }
 
+    document.querySelectorAll("[data-page]").forEach(item => {
+      item.classList.toggle(
+        "active",
+        item.dataset.page === page
+      );
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
 
-const reqList=[
+    if (page === "analytics") {
+      refreshAnalytics();
+    }
 
-"communication",
-"leadership",
-"teamwork",
-"problem solving",
-"problem-solving",
-"analytical",
-"time management",
-"collaboration",
-"creativity",
-"adaptability",
-"attention to detail",
-"organization",
-"critical thinking",
-"customer service"
+    if (page === "jobs") {
+      renderJobs();
+    }
 
-];
+    if (page === "applications") {
+      renderApplications();
+    }
 
+    if (page === "interviews") {
+      renderInterviews();
+    }
 
-const dutyList=[
+    if (page === "career") {
+      renderCareer();
+    }
+  }
 
-"develop",
-"development",
-"build",
-"design",
-"maintain",
-"debug",
-"test",
-"deploy",
-"implement",
-"manage",
-"collaborate",
-"analyze",
-"create",
-"integrate",
-"optimize",
-"support",
-"research",
-"monitor",
-"document"
+  document.addEventListener("click", function (event) {
 
-];
+    const nav = event.target.closest("[data-page]");
 
+    if (nav) {
+      event.preventDefault();
+      showPage(nav.dataset.page);
+      return;
+    }
 
-function show(id){
+    const practice =
+      event.target.closest("[data-practice]");
 
-const el=
-document.getElementById(id);
+    if (practice) {
+      createPracticeQuestion(
+        practice.dataset.practice
+      );
+    }
 
-if(el){
+  });
 
-el.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
+  /* ---------- JOBS ---------- */
 
-}
+  function getJobs() {
+    return loadJSON("jobflow_jobs", []);
+  }
 
-}
+  function saveJobs(jobs) {
+    state.jobs = jobs;
+    saveJSON("jobflow_jobs", jobs);
+  }
 
+  function renderJobs() {
 
-function value(id){
+    const body = $("jobsTableBody");
+    const empty = $("jobsEmpty");
+    const badge = $("jobsTotalBadge");
+
+    if (!body) return;
 
-const el=
-document.getElementById(id);
+    const search =
+      ($("jobSearchInput")?.value || "")
+        .toLowerCase();
+
+    const location =
+      ($("jobLocationInput")?.value || "")
+        .toLowerCase();
+
+    const mode =
+      $("jobModeInput")?.value || "";
+
+    const experience =
+      $("jobExperienceInput")?.value || "";
+
+    const jobs = getJobs();
+
+    const filtered = jobs.filter(job => {
+
+      const text =
+        `${job.title || ""} ${job.company || ""}`
+          .toLowerCase();
+
+      return (
+        (!search || text.includes(search)) &&
+        (!location ||
+          String(job.location || "")
+            .toLowerCase()
+            .includes(location)) &&
+        (!mode || job.mode === mode) &&
+        (!experience || job.experience === experience)
+      );
+    });
+
+    body.innerHTML = "";
+
+    filtered.forEach((job, index) => {
+
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>
+          <strong>${escapeHTML(job.title)}</strong>
+        </td>
+
+        <td>${escapeHTML(job.company)}</td>
+
+        <td>${escapeHTML(job.location)}</td>
 
-return el
-?el.value.trim()
-:"";
+        <td>
+          <span class="badge">
+            ${escapeHTML(job.mode)}
+          </span>
+        </td>
 
-}
+        <td>
+          <select
+            class="table-select"
+            data-job-status="${index}"
+          >
+            ${jobStatusOptions(job.status)}
+          </select>
+        </td>
 
+        <td>
+          <button
+            class="btn small danger"
+            data-delete-job="${index}"
+            type="button"
+          >
+            Delete
+          </button>
+        </td>
+      `;
 
-function esc(text){
+      body.appendChild(row);
+    });
 
-return String(text)
+    if (badge) {
+      badge.textContent =
+        `${filtered.length} Job${filtered.length === 1 ? "" : "s"}`;
+    }
 
-.replace(/&/g,"&amp;")
+    if (empty) {
+      empty.style.display =
+        filtered.length ? "none" : "block";
+    }
+  }
 
-.replace(/</g,"&lt;")
+  function jobStatusOptions(current) {
 
-.replace(/>/g,"&gt;")
+    const options = [
+      "Saved",
+      "Applied",
+      "Interview",
+      "Offer",
+      "Rejected"
+    ];
 
-.replace(/"/g,"&quot;")
+    return options.map(option => `
+      <option
+        value="${option}"
+        ${option === current ? "selected" : ""}
+      >
+        ${option}
+      </option>
+    `).join("");
+  }
 
-.replace(/'/g,"&#039;");
+  document.addEventListener("input", function (event) {
 
-}
+    if (
+      event.target.id === "jobSearchInput" ||
+      event.target.id === "jobLocationInput"
+    ) {
+      renderJobs();
+    }
 
+  });
 
-function chips(arr){
+  document.addEventListener("change", function (event) {
 
-if(!arr.length){
+    if (
+      event.target.id === "jobModeInput" ||
+      event.target.id === "jobExperienceInput"
+    ) {
+      renderJobs();
+    }
 
-return "<span style='color:#64748b'>None detected</span>";
+    const statusIndex =
+      event.target.dataset.jobStatus;
 
-}
+    if (statusIndex !== undefined) {
 
-return arr
-.map(function(x){
+      const jobs = getJobs();
 
-return "<span class='chip'>"+
-esc(x)+
-"</span>";
+      if (jobs[statusIndex]) {
+        jobs[statusIndex].status =
+          event.target.value;
 
-})
-.join("");
+        saveJobs(jobs);
+        toast("Job status updated");
+      }
+    }
+  });
 
-}
+  document.addEventListener("click", function (event) {
 
+    const deleteIndex =
+      event.target.dataset.deleteJob;
 
-function analyze(){
+    if (deleteIndex !== undefined) {
 
-const text=
-value("job");
+      const jobs = getJobs();
 
-const box=
-document.getElementById("analysis");
+      jobs.splice(Number(deleteIndex), 1);
 
-if(text.length<40){
+      saveJobs(jobs);
+      renderJobs();
 
-box.style.display="block";
+      toast("Job removed");
+    }
+  });
 
-box.innerHTML=
-"<b>Please paste a complete job description.</b>";
+  /* ---------- APPLICATIONS ---------- */
 
-return;
+  function getApplications() {
+    return loadJSON("jobflow_applications", []);
+  }
 
-}
+  function renderApplications() {
 
-const lower=
-text.toLowerCase();
+    const applications =
+      getApplications();
 
-jobSkills=
-skillsList.filter(function(x){
+    state.applications =
+      applications;
 
-return lower.includes(x);
+    updateApplicationStats();
 
-});
+    const board =
+      $("applicationBoard");
 
-jobReq=
-reqList.filter(function(x){
+    if (!board) return;
 
-return lower.includes(x);
+    board.innerHTML = "";
 
-});
+    const stages = [
+      "Applied",
+      "Screening",
+      "Interview",
+      "Offer",
+      "Rejected"
+    ];
 
-jobDuties=
-dutyList.filter(function(x){
+    stages.forEach(stage => {
 
-return lower.includes(x);
+      const column =
+        document.createElement("div");
 
-});
+      column.className =
+        "kanban-column";
 
-let score=
-40+
-Math.min(jobSkills.length*3,25)+
-Math.min(jobReq.length*2,15)+
-Math.min(jobDuties.length*2,20);
+      const items =
+        applications.filter(
+          item => item.status === stage
+        );
 
-score=
-Math.min(score,100);
+      column.innerHTML = `
+        <div class="kanban-head">
+          <strong>${stage}</strong>
+          <span>${items.length}</span>
+        </div>
+        <div class="kanban-items"></div>
+      `;
 
-box.style.display="block";
+      const container =
+        column.querySelector(
+          ".kanban-items"
+        );
 
-box.innerHTML=
+      items.forEach(item => {
 
-"<div style='display:flex;"+
-"justify-content:space-between;"+
-"align-items:center;gap:10px'>"+
+        const card =
+          document.createElement("div");
 
-"<div>"+
-"<h3>Job Analysis</h3>"+
-"<p style='color:#64748b'>Requirements detected</p>"+
-"</div>"+
+        card.className =
+          "kanban-card";
 
-"<span class='score'>"+
-score+
-"/100"+
-"</span>"+
+        card.innerHTML = `
+          <strong>
+            ${escapeHTML(item.title)}
+          </strong>
 
-"</div>"+
+          <small>
+            ${escapeHTML(item.company)}
+          </small>
 
-"<br><b>Technical Skills</b>"+
-"<div>"+
-chips(jobSkills)+
-"</div>"+
+          <select
+            class="table-select"
+            data-application-id="${item.id}"
+          >
+            ${jobStatusOptions(item.status)}
+          </select>
+        `;
 
-"<br><b>Core Requirements</b>"+
-"<div>"+
-chips(jobReq)+
-"</div>"+
+        container.appendChild(card);
+      });
 
-"<br><b>Responsibilities</b>"+
-"<div>"+
-chips(jobDuties)+
-"</div>";
+      board.appendChild(column);
+    });
+  }
 
-updateDashboard();
+  function updateApplicationStats() {
 
-}
+    const apps =
+      getApplications();
 
+    const set = (id, value) => {
+      if ($(id)) $(id).textContent = value;
+    };
 
-function buildResume(){
+    set("applicationTotal", apps.length);
 
-const name=
-value("name");
+    set(
+      "applicationScreening",
+      apps.filter(
+        x => x.status === "Screening"
+      ).length
+    );
 
-if(!name){
+    set(
+      "applicationInterviews",
+      apps.filter(
+        x => x.status === "Interview"
+      ).length
+    );
 
-alert(
-"Please enter your name."
-);
+    set(
+      "applicationOffers",
+      apps.filter(
+        x => x.status === "Offer"
+      ).length
+    );
+  }
 
-show("builder");
+  /* ---------- INTERVIEWS ---------- */
 
-return;
+  function getInterviews() {
+    return loadJSON(
+      "jobflow_interviews",
+      []
+    );
+  }
 
-}
+  function renderInterviews() {
 
-const skills=
-value("skills");
+    const list =
+      $("interviewList");
 
-const list=
-skills
-.split(",")
-.map(function(x){
+    const empty =
+      $("interviewEmpty");
 
-return x.trim();
+    const badge =
+      $("interviewCountBadge");
 
-})
-.filter(Boolean);
+    if (!list) return;
 
-const resume=
-document.getElementById("resume");
+    const interviews =
+      getInterviews();
 
-resume.style.display="block";
+    list.innerHTML = "";
 
-resume.innerHTML=
+    interviews.forEach(item => {
+
+      const element =
+        document.createElement("div");
+
+      element.className =
+        "list-item";
 
-"<h1>"+
-esc(name)+
-"</h1>"+
+      element.innerHTML = `
+        <strong>
+          ${escapeHTML(item.title)}
+        </strong>
 
-"<p><b>"+
-esc(value("title"))+
-"</b></p>"+
+        <small>
+          ${escapeHTML(item.company || "")}
+        </small>
 
-"<p>"+
-esc(value("email"))+
-" · "+
-esc(value("phone"))+
-" · "+
-esc(value("location"))+
-"</p>"+
+        <small>
+          ${escapeHTML(item.date || "Date not set")}
+        </small>
+      `;
 
-"<h3>Professional Summary</h3>"+
-
-"<p>"+
-esc(
-value("summary")||
-"Add your professional summary."
-)+
-"</p>"+
-
-"<h3>Skills</h3>"+
-
-"<ul>"+
-
-(list.length
-?list
-:["Add your skills"])
-
-.map(function(x){
-
-return "<li>"+
-esc(x)+
-"</li>";
-
-})
-.join("")+
-
-"</ul>"+
-
-"<h3>Experience</h3>"+
-
-"<p style='white-space:pre-line'>"+
-esc(
-value("experience")||
-"Add your experience."
-)+
-"</p>"+
-
-"<h3>Education</h3>"+
-
-"<p style='white-space:pre-line'>"+
-esc(
-value("education")||
-"Add your education."
-)+
-"</p>";
-
-saveResumeData();
-
-}
-
-
-function atsScan(){
-
-const checks=[];
-
-if(value("name"))
-checks.push("Name");
-
-if(value("email"))
-checks.push("Email");
-
-if(value("phone"))
-checks.push("Phone");
-
-if(value("summary"))
-checks.push("Summary");
-
-if(value("skills"))
-checks.push("Skills");
-
-if(value("experience"))
-checks.push("Experience");
-
-if(value("education"))
-checks.push("Education");
-
-const total=7;
-
-const score=
-Math.round(
-checks.length/
-total*
-100
-);
-
-const missing=[];
-
-if(!value("name"))
-missing.push("Name");
-
-if(!value("email"))
-missing.push("Email");
-
-if(!value("phone"))
-missing.push("Phone");
-
-if(!value("summary"))
-missing.push("Professional summary");
-
-if(!value("skills"))
-missing.push("Skills");
-
-if(!value("experience"))
-missing.push("Experience");
-
-if(!value("education"))
-missing.push("Education");
-
-const box=
-document.getElementById("ats");
-
-box.style.display="block";
-
-box.innerHTML=
-
-"<div style='text-align:center'>"+
-
-"<div class='bigscore'>"+
-score+
-"%"+
-"</div>"+
-
-"<b>ATS Readiness</b>"+
-
-"</div>"+
-
-"<div class='progress'>"+
-"<i style='width:"+
-score+
-"%'></i>"+
-"</div>"+
-
-"<br><b>Completed</b>"+
-
-"<p>"+
-checks.join(" · ")||
-"None"+
-"</p>"+
-
-(
-missing.length
-?
-"<div class='warning'><b>Improve:</b> "+
-esc(missing.join(", "))+
-"</div>"
-:
-"<div class='success'>"+
-"Your basic resume sections are complete."
-+
-"</div>"
-);
-
-}
-
-
-function skillGap(){
-
-if(!jobSkills.length){
-
-alert(
-"Analyze a job description first."
-);
-
-show("analyzer");
-
-return;
-
-}
-
-const skills=
-value("skills").toLowerCase();
-
-const found=
-jobSkills.filter(function(x){
-
-return skills.includes(x);
-
-});
-
-const missing=
-jobSkills.filter(function(x){
-
-return !skills.includes(x);
-
-});
-
-const percent=
-jobSkills.length
-?
-Math.round(
-found.length/
-jobSkills.length*
-100
-)
-:100;
-
-const box=
-document.getElementById("gap");
-
-box.style.display="block";
-
-box.innerHTML=
-
-"<h3>Skill Gap Report</h3>"+
-
-"<p>Current alignment: <b>"+
-percent+
-"%</b></p>"+
-
-"<div class='progress'>"+
-"<i style='width:"+
-percent+
-"%'></i>"+
-"</div>"+
-
-"<br><b>Skills you already have</b>"+
-
-"<div>"+
-chips(found)+
-"</div>"+
-
-"<br><b>Skills to develop</b>"+
-
-"<div>"+
-missing.map(function(x){
-
-return "<span class='chip missing'>"+
-esc(x)+
-"</span>";
-
-}).join("")+
-"</div>"+
-
-(
-missing.length
-?
-"<div class='warning'>"+
-"Focus on the missing skills before applying to similar roles."
-+
-"</div>"
-:
-"<div class='success'>"+
-"Excellent. Your detected skills cover the analyzed technical requirements."
-+
-"</div>"
-);
-
-}
-
-
-function careerRoadmap(){
-
-if(!jobSkills.length){
-
-alert(
-"Analyze a job description first."
-);
-
-show("analyzer");
-
-return;
-
-}
-
-const skills=
-value("skills").toLowerCase();
-
-const missing=
-jobSkills.filter(function(x){
-
-return !skills.includes(x);
-
-});
-
-const roadmap=
-document.getElementById("roadmap");
-
-roadmap.style.display="block";
-
-if(!missing.length){
-
-roadmap.innerHTML=
-"<div class='success'>"+
-"<b>Your roadmap is clear.</b><br>"+
-"You currently match all detected technical skills. Focus on projects, interview preparation and applications."
-+
-"</div>";
-
-return;
-
-}
-
-let html=
-"<h3>Your Learning Roadmap</h3>"+
-"<div class='roadmap'>";
-
-missing.forEach(function(skill,i){
-
-html+=
-
-"<div class='road-step'>"+
-"<b>Step "+
-(i+1)+
-": Learn "+
-esc(skill)+
-"</b>"+
-"<span style='font-size:12px;color:#64748b'>"+
-"Study the fundamentals, build one small project and add the skill to your portfolio only after gaining practical experience."+
-"</span>"+
-"</div>";
-
-});
-
-html+=
-"</div>";
-
-roadmap.innerHTML=
-html;
-
-}
-function coverLetter(){
-
-const name=
-value("name");
-
-const company=
-value("company");
-
-const title=
-value("jobtitle");
-
-if(!name){
-
-alert(
-"Enter your name in Resume Builder first."
-);
-
-show("builder");
-
-return;
-
-}
-
-if(!company||!title){
-
-alert(
-"Enter company name and job title."
-);
-
-return;
-
-}
-
-const letter=
-document.getElementById("letter");
-
-letter.style.display="block";
-
-letter.innerHTML=
-
-"<p>"+
-esc(name)+
-"</p>"+
-
-"<p>"+
-esc(company)+
-"</p>"+
-
-"<p>Dear "+
-esc(
-value("manager")||
-"Hiring Manager"
-)+
-",</p>"+
-
-"<p>"+
-"I am writing to apply for the <b>"+
-esc(title)+
-"</b> position at <b>"+
-esc(company)+
-"</b>. I am excited about the opportunity to contribute my skills and grow with your team."+
-"</p>"+
-
-"<p>"+
-"My relevant skills include <b>"+
-esc(
-value("skills")||
-jobSkills.join(", ")
-)+
-"</b>. I enjoy solving problems, learning new technologies and creating practical solutions."+
-"</p>"+
-
-"<p>"+
-esc(
-value("summary")||
-"I am a motivated professional who is eager to contribute, learn and develop in a challenging environment."
-)+
-"</p>"+
-
-"<p>"+
-"I would welcome the opportunity to discuss how my background and skills could contribute to "+
-esc(company)+
-". Thank you for considering my application."+
-"</p>"+
-
-"<p>"+
-"Sincerely,<br>"+
-esc(name)+
-"</p>";
-
-}
-
-
-function interview(){
-
-if(
-!jobSkills.length &&
-!jobReq.length
-){
-
-alert(
-"Analyze a job description first."
-);
-
-show("analyzer");
-
-return;
-
-}
-
-let questions=[];
-
-jobSkills
-.slice(0,8)
-.forEach(function(skill){
-
-questions.push([
-
-"How would you describe your experience with "+
-skill+"?",
-
-"Explain your practical experience, mention a project and describe what you achieved."
-
-]);
-
-questions.push([
-
-"What are the most important concepts in "+
-skill+"?",
-
-"Choose two or three concepts you understand well and explain them with practical examples."
-
-]);
-
-});
-
-const general=[
-
-[
-"Tell me about yourself.",
-
-"Give a 60–90 second introduction covering your background, strongest skills and career direction."
-],
-
-[
-"Why do you want this position?",
-
-"Connect your skills and career goals directly to the job requirements."
-],
-
-[
-"Why should we hire you?",
-
-"Give two or three strengths that directly solve problems mentioned in the job description."
-],
-
-[
-"Tell me about a difficult problem you solved.",
-
-"Use STAR: Situation, Task, Action and Result."
-],
-
-[
-"Tell me about a project you are proud of.",
-
-"Explain your role, technology used, challenge and measurable result."
-],
-
-[
-"What is your biggest weakness?",
-
-"Give a genuine weakness and explain the specific action you are taking to improve it."
-],
-
-[
-"How do you handle pressure?",
-
-"Explain how you prioritize tasks and communicate when deadlines become difficult."
-],
-
-[
-"Where do you see yourself in five years?",
-
-"Give a realistic answer connected to professional growth."
-],
-
-[
-"How do you learn new technology?",
-
-"Describe your process: documentation, practice, projects and feedback."
-],
-
-[
-"Do you have any questions for us?",
-
-"Ask about the team, role expectations, projects or how success is measured."
-]
-
-];
-
-general.forEach(function(q){
-
-questions.push(q);
-
-});
-
-let html=
-"<h3>Interview Preparation</h3>"+
-"<p style='color:#64748b'>"+
-questions.length+
-" questions generated for this job"+
-"</p>";
-
-questions
-.slice(0,25)
-.forEach(function(q,i){
-
-html+=
-
-"<div style='background:#f8fafc;"+
-"border:1px solid #e5e7eb;"+
-"border-radius:10px;padding:14px;"+
-"margin-top:10px'>"+
-
-"<b>"+
-(i+1)+
-". "+
-esc(q[0])+
-"</b>"+
-
-"<p style='color:#475569;font-size:13px;margin-top:7px'>"+
-"<b>Answer strategy:</b> "+
-esc(q[1])+
-"</p>"+
-
-"</div>";
-
-});
-
-const box=
-document.getElementById("interview");
-
-box.style.display="block";
-
-box.innerHTML=
-html;
-
-}
-
-
-function matchScore(){
-
-const skills=
-value("skills").toLowerCase();
-
-if(!jobSkills.length){
-
-alert(
-"Analyze a job description first."
-);
-
-show("analyzer");
-
-return;
-
-}
-
-if(!skills){
-
-alert(
-"Enter your skills in Resume Builder first."
-);
-
-show("builder");
-
-return;
-
-}
-
-const found=
-jobSkills.filter(function(x){
-
-return skills.includes(x);
-
-});
-
-const missing=
-jobSkills.filter(function(x){
-
-return !skills.includes(x);
-
-});
-
-const score=
-jobSkills.length
-?
-Math.round(
-found.length/
-jobSkills.length*
-100
-)
-:0;
-
-const box=
-document.getElementById("match");
-
-box.style.display="block";
-
-box.innerHTML=
-
-"<div style='text-align:center'>"+
-
-"<h3>Job Match Score</h3>"+
-
-"<div class='bigscore'>"+
-score+
-"%"+
-"</div>"+
-
-"<p>"+
-found.length+
-" of "+
-jobSkills.length+
-" detected job skills matched"+
-"</p>"+
-
-"</div>"+
-
-"<div class='progress'>"+
-"<i style='width:"+
-score+
-"%'></i>"+
-"</div>"+
-
-"<br><b>Matched</b>"+
-
-"<div>"+
-chips(found)+
-"</div>"+
-
-"<br><b>Missing</b>"+
-
-"<div>"+
-missing.map(function(x){
-
-return "<span class='chip missing'>"+
-esc(x)+
-"</span>";
-
-}).join("")+
-"</div>"+
-
-"<div class='notice'>"+
-
-(
-score>=85
-?
-"Excellent alignment. Focus on tailoring your experience."
-:
-score>=65
-?
-"Good alignment. Strengthen the missing skills and keywords."
-:
-"Low alignment. Review the skill gap before applying."
-)+
-
-"</div>";
-
-document
-.getElementById("dashMatch")
-.textContent=
-score+
-"%";
-
-}
-
-
-function saveJob(){
-
-const company=
-value("savedCompany");
-
-const role=
-value("savedRole");
-
-const link=
-value("savedLink");
-
-if(!company||!role){
-
-alert(
-"Enter company and job title."
-);
-
-return;
-
-}
-
-savedJobs.unshift({
-
-id:Date.now(),
-
-company:company,
-
-role:role,
-
-link:link,
-
-date:new Date().toLocaleDateString()
-
-});
-
-try{
-
-localStorage.setItem(
-"jobflow_saved_jobs",
-JSON.stringify(savedJobs)
-);
-
-}catch(e){}
-
-document.getElementById("savedCompany").value="";
-
-document.getElementById("savedRole").value="";
-
-document.getElementById("savedLink").value="";
-
-renderSavedJobs();
-
-updateDashboard();
-
-}
-
-
-function deleteSavedJob(id){
-
-savedJobs=
-savedJobs.filter(function(job){
-
-return job.id!==id;
-
-});
-
-localStorage.setItem(
-"jobflow_saved_jobs",
-JSON.stringify(savedJobs)
-);
-
-renderSavedJobs();
-
-updateDashboard();
-
-}
-
-
-function moveSavedToTracker(id){
-
-const job=
-savedJobs.find(function(x){
-
-return x.id===id;
-
-});
-
-if(!job)return;
-
-document.getElementById("appCompany").value=
-job.company;
-
-document.getElementById("appRole").value=
-job.role;
-
-document.getElementById("appLink").value=
-job.link;
-
-show("tracker");
-
-}
-
-
-function renderSavedJobs(){
-
-const box=
-document.getElementById("savedList");
-
-if(!savedJobs.length){
-
-box.innerHTML=
-"<div class='empty'>"+
-"No saved jobs yet."
-+
-"</div>";
-
-return;
-
-}
-
-box.innerHTML=
-savedJobs.map(function(job){
-
-return
-
-"<div class='saved-job'>"+
-
-"<b>"+
-esc(job.role)+
-"</b>"+
-
-"<small>"+
-esc(job.company)+
-" · Saved "+
-esc(job.date)+
-"</small>"+
-
-(
-job.link
-?
-"<p style='margin-top:7px'>"+
-"<a href='"+
-esc(job.link)+
-"' target='_blank' rel='noopener'>"+
-"Open Job →"+
-"</a></p>"
-:
-""
-)+
-
-"<div class='actions'>"+
-
-"<button class='secondary' "+
-"onclick='moveSavedToTracker("+
-job.id+
-")'>"+
-"Apply / Track"+
-"</button>"+
-
-"<button class='danger' "+
-"onclick='deleteSavedJob("+
-job.id+
-")'>"+
-"Delete"+
-"</button>"+
-
-"</div>"+
-
-"</div>";
-
-}).join("");
-
-}
-
-
-function addApplication(){
-
-const company=
-value("appCompany");
-
-const role=
-value("appRole");
-
-const link=
-value("appLink");
-
-const status=
-document.getElementById("appStatus").value;
-
-const note=
-value("appNote");
-
-if(!company||!role){
-
-alert(
-"Enter company and job title."
-);
-
-return;
-
-}
-
-applications.unshift({
-
-id:Date.now(),
-
-company:company,
-
-role:role,
-
-link:link,
-
-status:status,
-
-note:note,
-
-date:new Date().toLocaleDateString()
-
-});
-
-saveApplications();
-
-renderApplications();
-
-document.getElementById("appCompany").value="";
-
-document.getElementById("appRole").value="";
-
-document.getElementById("appLink").value="";
-
-document.getElementById("appNote").value="";
-
-updateDashboard();
-
-}
-
-
-function saveApplications(){
-
-try{
-
-localStorage.setItem(
-"jobflow_applications",
-JSON.stringify(applications)
-);
-
-}catch(e){
-
-console.log("Storage unavailable");
-
-}
-
-}
-
-
-function deleteApplication(id){
-
-applications=
-applications.filter(function(x){
-
-return x.id!==id;
-
-});
-
-saveApplications();
-
-renderApplications();
-
-updateDashboard();
-
-}
-
-
-function updateStatus(id,status){
-
-const item=
-applications.find(function(x){
-
-return x.id===id;
-
-});
-
-if(item){
-
-item.status=status;
-
-saveApplications();
-
-renderApplications();
-
-updateDashboard();
-
-}
-
-}
-
-
-function renderApplications(){
-
-const box=
-document.getElementById("applications");
-
-const total=
-applications.length;
-
-const applied=
-applications.filter(function(x){
-
-return x.status==="Applied";
-
-}).length;
-
-const interviews=
-applications.filter(function(x){
-
-return x.status==="Interview";
-
-}).length;
-
-const offers=
-applications.filter(function(x){
-
-return x.status==="Offer";
-
-}).length;
-
-document.getElementById("totalApps").textContent=
-total;
-
-document.getElementById("appliedApps").textContent=
-applied;
-
-document.getElementById("interviewApps").textContent=
-interviews;
-
-document.getElementById("offerApps").textContent=
-offers;
-
-if(!applications.length){
-
-box.innerHTML=
-"<div class='empty'>"+
-"No applications yet."
-+
-"</div>";
-
-return;
-
-}
-
-box.innerHTML=
-
-applications.map(function(item){
-
-return
-
-"<div class='app'>"+
-
-"<div class='apphead'>"+
-
-"<div>"+
-
-"<b>"+
-esc(item.role)+
-"</b>"+
-
-"<br>"+
-
-"<small>"+
-esc(item.company)+
-" · "+
-esc(item.date)+
-"</small>"+
-
-"</div>"+
-
-"<span class='status'>"+
-esc(item.status)+
-"</span>"+
-
-"</div>"+
-
-(
-item.link
-?
-"<p style='margin-top:8px'>"+
-"<a href='"+
-esc(item.link)+
-"' target='_blank' rel='noopener'>"+
-"Open Job →"+
-"</a></p>"
-:
-""
-)+
-
-(
-item.note
-?
-"<p style='margin-top:8px;color:#64748b'>"+
-"<b>Note:</b> "+
-esc(item.note)+
-"</p>"
-:
-""
-)+
-
-"<select style='margin-top:10px' "+
-"onchange='updateStatus("+
-item.id+
-",this.value)'>"+
-
-["Saved","Applied","Interview","Offer","Rejected"]
-
-.map(function(status){
-
-return
-
-"<option value='"+
-esc(status)+
-"' "+
-(
-status===item.status
-?
-"selected"
-:
-""
-)+
-">"+
-status+
-"</option>";
-
-}).join("")+
-
-"</select>"+
-
-"<button class='danger full' "+
-"onclick='deleteApplication("+
-item.id+
-")'>"+
-"Delete Application"+
-"</button>"+
-
-"</div>";
-
-}).join("");
-
-}
-
-
-function addNote(){
-
-const title=
-value("noteTitle");
-
-const text=
-value("noteText");
-
-if(!title||!text){
-
-alert(
-"Enter a title and note."
-);
-
-return;
-
-}
-
-notes.unshift({
-
-id:Date.now(),
-
-title:title,
-
-text:text,
-
-date:new Date().toLocaleString()
-
-});
-
-try{
-
-localStorage.setItem(
-"jobflow_notes",
-JSON.stringify(notes)
-);
-
-}catch(e){}
-
-document.getElementById("noteTitle").value="";
-
-document.getElementById("noteText").value="";
-
-renderNotes();
-
-}
-
-
-function deleteNote(id){
-
-notes=
-notes.filter(function(x){
-
-return x.id!==id;
-
-});
-
-localStorage.setItem(
-"jobflow_notes",
-JSON.stringify(notes)
-);
-
-renderNotes();
-
-}
-
-
-function renderNotes(){
-
-const box=
-document.getElementById("notes");
-
-box.style.display="block";
-
-if(!notes.length){
-
-box.innerHTML=
-"<div class='empty'>"+
-"No career notes saved."
-+
-"</div>";
-
-return;
-
-}
-
-box.innerHTML=
-notes.map(function(note){
-
-return
-
-"<div class='note'>"+
-
-"<b>"+
-esc(note.title)+
-"</b>"+
-
-"<br>"+
-
-"<small>"+
-esc(note.date)+
-"</small>"+
-
-"<p style='white-space:pre-line;margin-top:8px'>"+
-esc(note.text)+
-"</p>"+
-
-"<button class='danger full' "+
-"onclick='deleteNote("+
-note.id+
-")'>"+
-"Delete Note"+
-"</button>"+
-
-"</div>";
-
-}).join("");
-
-}
-
-
-function buildAchievement(){
-
-const action=
-value("achievementAction");
-
-const tool=
-value("achievementTool");
-
-const result=
-value("achievementResult");
-
-if(!action){
-
-alert(
-"Describe what you did first."
-);
-
-return;
-
-}
-
-const box=
-document.getElementById("achievement");
-
-box.style.display="block";
-
-box.innerHTML=
-
-"<h3>Improved Resume Achievement</h3>"+
-
-"<p style='font-size:15px;margin-top:8px'>"+
-"<b>"+
-esc(action)+
-"</b> using "+
-"<b>"+
-esc(tool||"relevant tools")+
-"</b>, resulting in "+
-"<b>"+
-esc(result||"a practical improvement")+
-"</b>."
-+
-"</p>"+
-
-"<div class='notice'>"+
-"Tip: Replace general claims with real numbers whenever you have them."
-+
-"</div>";
-
-}
-
-
-function saveAnswer(){
-
-const question=
-value("answerQuestion");
-
-const answer=
-value("answerText");
-
-if(!question||!answer){
-
-alert(
-"Enter both the question and answer."
-);
-
-return;
-
-}
-
-answers.unshift({
-
-id:Date.now(),
-
-question:question,
-
-answer:answer,
-
-date:new Date().toLocaleDateString()
-
-});
-
-localStorage.setItem(
-"jobflow_answers",
-JSON.stringify(answers)
-);
-
-document.getElementById("answerQuestion").value="";
-
-document.getElementById("answerText").value="";
-
-renderAnswers();
-
-}
-
-
-function deleteAnswer(id){
-
-answers=
-answers.filter(function(x){
-
-return x.id!==id;
-
-});
-
-localStorage.setItem(
-"jobflow_answers",
-JSON.stringify(answers)
-);
-
-renderAnswers();
-
-}
-
-
-function renderAnswers(){
-
-const box=
-document.getElementById("answers");
-
-if(!answers.length){
-
-box.innerHTML=
-"<div class='empty'>"+
-"No interview answers saved."
-+
-"</div>";
-
-return;
-
-}
-
-box.innerHTML=
-answers.map(function(item){
-
-return
-
-"<div class='note'>"+
-
-"<b>Q: "+
-esc(item.question)+
-"</b>"+
-
-"<p style='white-space:pre-line;margin-top:8px'>"+
-esc(item.answer)+
-"</p>"+
-
-"<button class='danger full' "+
-"onclick='deleteAnswer("+
-item.id+
-")'>"+
-"Delete Answer"+
-"</button>"+
-
-"</div>";
-
-}).join("");
-
-}
-
-
-function saveProfile(){
-
-const data={
-
-targetRole:value("targetRole"),
-
-years:value("years"),
-
-preferredLocation:value("preferredLocation"),
-
-careerGoal:value("careerGoal")
-
-};
-
-try{
-
-localStorage.setItem(
-"jobflow_profile",
-JSON.stringify(data)
-);
-
-}catch(e){}
-
-const msg=
-document.getElementById("profileMessage");
-
-msg.style.display="block";
-
-setTimeout(function(){
-
-msg.style.display="none";
-
-},2500);
-
-}
-
-
-function loadProfile(){
-
-try{
-
-const data=
-JSON.parse(
-localStorage.getItem("jobflow_profile")
-);
-
-if(!data)return;
-
-Object.keys(data).forEach(function(id){
-
-const el=
-document.getElementById(id);
-
-if(el&&data[id]){
-
-el.value=data[id];
-
-}
-
-});
-
-}catch(e){}
-
-}
-
-
-function saveResumeData(){
-
-const data={
-
-name:value("name"),
-
-title:value("title"),
-
-email:value("email"),
-
-phone:value("phone"),
-
-location:value("location"),
-
-summary:value("summary"),
-
-skills:value("skills"),
-
-experience:value("experience"),
-
-education:value("education")
-
-};
-
-try{
-
-localStorage.setItem(
-"jobflow_resume",
-JSON.stringify(data)
-);
-
-}catch(e){}
-
-}
-
-
-function loadResumeData(){
-
-try{
-
-const data=
-JSON.parse(
-localStorage.getItem("jobflow_resume")
-);
-
-if(!data)return;
-
-Object.keys(data).forEach(function(id){
-
-const el=
-document.getElementById(id);
-
-if(el&&data[id]){
-
-el.value=data[id];
-
-}
-
-});
-
-}catch(e){}
-
-}
-
-
-function updateDashboard(){
-
-document.getElementById(
-"dashApplications"
-).textContent=
-applications.length;
-
-document.getElementById(
-"dashInterviews"
-).textContent=
-applications.filter(function(x){
-
-return x.status==="Interview";
-
-}).length;
-
-document.getElementById(
-"dashOffers"
-).textContent=
-applications.filter(function(x){
-
-return x.status==="Offer";
-
-}).length;
-
-document.getElementById(
-"dashSaved"
-).textContent=
-savedJobs.length;
-
-document.getElementById(
-"dashSkills"
-).textContent=
-jobSkills.length;
-
-}
-
-
-function exportData(){
-
-const data={
-
-version:"2.0",
-
-exportedAt:new Date().toISOString(),
-
-resume:localStorage.getItem(
-"jobflow_resume"
-),
-
-profile:localStorage.getItem(
-"jobflow_profile"
-),
-
-applications:applications,
-
-savedJobs:savedJobs,
-
-notes:notes,
-
-answers:answers,
-
-jobDescription:value("job")
-
-};
-
-const blob=
-new Blob(
-[
-JSON.stringify(data,null,2)
-],
-{
-type:"application/json"
-}
-);
-
-const url=
-URL.createObjectURL(blob);
-
-const a=
-document.createElement("a");
-
-a.href=url;
-
-a.download=
-"jobflow-ai-backup.json";
-
-document.body.appendChild(a);
-
-a.click();
-
-a.remove();
-
-URL.revokeObjectURL(url);
-
-}
-
-
-function importData(event){
-
-const file=
-event.target.files[0];
-
-if(!file)return;
-
-const reader=
-new FileReader();
-
-reader.onload=function(){
-
-try{
-
-const data=
-JSON.parse(reader.result);
-
-if(data.resume){
-
-localStorage.setItem(
-"jobflow_resume",
-data.resume
-);
-
-}
-
-if(data.profile){
-
-localStorage.setItem(
-"jobflow_profile",
-data.profile
-);
-
-}
-
-if(Array.isArray(data.applications)){
-
-applications=
-data.applications;
-
-localStorage.setItem(
-"jobflow_applications",
-JSON.stringify(applications)
-);
-
-}
-
-if(Array.isArray(data.savedJobs)){
-
-savedJobs=
-data.savedJobs;
-
-localStorage.setItem(
-"jobflow_saved_jobs",
-JSON.stringify(savedJobs)
-);
-
-}
-
-if(Array.isArray(data.notes)){
-
-notes=
-data.notes;
-
-localStorage.setItem(
-"jobflow_notes",
-JSON.stringify(notes)
-);
-
-}
-
-if(Array.isArray(data.answers)){
-
-answers=
-data.answers;
-
-localStorage.setItem(
-"jobflow_answers",
-JSON.stringify(answers)
-);
-
-}
-
-if(data.jobDescription){
-
-document.getElementById("job").value=
-data.jobDescription;
-
-}
-
-loadResumeData();
-
-loadProfile();
-
-renderApplications();
-
-renderSavedJobs();
-
-renderNotes();
-
-renderAnswers();
-
-updateDashboard();
-
-alert(
-"JobFlow backup imported successfully."
-);
-
-}catch(e){
-
-alert(
-"Invalid JobFlow backup file."
-);
-
-}
-
-};
-
-reader.readAsText(file);
-
-}
-
-
-[
-"name",
-"title",
-"email",
-"phone",
-"location",
-"summary",
-"skills",
-"experience",
-"education"
-].forEach(function(id){
-
-const el=
-document.getElementById(id);
-
-if(el){
-
-el.addEventListener(
-"input",
-saveResumeData
-);
-
-}
-
-});
-
-
-loadResumeData();
-
-loadProfile();
-
-renderApplications();
-
-renderSavedJobs();
-
-renderNotes();
-
-renderAnswers();
-
-updateDashboard();
-
-
+      list.appendChild(element);
+    });
+
+    if (badge) {
+      badge.textContent =
+        interviews.length;
+    }
+
+    if (empty) {
+      empty.style.display =
+        interviews.length
+          ? "none"
+          : "block";
+    }
+  }
+
+  /* ---------- CAREER ---------- */
+
+  function renderCareer() {
+
+    const career =
+      loadJSON(
+        "jobflow_career",
+        {
+          skills: [],
+          goals: []
+        }
+      );
+
+    state.career =
+      career;
+
+    const skills =
+      $("careerSkills");
+
+    const goals =
+      $("careerGoals");
+
+    if (skills) {
+      skills.innerHTML =
+        career.skills.map(skill => `
+          <div class="list-item">
+            <strong>
+              ${escapeHTML(skill)}
+            </strong>
+          </div>
+        `).join("");
+    }
+
+    if (goals) {
+      goals.innerHTML =
+        career.goals.map(goal => `
+          <div class="list-item">
+            <strong>
+              ${escapeHTML(goal)}
+            </strong>
+          </div>
+        `).join("");
+    }
+
+    const skillEmpty =
+      $("careerSkillsEmpty");
+
+    const goalEmpty =
+      $("careerGoalsEmpty");
+
+    if (skillEmpty) {
+      skillEmpty.style.display =
+        career.skills.length
+          ? "none"
+          : "block";
+    }
+
+    if (goalEmpty) {
+      goalEmpty.style.display =
+        career.goals.length
+          ? "none"
+          : "block";
+    }
+  }
+
+  /* ---------- ANALYTICS ---------- */
+
+  function refreshAnalytics() {
+
+    const apps =
+      getApplications();
+
+    const total =
+      apps.length;
+
+    const responses =
+      apps.filter(
+        x =>
+          x.status &&
+          x.status !== "Applied"
+      ).length;
+
+    const interviews =
+      apps.filter(
+        x =>
+          x.status === "Interview" ||
+          x.status === "Offer"
+      ).length;
+
+    const offers =
+      apps.filter(
+        x => x.status === "Offer"
+      ).length;
+
+    const percent =
+      value =>
+        total
+          ? Math.round(
+              (value / total) * 100
+            )
+          : 0;
+
+    if ($("analyticsApplications"))
+      $("analyticsApplications")
+        .textContent = total;
+
+    if ($("analyticsResponse"))
+      $("analyticsResponse")
+        .textContent =
+          percent(responses) + "%";
+
+    if ($("analyticsInterview"))
+      $("analyticsInterview")
+        .textContent =
+          percent(interviews) + "%";
+
+    if ($("analyticsOffer"))
+      $("analyticsOffer")
+        .textContent =
+          percent(offers) + "%";
+
+    const recommendations =
+      $("analyticsRecommendations");
+
+    if (recommendations) {
+
+      recommendations.innerHTML = `
+        <div class="list-item">
+          <strong>
+            Keep applications consistent
+          </strong>
+          <small>
+            Regular applications create more opportunities.
+          </small>
+        </div>
+
+        <div class="list-item">
+          <strong>
+            Improve response quality
+          </strong>
+          <small>
+            Tailor your resume and cover letter for each role.
+          </small>
+        </div>
+
+        <div class="list-item">
+          <strong>
+            Practice interviews
+          </strong>
+          <small>
+            Use Interview Center before important interviews.
+          </small>
+        </div>
+      `;
+    }
+  }
+
+  /* ---------- INTERVIEW PRACTICE ---------- */
+
+  const practiceQuestions = {
+
+    behavioral: [
+      "Tell me about yourself.",
+      "Tell me about a difficult challenge you solved.",
+      "Describe a time you made a mistake and what you learned."
+    ],
+
+    technical: [
+      "Explain a technical project you are proud of.",
+      "How do you approach debugging a difficult problem?",
+      "How do you decide which technology to use?"
+    ],
+
+    hr: [
+      "Why do you want to join our company?",
+      "What are your strengths?",
+      "Where do you see yourself in five years?"
+    ],
+
+    leadership: [
+      "Tell me about a time you led a team.",
+      "How do you handle disagreements within a team?",
+      "How do you motivate people?"
+    ],
+
+    situational: [
+      "What would you do if you disagreed with your manager?",
+      "How would you handle multiple urgent deadlines?",
+      "What would you do if a project suddenly changed direction?"
+    ],
+
+    salary: [
+      "What are your salary expectations?",
+      "Why do you believe you deserve this compensation?",
+      "Are you flexible regarding the compensation package?"
+    ]
+
+  };
+
+  let currentPractice =
+    "behavioral";
+
+  function createPracticeQuestion(category) {
+
+    currentPractice =
+      category;
+
+    const questions =
+      practiceQuestions[category] ||
+      practiceQuestions.behavioral;
+
+    const question =
+      questions[
+        Math.floor(
+          Math.random() * questions.length
+        )
+      ];
+
+    const output =
+      $("practiceQuestion");
+
+    if (output) {
+      output.innerHTML = `
+        <strong>
+          Interview Question
+        </strong>
+
+        <p style="margin-top:8px">
+          ${escapeHTML(question)}
+        </p>
+      `;
+    }
+  }
+
+  $("nextQuestionBtn")?.addEventListener(
+    "click",
+    () => createPracticeQuestion(
+      currentPractice
+    )
+  );
+
+  /* ---------- ATS ---------- */
+
+  $("runATSBtn")?.addEventListener(
+    "click",
+    function () {
+
+      const resume =
+        ($("atsResumeText")?.value || "")
+          .toLowerCase();
+
+      const job =
+        ($("atsJobText")?.value || "")
+          .toLowerCase();
+
+      if (!resume || !job) {
+        toast(
+          "Add both resume and job description first"
+        );
+        return;
+      }
+
+      const words =
+        job.match(
+          /\b[a-z][a-z0-9+#.-]{3,}\b/g
+        ) || [];
+
+      const unique =
+        [...new Set(words)];
+
+      const matches =
+        unique.filter(
+          word =>
+            resume.includes(word)
+        );
+
+      const keywordScore =
+        unique.length
+          ? Math.round(
+              (matches.length /
+                unique.length) *
+              100
+            )
+          : 0;
+
+      const structureScore =
+        Math.min(
+          100,
+          [
+            "experience",
+            "education",
+            "skills"
+          ].filter(
+            word =>
+              resume.includes(word)
+          ).length * 33
+        );
+
+      const score =
+        Math.round(
+          keywordScore * 0.7 +
+          structureScore * 0.3
+        );
+
+      if ($("atsScoreBadge"))
+        $("atsScoreBadge")
+          .textContent =
+            score + "/100";
+
+      if ($("atsKeywordBar"))
+        $("atsKeywordBar")
+          .style.width =
+            keywordScore + "%";
+
+      if ($("atsStructureBar"))
+        $("atsStructureBar")
+          .style.width =
+            structureScore + "%";
+
+      if ($("atsKeywordText"))
+        $("atsKeywordText")
+          .textContent =
+            `${matches.length} of ${unique.length} detected keywords matched.`;
+
+      if ($("atsStructureText"))
+        $("atsStructureText")
+          .textContent =
+            `Resume structure score: ${structureScore}%.`;
+
+      if ($("atsResult"))
+        $("atsResult").innerHTML = `
+          <strong>ATS Score: ${score}/100</strong>
+          <p style="margin-top:8px">
+            ${
+              score >= 80
+                ? "Strong alignment with the target role."
+                : score >= 60
+                  ? "Good foundation, but several areas can be improved."
+                  : "Your resume needs stronger alignment with the job description."
+            }
+          </p>
+        `;
+
+      if ($("atsRecommendations")) {
+
+        const recommendations = [];
+
+        if (keywordScore < 70)
+          recommendations.push(
+            "Add relevant keywords from the job description."
+          );
+
+        if (structureScore < 100)
+          recommendations.push(
+            "Make sure Experience, Education and Skills sections are clearly defined."
+          );
+
+        if (!resume.includes("achievement"))
+          recommendations.push(
+            "Add measurable achievements where possible."
+          );
+
+        $("atsRecommendations").innerHTML =
+          recommendations.map(
+            item => `
+              <div class="list-item">
+                <strong>Improve</strong>
+                <small>${escapeHTML(item)}</small>
+              </div>
+            `
+          ).join("");
+      }
+
+      toast("ATS scan completed");
+    }
+  );
+
+  /* ---------- UTILITIES ---------- */
+
+  function escapeHTML(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  /* ---------- INITIALIZATION ---------- */
+
+  function init() {
+
+    renderJobs();
+    renderApplications();
+    renderInterviews();
+    renderCareer();
+    refreshAnalytics();
+
+    showPage("dashboard");
+
+    console.log(
+      "JobFlow AI master interface connected."
+    );
+  }
+
+  if (
+    document.readyState === "loading"
+  ) {
+    document.addEventListener(
+      "DOMContentLoaded",
+      init
+    );
+  } else {
+    init();
+  }
+
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+
+  /* ==============================
+     JOBFLOW AI MASTER CONTROLLER
+     ============================== */
+
+  const JobFlow = {
+
+    version: "1.0.0",
+
+    engines: {
+      storage: false,
+      resume: false,
+      coverLetter: false,
+      jobs: false,
+      applications: false,
+      interviews: false,
+      career: false,
+      ats: false,
+      analytics: false,
+      ui: false,
+      app: false
+    },
+
+    detect() {
+
+      const checks = {
+        storage: [
+          "StorageEngine",
+          "storageEngine"
+        ],
+
+        resume: [
+          "ResumeEngine",
+          "resumeEngine"
+        ],
+
+        coverLetter: [
+          "CoverLetterEngine",
+          "coverLetterEngine"
+        ],
+
+        jobs: [
+          "JobEngine",
+          "jobEngine"
+        ],
+
+        applications: [
+          "ApplicationEngine",
+          "applicationEngine"
+        ],
+
+        interviews: [
+          "InterviewEngine",
+          "interviewEngine"
+        ],
+
+        career: [
+          "CareerEngine",
+          "careerEngine"
+        ],
+
+        ats: [
+          "ATSEngine",
+          "atsEngine"
+        ],
+
+        analytics: [
+          "AnalyticsEngine",
+          "analyticsEngine"
+        ],
+
+        ui: [
+          "UIEngine",
+          "uiEngine"
+        ],
+
+        app: [
+          "AppEngine",
+          "appEngine"
+        ]
+      };
+
+      Object.keys(checks).forEach(key => {
+
+        this.engines[key] =
+          checks[key].some(
+            name =>
+              typeof window[name] !==
+              "undefined"
+          );
+
+      });
+
+      return this.engines;
+    },
+
+    status() {
+
+      this.detect();
+
+      const list =
+        document.getElementById(
+          "engineStatusList"
+        );
+
+      if (!list) return;
+
+      list.innerHTML = "";
+
+      Object.keys(this.engines)
+        .forEach(name => {
+
+          const connected =
+            this.engines[name];
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+          item.className =
+            "list-item";
+
+          item.innerHTML = `
+            <strong>
+              ${formatEngineName(name)}
+            </strong>
+
+            <small>
+              ${
+                connected
+                  ? "Connected and detected"
+                  : "Using built-in fallback"
+              }
+            </small>
+
+            <span class="badge ${
+              connected
+                ? "good"
+                : ""
+            }">
+              ${
+                connected
+                  ? "ONLINE"
+                  : "READY"
+              }
+            </span>
+          `;
+
+          list.appendChild(item);
+        });
+
+      toast(
+        "Engine status checked"
+      );
+    }
+  };
+
+  function formatEngineName(name) {
+
+    return name
+      .replace(
+        /([A-Z])/g,
+        " $1"
+      )
+      .replace(
+        /^./,
+        char => char.toUpperCase()
+      );
+  }
+
+  window.JobFlow = JobFlow;
+
+
+  /* ==============================
+     ENGINE STATUS BUTTON
+     ============================== */
+
+  document
+    .getElementById(
+      "checkEnginesBtn"
+    )
+    ?.addEventListener(
+      "click",
+      () => JobFlow.status()
+    );
+
+
+  /* ==============================
+     SETTINGS
+     ============================== */
+
+  const SETTINGS_KEY =
+    "jobflow_settings";
+
+  function getSettings() {
+
+    try {
+
+      return JSON.parse(
+        localStorage.getItem(
+          SETTINGS_KEY
+        ) || "{}"
+      );
+
+    } catch {
+
+      return {};
+
+    }
+  }
+
+  function loadSettings() {
+
+    const settings =
+      getSettings();
+
+    if (
+      document.getElementById(
+        "settingsName"
+      )
+    ) {
+      document.getElementById(
+        "settingsName"
+      ).value =
+        settings.name || "";
+    }
+
+    if (
+      document.getElementById(
+        "settingsTitle"
+      )
+    ) {
+      document.getElementById(
+        "settingsTitle"
+      ).value =
+        settings.title || "";
+    }
+
+    if (
+      document.getElementById(
+        "settingsLocation"
+      )
+    ) {
+      document.getElementById(
+        "settingsLocation"
+      ).value =
+        settings.location || "";
+    }
+
+    if (
+      document.getElementById(
+        "settingsIndustry"
+      )
+    ) {
+      document.getElementById(
+        "settingsIndustry"
+      ).value =
+        settings.industry || "";
+    }
+
+    document
+      .querySelectorAll(
+        ".toggle[data-setting]"
+      )
+      .forEach(toggle => {
+
+        const key =
+          toggle.dataset.setting;
+
+        if (
+          settings[key] === false
+        ) {
+          toggle.classList.remove(
+            "on"
+          );
+        }
+
+      });
+  }
+
+
+  function saveSettings() {
+
+    const settings = {
+
+      name:
+        document.getElementById(
+          "settingsName"
+        )?.value.trim() || "",
+
+      title:
+        document.getElementById(
+          "settingsTitle"
+        )?.value.trim() || "",
+
+      location:
+        document.getElementById(
+          "settingsLocation"
+        )?.value.trim() || "",
+
+      industry:
+        document.getElementById(
+          "settingsIndustry"
+        )?.value.trim() || "",
+
+      compact:
+        document
+          .querySelector(
+            '.toggle[data-setting="compact"]'
+          )
+          ?.classList.contains("on"),
+
+      notifications:
+        document
+          .querySelector(
+            '.toggle[data-setting="notifications"]'
+          )
+          ?.classList.contains("on"),
+
+      local:
+        document
+          .querySelector(
+            '.toggle[data-setting="local"]'
+          )
+          ?.classList.contains("on")
+    };
+
+    localStorage.setItem(
+      SETTINGS_KEY,
+      JSON.stringify(settings)
+    );
+
+    toast(
+      "Settings saved successfully"
+    );
+  }
+
+
+  document
+    .getElementById(
+      "saveSettingsBtn"
+    )
+    ?.addEventListener(
+      "click",
+      saveSettings
+    );
+
+
+  document
+    .querySelectorAll(
+      ".toggle[data-setting]"
+    )
+    .forEach(toggle => {
+
+      toggle.addEventListener(
+        "click",
+        () => {
+
+          toggle.classList.toggle(
+            "on"
+          );
+
+          saveSettings();
+
+        }
+      );
+
+    });
+
+
+  /* ==============================
+     EXPORT WORKSPACE
+     ============================== */
+
+  document
+    .getElementById(
+      "exportDataBtn"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
+
+        const backup = {};
+
+        for (
+          let i = 0;
+          i < localStorage.length;
+          i++
+        ) {
+
+          const key =
+            localStorage.key(i);
+
+          try {
+
+            backup[key] =
+              JSON.parse(
+                localStorage.getItem(
+                  key
+                )
+              );
+
+          } catch {
+
+            backup[key] =
+              localStorage.getItem(
+                key
+              );
+
+          }
+
+        }
+
+        const blob =
+          new Blob(
+            [
+              JSON.stringify(
+                backup,
+                null,
+                2
+              )
+            ],
+            {
+              type:
+                "application/json"
+            }
+          );
+
+        const url =
+          URL.createObjectURL(
+            blob
+          );
+
+        const link =
+          document.createElement(
+            "a"
+          );
+
+        link.href = url;
+
+        link.download =
+          "jobflow-ai-backup.json";
+
+        document.body.appendChild(
+          link
+        );
+
+        link.click();
+
+        link.remove();
+
+        URL.revokeObjectURL(
+          url
+        );
+
+        toast(
+          "Workspace exported"
+        );
+
+      }
+    );
+
+
+  /* ==============================
+     IMPORT WORKSPACE
+     ============================== */
+
+  document
+    .getElementById(
+      "importDataBtn"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
+
+        document
+          .getElementById(
+            "importDataFile"
+          )
+          ?.click();
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "importDataFile"
+    )
+    ?.addEventListener(
+      "change",
+      event => {
+
+        const file =
+          event.target.files?.[0];
+
+        if (!file) return;
+
+        const reader =
+          new FileReader();
+
+        reader.onload =
+          function () {
+
+            try {
+
+              const data =
+                JSON.parse(
+                  reader.result
+                );
+
+                Object.keys(data)
+                  .forEach(key => {
+
+                    localStorage.setItem(
+                      key,
+                      typeof data[key] ===
+                      "string"
+                        ? data[key]
+                        : JSON.stringify(
+                            data[key]
+                          )
+                    );
+
+                  });
+
+                toast(
+                  "Workspace imported. Refreshing..."
+                );
+
+                setTimeout(
+                  () => location.reload(),
+                  700
+                );
+
+            } catch {
+
+              toast(
+                "Invalid workspace backup"
+              );
+
+            }
+
+          };
+
+        reader.readAsText(file);
+
+      }
+    );
+
+
+  /* ==============================
+     DELETE DATA
+     ============================== */
+
+  document
+    .getElementById(
+      "deleteAllDataBtn"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
+
+        const confirmed =
+          confirm(
+            "Delete all JobFlow AI data from this browser?"
+          );
+
+        if (!confirmed) return;
+
+        localStorage.clear();
+
+        toast(
+          "All local workspace data deleted"
+        );
+
+        setTimeout(
+          () => location.reload(),
+          700
+        );
+
+      }
+    );
+
+
+  /* ==============================
+     RESUME ACTIONS
+     ============================== */
+
+  document
+    .getElementById(
+      "resumeClearBtn"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(
+            "#page-resume input, #page-resume textarea"
+          )
+          .forEach(
+            element =>
+              element.value = ""
+          );
+
+        const preview =
+          document.getElementById(
+            "resumePreview"
+          );
+
+        if (preview) {
+
+          preview.innerHTML = `
+            <div class="empty">
+              Resume cleared.
+            </div>
+          `;
+
+        }
+
+        toast(
+          "Resume cleared"
+        );
+
+      }
+    );
+
+
+  /* ==============================
+     COVER LETTER
+     ============================== */
+
+  document
+    .getElementById(
+      "coverClearBtn"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
+
+        const output =
+          document.getElementById(
+            "coverOutput"
+          );
+
+        if (output)
+          output.value = "";
+
+        toast(
+          "Cover letter cleared"
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "coverCopyBtn"
+    )
+    ?.addEventListener(
+      "click",
+      async () => {
+
+        const output =
+          document.getElementById(
+            "coverOutput"
+          );
+
+        if (!output?.value) {
+
+          toast(
+            "Nothing to copy"
+          );
+
+          return;
+        }
+
+        try {
+
+          await navigator.clipboard
+            .writeText(
+              output.value
+            );
+
+          toast(
+            "Cover letter copied"
+          );
+
+        } catch {
+
+          output.select();
+
+          document.execCommand(
+            "copy"
+          );
+
+          toast(
+            "Cover letter copied"
+          );
+
+        }
+
+      }
+    );
+
+
+  /* ==============================
+     JOB FILTER RESET
+     ============================== */
+
+  document
+    .getElementById(
+      "clearJobFilters"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
+
+        [
+          "jobSearchInput",
+          "jobLocationInput"
+        ]
+        .forEach(id => {
+
+          const input =
+            document.getElementById(
+              id
+            );
+
+          if (input)
+            input.value = "";
+
+        });
+
+        [
+          "jobModeInput",
+          "jobExperienceInput"
+        ]
+        .forEach(id => {
+
+          const select =
+            document.getElementById(
+              id
+            );
+
+          if (select)
+            select.value = "";
+
+        });
+
+        if (
+          typeof renderJobs ===
+          "function"
+        ) {
+          renderJobs();
+        }
+
+      }
+    );
+
+
+  /* ==============================
+     FINAL STARTUP
+     ============================== */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+      loadSettings();
+
+      JobFlow.detect();
+
+      console.log(
+        "JobFlow AI master controller ready."
+      );
+
+    }
+  );
+
+})();
 </script>
 
 </body>
