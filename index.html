@@ -2536,6 +2536,428 @@ window.JobFlow = {
 })();
 </script>
 <script>
+/* =========================================
+   JOBFLOW BUTTON CONTROL CENTER
+   ========================================= */
+
+(function(){
+
+"use strict";
+
+const ButtonEngine = {
+
+   click(button){
+
+      if(!button) return;
+
+      const action =
+         button.dataset.action ||
+         button.dataset.page ||
+         button.dataset.target ||
+         button.getAttribute("data-quick-action");
+
+      if(!action) return;
+
+      const page =
+         String(action)
+         .toLowerCase()
+         .trim();
+
+      /* Dashboard */
+
+      if(
+         page === "dashboard" ||
+         page === "home"
+      ){
+
+         window.JobFlowNavigation?.go("dashboard");
+
+         window.scrollTo({
+            top:0,
+            behavior:"smooth"
+         });
+
+         return;
+      }
+
+      /* Jobs */
+
+      if(
+         page === "jobs" ||
+         page === "job"
+      ){
+
+         window.JobFlowNavigation?.go("jobs");
+
+         return;
+      }
+
+      /* Applications */
+
+      if(
+         page === "applications" ||
+         page === "application"
+      ){
+
+         window.JobFlowNavigation?.go(
+            "applications"
+         );
+
+         return;
+      }
+
+      /* Saved */
+
+      if(
+         page === "saved" ||
+         page === "bookmarks"
+      ){
+
+         window.JobFlowNavigation?.go("saved");
+
+         return;
+      }
+
+      /* Resume */
+
+      if(
+         page === "resume" ||
+         page === "resumes"
+      ){
+
+         window.JobFlowNavigation?.go("resume");
+
+         return;
+      }
+
+      /* Interviews */
+
+      if(
+         page === "interviews" ||
+         page === "interview"
+      ){
+
+         window.JobFlowNavigation?.go(
+            "interviews"
+         );
+
+         return;
+      }
+
+      /* Career */
+
+      if(
+         page === "career" ||
+         page === "career-ai"
+      ){
+
+         window.JobFlowNavigation?.go("career");
+
+         return;
+      }
+
+      /* Profile */
+
+      if(
+         page === "profile" ||
+         page === "account"
+      ){
+
+         window.JobFlowNavigation?.go("profile");
+
+         return;
+      }
+
+      /* AI */
+
+      if(
+         page === "ai" ||
+         page === "command" ||
+         page === "command-center"
+      ){
+
+         window.JobFlowAI?.open();
+
+         return;
+      }
+
+      /* Notifications */
+
+      if(
+         page === "notifications" ||
+         page === "notification"
+      ){
+
+         const panel =
+            document.getElementById(
+               "notificationPanel"
+            );
+
+         if(panel){
+
+            panel.classList.toggle(
+               "hidden"
+            );
+
+         }
+
+         return;
+      }
+
+      /* Search */
+
+      if(
+         page === "search"
+      ){
+
+         const input =
+            document.getElementById(
+               "jobKeyword"
+            );
+
+         if(input){
+
+            input.focus();
+
+            input.scrollIntoView({
+               behavior:"smooth",
+               block:"center"
+            });
+
+         }
+
+         return;
+      }
+
+      /* Settings */
+
+      if(
+         page === "settings" ||
+         page === "setting"
+      ){
+
+         showToast(
+            "Settings center ready"
+         );
+
+         window.dispatchEvent(
+            new CustomEvent(
+               "jobflow:settings"
+            )
+         );
+
+         return;
+      }
+
+      /* Logout */
+
+      if(
+         page === "logout"
+      ){
+
+         if(
+            confirm(
+               "Are you sure you want to log out?"
+            )
+         ){
+
+            localStorage.removeItem(
+               "jobflow_session"
+            );
+
+            showToast(
+               "Logged out"
+            );
+
+         }
+
+         return;
+      }
+
+      /* Unknown action */
+
+      showToast(
+         "Opening " +
+         page
+      );
+
+   }
+
+};
+
+
+/* =========================================
+   UNIVERSAL BUTTON LISTENER
+   ========================================= */
+
+document.addEventListener(
+   "click",
+   function(event){
+
+      const button =
+         event.target.closest(
+            "button, a, [role='button']"
+         );
+
+      if(!button)
+         return;
+
+      /*
+         Ignore buttons already handled
+         by specialised components.
+      */
+
+      if(
+         button.closest(
+            "#recommendedJobs"
+         ) &&
+         (
+            button.dataset.saveIndex ||
+            button.dataset.applyIndex
+         )
+      ){
+
+         return;
+      }
+
+      ButtonEngine.click(button);
+
+   },
+   {passive:false}
+);
+
+
+/* =========================================
+   MAKE COMMON BUTTONS WORK AUTOMATICALLY
+   ========================================= */
+
+const buttonMap = {
+
+   "Dashboard":"dashboard",
+   "Home":"dashboard",
+
+   "Jobs":"jobs",
+   "Job Search":"jobs",
+
+   "Applications":"applications",
+   "My Applications":"applications",
+
+   "Saved":"saved",
+   "Saved Jobs":"saved",
+
+   "Resume":"resume",
+   "Resume Builder":"resume",
+
+   "Interviews":"interviews",
+   "Interview":"interviews",
+
+   "Career":"career",
+   "Career AI":"career",
+
+   "Profile":"profile",
+   "Account":"profile",
+
+   "Settings":"settings",
+
+   "AI":"ai",
+   "AI Assistant":"ai",
+   "AI Command":"ai"
+
+};
+
+
+function autoConnectButtons(){
+
+   document
+      .querySelectorAll(
+         "button, a, [role='button']"
+      )
+      .forEach(button => {
+
+         /*
+            Don't overwrite explicit actions.
+         */
+
+         if(
+            button.dataset.action ||
+            button.dataset.page ||
+            button.dataset.quickAction ||
+            button.dataset.target
+         ){
+
+            return;
+         }
+
+         const text =
+            button.textContent
+            .trim()
+            .replace(/\s+/g," ");
+
+         if(
+            buttonMap[text]
+         ){
+
+            button.dataset.action =
+               buttonMap[text];
+
+         }
+
+      });
+
+}
+
+
+/* =========================================
+   RUN AFTER DOM EXISTS
+   ========================================= */
+
+if(
+   document.readyState === "loading"
+){
+
+   document.addEventListener(
+      "DOMContentLoaded",
+      autoConnectButtons,
+      {once:true}
+   );
+
+}else{
+
+   autoConnectButtons();
+
+}
+
+
+/* =========================================
+   OBSERVE NEW BUTTONS
+   ========================================= */
+
+const observer =
+   new MutationObserver(
+      function(){
+
+         autoConnectButtons();
+
+      }
+   );
+
+observer.observe(
+   document.body,
+   {
+      childList:true,
+      subtree:true
+   }
+);
+
+
+/* =========================================
+   GLOBAL ACCESS
+   ========================================= */
+
+window.JobFlowButtonEngine =
+   ButtonEngine;
+
+})();
 (function(){
 
 "use strict";
