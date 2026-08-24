@@ -5,255 +5,47 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#2563eb">
 <title>JobFlow AI</title>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
-body{
-font-family:Arial,Helvetica,sans-serif;
-background:#f7f9fc;
-color:#111827;
-line-height:1.5
-}
-
-header{
-height:64px;
-background:#fff;
-border-bottom:1px solid #e5e7eb;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 6%;
-position:sticky;
-top:0;
-z-index:5
-}
-
-.logo{
-font-size:21px;
-font-weight:800
-}
-
-.logo span{
-color:#2563eb
-}
-
-button{
-border:0;
-border-radius:9px;
-padding:11px 16px;
-font-weight:700;
-cursor:pointer
-}
-
-.primary{
-background:#2563eb;
-color:white
-}
-
-.hero{
-max-width:850px;
-margin:auto;
-text-align:center;
-padding:65px 20px 35px
-}
-
-.tag{
-display:inline-block;
-background:#eaf1ff;
-color:#2563eb;
-padding:6px 11px;
-border-radius:20px;
-font-size:12px;
-font-weight:700;
-margin-bottom:15px
-}
-
-h1{
-font-size:clamp(34px,8vw,58px);
-line-height:1.05;
-letter-spacing:-2px
-}
-
-.hero h1 span{
-color:#2563eb
-}
-
-.hero p{
-max-width:620px;
-margin:18px auto;
-color:#64748b
-}
-
-.section{
-max-width:900px;
-margin:auto;
-padding:25px 20px 60px
-}
-
-.card{
-background:#fff;
-border:1px solid #e5e7eb;
-border-radius:14px;
-padding:20px;
-margin-bottom:18px
-}
-
-h2{
-font-size:23px;
-margin-bottom:5px
-}
-
-.sub{
-font-size:13px;
-color:#64748b;
-margin-bottom:18px
-}
-
-label{
-display:block;
-font-size:13px;
-font-weight:700;
-margin:13px 0 7px
-}
-
-input,
-textarea{
-width:100%;
-border:1px solid #dbe1ea;
-border-radius:9px;
-padding:12px;
-font:inherit;
-outline:0
-}
-
-input:focus,
-textarea:focus{
-border-color:#2563eb
-}
-
-textarea{
-min-height:160px;
-resize:vertical
-}
-
-.full{
-width:100%;
-margin-top:12px
-}
-
-.result{
-display:none;
-background:#f8fafc;
-border-radius:10px;
-padding:15px;
-margin-top:15px;
-font-size:13px
-}
-
-.chip{
-display:inline-block;
-background:#eaf1ff;
-color:#2563eb;
-padding:6px 9px;
-border-radius:20px;
-font-size:12px;
-margin:3px
-}
-
-.resume{
-display:none;
-background:#fff;
-border:1px solid #ddd;
-padding:28px;
-margin-top:15px
-}
-
-.resume h1{
-font-size:28px;
-letter-spacing:0
-}
-
-.resume h3{
-margin-top:20px;
-border-bottom:1px solid #ddd;
-padding-bottom:5px
-}
-
-.resume p{
-margin-top:8px;
-font-size:14px
-}
-
-.resume ul{
-padding-left:20px;
-margin-top:8px;
-font-size:14px
-}
-
-.actions{
-display:flex;
-gap:8px;
-margin-top:12px
-}
-
-.actions button{
-flex:1
-}
-
-.notice{
-background:#eef6ff;
-color:#1d4ed8;
-padding:10px;
-border-radius:9px;
-font-size:13px;
-margin-top:12px
-}
-
-footer{
-text-align:center;
-padding:25px;
-border-top:1px solid #e5e7eb;
-color:#64748b;
-font-size:12px
-}
-
+body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#111827;line-height:1.5}
+header{height:64px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 5%;position:sticky;top:0;z-index:10}
+.logo{font-size:21px;font-weight:800}.logo span{color:#2563eb}
+nav{display:flex;gap:6px}nav button{background:transparent;color:#475569;padding:8px 10px}
+button{border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer}
+.primary{background:#2563eb;color:#fff}
+.hero{max-width:900px;margin:auto;text-align:center;padding:55px 20px 30px}
+.tag{display:inline-block;background:#eaf1ff;color:#2563eb;padding:6px 11px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:14px}
+h1{font-size:clamp(34px,8vw,58px);line-height:1.05;letter-spacing:-2px}
+.hero h1 span{color:#2563eb}.hero p{max-width:650px;margin:16px auto;color:#64748b}
+.section{max-width:900px;margin:auto;padding:20px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:20px;margin-bottom:18px}
+h2{font-size:22px;margin-bottom:5px}.sub{font-size:13px;color:#64748b;margin-bottom:16px}
+label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}
+input,textarea{width:100%;border:1px solid #d8dee8;border-radius:9px;padding:12px;font:inherit;outline:0}
+input:focus,textarea:focus{border-color:#2563eb}
+textarea{min-height:140px;resize:vertical}.full{width:100%;margin-top:12px}
+.result{display:none;background:#f8fafc;border-radius:10px;padding:15px;margin-top:15px;font-size:13px}
+.chip{display:inline-block;background:#eaf1ff;color:#2563eb;padding:5px 9px;border-radius:20px;font-size:12px;margin:3px}
+.score{display:inline-block;background:#eaf1ff;color:#2563eb;padding:9px 13px;border-radius:9px;font-size:20px;font-weight:800}
+.notice{background:#eef6ff;color:#1d4ed8;padding:10px;border-radius:9px;font-size:13px;margin-top:10px}
+.resume,.letter,.interview,.match{display:none;background:#fff;border:1px solid #ddd;padding:25px;margin-top:15px}
+.resume h1{font-size:28px;letter-spacing:0}.resume h3{margin-top:18px;border-bottom:1px solid #ddd;padding-bottom:5px}
+.resume p,.letter p{font-size:14px;margin-top:9px}.resume ul{padding-left:20px;font-size:14px;margin-top:7px}
+.question{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-top:10px}
+.question b{display:block;margin-bottom:6px}.answer{font-size:13px;color:#475569}
+.actions{display:flex;gap:8px;margin-top:10px}.actions button{flex:1}
+.hidden{display:none!important}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}
+.stat{background:#f8fafc;border:1px solid #e5e7eb;padding:14px;border-radius:10px;text-align:center}
+.stat b{display:block;font-size:24px;color:#2563eb}.stat small{color:#64748b}
+footer{text-align:center;padding:25px;color:#64748b;font-size:12px;border-top:1px solid #e5e7eb}
 @media(max-width:650px){
-
-.hero{
-padding-top:45px
+header{padding:0 4%}nav{display:none}.hero{padding-top:42px}.stats{grid-template-columns:1fr}
+.actions{flex-direction:column}
 }
-
-.actions{
-flex-direction:column
-}
-
-}
-
 @media print{
-
-header,
-.hero,
-.analyzer,
-.builderTitle,
-.actions,
-footer{
-display:none!important
-}
-
-body{
-background:white
-}
-
-.section{
-padding:0
-}
-
-.resume{
-display:block;
-border:0
-}
-
+header,.hero,.navcard,.actions,footer{display:none!important}
+body{background:#fff}.section{padding:0}.resume,.letter,.interview,.match{display:block;border:0}
 }
 </style>
 </head>
@@ -261,718 +53,458 @@ border:0
 <body>
 
 <header>
-
-<div class="logo">
-Job<span>Flow</span> AI
-</div>
-
-<button
-class="primary"
-onclick="go('builder')">
-Resume Builder
-</button>
-
+<div class="logo">Job<span>Flow</span> AI</div>
+<nav>
+<button onclick="show('analyzer')">Analyze</button>
+<button onclick="show('builder')">Resume</button>
+<button onclick="show('cover')">Cover</button>
+<button onclick="show('interviewCard')">Interview</button>
+</nav>
+<button class="primary" onclick="show('analyzer')">Start</button>
 </header>
 
-
 <section class="hero">
-
-<div class="tag">
-JOB APPLICATION TOOLKIT
-</div>
-
-<h1>
-Apply smarter.<br>
-Get <span>job-ready.</span>
-</h1>
-
-<p>
-Analyze a job description and create a professional
-resume from your phone.
-</p>
-
-<button
-class="primary"
-onclick="go('analyzer')">
-Start Free →
-</button>
-
+<div class="tag">AI JOB APPLICATION TOOLKIT</div>
+<h1>Get <span>job-ready.</span><br>from your phone.</h1>
+<p>Analyze jobs, build a resume, create a cover letter and prepare for interviews in one place.</p>
+<button class="primary" onclick="show('analyzer')">Start Free →</button>
 </section>
-
 
 <section class="section">
 
+<!-- 1 JOB ANALYZER -->
+<div class="card navcard" id="analyzer">
+<h2>1. Job Analyzer</h2>
+<p class="sub">Paste a job description and discover what the employer is looking for.</p>
 
-<div
-class="card analyzer"
-id="analyzer">
+<label>Job Description</label>
+<textarea id="job" placeholder="Paste the complete job description here..."></textarea>
 
-<h2>
-1. Analyze Job
-</h2>
-
-<p class="sub">
-Paste the job description to identify important requirements.
-</p>
-
-<label for="job">
-Job Description
-</label>
-
-<textarea
-id="job"
-placeholder="Paste the complete job description here...">
-</textarea>
-
-<button
-class="primary full"
-onclick="analyzeJob()">
-Analyze Job →
-</button>
-
-<div
-class="result"
-id="analysis">
+<button class="primary full" onclick="analyze()">Analyze Job →</button>
+<div class="result" id="analysis"></div>
 </div>
 
-</div>
+<!-- 2 RESUME -->
+<div class="card navcard" id="builder">
+<h2>2. Resume Builder</h2>
+<p class="sub">Create a clean resume using your information.</p>
 
+<label>Full Name</label>
+<input id="name" placeholder="Your full name">
 
+<label>Professional Title</label>
+<input id="title" placeholder="Software Engineer">
 
-<div
-class="card"
-id="builder">
+<label>Email</label>
+<input id="email" placeholder="you@example.com">
 
-<div class="builderTitle">
+<label>Phone</label>
+<input id="phone" placeholder="+91 98765 43210">
 
-<h2>
-2. Build Your Resume
-</h2>
+<label>Location</label>
+<input id="location" placeholder="Hyderabad, India">
 
-<p class="sub">
-Enter your information and create a professional resume.
-</p>
+<label>Professional Summary</label>
+<textarea id="summary" placeholder="Your professional summary..."></textarea>
 
-</div>
+<label>Skills</label>
+<textarea id="skills" placeholder="JavaScript, HTML, CSS, Git, SQL..."></textarea>
 
+<label>Experience</label>
+<textarea id="experience" placeholder="Company — Job Title&#10;Describe your responsibilities and achievements..."></textarea>
 
-<div class="notice">
-First analyze the job description above, then complete your resume information below.
-</div>
+<label>Education</label>
+<textarea id="education" placeholder="Degree — College — Year"></textarea>
 
-
-<label for="name">
-Full Name
-</label>
-
-<input
-id="name"
-placeholder="Your full name">
-
-
-<label for="title">
-Professional Title
-</label>
-
-<input
-id="title"
-placeholder="Software Engineer">
-
-
-<label for="email">
-Email
-</label>
-
-<input
-id="email"
-placeholder="you@example.com">
-
-
-<label for="phone">
-Phone
-</label>
-
-<input
-id="phone"
-placeholder="+91 98765 43210">
-
-
-<label for="location">
-Location
-</label>
-
-<input
-id="location"
-placeholder="City, India">
-
-
-<label for="summary">
-Professional Summary
-</label>
-
-<textarea
-id="summary"
-placeholder="Briefly describe your experience, strengths and career goal...">
-</textarea>
-
-
-<label for="skills">
-Skills
-</label>
-
-<textarea
-id="skills"
-placeholder="JavaScript, HTML, CSS, Git, SQL...">
-</textarea>
-
-
-<label for="experience">
-Experience
-</label>
-
-<textarea
-id="experience"
-placeholder="Company — Job Title
-Describe your work, achievements and responsibilities.">
-</textarea>
-
-
-<label for="education">
-Education
-</label>
-
-<textarea
-id="education"
-placeholder="Degree — College — Year">
-</textarea>
-
-
-<button
-class="primary full"
-onclick="buildResume()">
-Create Resume →
-</button>
-
+<button class="primary full" onclick="buildResume()">Create Resume →</button>
 
 <div class="actions">
-
-<button
-class="primary"
-onclick="window.print()">
-Print / Save PDF
-</button>
-
-<button
-onclick="copyResume()">
-Copy Resume
-</button>
-
+<button class="primary" onclick="printPage()">Print / Save PDF</button>
+<button onclick="copyBox('resume')">Copy Resume</button>
 </div>
 
-
-<div
-class="resume"
-id="resume">
+<div class="resume" id="resume"></div>
 </div>
 
+<!-- 3 COVER LETTER -->
+<div class="card navcard" id="cover">
+<h2>3. Cover Letter</h2>
+<p class="sub">Create a professional letter based on the job and your profile.</p>
+
+<label>Company Name</label>
+<input id="company" placeholder="Company name">
+
+<label>Job Title</label>
+<input id="jobtitle" placeholder="Software Engineer">
+
+<label>Hiring Manager</label>
+<input id="manager" placeholder="Hiring Manager">
+
+<button class="primary full" onclick="coverLetter()">Generate Cover Letter →</button>
+
+<div class="letter" id="letter"></div>
+
+<div class="actions">
+<button class="primary" onclick="printPage()">Print / Save PDF</button>
+<button onclick="copyBox('letter')">Copy Letter</button>
+</div>
+</div>
+
+<!-- 4 INTERVIEW -->
+<div class="card navcard" id="interviewCard">
+<h2>4. Interview Prep</h2>
+<p class="sub">Generate technical and HR questions from the analyzed job.</p>
+
+<div class="notice">Analyze a job first for the most relevant interview questions.</div>
+
+<button class="primary full" onclick="interview()">Prepare Interview →</button>
+
+<div class="interview" id="interview"></div>
+
+<div class="actions">
+<button class="primary" onclick="printPage()">Print / Save PDF</button>
+<button onclick="copyBox('interview')">Copy Questions</button>
+</div>
+</div>
+
+<!-- 5 MATCH -->
+<div class="card navcard" id="matchCard">
+<h2>5. Job Match Score</h2>
+<p class="sub">Compare your resume skills with the analyzed job requirements.</p>
+
+<button class="primary full" onclick="matchScore()">Check My Match →</button>
+
+<div class="match" id="match"></div>
+</div>
+
+<!-- QUICK DASHBOARD -->
+<div class="card">
+<h2>JobFlow Dashboard</h2>
+<p class="sub">Your application toolkit at a glance.</p>
+
+<div class="stats">
+<div class="stat"><b id="skillCount">0</b><small>Job Skills</small></div>
+<div class="stat"><b id="resumeStatus">0%</b><small>Resume Ready</small></div>
+<div class="stat"><b id="matchStatus">—</b><small>Job Match</small></div>
+</div>
 </div>
 
 </section>
 
-
-<footer>
-© 2026 JobFlow AI · Built for smarter job applications
-</footer>
-
+<footer>© 2026 JobFlow AI · Free browser-based job toolkit</footer>
 
 <script>
+let jobSkills=[];
+let jobReq=[];
+let jobDuties=[];
 
-let detectedSkills=[];
+const skillsList=[
+"javascript","typescript","html","css","react","vue","angular",
+"node.js","python","java","c++","sql","mongodb","mysql",
+"postgresql","api","apis","rest","git","github","aws","azure",
+"docker","kubernetes","figma","excel","power bi","machine learning",
+"artificial intelligence","ai","php","ruby","swift","kotlin"
+];
 
+const reqList=[
+"communication","leadership","teamwork","problem solving",
+"problem-solving","analytical","time management","collaboration",
+"creativity","adaptability","attention to detail"
+];
 
-function go(id){
+const dutyList=[
+"develop","development","build","design","maintain","debug",
+"test","deploy","implement","manage","collaborate","analyze",
+"create","integrate","optimize","support"
+];
 
-document
-.getElementById(id)
-.scrollIntoView({
-behavior:"smooth",
-block:"start"
+function show(id){
+document.getElementById(id).scrollIntoView({
+behavior:"smooth",block:"start"
 });
-
 }
 
+function findWords(text,list){
+return list.filter(x=>text.includes(x));
+}
 
-function analyzeJob(){
+function chips(arr){
+return arr.length
+?arr.map(x=>"<span class='chip'>"+esc(x)+"</span>").join("")
+:"<span style='color:#64748b'>None detected</span>";
+}
 
-const text=
-document
-.getElementById("job")
-.value
-.trim();
+function analyze(){
 
-const box=
-document
-.getElementById("analysis");
-
+const text=document.getElementById("job").value.trim();
+const box=document.getElementById("analysis");
 
 if(text.length<40){
-
 box.style.display="block";
-
-box.innerHTML=
-"<b>Please paste a complete job description.</b><br>"+
-"Add more information about the role and requirements.";
-
+box.innerHTML="<b>Please paste a complete job description.</b>";
 return;
-
 }
-
 
 const lower=text.toLowerCase();
 
+jobSkills=findWords(lower,skillsList);
+jobReq=findWords(lower,reqList);
+jobDuties=findWords(lower,dutyList);
 
-const skills=[
-
-"javascript",
-"typescript",
-"html",
-"css",
-"react",
-"vue",
-"angular",
-"node.js",
-"python",
-"java",
-"c++",
-"sql",
-"mongodb",
-"mysql",
-"postgresql",
-"api",
-"apis",
-"rest",
-"git",
-"github",
-"aws",
-"azure",
-"docker",
-"kubernetes",
-"figma",
-"excel",
-"power bi",
-"machine learning",
-"artificial intelligence",
-"ai"
-
-];
-
-
-const req=[
-
-"communication",
-"leadership",
-"teamwork",
-"problem solving",
-"problem-solving",
-"analytical",
-"time management",
-"collaboration",
-"creativity",
-"adaptability",
-"attention to detail"
-
-];
-
-
-const responsibilities=[
-
-"develop",
-"development",
-"build",
-"design",
-"maintain",
-"debug",
-"test",
-"deploy",
-"implement",
-"manage",
-"collaborate",
-"analyze",
-"create",
-"integrate",
-"optimize",
-"support"
-
-];
-
-
-function find(list){
-
-return list.filter(function(item){
-
-return lower.includes(item);
-
-});
-
-}
-
-
-detectedSkills=find(skills);
-
-const requirements=find(req);
-
-const duties=find(responsibilities);
-
-
-let score=40;
-
-score+=
-Math.min(
-detectedSkills.length*3,
-25
-);
-
-score+=
-Math.min(
-requirements.length*2,
-15
-);
-
-score+=
-Math.min(
-duties.length*2,
-20
-);
+let score=40+
+Math.min(jobSkills.length*3,25)+
+Math.min(jobReq.length*2,15)+
+Math.min(jobDuties.length*2,20);
 
 score=Math.min(score,100);
 
-
-function chips(arr){
-
-if(!arr.length){
-
-return "<span style='color:#64748b'>"+
-"None detected"+
-"</span>";
-
-}
-
-return arr.map(function(item){
-
-return "<span class='chip'>"+
-item+
-"</span>";
-
-}).join("");
-
-}
-
+document.getElementById("skillCount").textContent=jobSkills.length;
 
 box.style.display="block";
 
-
 box.innerHTML=
+"<div style='display:flex;justify-content:space-between;align-items:center'>"+
+"<div><h3>Job Analysis</h3><p style='color:#64748b'>Requirements detected</p></div>"+
+"<span class='score'>"+score+"/100</span></div>"+
+"<br><b>Technical Skills</b><div>"+chips(jobSkills)+"</div>"+
+"<br><b>Core Requirements</b><div>"+chips(jobReq)+"</div>"+
+"<br><b>Responsibilities</b><div>"+chips(jobDuties)+"</div>"+
+"<button class='primary full' onclick=\"show('builder')\">Build Your Resume →</button>"+
+"<button class='primary full' onclick=\"show('cover')\">Create Cover Letter →</button>"+
+"<button class='primary full' onclick=\"show('interviewCard')\">Prepare Interview →</button>";
 
-"<div style='display:flex;"+
-"justify-content:space-between;"+
-"align-items:center;gap:10px'>"+
-
-"<div>"+
-"<h3>Job Analysis</h3>"+
-"<p style='color:#64748b'>"+
-"Important information detected"+
-"</p>"+
-"</div>"+
-
-"<b style='background:#eaf1ff;"+
-"color:#2563eb;padding:9px;"+
-"border-radius:9px;white-space:nowrap'>"+
-score+
-"/100"+
-"</b>"+
-
-"</div>"+
-
-"<br>"+
-
-"<b>Technical Skills</b>"+
-
-"<div>"+
-chips(detectedSkills)+
-"</div>"+
-
-"<br>"+
-
-"<b>Core Requirements</b>"+
-
-"<div>"+
-chips(requirements)+
-"</div>"+
-
-"<br>"+
-
-"<b>Responsibilities</b>"+
-
-"<div>"+
-chips(duties)+
-"</div>"+
-
-"<button class='primary full' "+
-"onclick=\"go('builder')\">"+
-"Build Your Resume →"+
-"</button>"+
-
-"<div style='margin-top:12px;"+
-"padding:11px;background:#f1f5f9;"+
-"border-radius:9px;color:#475569'>"+
-"Your detected job requirements can be used "+
-"to tailor your resume."+
-"</div>";
-
-
-box.scrollIntoView({
-behavior:"smooth",
-block:"center"
-});
-
+box.scrollIntoView({behavior:"smooth",block:"center"});
 }
-
 
 function buildResume(){
 
-const name=
-document
-.getElementById("name")
-.value
-.trim();
-
+const name=v("name");
 
 if(!name){
-
-alert("Please enter your name first.");
-
-go("builder");
-
+alert("Please enter your name.");
+show("builder");
 return;
-
 }
 
+const title=v("title");
+const email=v("email");
+const phone=v("phone");
+const location=v("location");
+const summary=v("summary");
+const skills=v("skills");
+const experience=v("experience");
+const education=v("education");
 
-const title=
-document
-.getElementById("title")
-.value
-.trim();
+const list=skills.split(",").map(x=>x.trim()).filter(Boolean);
 
-const email=
-document
-.getElementById("email")
-.value
-.trim();
+document.getElementById("resume").style.display="block";
 
-const phone=
-document
-.getElementById("phone")
-.value
-.trim();
-
-const location=
-document
-.getElementById("location")
-.value
-.trim();
-
-const summary=
-document
-.getElementById("summary")
-.value
-.trim();
-
-const skills=
-document
-.getElementById("skills")
-.value
-.trim();
-
-const experience=
-document
-.getElementById("experience")
-.value
-.trim();
-
-const education=
-document
-.getElementById("education")
-.value
-.trim();
-
-
-const skillList=
-skills
-.split(",")
-.map(function(item){
-return item.trim();
-})
-.filter(Boolean);
-
-
-let skillHTML="";
-
-if(skillList.length){
-
-skillHTML=
-skillList
-.map(function(item){
-
-return "<li>"+
-escapeHTML(item)+
-"</li>";
-
-})
-.join("");
-
-}else{
-
-skillHTML="<li>Add your skills</li>";
-
-}
-
-
-const resume=
-document
-.getElementById("resume");
-
-
-resume.style.display="block";
-
-
-resume.innerHTML=
-
-"<h1>"+
-escapeHTML(name)+
-"</h1>"+
-
-"<p><b>"+
-escapeHTML(title)+
-"</b></p>"+
-
-"<p>"+
-escapeHTML(email)+
-" · "+
-escapeHTML(phone)+
-" · "+
-escapeHTML(location)+
-"</p>"+
-
+document.getElementById("resume").innerHTML=
+"<h1>"+esc(name)+"</h1>"+
+"<p><b>"+esc(title)+"</b></p>"+
+"<p>"+esc(email)+" · "+esc(phone)+" · "+esc(location)+"</p>"+
 "<h3>Professional Summary</h3>"+
-
-"<p>"+
-escapeHTML(
-summary||
-"Add your professional summary."
-)+
-"</p>"+
-
-"<h3>Skills</h3>"+
-
-"<ul>"+
-skillHTML+
+"<p>"+esc(summary||"Add your professional summary.")+"</p>"+
+"<h3>Skills</h3><ul>"+
+(list.length?list:["Add your skills"])
+.map(x=>"<li>"+esc(x)+"</li>").join("")+
 "</ul>"+
-
 "<h3>Experience</h3>"+
-
-"<p style='white-space:pre-line'>"+
-escapeHTML(
-experience||
-"Add your professional experience."
-)+
-"</p>"+
-
+"<p style='white-space:pre-line'>"+esc(experience||"Add your experience.")+"</p>"+
 "<h3>Education</h3>"+
+"<p style='white-space:pre-line'>"+esc(education||"Add your education.")+"</p>";
 
-"<p style='white-space:pre-line'>"+
-escapeHTML(
-education||
-"Add your education."
-)+
-"</p>";
-
-
-resume.scrollIntoView({
-behavior:"smooth",
-block:"start"
+document.getElementById("resume").scrollIntoView({
+behavior:"smooth",block:"start"
 });
 
+document.getElementById("resumeStatus").textContent="100%";
 }
 
+function coverLetter(){
 
-function escapeHTML(value){
+const name=v("name");
+const company=v("company");
+const title=v("jobtitle");
+const manager=v("manager")||"Hiring Manager";
+const summary=v("summary");
+const skills=v("skills")||jobSkills.join(", ");
 
-return value
+if(!name){
+alert("Enter your name in Resume Builder first.");
+show("builder");
+return;
+}
 
+if(!company||!title){
+alert("Enter company name and job title.");
+return;
+}
+
+document.getElementById("letter").style.display="block";
+
+document.getElementById("letter").innerHTML=
+"<p>"+esc(name)+"</p>"+
+"<p>"+esc(company)+"</p>"+
+"<p>Dear "+esc(manager)+",</p>"+
+"<p>I am writing to apply for the <b>"+esc(title)+
+"</b> position at <b>"+esc(company)+
+"</b>. I am excited about the opportunity to contribute my skills to your team.</p>"+
+"<p>My relevant skills include "+esc(skills)+
+". I enjoy solving problems, learning new technologies and creating practical solutions.</p>"+
+"<p>"+esc(summary||"I am a motivated professional eager to learn, contribute and grow.")+"</p>"+
+"<p>I would welcome the opportunity to discuss how my background could contribute to "+esc(company)+
+". Thank you for considering my application.</p>"+
+"<p>Sincerely,<br>"+esc(name)+"</p>";
+
+document.getElementById("letter").scrollIntoView({
+behavior:"smooth",block:"start"
+});
+}
+
+function interview(){
+
+if(!jobSkills.length&&!jobReq.length){
+alert("Analyze a job description first.");
+show("analyzer");
+return;
+}
+
+let q=[];
+
+jobSkills.slice(0,7).forEach(skill=>{
+q.push([
+"How would you describe your experience with "+skill+"?",
+"Explain your practical experience, mention a project and describe the result."
+]);
+q.push([
+"What are the important concepts you know about "+skill+"?",
+"Choose two or three concepts you understand well and explain them with examples."
+]);
+});
+
+[
+["Tell me about yourself.","Give a short introduction covering your education, experience, strongest skills and career goals."],
+["Why do you want this job?","Connect your skills and career goals directly to the requirements in the job description."],
+["Why should we hire you?","Mention two or three strengths that directly match the position."],
+["Tell me about a difficult problem you solved.","Use STAR: Situation, Task, Action and Result."],
+["What is your biggest weakness?","Give a genuine but manageable weakness and explain how you are improving it."],
+["How do you handle deadlines?","Explain how you prioritize tasks, communicate early and track progress."],
+["Where do you see yourself in five years?","Show realistic growth while connecting your goals to the type of work."],
+["Do you have any questions for us?","Ask about the team, role expectations, projects or success measures."]
+].forEach(x=>q.push(x));
+
+let html=
+"<div style='display:flex;justify-content:space-between;align-items:center'>"+
+"<div><h3>Interview Preparation</h3><p style='color:#64748b'>"+
+q.length+" questions prepared</p></div>"+
+"<span class='score'>READY</span></div>";
+
+q.slice(0,20).forEach((x,i)=>{
+html+=
+"<div class='question'>"+
+"<b>"+(i+1)+". "+esc(x[0])+"</b>"+
+"<div class='answer'><b>Answer guidance:</b> "+esc(x[1])+"</div>"+
+"</div>";
+});
+
+document.getElementById("interview").style.display="block";
+document.getElementById("interview").innerHTML=html;
+
+document.getElementById("interview").scrollIntoView({
+behavior:"smooth",block:"start"
+});
+}
+
+function matchScore(){
+
+const job=document.getElementById("job").value.toLowerCase();
+const skills=v("skills").toLowerCase();
+
+if(!job){
+alert("Analyze a job description first.");
+show("analyzer");
+return;
+}
+
+if(!skills){
+alert("Enter your skills in the Resume Builder first.");
+show("builder");
+return;
+}
+
+let found=0;
+
+jobSkills.forEach(skill=>{
+if(skills.includes(skill))found++;
+});
+
+let score=jobSkills.length
+?Math.round(found/jobSkills.length*100)
+:50;
+
+const missing=jobSkills.filter(x=>!skills.includes(x));
+
+document.getElementById("match").style.display="block";
+
+document.getElementById("match").innerHTML=
+"<div style='text-align:center'>"+
+"<h3>Your Job Match</h3>"+
+"<div class='score' style='font-size:32px'>"+score+"%</div>"+
+"<p style='color:#64748b;margin-top:8px'>"+
+found+" of "+jobSkills.length+" detected technical skills matched"+
+"</p></div>"+
+"<br><b>Matched Skills</b><div>"+
+chips(jobSkills.filter(x=>skills.includes(x)))+
+"</div>"+
+"<br><b>Skills To Improve</b><div>"+
+chips(missing)+
+"</div>"+
+"<div class='notice'>"+
+(score>=80
+?"Strong match. Your skills closely match this job."
+:score>=60
+?"Good starting match. Consider improving the missing skills."
+:"Your resume needs stronger alignment with this job.")+
+"</div>";
+
+document.getElementById("matchStatus").textContent=score+"%";
+
+document.getElementById("match").scrollIntoView({
+behavior:"smooth",block:"start"
+});
+}
+
+function v(id){
+return document.getElementById(id).value.trim();
+}
+
+function esc(x){
+return String(x)
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
 .replace(/"/g,"&quot;")
 .replace(/'/g,"&#039;");
-
 }
 
+function copyBox(id){
 
-function copyResume(){
+const el=document.getElementById(id);
 
-const resume=
-document
-.getElementById("resume");
-
-
-if(
-resume.style.display==="none"
-){
-
-alert(
-"Create your resume first."
-);
-
+if(el.style.display==="none"){
+alert("Create the content first.");
 return;
-
 }
 
-
-const text=
-resume.innerText;
-
-
-if(
-navigator.clipboard &&
-navigator.clipboard.writeText
-){
-
-navigator.clipboard
-.writeText(text)
-.then(function(){
-
-alert("Resume copied!");
-
-})
-.catch(function(){
-
-alert(
-"Copy failed. You can select the resume text manually."
-);
-
-});
-
-}else{
-
-alert(
-"Clipboard is not available. Select and copy the resume manually."
-);
-
+navigator.clipboard.writeText(el.innerText)
+.then(()=>alert("Copied successfully!"))
+.catch(()=>alert("Copy failed. Select the text manually."));
 }
 
+function printPage(){
+window.print();
 }
-
 </script>
 
 </body>
