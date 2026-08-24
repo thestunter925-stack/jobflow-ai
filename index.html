@@ -2,34 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f172a">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
 <meta name="description" content="JobFlow AI - Intelligent Career Management Platform">
-<meta name="application-name" content="JobFlow AI">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
 <link rel="manifest" href="manifest.json">
+
 <title>JobFlow AI</title>
 
 <style>
+
+/* =========================================================
+   JOBFLOW AI — CORE DESIGN SYSTEM
+   ========================================================= */
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-}
-
-:root{
-  --bg:#f4f7fb;
-  --surface:#ffffff;
-  --surface2:#f8fafc;
-  --text:#111827;
-  --muted:#64748b;
-  --line:#e2e8f0;
-  --primary:#2563eb;
-  --primary-dark:#1d4ed8;
-  --success:#16a34a;
-  --warning:#d97706;
-  --danger:#dc2626;
-  --shadow:0 8px 30px rgba(15,23,42,.07);
-  --radius:18px;
 }
 
 html{
@@ -37,27 +29,37 @@ html{
 }
 
 body{
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  background:#f5f7fb;
+  color:#172033;
   min-height:100vh;
   overflow-x:hidden;
 }
 
 button,
 input,
-select,
-textarea{
+textarea,
+select{
   font:inherit;
-}
-
-button,
-a{
-  -webkit-tap-highlight-color:transparent;
 }
 
 button{
   cursor:pointer;
+}
+
+button:focus,
+input:focus,
+textarea:focus,
+select:focus{
+  outline:2px solid rgba(37,99,235,.2);
+  outline-offset:1px;
 }
 
 a{
@@ -65,272 +67,256 @@ a{
   text-decoration:none;
 }
 
-img{
-  max-width:100%;
-  display:block;
-}
-
 .hidden{
   display:none!important;
 }
 
+/* =========================================================
+   APP SHELL
+   ========================================================= */
+
 .app{
   min-height:100vh;
+  display:flex;
 }
 
-/* =========================================
+/* =========================================================
    SIDEBAR
-   ========================================= */
+   ========================================================= */
 
 .sidebar{
   position:fixed;
-  z-index:1000;
   left:0;
   top:0;
   bottom:0;
   width:250px;
-  background:#0f172a;
-  color:#fff;
-  padding:22px 14px;
+  background:#fff;
+  border-right:1px solid #e8edf5;
+  z-index:100;
   display:flex;
   flex-direction:column;
   transition:transform .2s ease;
 }
 
 .brand{
+  height:76px;
   display:flex;
   align-items:center;
-  gap:11px;
-  padding:5px 10px 25px;
+  gap:12px;
+  padding:0 22px;
+  border-bottom:1px solid #edf0f5;
 }
 
-.brand-logo{
-  width:42px;
-  height:42px;
-  border-radius:13px;
+.brand-mark{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  background:#2563eb;
+  color:#fff;
   display:grid;
   place-items:center;
-  background:linear-gradient(135deg,#3b82f6,#7c3aed);
-  font-size:21px;
   font-weight:800;
-  box-shadow:0 8px 20px rgba(59,130,246,.25);
+  font-size:18px;
+  box-shadow:0 8px 20px rgba(37,99,235,.2);
 }
 
-.brand-text strong{
-  display:block;
-  font-size:18px;
-  letter-spacing:-.3px;
+.brand-text{
+  font-size:19px;
+  font-weight:800;
+  letter-spacing:-.4px;
 }
 
 .brand-text span{
-  display:block;
-  margin-top:2px;
-  color:#94a3b8;
-  font-size:11px;
+  color:#2563eb;
 }
 
 .nav{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
+  padding:18px 12px;
   flex:1;
+  overflow-y:auto;
 }
 
 .nav-label{
-  padding:15px 11px 7px;
-  color:#64748b;
+  padding:10px 12px 8px;
+  color:#9aa4b5;
   font-size:10px;
+  font-weight:800;
   text-transform:uppercase;
   letter-spacing:1px;
-  font-weight:700;
 }
 
 .nav-item{
   width:100%;
   border:0;
   background:transparent;
-  color:#cbd5e1;
-  min-height:45px;
-  border-radius:11px;
+  color:#667085;
+  padding:11px 12px;
+  border-radius:9px;
   display:flex;
   align-items:center;
   gap:12px;
-  padding:0 12px;
+  margin:3px 0;
   text-align:left;
-  font-size:13px;
-  transition:background .15s,color .15s;
+  font-size:14px;
+  transition:.15s ease;
 }
 
 .nav-item:hover{
-  background:#1e293b;
-  color:#fff;
+  background:#f4f7fc;
+  color:#2563eb;
 }
 
 .nav-item.active{
-  background:#2563eb;
-  color:#fff;
-  box-shadow:0 5px 18px rgba(37,99,235,.25);
+  background:#eff6ff;
+  color:#2563eb;
+  font-weight:700;
 }
 
 .nav-icon{
-  width:21px;
+  width:20px;
   text-align:center;
-  font-size:17px;
-  flex:none;
+  font-size:16px;
 }
 
-.nav-badge{
+.nav-count{
   margin-left:auto;
-  min-width:20px;
-  height:20px;
+  min-width:22px;
+  height:21px;
   padding:0 6px;
   border-radius:20px;
+  background:#edf2f7;
+  color:#64748b;
+  font-size:11px;
   display:grid;
   place-items:center;
-  background:#334155;
-  font-size:10px;
+}
+
+.nav-item.active .nav-count{
+  background:#dbeafe;
+  color:#2563eb;
 }
 
 .sidebar-bottom{
-  border-top:1px solid #1e293b;
-  padding-top:12px;
+  padding:14px;
+  border-top:1px solid #edf0f5;
 }
 
-.connection{
+.profile-mini{
   display:flex;
   align-items:center;
-  gap:8px;
-  padding:10px;
-  color:#94a3b8;
-  font-size:11px;
+  gap:10px;
+  padding:9px;
+  border-radius:10px;
+  background:#f8fafc;
 }
 
-.connection-dot{
-  width:7px;
-  height:7px;
+.avatar{
+  width:34px;
+  height:34px;
   border-radius:50%;
-  background:#22c55e;
+  background:#dbeafe;
+  color:#2563eb;
+  display:grid;
+  place-items:center;
+  font-size:13px;
+  font-weight:800;
 }
 
-.offline-mode .connection-dot{
-  background:#ef4444;
+.profile-mini strong{
+  display:block;
+  font-size:12px;
 }
 
-/* =========================================
+.profile-mini small{
+  display:block;
+  margin-top:2px;
+  color:#98a2b3;
+  font-size:10px;
+}
+
+/* =========================================================
    MAIN
-   ========================================= */
+   ========================================================= */
 
 .main{
+  width:calc(100% - 250px);
   margin-left:250px;
   min-height:100vh;
 }
 
 .topbar{
-  height:70px;
+  height:76px;
+  background:rgba(255,255,255,.96);
+  border-bottom:1px solid #e8edf5;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
   position:sticky;
   top:0;
-  z-index:500;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid var(--line);
+  z-index:50;
+  backdrop-filter:blur(10px);
+}
+
+.topbar-left{
   display:flex;
   align-items:center;
-  gap:14px;
-  padding:0 28px;
+  gap:15px;
 }
 
-.menu-btn{
-  display:none;
-  width:40px;
-  height:40px;
-  border:1px solid var(--line);
-  background:var(--surface);
-  border-radius:11px;
+.page-title{
+  font-size:21px;
+  font-weight:800;
+  letter-spacing:-.4px;
 }
 
-.topbar-title{
-  flex:1;
+.page-subtitle{
+  margin-top:3px;
+  color:#8a94a6;
+  font-size:12px;
 }
 
-.topbar-title h1{
-  font-size:18px;
-  letter-spacing:-.3px;
-}
-
-.topbar-title p{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:2px;
-}
-
-.topbar-actions{
+.topbar-right{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
 }
 
-.icon-btn{
-  width:40px;
-  height:40px;
-  border:1px solid var(--line);
-  border-radius:11px;
+.icon-button{
+  width:38px;
+  height:38px;
+  border:1px solid #e7ebf2;
   background:#fff;
+  color:#64748b;
+  border-radius:9px;
   display:grid;
   place-items:center;
   position:relative;
-  font-size:17px;
 }
 
-.icon-btn:hover{
-  border-color:#bfdbfe;
-  background:#eff6ff;
+.icon-button:hover{
+  background:#f8fafc;
+  color:#2563eb;
 }
 
 .notification-dot{
   position:absolute;
-  right:8px;
-  top:7px;
   width:7px;
   height:7px;
   border-radius:50%;
   background:#ef4444;
+  right:8px;
+  top:7px;
   border:2px solid #fff;
 }
 
-.user-mini{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  padding-left:6px;
+.menu-button{
+  display:none;
 }
 
-.avatar{
-  width:36px;
-  height:36px;
-  border-radius:11px;
-  display:grid;
-  place-items:center;
-  background:#dbeafe;
-  color:#1d4ed8;
-  font-weight:800;
-  font-size:13px;
-}
-
-.user-mini strong{
-  display:block;
-  font-size:12px;
-}
-
-.user-mini span{
-  display:block;
-  color:var(--muted);
-  font-size:10px;
-  margin-top:2px;
-}
-
-/* =========================================
+/* =========================================================
    CONTENT
-   ========================================= */
+   ========================================================= */
 
 .content{
   padding:28px;
@@ -338,121 +324,170 @@ img{
   margin:auto;
 }
 
+.dashboard-section{
+  animation:fadeIn .18s ease;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(4px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.section-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:22px;
+}
+
+.section-header h2{
+  font-size:19px;
+  letter-spacing:-.3px;
+}
+
+.section-header p{
+  color:#8a94a6;
+  font-size:12px;
+  margin-top:5px;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
 .hero{
-  border-radius:24px;
+  background:linear-gradient(135deg,#1d4ed8,#2563eb 55%,#3b82f6);
+  border-radius:18px;
   padding:28px;
-  background:
-    radial-gradient(circle at 90% 10%,rgba(124,58,237,.22),transparent 30%),
-    linear-gradient(135deg,#0f172a,#172554);
   color:#fff;
+  margin-bottom:22px;
   position:relative;
   overflow:hidden;
-  margin-bottom:22px;
 }
 
 .hero:after{
   content:"";
   position:absolute;
-  width:180px;
-  height:180px;
-  right:-60px;
-  bottom:-70px;
+  width:240px;
+  height:240px;
   border-radius:50%;
-  border:35px solid rgba(255,255,255,.05);
+  right:-80px;
+  top:-110px;
+  background:rgba(255,255,255,.09);
 }
 
-.hero-content{
+.hero h1{
   position:relative;
-  z-index:2;
-  max-width:760px;
-}
-
-.hero-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:6px 10px;
-  border-radius:30px;
-  background:rgba(255,255,255,.1);
-  border:1px solid rgba(255,255,255,.12);
-  color:#bfdbfe;
-  font-size:10px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.7px;
-  margin-bottom:12px;
-}
-
-.hero h2{
-  font-size:clamp(25px,4vw,38px);
-  line-height:1.08;
-  letter-spacing:-1px;
+  z-index:1;
+  font-size:27px;
+  line-height:1.2;
+  max-width:650px;
+  letter-spacing:-.7px;
 }
 
 .hero p{
-  color:#cbd5e1;
+  position:relative;
+  z-index:1;
+  color:#dbeafe;
   font-size:13px;
-  line-height:1.7;
-  margin-top:10px;
-  max-width:650px;
+  margin-top:9px;
+  max-width:620px;
 }
 
 .hero-actions{
+  position:relative;
+  z-index:2;
   display:flex;
-  flex-wrap:wrap;
   gap:9px;
-  margin-top:20px;
+  margin-top:19px;
+  flex-wrap:wrap;
 }
 
-.primary-btn,
-.secondary-btn{
+.hero-button{
   border:0;
-  min-height:42px;
-  padding:0 16px;
-  border-radius:11px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
+  padding:10px 15px;
+  border-radius:8px;
+  background:#fff;
+  color:#1d4ed8;
   font-size:12px;
   font-weight:700;
 }
 
-.primary-btn{
-  background:var(--primary);
+.hero-button.secondary{
+  background:rgba(255,255,255,.13);
   color:#fff;
+  border:1px solid rgba(255,255,255,.25);
 }
 
-.primary-btn:hover{
-  background:var(--primary-dark);
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:22px;
 }
 
-.secondary-btn{
+.stat-card{
   background:#fff;
-  color:#1e293b;
+  border:1px solid #e9edf3;
+  border-radius:13px;
+  padding:17px;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  min-width:0;
 }
 
-.secondary-btn:hover{
-  background:#f8fafc;
+.stat-icon{
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  background:#eff6ff;
+  display:grid;
+  place-items:center;
+  font-size:17px;
+  flex:none;
 }
 
-/* =========================================
-   SEARCH
-   ========================================= */
+.stat-card small{
+  display:block;
+  color:#8a94a6;
+  font-size:10px;
+  margin-bottom:4px;
+}
+
+.stat-card strong{
+  font-size:21px;
+  letter-spacing:-.5px;
+}
+
+/* =========================================================
+   SEARCH PANEL
+   ========================================================= */
 
 .search-panel{
   background:#fff;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:17px;
-  box-shadow:var(--shadow);
+  border:1px solid #e8edf5;
+  border-radius:14px;
+  padding:18px;
   margin-bottom:22px;
 }
 
 .search-grid{
   display:grid;
-  grid-template-columns:2fr 1.3fr 1fr 1fr 1fr auto;
-  gap:9px;
+  grid-template-columns:1.5fr 1.2fr 1fr auto;
+  gap:12px;
+  align-items:end;
 }
 
 .field{
@@ -461,185 +496,128 @@ img{
 
 .field label{
   display:block;
-  color:#475569;
-  font-size:10px;
+  color:#667085;
+  font-size:11px;
   font-weight:700;
-  margin:0 0 6px 2px;
+  margin-bottom:6px;
 }
 
 .field input,
-.field select,
-.field textarea{
+.field textarea,
+.field select{
   width:100%;
-  min-height:42px;
-  border:1px solid var(--line);
-  background:#f8fafc;
-  border-radius:10px;
-  outline:none;
-  padding:0 11px;
-  color:var(--text);
+  border:1px solid #dfe5ee;
+  background:#fff;
+  color:#172033;
+  border-radius:8px;
+  padding:10px 11px;
   font-size:12px;
-  transition:border .15s,box-shadow .15s;
 }
 
 .field textarea{
-  padding-top:10px;
   resize:vertical;
+  line-height:1.5;
 }
 
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
-  border-color:#93c5fd;
-  box-shadow:0 0 0 3px rgba(37,99,235,.08);
-  background:#fff;
+.field input::placeholder,
+.field textarea::placeholder{
+  color:#aab2bf;
+}
+
+.primary-btn,
+.secondary-btn{
+  border:0;
+  border-radius:8px;
+  padding:10px 15px;
+  font-size:12px;
+  font-weight:700;
+  transition:.15s ease;
+}
+
+.primary-btn{
+  background:#2563eb;
+  color:#fff;
+}
+
+.primary-btn:hover{
+  background:#1d4ed8;
+}
+
+.secondary-btn{
+  background:#f1f5f9;
+  color:#334155;
+  margin-left:7px;
+}
+
+.secondary-btn:hover{
+  background:#e2e8f0;
 }
 
 .search-button{
-  align-self:end;
-}
-
-/* =========================================
-   QUICK CARDS
-   ========================================= */
-
-.quick-actions{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:25px;
-}
-
-.quick-card{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:15px;
-  min-height:78px;
-  padding:13px;
   display:flex;
-  align-items:center;
-  gap:11px;
-  text-align:left;
-  box-shadow:0 4px 16px rgba(15,23,42,.035);
-  transition:transform .15s,border .15s;
+  align-items:end;
 }
 
-.quick-card:hover{
-  transform:translateY(-2px);
-  border-color:#bfdbfe;
-}
-
-.quick-icon{
-  width:40px;
-  height:40px;
-  flex:none;
-  border-radius:11px;
-  background:#eff6ff;
-  display:grid;
-  place-items:center;
-  font-size:18px;
-}
-
-.quick-card strong{
-  display:block;
-  font-size:12px;
-}
-
-.quick-card small{
-  display:block;
-  color:var(--muted);
-  font-size:10px;
-  margin-top:3px;
-}
-
-/* =========================================
-   SECTION
-   ========================================= */
-
-.dashboard-section{
-  margin-bottom:28px;
-}
-
-.section-header{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:13px;
-}
-
-.section-header h2{
-  font-size:17px;
-  letter-spacing:-.3px;
-}
-
-.section-header p{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
-}
-
-.text-btn{
-  border:0;
-  background:transparent;
-  color:var(--primary);
-  font-size:11px;
-  font-weight:700;
-  padding:6px;
-}
-
-/* =========================================
-   JOB CARDS
-   ========================================= */
+/* =========================================================
+   JOB GRID
+   ========================================================= */
 
 .job-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:13px;
+  gap:15px;
 }
 
 .job-card{
   background:#fff;
-  border:1px solid var(--line);
-  border-radius:17px;
-  padding:16px;
-  box-shadow:0 4px 18px rgba(15,23,42,.035);
-  transition:transform .15s,box-shadow .15s,border .15s;
+  border:1px solid #e8edf5;
+  border-radius:13px;
+  padding:17px;
+  transition:.15s ease;
+  cursor:pointer;
+  min-width:0;
 }
 
 .job-card:hover{
-  transform:translateY(-3px);
-  border-color:#bfdbfe;
-  box-shadow:var(--shadow);
+  border-color:#c9d9f7;
+  box-shadow:0 10px 28px rgba(16,24,40,.06);
+  transform:translateY(-1px);
 }
 
 .job-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:12px;
+  margin-bottom:13px;
 }
 
 .company-logo{
-  width:40px;
-  height:40px;
-  border-radius:11px;
-  background:#eef2ff;
-  color:#4338ca;
+  width:38px;
+  height:38px;
+  border-radius:9px;
+  background:#eff6ff;
+  color:#2563eb;
   display:grid;
   place-items:center;
-  font-size:15px;
   font-weight:800;
+  font-size:14px;
+}
+
+.company-logo.large{
+  width:50px;
+  height:50px;
+  font-size:19px;
+  margin-bottom:13px;
 }
 
 .save-job{
-  width:34px;
-  height:34px;
-  border:1px solid var(--line);
-  border-radius:9px;
-  background:#fff;
+  border:0;
+  background:#f8fafc;
+  color:#94a3b8;
+  width:31px;
+  height:31px;
+  border-radius:8px;
   font-size:18px;
-  color:#64748b;
 }
 
 .save-job:hover{
@@ -648,21 +626,25 @@ img{
 }
 
 .job-card h3{
-  font-size:14px;
-  margin-bottom:4px;
+  font-size:15px;
+  letter-spacing:-.2px;
 }
 
 .company-name{
-  color:#475569;
-  font-size:11px;
+  color:#667085;
+  font-size:12px;
+  margin-top:4px;
 }
 
 .job-meta{
   display:flex;
   flex-wrap:wrap;
-  gap:7px;
-  margin:13px 0;
-  color:#64748b;
+  gap:8px;
+  margin-top:13px;
+}
+
+.job-meta span{
+  color:#7b8798;
   font-size:10px;
 }
 
@@ -670,104 +652,64 @@ img{
   display:flex;
   flex-wrap:wrap;
   gap:5px;
-  margin-bottom:16px;
+  margin-top:12px;
 }
 
 .job-tags span{
-  padding:5px 7px;
   background:#f1f5f9;
-  color:#475569;
-  border-radius:6px;
+  color:#64748b;
+  border-radius:5px;
+  padding:4px 7px;
   font-size:9px;
+  font-weight:600;
 }
 
 .job-bottom{
-  border-top:1px solid var(--line);
-  padding-top:12px;
+  border-top:1px solid #eef1f5;
+  margin-top:15px;
+  padding-top:13px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:10px;
 }
 
 .job-bottom strong{
   font-size:11px;
+  color:#334155;
 }
 
 .apply-btn{
   border:0;
-  background:#eff6ff;
-  color:#1d4ed8;
-  border-radius:8px;
+  background:#2563eb;
+  color:#fff;
+  border-radius:7px;
   padding:7px 11px;
   font-size:10px;
   font-weight:700;
 }
 
 .apply-btn:hover{
-  background:#2563eb;
-  color:#fff;
+  background:#1d4ed8;
 }
 
-/* =========================================
-   STATS
-   ========================================= */
-
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-
-.stat-card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:16px;
-  display:flex;
-  align-items:center;
-  gap:11px;
-}
-
-.stat-icon{
-  width:40px;
-  height:40px;
-  border-radius:11px;
-  display:grid;
-  place-items:center;
-  background:#f1f5f9;
-  font-size:17px;
-}
-
-.stat-card small{
-  display:block;
-  color:var(--muted);
-  font-size:10px;
-}
-
-.stat-card strong{
-  display:block;
-  margin-top:4px;
-  font-size:20px;
-}
-
-/* =========================================
+/* =========================================================
    ACTIVITY
-   ========================================= */
+   ========================================================= */
 
 .activity-list{
   background:#fff;
-  border:1px solid var(--line);
-  border-radius:16px;
+  border:1px solid #e8edf5;
+  border-radius:13px;
   overflow:hidden;
 }
 
 .activity-item{
-  min-height:65px;
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:11px 15px;
-  border-bottom:1px solid var(--line);
+  gap:11px;
+  padding:13px 15px;
+  border-bottom:1px solid #edf0f4;
 }
 
 .activity-item:last-child{
@@ -775,16 +717,17 @@ img{
 }
 
 .activity-icon{
-  width:34px;
-  height:34px;
-  flex:none;
+  width:31px;
+  height:31px;
+  border-radius:8px;
+  background:#eff6ff;
   display:grid;
   place-items:center;
-  background:#eff6ff;
-  border-radius:9px;
+  flex:none;
 }
 
 .activity-item div{
+  min-width:0;
   flex:1;
 }
 
@@ -795,79 +738,279 @@ img{
 
 .activity-item small{
   display:block;
-  color:var(--muted);
-  font-size:10px;
+  color:#98a2b3;
+  font-size:9px;
   margin-top:3px;
 }
 
 .activity-item time{
-  color:#94a3b8;
+  color:#a0a9b7;
   font-size:9px;
 }
 
-/* =========================================
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state{
+  grid-column:1/-1;
+  background:#fff;
+  border:1px dashed #d9e0ea;
+  border-radius:13px;
+  padding:45px 20px;
+  text-align:center;
+}
+
+.empty-state span{
+  font-size:28px;
+}
+
+.empty-state h3{
+  font-size:14px;
+  margin-top:9px;
+}
+
+.empty-state p{
+  color:#8a94a6;
+  font-size:11px;
+  margin-top:5px;
+}
+
+/* =========================================================
+   COMMAND CENTER
+   ========================================================= */
+
+.ai-result,
+.command-result{
+  margin-top:15px;
+}
+
+.ai-result{
+  background:#eff6ff;
+  border:1px solid #dbeafe;
+  border-radius:11px;
+  padding:15px;
+}
+
+.ai-result strong{
+  display:block;
+  color:#1d4ed8;
+  font-size:13px;
+}
+
+.ai-result p{
+  margin-top:7px;
+  color:#334155;
+  font-size:12px;
+  line-height:1.55;
+}
+
+.ai-result small{
+  display:block;
+  margin-top:8px;
+  color:#64748b;
+  font-size:10px;
+  line-height:1.5;
+}
+
+/* =========================================================
    MODAL
-   ========================================= */
+   ========================================================= */
 
 .modal{
   position:fixed;
-  z-index:3000;
   inset:0;
+  background:rgba(15,23,42,.48);
+  z-index:500;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:18px;
+  padding:20px;
 }
 
-.modal-backdrop{
-  position:absolute;
-  inset:0;
-  background:rgba(15,23,42,.55);
-  backdrop-filter:blur(4px);
+.modal.hidden{
+  display:none;
 }
 
 .modal-box{
-  position:relative;
-  z-index:2;
-  width:min(600px,100%);
+  width:min(560px,100%);
   max-height:90vh;
   overflow:auto;
   background:#fff;
-  border-radius:20px;
-  box-shadow:0 25px 70px rgba(15,23,42,.25);
-  padding:24px;
+  border-radius:16px;
+  padding:22px;
+  box-shadow:0 25px 60px rgba(0,0,0,.18);
 }
 
-.modal-close,
-.command-close{
-  position:absolute;
-  right:14px;
-  top:14px;
-  width:34px;
-  height:34px;
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.modal-head h2{
+  font-size:17px;
+}
+
+.modal-close{
   border:0;
   background:#f1f5f9;
-  border-radius:9px;
-  font-size:20px;
+  width:32px;
+  height:32px;
+  border-radius:8px;
   color:#64748b;
 }
 
-.modal-loading{
-  min-height:180px;
-  display:grid;
-  place-items:center;
-  text-align:center;
-  color:var(--muted);
+/* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+.notification-panel{
+  position:fixed;
+  right:24px;
+  top:66px;
+  width:320px;
+  max-width:calc(100vw - 30px);
+  background:#fff;
+  border:1px solid #e6ebf2;
+  border-radius:13px;
+  box-shadow:0 18px 45px rgba(15,23,42,.13);
+  z-index:300;
+  overflow:hidden;
 }
 
-.loader{
-  width:30px;
-  height:30px;
+.notification-panel.hidden{
+  display:none;
+}
+
+.notification-head{
+  padding:14px;
+  border-bottom:1px solid #edf0f5;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.notification-head strong{
+  font-size:12px;
+}
+
+.notification-head button{
+  border:0;
+  background:none;
+  color:#2563eb;
+  font-size:10px;
+}
+
+.notification-item{
+  display:flex;
+  gap:10px;
+  padding:13px;
+  border-bottom:1px solid #f0f2f5;
+}
+
+.notification-item>span{
+  font-size:15px;
+}
+
+.notification-item strong{
+  display:block;
+  font-size:11px;
+}
+
+.notification-item small{
+  display:block;
+  color:#8a94a6;
+  font-size:9px;
+  line-height:1.4;
+  margin-top:3px;
+}
+
+.notification-empty{
+  text-align:center;
+  padding:30px 15px;
+}
+
+.notification-empty span{
+  font-size:24px;
+}
+
+.notification-empty p{
+  color:#8a94a6;
+  font-size:11px;
+  margin-top:6px;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translate(-50%,20px);
+  opacity:0;
+  pointer-events:none;
+  background:#172033;
+  color:#fff;
+  padding:10px 15px;
+  border-radius:9px;
+  font-size:11px;
+  z-index:1000;
+  transition:.2s ease;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+.toast.success{
+  background:#15803d;
+}
+
+.toast.error{
+  background:#dc2626;
+}
+
+/* =========================================================
+   LOADER
+   ========================================================= */
+
+.global-loader{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(3px);
+  z-index:2000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.global-loader.show{
+  display:flex;
+}
+
+.loader-box{
+  background:#fff;
+  border:1px solid #e8edf5;
+  border-radius:12px;
+  padding:18px 22px;
+  box-shadow:0 15px 40px rgba(15,23,42,.1);
+  text-align:center;
+}
+
+.spinner{
+  width:25px;
+  height:25px;
   border:3px solid #dbeafe;
   border-top-color:#2563eb;
   border-radius:50%;
-  animation:spin .7s linear infinite;
   margin:auto;
+  animation:spin .7s linear infinite;
 }
 
 @keyframes spin{
@@ -876,353 +1019,37 @@ img{
   }
 }
 
-/* =========================================
-   COMMAND CENTER
-   ========================================= */
-
-.command-center{
-  position:fixed;
-  z-index:4000;
-  inset:0;
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-  padding:12vh 18px 20px;
-}
-
-.command-backdrop{
-  position:absolute;
-  inset:0;
-  background:rgba(15,23,42,.6);
-  backdrop-filter:blur(6px);
-}
-
-.command-box{
-  position:relative;
-  z-index:2;
-  width:min(650px,100%);
-  background:#fff;
-  border-radius:20px;
-  padding:22px;
-  box-shadow:0 25px 80px rgba(15,23,42,.28);
-}
-
-.command-header{
-  padding-right:35px;
-}
-
-.command-badge{
-  display:inline-grid;
-  place-items:center;
-  width:30px;
-  height:22px;
-  border-radius:6px;
-  background:#dbeafe;
-  color:#1d4ed8;
-  font-size:10px;
-  font-weight:800;
-}
-
-.command-header h2{
-  margin-top:8px;
-  font-size:19px;
-}
-
-.command-header p{
-  margin-top:3px;
-  color:var(--muted);
+.loader-box p{
   font-size:11px;
-}
-
-.command-search{
-  margin-top:18px;
-  height:48px;
-  display:flex;
-  align-items:center;
-  gap:9px;
-  border:1px solid #bfdbfe;
-  background:#f8fafc;
-  border-radius:12px;
-  padding:0 12px;
-}
-
-.command-search input{
-  flex:1;
-  min-width:0;
-  border:0;
-  outline:0;
-  background:transparent;
-  font-size:13px;
-}
-
-.command-search kbd{
-  padding:4px 7px;
-  border:1px solid var(--line);
-  border-radius:5px;
   color:#64748b;
-  font-size:9px;
-  background:#fff;
+  margin-top:9px;
 }
 
-.command-suggestions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-  margin-top:12px;
-}
-
-.command-suggestions button{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:9px;
-  padding:10px;
-  text-align:left;
-  font-size:10px;
-}
-
-.command-suggestions button:hover{
-  background:#f8fafc;
-  border-color:#bfdbfe;
-}
-
-.command-result{
-  margin-top:12px;
-}
-
-.ai-result{
-  display:flex;
-  gap:10px;
-  padding:13px;
-  border-radius:11px;
-  background:#f8fafc;
-}
-
-.ai-result-icon{
-  width:32px;
-  height:32px;
-  border-radius:9px;
-  background:#dbeafe;
-  display:grid;
-  place-items:center;
-}
-
-.ai-result strong{
-  font-size:11px;
-}
-
-.ai-result p{
-  color:var(--muted);
-  font-size:10px;
-  line-height:1.6;
-  margin-top:3px;
-}
-
-/* =========================================
-   NOTIFICATIONS
-   ========================================= */
-
-.notification-panel{
-  position:fixed;
-  z-index:2000;
-  right:20px;
-  top:64px;
-  width:min(360px,calc(100vw - 30px));
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:15px;
-  box-shadow:0 20px 50px rgba(15,23,42,.16);
-  overflow:hidden;
-}
-
-.notification-header{
-  padding:14px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid var(--line);
-}
-
-.notification-header strong{
-  display:block;
-  font-size:12px;
-}
-
-.notification-header small{
-  display:block;
-  color:var(--muted);
-  font-size:9px;
-  margin-top:2px;
-}
-
-.notification-list{
-  max-height:380px;
-  overflow:auto;
-}
-
-.notification-item{
-  display:flex;
-  gap:10px;
-  padding:13px;
-  border-bottom:1px solid var(--line);
-}
-
-.notification-icon{
-  width:28px;
-  height:28px;
-  flex:none;
-  border-radius:8px;
-  background:#eff6ff;
-  color:#2563eb;
-  display:grid;
-  place-items:center;
-  font-size:11px;
-  font-weight:800;
-}
-
-.notification-item strong{
-  font-size:10px;
-}
-
-.notification-item p{
-  color:#64748b;
-  font-size:9px;
-  line-height:1.5;
-  margin-top:3px;
-}
-
-.notification-item small{
-  color:#94a3b8;
-  display:block;
-  font-size:8px;
-  margin-top:4px;
-}
-
-.notification-empty{
-  padding:35px 15px;
-  text-align:center;
-  color:var(--muted);
-}
-
-.notification-empty span{
-  display:block;
-  font-size:25px;
-  margin-bottom:7px;
-}
-
-.notification-empty p{
-  font-size:10px;
-}
-
-/* =========================================
-   GLOBAL LOADER
-   ========================================= */
-
-.global-loader{
-  position:fixed;
-  z-index:9999;
-  inset:0;
-  display:none;
-  place-items:center;
-  background:rgba(255,255,255,.45);
-  backdrop-filter:blur(2px);
-}
-
-.global-loader.active{
-  display:grid;
-}
-
-.loader-ring{
-  width:38px;
-  height:38px;
-  border:3px solid #dbeafe;
-  border-top-color:#2563eb;
-  border-radius:50%;
-  animation:spin .65s linear infinite;
-}
-
-/* =========================================
-   TOAST
-   ========================================= */
-
-.toast{
-  position:fixed;
-  z-index:5000;
-  left:50%;
-  bottom:25px;
-  transform:translate(-50%,20px);
-  opacity:0;
-  pointer-events:none;
-  background:#0f172a;
-  color:#fff;
-  padding:10px 15px;
-  border-radius:10px;
-  font-size:11px;
-  box-shadow:0 12px 35px rgba(15,23,42,.2);
-  transition:opacity .18s,transform .18s;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-
-/* =========================================
-   EMPTY STATE
-   ========================================= */
-
-.empty-state{
-  grid-column:1/-1;
-  padding:45px 20px;
-  text-align:center;
-  background:#fff;
-  border:1px dashed #cbd5e1;
-  border-radius:16px;
-}
-
-.empty-state div{
-  font-size:28px;
-}
-
-.empty-state h3{
-  margin-top:8px;
-  font-size:14px;
-}
-
-.empty-state p{
-  color:var(--muted);
-  font-size:10px;
-  margin-top:4px;
-}
-
-/* =========================================
-   MOBILE
-   ========================================= */
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
 @media(max-width:1100px){
 
-  .search-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .search-button{
-    width:100%;
+  .stats-grid{
+    grid-template-columns:repeat(2,1fr);
   }
 
   .job-grid{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .quick-actions{
-    grid-template-columns:repeat(2,1fr);
+  .search-grid{
+    grid-template-columns:1fr 1fr;
   }
 
 }
 
-@media(max-width:800px){
+@media(max-width:760px){
 
   .sidebar{
     transform:translateX(-100%);
-    box-shadow:20px 0 50px rgba(15,23,42,.18);
+    box-shadow:10px 0 35px rgba(15,23,42,.1);
   }
 
   .sidebar.open{
@@ -1230,1476 +1057,141 @@ img{
   }
 
   .main{
+    width:100%;
     margin-left:0;
-  }
-
-  .menu-btn{
-    display:grid;
-    place-items:center;
   }
 
   .topbar{
     padding:0 15px;
+    height:64px;
   }
 
-  .user-mini div{
-    display:none;
+  .menu-button{
+    display:grid;
+  }
+
+  .page-title{
+    font-size:17px;
+  }
+
+  .page-subtitle{
+    font-size:10px;
   }
 
   .content{
-    padding:17px 14px 30px;
+    padding:17px 14px;
   }
 
-  .search-grid{
-    grid-template-columns:1fr 1fr;
+  .hero{
+    padding:21px;
+    border-radius:14px;
   }
 
-  .search-grid .field:first-child{
-    grid-column:1/-1;
+  .hero h1{
+    font-size:22px;
   }
 
   .stats-grid{
     grid-template-columns:1fr 1fr;
+    gap:9px;
   }
 
-}
-
-@media(max-width:560px){
-
-  .hero{
-    padding:21px;
-    border-radius:18px;
+  .stat-card{
+    padding:12px;
   }
 
-  .hero h2{
-    font-size:26px;
+  .stat-icon{
+    width:34px;
+    height:34px;
   }
 
-  .hero-actions{
-    flex-direction:column;
-  }
-
-  .hero-actions button{
-    width:100%;
-  }
-
-  .search-grid{
-    grid-template-columns:1fr;
-  }
-
-  .search-grid .field:first-child{
-    grid-column:auto;
-  }
-
-  .quick-actions{
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-  }
-
-  .quick-card{
-    padding:10px;
-  }
-
-  .quick-card small{
-    display:none;
+  .stat-card strong{
+    font-size:18px;
   }
 
   .job-grid{
     grid-template-columns:1fr;
   }
 
-  .stats-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .topbar-title p{
-    display:none;
-  }
-
-  .topbar-title h1{
-    font-size:15px;
-  }
-
-  .command-suggestions{
+  .search-grid{
     grid-template-columns:1fr;
   }
 
   .notification-panel{
-    right:10px;
-    top:62px;
+    right:14px;
+    top:58px;
   }
 
 }
 
-/* =========================================
-   EXTRA SMALL DEVICES
-   ========================================= */
+@media(max-width:430px){
 
-@media(max-width:390px){
-
-  .content{
-    padding:14px 10px 25px;
-  }
-
-  .topbar{
-    padding:0 10px;
-  }
-
-  .hero{
-    padding:18px;
-  }
-
-  .hero h2{
-    font-size:23px;
-  }
-
-  .quick-actions{
-    grid-template-columns:1fr;
+  .topbar-right .icon-button{
+    width:34px;
+    height:34px;
   }
 
   .stats-grid{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr 1fr;
   }
 
-  .topbar-actions{
-    gap:4px;
+  .hero-actions{
+    flex-direction:column;
   }
 
-  .icon-btn{
-    width:36px;
-    height:36px;
-  }
-
-  .search-panel{
-    padding:12px;
+  .hero-button{
+    width:100%;
   }
 
 }
 
-/* =========================================
-   ACCESSIBILITY
-   ========================================= */
+/* =========================================================
+   END CORE CSS
+   ========================================================= */
 
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-a:focus-visible{
-  outline:3px solid rgba(37,99,235,.25);
-  outline-offset:2px;
-}
-
-/* =========================================
-   REDUCED MOTION
-   ========================================= */
-
-@media(prefers-reduced-motion:reduce){
-
-  html{
-    scroll-behavior:auto;
-  }
-
-  *,
-  *::before,
-  *::after{
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:.01ms!important;
-  }
-
-}
-
-/* =========================================
-   PRINT
-   ========================================= */
-
-@media print{
-
-  .sidebar,
-  .topbar,
-  .hero-actions,
-  .search-panel,
-  .quick-actions,
-  .modal,
-  .command-center,
-  .notification-panel,
-  .toast{
-    display:none!important;
-  }
-
-  .main{
-    margin-left:0;
-  }
-
-  .content{
-    padding:0;
-  }
-
-}
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div id="globalLoader" class="global-loader">
 
-<!-- =========================================
-     SIDEBAR
-     ========================================= -->
+  <div class="loader-box">
 
-<aside class="sidebar" id="sidebar">
+    <div class="spinner"></div>
 
-  <div class="brand">
-    <div class="brand-logo">J</div>
-
-    <div class="brand-text">
-      <strong>JobFlow AI</strong>
-      <span>Career Intelligence</span>
-    </div>
-  </div>
-
-  <nav class="nav">
-
-    <div class="nav-label">
-      Workspace
-    </div>
-
-    <button
-      class="nav-item active"
-      data-page-link="dashboard">
-
-      <span class="nav-icon">⌂</span>
-      <span>Dashboard</span>
-
-    </button>
-
-    <button
-      class="nav-item"
-      data-page-link="jobs">
-
-      <span class="nav-icon">💼</span>
-      <span>Jobs</span>
-
-    </button>
-
-    <button
-      class="nav-item"
-      data-page-link="applications">
-
-      <span class="nav-icon">📋</span>
-      <span>Applications</span>
-
-      <span
-        class="nav-badge"
-        id="sideApplicationCount">
-        0
-      </span>
-
-    </button>
-
-    <button
-      class="nav-item"
-      data-page-link="saved">
-
-      <span class="nav-icon">🔖</span>
-      <span>Saved Jobs</span>
-
-      <span
-        class="nav-badge"
-        id="sideSavedCount">
-        0
-      </span>
-
-    </button>
-
-    <div class="nav-label">
-      Career
-    </div>
-
-    <button
-      class="nav-item"
-      data-page-link="resume">
-
-      <span class="nav-icon">📄</span>
-      <span>Resume</span>
-
-    </button>
-
-    <button
-      class="nav-item"
-      data-page-link="interviews">
-
-      <span class="nav-icon">🎤</span>
-      <span>Interviews</span>
-
-    </button>
-
-    <button
-      class="nav-item"
-      data-page-link="career">
-
-      <span class="nav-icon">🚀</span>
-      <span>Career AI</span>
-
-    </button>
-
-    <div class="nav-label">
-      Account
-    </div>
-
-    <button
-      class="nav-item"
-      data-page-link="profile">
-
-      <span class="nav-icon">👤</span>
-      <span>Profile</span>
-
-    </button>
-
-    <button
-      class="nav-item"
-      data-action="settings">
-
-      <span class="nav-icon">⚙</span>
-      <span>Settings</span>
-
-    </button>
-
-  </nav>
-
-  <div class="sidebar-bottom">
-
-    <div class="connection">
-
-      <span class="connection-dot"></span>
-
-      <span id="connectionStatus">
-        Online
-      </span>
-
-    </div>
-
-  </div>
-
-</aside>
-
-
-<!-- =========================================
-     MAIN APPLICATION
-     ========================================= -->
-
-<main class="main">
-
-  <header class="topbar">
-
-    <button
-      class="menu-btn"
-      id="menuButton"
-      aria-label="Open menu">
-      ☰
-    </button>
-
-    <div class="topbar-title">
-
-      <h1 id="pageTitle">
-        Dashboard
-      </h1>
-
-      <p id="pageSubtitle">
-        Your intelligent career workspace
-      </p>
-
-    </div>
-
-    <div class="topbar-actions">
-
-      <button
-        class="icon-btn"
-        data-open-command
-        aria-label="AI command">
-        ✨
-      </button>
-
-      <button
-        class="icon-btn"
-        data-open-notifications
-        aria-label="Notifications">
-
-        🔔
-
-        <span
-          class="notification-dot">
-        </span>
-
-      </button>
-
-      <button
-        class="icon-btn"
-        data-page-link="profile"
-        aria-label="Profile">
-
-        <span class="avatar">
-          JF
-        </span>
-
-      </button>
-
-    </div>
-
-  </header>
-
-
-  <div class="content">
-
-    <!-- =====================================
-         HERO
-         ===================================== -->
-
-    <section class="hero">
-
-      <div class="hero-content">
-
-        <span class="hero-badge">
-          ✦ AI Career Intelligence
-        </span>
-
-        <h2>
-          Build your next career move
-          with intelligence.
-        </h2>
-
-        <p>
-          Search opportunities, manage applications,
-          optimize your resume and prepare for interviews
-          from one fast career workspace.
-        </p>
-
-        <div class="hero-actions">
-
-          <button
-            class="primary-btn"
-            data-quick-action="search">
-            🔎 Find Jobs
-          </button>
-
-          <button
-            class="secondary-btn"
-            data-quick-action="ai">
-            ✨ Ask JobFlow AI
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================
-         SEARCH
-         ===================================== -->
-
-    <section class="search-panel">
-
-      <div class="search-grid">
-
-        <div class="field">
-
-          <label for="jobKeyword">
-            Job title, skill or keyword
-          </label>
-
-          <input
-            id="jobKeyword"
-            type="search"
-            autocomplete="off"
-            placeholder="Software Engineer, React, Marketing...">
-
-        </div>
-
-        <div class="field">
-
-          <label for="jobLocation">
-            Location
-          </label>
-
-          <input
-            id="jobLocation"
-            type="text"
-            autocomplete="off"
-            placeholder="Hyderabad, Remote...">
-
-        </div>
-
-        <div class="field">
-
-          <label for="jobExperience">
-            Experience
-          </label>
-
-          <select id="jobExperience">
-
-            <option value="">
-              Any
-            </option>
-
-            <option value="fresher">
-              Fresher
-            </option>
-
-            <option value="junior">
-              Junior
-            </option>
-
-            <option value="mid">
-              Mid Level
-            </option>
-
-            <option value="senior">
-              Senior
-            </option>
-
-            <option value="lead">
-              Lead / Manager
-            </option>
-
-          </select>
-
-        </div>
-
-        <div class="field">
-
-          <label for="jobType">
-            Job Type
-          </label>
-
-          <select id="jobType">
-
-            <option value="">
-              Any
-            </option>
-
-            <option value="full-time">
-              Full Time
-            </option>
-
-            <option value="part-time">
-              Part Time
-            </option>
-
-            <option value="internship">
-              Internship
-            </option>
-
-            <option value="contract">
-              Contract
-            </option>
-
-            <option value="remote">
-              Remote
-            </option>
-
-          </select>
-
-        </div>
-
-        <div class="field">
-
-          <label for="jobSalary">
-            Salary
-          </label>
-
-          <select id="jobSalary">
-
-            <option value="">
-              Any
-            </option>
-
-            <option value="0-3">
-              ₹0–3 LPA
-            </option>
-
-            <option value="3-6">
-              ₹3–6 LPA
-            </option>
-
-            <option value="6-10">
-              ₹6–10 LPA
-            </option>
-
-            <option value="10-20">
-              ₹10–20 LPA
-            </option>
-
-            <option value="20+">
-              ₹20+ LPA
-            </option>
-
-          </select>
-
-        </div>
-
-        <div class="search-button">
-
-          <button
-            class="primary-btn"
-            id="searchJobsBtn"
-            style="width:100%;">
-            🔎 Search
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-    
-    <!-- =====================================
-         QUICK ACTIONS
-         ===================================== -->
-
-    <section class="quick-actions">
-
-      <button
-        class="quick-card"
-        data-page-link="applications">
-
-        <span class="quick-icon">📋</span>
-
-        <div>
-          <strong>Applications</strong>
-          <small>Track every application</small>
-        </div>
-
-      </button>
-
-      <button
-        class="quick-card"
-        data-page-link="saved">
-
-        <span class="quick-icon">🔖</span>
-
-        <div>
-          <strong>Saved Jobs</strong>
-          <small>Keep opportunities organized</small>
-        </div>
-
-      </button>
-
-      <button
-        class="quick-card"
-        data-page-link="resume">
-
-        <span class="quick-icon">📄</span>
-
-        <div>
-          <strong>Resume Builder</strong>
-          <small>Improve your resume</small>
-        </div>
-
-      </button>
-
-      <button
-        class="quick-card"
-        data-page-link="interviews">
-
-        <span class="quick-icon">🎤</span>
-
-        <div>
-          <strong>Interview Prep</strong>
-          <small>Prepare with intelligence</small>
-        </div>
-
-      </button>
-
-    </section>
-
-
-    <!-- =====================================
-         RECOMMENDED JOBS
-         ===================================== -->
-
-    <section
-      class="dashboard-section"
-      id="jobsSection">
-
-      <div class="section-header">
-
-        <div>
-          <h2>Recommended Jobs</h2>
-
-          <p>
-            Opportunities selected for your career profile
-          </p>
-        </div>
-
-        <button
-          class="text-btn"
-          data-page-link="jobs">
-          View All →
-        </button>
-
-      </div>
-
-      <div
-        id="recommendedJobs"
-        class="job-grid">
-
-        <!-- JOB 1 -->
-
-        <article class="job-card">
-
-          <div class="job-top">
-
-            <div class="company-logo">
-              G
-            </div>
-
-            <button
-              class="save-job"
-              data-demo-save="1"
-              aria-label="Save job">
-              ♡
-            </button>
-
-          </div>
-
-          <h3>
-            Software Developer
-          </h3>
-
-          <p class="company-name">
-            Growth Technologies
-          </p>
-
-          <div class="job-meta">
-
-            <span>
-              📍 Hyderabad
-            </span>
-
-            <span>
-              💼 Full Time
-            </span>
-
-          </div>
-
-          <div class="job-tags">
-
-            <span>JavaScript</span>
-            <span>React</span>
-            <span>Node.js</span>
-
-          </div>
-
-          <div class="job-bottom">
-
-            <strong>
-              ₹6–10 LPA
-            </strong>
-
-            <button
-              class="apply-btn"
-              data-demo-apply="1">
-              Apply
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <!-- JOB 2 -->
-
-        <article class="job-card">
-
-          <div class="job-top">
-
-            <div class="company-logo">
-              A
-            </div>
-
-            <button
-              class="save-job"
-              data-demo-save="2"
-              aria-label="Save job">
-              ♡
-            </button>
-
-          </div>
-
-          <h3>
-            Product Analyst
-          </h3>
-
-          <p class="company-name">
-            Apex Digital
-          </p>
-
-          <div class="job-meta">
-
-            <span>
-              📍 Bengaluru
-            </span>
-
-            <span>
-              💼 Full Time
-            </span>
-
-          </div>
-
-          <div class="job-tags">
-
-            <span>SQL</span>
-            <span>Analytics</span>
-            <span>Excel</span>
-
-          </div>
-
-          <div class="job-bottom">
-
-            <strong>
-              ₹5–8 LPA
-            </strong>
-
-            <button
-              class="apply-btn"
-              data-demo-apply="2">
-              Apply
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <!-- JOB 3 -->
-
-        <article class="job-card">
-
-          <div class="job-top">
-
-            <div class="company-logo">
-              N
-            </div>
-
-            <button
-              class="save-job"
-              data-demo-save="3"
-              aria-label="Save job">
-              ♡
-            </button>
-
-          </div>
-
-          <h3>
-            UI/UX Designer
-          </h3>
-
-          <p class="company-name">
-            Nova Labs
-          </p>
-
-          <div class="job-meta">
-
-            <span>
-              📍 Remote
-            </span>
-
-            <span>
-              💼 Contract
-            </span>
-
-          </div>
-
-          <div class="job-tags">
-
-            <span>Figma</span>
-            <span>UI Design</span>
-            <span>UX</span>
-
-          </div>
-
-          <div class="job-bottom">
-
-            <strong>
-              ₹4–7 LPA
-            </strong>
-
-            <button
-              class="apply-btn"
-              data-demo-apply="3">
-              Apply
-            </button>
-
-          </div>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================
-         CAREER INTELLIGENCE
-         ===================================== -->
-
-    <section class="dashboard-section">
-
-      <div class="section-header">
-
-        <div>
-
-          <h2>
-            Career Intelligence
-          </h2>
-
-          <p>
-            Your current JobFlow performance
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="stats-grid">
-
-        <!-- PROFILE -->
-
-        <div class="stat-card">
-
-          <span class="stat-icon">
-            🎯
-          </span>
-
-          <div>
-
-            <small>
-              Profile Match
-            </small>
-
-            <strong id="profileMatch">
-              82%
-            </strong>
-
-          </div>
-
-        </div>
-
-
-        <!-- APPLICATIONS -->
-
-        <div class="stat-card">
-
-          <span class="stat-icon">
-            📬
-          </span>
-
-          <div>
-
-            <small>
-              Applications
-            </small>
-
-            <strong id="applicationCount">
-              0
-            </strong>
-
-          </div>
-
-        </div>
-
-
-        <!-- SAVED -->
-
-        <div class="stat-card">
-
-          <span class="stat-icon">
-            🔖
-          </span>
-
-          <div>
-
-            <small>
-              Saved Jobs
-            </small>
-
-            <strong id="savedCount">
-              0
-            </strong>
-
-          </div>
-
-        </div>
-
-
-        <!-- AI SCORE -->
-
-        <div class="stat-card">
-
-          <span class="stat-icon">
-            ⚡
-          </span>
-
-          <div>
-
-            <small>
-              AI Score
-            </small>
-
-            <strong id="aiScore">
-              91
-            </strong>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================
-         RECENT ACTIVITY
-         ===================================== -->
-
-    <section class="dashboard-section">
-
-      <div class="section-header">
-
-        <div>
-
-          <h2>
-            Recent Activity
-          </h2>
-
-          <p>
-            Your latest career actions
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div
-        id="activityList"
-        class="activity-list">
-
-        <div class="activity-item">
-
-          <span class="activity-icon">
-            🚀
-          </span>
-
-          <div>
-
-            <strong>
-              JobFlow AI is ready
-            </strong>
-
-            <small>
-              Your career workspace is active.
-            </small>
-
-          </div>
-
-          <time>
-            Now
-          </time>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================
-         AI CAREER INSIGHTS
-         ===================================== -->
-
-    <section class="dashboard-section">
-
-      <div class="section-header">
-
-        <div>
-
-          <h2>
-            AI Career Insights
-          </h2>
-
-          <p>
-            Intelligent recommendations for your next move
-          </p>
-
-        </div>
-
-        <button
-          class="text-btn"
-          data-quick-action="ai">
-          Ask AI →
-        </button>
-
-      </div>
-
-
-      <div class="job-grid">
-
-        <article class="job-card">
-
-          <div class="job-top">
-
-            <div class="company-logo">
-              ✦
-            </div>
-
-          </div>
-
-          <h3>
-            Improve Your Profile
-          </h3>
-
-          <p class="company-name">
-            Your profile can become more competitive.
-          </p>
-
-          <div class="job-meta">
-            <span>
-              🎯 82% Match
-            </span>
-          </div>
-
-          <div class="job-tags">
-
-            <span>
-              Skills
-            </span>
-
-            <span>
-              Experience
-            </span>
-
-            <span>
-              Resume
-            </span>
-
-          </div>
-
-          <div class="job-bottom">
-
-            <strong>
-              High Impact
-            </strong>
-
-            <button
-              class="apply-btn"
-              data-page-link="profile">
-              Improve
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <article class="job-card">
-
-          <div class="job-top">
-
-            <div class="company-logo">
-              📄
-            </div>
-
-          </div>
-
-          <h3>
-            Resume Optimization
-          </h3>
-
-          <p class="company-name">
-            Optimize your resume for modern ATS systems.
-          </p>
-
-          <div class="job-meta">
-            <span>
-              ⚡ ATS Ready
-            </span>
-          </div>
-
-          <div class="job-tags">
-
-            <span>
-              ATS
-            </span>
-
-            <span>
-              Keywords
-            </span>
-
-            <span>
-              Formatting
-            </span>
-
-          </div>
-
-          <div class="job-bottom">
-
-            <strong>
-              Recommended
-            </strong>
-
-            <button
-              class="apply-btn"
-              data-page-link="resume">
-              Optimize
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <article class="job-card">
-
-          <div class="job-top">
-
-            <div class="company-logo">
-              🎤
-            </div>
-
-          </div>
-
-          <h3>
-            Interview Readiness
-          </h3>
-
-          <p class="company-name">
-            Practice questions based on your target role.
-          </p>
-
-          <div class="job-meta">
-            <span>
-              🧠 AI Practice
-            </span>
-          </div>
-
-          <div class="job-tags">
-
-            <span>
-              Questions
-            </span>
-
-            <span>
-              Answers
-            </span>
-
-            <span>
-              Feedback
-            </span>
-
-          </div>
-
-          <div class="job-bottom">
-
-            <strong>
-              Practice
-            </strong>
-
-            <button
-              class="apply-btn"
-              data-page-link="interviews">
-              Start
-            </button>
-
-          </div>
-
-        </article>
-
-      </div>
-
-    </section>
-
-  </div>
-
-</main>
-
-</div>
-
-
-<!-- =========================================
-     JOB DETAILS MODAL
-     ========================================= -->
-
-<div
-  id="jobDetailsModal"
-  class="modal hidden">
-
-  <div
-    class="modal-backdrop"
-    data-close-modal>
-  </div>
-
-  <div class="modal-box">
-
-    <button
-      class="modal-close"
-      data-close-modal>
-      ×
-    </button>
-
-    <div id="jobDetailsContent">
-
-      <div class="modal-loading">
-
-        <div>
-
-          <div class="loader"></div>
-
-          <p style="margin-top:10px;">
-            Loading...
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
+    <p>
+      Loading JobFlow AI...
+    </p>
 
   </div>
 
 </div>
 
 
-<!-- =========================================
-     AI COMMAND CENTER
-     ========================================= -->
-
-<div
-  id="aiCommandCenter"
-  class="command-center hidden">
-
-  <div
-    class="command-backdrop"
-    data-close-command>
-  </div>
-
-  <div class="command-box">
-
-    <div class="command-header">
-
-      <span class="command-badge">
-        AI
-      </span>
-
-      <h2>
-        JobFlow Intelligence
-      </h2>
-
-      <p>
-        Ask anything about your career.
-      </p>
-
-    </div>
-
-    <button
-      class="command-close"
-      data-close-command>
-      ×
-    </button>
-
-    <div class="command-search">
-
-      <span>⌕</span>
-
-      <input
-        id="aiCommandInput"
-        type="text"
-        autocomplete="off"
-        placeholder="Ask JobFlow AI...">
-
-      <kbd>
-        Enter
-      </kbd>
-
-    </div>
-
-    <div class="command-suggestions">
-
-      <button
-        data-ai-command="Find my best jobs">
-        🎯 Find my best jobs
-      </button>
-
-      <button
-        data-ai-command="Improve my resume">
-        📄 Improve my resume
-      </button>
-
-      <button
-        data-ai-command="Show my applications">
-        📋 Show applications
-      </button>
-
-      <button
-        data-ai-command="Analyze my career">
-        🧠 Analyze my career
-      </button>
-
-    </div>
-
-    <div
-      id="aiCommandResult"
-      class="command-result">
-    </div>
-
-  </div>
-
-</div>
+<div id="toast" class="toast"></div>
 
 
-<!-- =========================================
-     NOTIFICATIONS
-     ========================================= -->
+<div id="notificationPanel"
+     class="notification-panel hidden">
 
-<div
-  id="notificationPanel"
-  class="notification-panel hidden">
+  <div class="notification-head">
 
-  <div class="notification-header">
+    <strong>
+      Notifications
+    </strong>
 
-    <div>
-
-      <strong>
-        Notifications
-      </strong>
-
-      <small id="notificationCount">
-        0 new
-      </small>
-
-    </div>
-
-    <button
-      id="clearNotifications"
-      class="text-btn">
+    <button id="clearNotifications">
       Clear
     </button>
 
   </div>
 
-  <div
-    id="notificationList"
-    class="notification-list">
+  <div id="notificationList">
 
     <div class="notification-empty">
 
-      <span>
-        🔔
-      </span>
+      <span>🔔</span>
 
       <p>
         No new notifications
@@ -2712,2103 +1204,2359 @@ a:focus-visible{
 </div>
 
 
-<!-- =========================================
-     GLOBAL LOADER
-     ========================================= -->
+<div id="jobDetailsModal"
+     class="modal hidden">
 
-<div
-  id="globalLoader"
-  class="global-loader">
+  <div class="modal-box">
 
-  <div class="loader-ring"></div>
-
-</div>
-
-
-<!-- =========================================
-     TOAST
-     ========================================= -->
-
-<div
-  id="toast"
-  class="toast">
-</div>
-<script>
-/* =========================================
-   JOBFLOW AI — ENGINE CONNECTION LAYER
-   ========================================= */
-
-(function(){
-
-"use strict";
-
-/*
-  The application is designed to work with
-  the separate engine files:
-
-  storage-engine.js
-  job-engine.js
-  application-engine.js
-  ats-engine.js
-  resume-engine.js
-  interview-engine.js
-  career-engine.js
-  cover-letter-engine.js
-  analytics-engine.js
-  app-engine.js
-  ui-engine.js
-  app.js
-*/
-
-const JobFlow = {
-
-  version:"2.0.0",
-
-  ready:false,
-
-  engines:{},
-
-  state:{
-    page:"dashboard",
-    applications:[],
-    savedJobs:[],
-    jobs:[],
-    notifications:[],
-    profile:{},
-    activities:[]
-  },
-
-  config:{
-    storageKey:"jobflow_ai_state",
-    defaultPage:"dashboard"
-  }
-
-};
-
-
-/* =========================================
-   SAFE HELPERS
-   ========================================= */
-
-function $(selector){
-
-  return document.querySelector(selector);
-
-}
-
-
-function $$(selector){
-
-  return Array.from(
-    document.querySelectorAll(selector)
-  );
-
-}
-
-
-function showToast(message,type="info"){
-
-  const toast=$("#toast");
-
-  if(!toast) return;
-
-  toast.textContent=message;
-
-  toast.className="toast";
-
-  toast.classList.add("show");
-
-  if(type==="success"){
-    toast.classList.add("success");
-  }
-
-  if(type==="error"){
-    toast.classList.add("error");
-  }
-
-  clearTimeout(
-    showToast.timer
-  );
-
-  showToast.timer=setTimeout(function(){
-
-    toast.classList.remove("show");
-
-  },2600);
-
-}
-
-
-function setLoader(show){
-
-  const loader=$("#globalLoader");
-
-  if(!loader) return;
-
-  loader.classList.toggle(
-    "show",
-    !!show
-  );
-
-}
-
-
-/* =========================================
-   LOCAL STATE
-   ========================================= */
-
-function loadLocalState(){
-
-  try{
-
-    const raw=
-      localStorage.getItem(
-        JobFlow.config.storageKey
-      );
-
-    if(!raw) return;
-
-    const saved=
-      JSON.parse(raw);
-
-    if(saved && typeof saved==="object"){
-
-      JobFlow.state={
-        ...JobFlow.state,
-        ...saved
-      };
-
-    }
-
-  }catch(error){
-
-    console.warn(
-      "JobFlow storage read failed:",
-      error
-    );
-
-  }
-
-}
-
-
-function saveLocalState(){
-
-  try{
-
-    localStorage.setItem(
-
-      JobFlow.config.storageKey,
-
-      JSON.stringify(
-        JobFlow.state
-      )
-
-    );
-
-  }catch(error){
-
-    console.warn(
-      "JobFlow storage write failed:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   ENGINE DETECTION
-   ========================================= */
-
-function detectEngines(){
-
-  const names=[
-
-    "StorageEngine",
-    "JobEngine",
-    "ApplicationEngine",
-    "ATSEngine",
-    "ResumeEngine",
-    "InterviewEngine",
-    "CareerEngine",
-    "CoverLetterEngine",
-    "AnalyticsEngine",
-    "AppEngine",
-    "UIEngine"
-
-  ];
-
-  names.forEach(function(name){
-
-    if(
-      typeof window[name]!=="undefined"
-    ){
-
-      JobFlow.engines[name]=
-        window[name];
-
-    }
-
-  });
-
-}
-
-
-/* =========================================
-   ENGINE ADAPTER
-   ========================================= */
-
-function callEngine(
-  engineName,
-  method,
-  args=[]
-){
-
-  try{
-
-    const engine=
-      JobFlow.engines[engineName];
-
-    if(!engine){
-
-      return null;
-
-    }
-
-    if(
-      typeof engine[method]==="function"
-    ){
-
-      return engine[method](
-        ...args
-      );
-
-    }
-
-  }catch(error){
-
-    console.warn(
-      engineName+
-      "."+
-      method+
-      " failed:",
-      error
-    );
-
-  }
-
-  return null;
-
-}
-
-
-/* =========================================
-   LOAD APPLICATION DATA
-   ========================================= */
-
-function syncEngineData(){
-
-  const jobs=
-    callEngine(
-      "JobEngine",
-      "getJobs"
-    );
-
-  if(Array.isArray(jobs)){
-
-    JobFlow.state.jobs=jobs;
-
-  }
-
-
-  const applications=
-    callEngine(
-      "ApplicationEngine",
-      "getApplications"
-    );
-
-  if(Array.isArray(applications)){
-
-    JobFlow.state.applications=
-      applications;
-
-  }
-
-
-  const saved=
-    callEngine(
-      "JobEngine",
-      "getSavedJobs"
-    );
-
-  if(Array.isArray(saved)){
-
-    JobFlow.state.savedJobs=
-      saved;
-
-  }
-
-
-  const profile=
-    callEngine(
-      "CareerEngine",
-      "getProfile"
-    );
-
-  if(profile){
-
-    JobFlow.state.profile=
-      profile;
-
-  }
-
-
-  saveLocalState();
-
-}
-
-
-/* =========================================
-   PAGE TITLES
-   ========================================= */
-
-const PAGE_INFO={
-
-  dashboard:{
-    title:"Dashboard",
-    subtitle:
-      "Your intelligent career workspace"
-  },
-
-  jobs:{
-    title:"Jobs",
-    subtitle:
-      "Discover opportunities matched to you"
-  },
-
-  applications:{
-    title:"Applications",
-    subtitle:
-      "Track and manage your applications"
-  },
-
-  saved:{
-    title:"Saved Jobs",
-    subtitle:
-      "Your shortlisted opportunities"
-  },
-
-  resume:{
-    title:"Resume",
-    subtitle:
-      "Build a stronger professional profile"
-  },
-
-  interviews:{
-    title:"Interviews",
-    subtitle:
-      "Prepare for your next interview"
-  },
-
-  career:{
-    title:"Career AI",
-    subtitle:
-      "Get intelligent career guidance"
-  },
-
-  profile:{
-    title:"Profile",
-    subtitle:
-      "Manage your career information"
-  }
-
-};
-
-
-function updatePageHeader(page){
-
-  const info=
-    PAGE_INFO[page] ||
-    PAGE_INFO.dashboard;
-
-  const title=
-    $("#pageTitle");
-
-  const subtitle=
-    $("#pageSubtitle");
-
-  if(title){
-
-    title.textContent=
-      info.title;
-
-  }
-
-  if(subtitle){
-
-    subtitle.textContent=
-      info.subtitle;
-
-  }
-
-}
-
-
-/* =========================================
-   NAVIGATION
-   ========================================= */
-
-function navigate(page){
-
-  if(!page) return;
-
-  JobFlow.state.page=
-    page;
-
-  saveLocalState();
-
-  updatePageHeader(page);
-
-  $$(".nav-item").forEach(
-    function(item){
-
-      item.classList.toggle(
-
-        "active",
-
-        item.dataset.pageLink===page
-
-      );
-
-    }
-  );
-
-  /*
-    If the separate engine/application
-    page system exists, let it handle
-    the navigation.
-  */
-
-  const result=
-    callEngine(
-      "AppEngine",
-      "navigate",
-      [page]
-    );
-
-  if(result!==null){
-
-    return;
-
-  }
-
-  /*
-    Fallback navigation.
-
-    This keeps the dashboard usable even
-    when another engine is unavailable.
-  */
-
-  if(page==="dashboard"){
-
-    showDashboard();
-
-    return;
-
-  }
-
-  const routeMap={
-
-    jobs:"jobs.html",
-
-    applications:
-      "applications.html",
-
-    saved:
-      "saved.html",
-
-    resume:
-      "resume.html",
-
-    interviews:
-      "interviews.html",
-
-    career:
-      "career.html",
-
-    profile:
-      "profile.html"
-
-  };
-
-  const target=
-    routeMap[page];
-
-  if(target){
-
-    window.location.href=
-      target;
-
-  }
-
-}
-
-
-/* =========================================
-   DASHBOARD
-   ========================================= */
-
-function showDashboard(){
-
-  const dashboard=
-    document.querySelector(
-      ".content"
-    );
-
-  if(!dashboard) return;
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* =========================================
-   NAVIGATION EVENTS
-   ========================================= */
-
-function bindNavigation(){
-
-  $$("[data-page-link]")
-    .forEach(function(element){
-
-      element.addEventListener(
-        "click",
-        function(event){
-
-          event.preventDefault();
-
-          navigate(
-            element.dataset.pageLink
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================================
-   MOBILE SIDEBAR
-   ========================================= */
-
-function bindMenu(){
-
-  const button=
-    $("#menuButton");
-
-  const sidebar=
-    $("#sidebar");
-
-  if(!button || !sidebar) return;
-
-  button.addEventListener(
-    "click",
-    function(){
-
-      sidebar.classList.toggle(
-        "open"
-      );
-
-    }
-  );
-
-
-  $$(".nav-item")
-    .forEach(function(item){
-
-      item.addEventListener(
-        "click",
-        function(){
-
-          sidebar.classList.remove(
-            "open"
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================================
-   SEARCH
-   ========================================= */
-
-function performSearch(){
-
-  const keyword=
-    $("#jobKeyword")?.value.trim() || "";
-
-  const location=
-    $("#jobLocation")?.value.trim() || "";
-
-  const experience=
-    $("#jobExperience")?.value || "";
-
-  const type=
-    $("#jobType")?.value || "";
-
-  const salary=
-    $("#jobSalary")?.value || "";
-
-
-  const filters={
-
-    keyword,
-    location,
-    experience,
-    type,
-    salary
-
-  };
-
-
-  const result=
-    callEngine(
-      "JobEngine",
-      "search",
-      [filters]
-    );
-
-
-  if(Array.isArray(result)){
-
-    JobFlow.state.jobs=
-      result;
-
-    renderRecommendedJobs(
-      result
-    );
-
-    showToast(
-      result.length+
-      " jobs found",
-      "success"
-    );
-
-    return;
-
-  }
-
-
-  /*
-    Fallback demo filtering
-  */
-
-  let jobs=
-    JobFlow.state.jobs;
-
-  if(!Array.isArray(jobs) || !jobs.length){
-
-    jobs=
-      getDemoJobs();
-
-  }
-
-
-  const filtered=
-    jobs.filter(function(job){
-
-      const text=
-        (
-
-          (job.title||"")+
-          " "+
-          (job.company||"")+
-          " "+
-          (job.location||"")+
-          " "+
-          (job.skills||[]).join(" ")
-
-        ).toLowerCase();
-
-
-      if(
-        keyword &&
-        !text.includes(
-          keyword.toLowerCase()
-        )
-      ){
-
-        return false;
-
-      }
-
-
-      if(
-        location &&
-        !text.includes(
-          location.toLowerCase()
-        )
-      ){
-
-        return false;
-
-      }
-
-
-      return true;
-
-    });
-
-
-  renderRecommendedJobs(
-    filtered
-  );
-
-  showToast(
-    filtered.length+
-    " jobs found",
-    "success"
-  );
-
-}
-
-
-/* =========================================
-   SEARCH EVENTS
-   ========================================= */
-
-function bindSearch(){
-
-  const button=
-    $("#searchJobsBtn");
-
-  if(button){
-
-    button.addEventListener(
-      "click",
-      performSearch
-    );
-
-  }
-
-
-  const inputs=[
-    "#jobKeyword",
-    "#jobLocation"
-  ];
-
-  inputs.forEach(function(selector){
-
-    const input=
-      $(selector);
-
-    if(!input) return;
-
-    input.addEventListener(
-      "keydown",
-      function(event){
-
-        if(
-          event.key==="Enter"
-        ){
-
-          performSearch();
-
-        }
-
-      }
-    );
-
-  });
-
-}
-
-
-/* =========================================
-   DEMO JOB DATA
-   ========================================= */
-
-function getDemoJobs(){
-
-  return [
-
-    {
-      id:"job-1",
-      title:"Software Developer",
-      company:"Growth Technologies",
-      location:"Hyderabad",
-      type:"Full Time",
-      salary:"₹6–10 LPA",
-      skills:[
-        "JavaScript",
-        "React",
-        "Node.js"
-      ]
-    },
-
-    {
-      id:"job-2",
-      title:"Product Analyst",
-      company:"Apex Digital",
-      location:"Bengaluru",
-      type:"Full Time",
-      salary:"₹5–8 LPA",
-      skills:[
-        "SQL",
-        "Analytics",
-        "Excel"
-      ]
-    },
-
-    {
-      id:"job-3",
-      title:"UI/UX Designer",
-      company:"Nova Labs",
-      location:"Remote",
-      type:"Contract",
-      salary:"₹4–7 LPA",
-      skills:[
-        "Figma",
-        "UI Design",
-        "UX"
-      ]
-    }
-
-  ];
-
-}
-
-
-/* =========================================
-   JOB CARD RENDERER
-   ========================================= */
-
-function escapeHTML(value){
-
-  return String(
-    value ?? ""
-  )
-  .replaceAll("&","&amp;")
-  .replaceAll("<","&lt;")
-  .replaceAll(">","&gt;")
-  .replaceAll('"',"&quot;")
-  .replaceAll("'","&#039;");
-
-}
-
-
-function renderRecommendedJobs(
-  jobs
-){
-
-  const container=
-    $("#recommendedJobs");
-
-  if(!container) return;
-
-
-  if(
-    !Array.isArray(jobs) ||
-    jobs.length===0
-  ){
-
-    container.innerHTML=`
-
-      <div class="empty-state">
-
-        <span>🔎</span>
-
-        <h3>
-          No jobs found
-        </h3>
-
-        <p>
-          Try changing your search filters.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML=
-    jobs.slice(0,6)
-    .map(function(job){
-
-      const skills=
-        Array.isArray(job.skills)
-          ? job.skills
-          : [];
-
-
-      return `
-
-        <article class="job-card"
-          data-job-id="${escapeHTML(job.id||"")}">
-
-          <div class="job-top">
-
-            <div class="company-logo">
-              ${escapeHTML(
-                String(
-                  job.company ||
-                  "J"
-                ).charAt(0)
-                .toUpperCase()
-              )}
-            </div>
-
-            <button
-              class="save-job"
-              data-save-job="${escapeHTML(job.id||"")}"
-              aria-label="Save job">
-              ♡
-            </button>
-
-          </div>
-
-          <h3>
-            ${escapeHTML(
-              job.title ||
-              "Untitled Job"
-            )}
-          </h3>
-
-          <p class="company-name">
-            ${escapeHTML(
-              job.company ||
-              "Company"
-            )}
-          </p>
-
-          <div class="job-meta">
-
-            <span>
-              📍 ${escapeHTML(
-                job.location ||
-                "Location not specified"
-              )}
-            </span>
-
-            <span>
-              💼 ${escapeHTML(
-                job.type ||
-                "Full Time"
-              )}
-            </span>
-
-          </div>
-
-          <div class="job-tags">
-
-            ${skills
-              .slice(0,3)
-              .map(
-                skill =>
-                  `<span>${escapeHTML(skill)}</span>`
-              )
-              .join("")
-            }
-
-          </div>
-
-          <div class="job-bottom">
-
-            <strong>
-              ${escapeHTML(
-                job.salary ||
-                "Salary not specified"
-              )}
-            </strong>
-
-            <button
-              class="apply-btn"
-              data-apply-job="${escapeHTML(job.id||"")}">
-              Apply
-            </button>
-
-          </div>
-
-        </article>
-
-      `;
-
-    })
-    .join("");
-
-
-  bindDynamicJobEvents();
-
-}
-
-
-/* =========================================
-   DYNAMIC JOB EVENTS
-   ========================================= */
-
-function bindDynamicJobEvents(){
-
-  $$("[data-save-job]")
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        function(event){
-
-          event.stopPropagation();
-
-          saveJob(
-            button.dataset.saveJob
-          );
-
-        }
-      );
-
-    });
-
-
-  $$("[data-apply-job]")
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        function(event){
-
-          event.stopPropagation();
-
-          applyForJob(
-            button.dataset.applyJob
-          );
-
-        }
-      );
-
-    });
-
-
-  $$(".job-card")
-    .forEach(function(card){
-
-      card.addEventListener(
-        "click",
-        function(event){
-
-          if(
-            event.target.closest(
-              "button"
-            )
-          ){
-
-            return;
-
-          }
-
-          openJobDetails(
-            card.dataset.jobId
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================================
-   SAVE JOB
-   ========================================= */
-
-function saveJob(jobId){
-
-  if(!jobId){
-
-    showToast(
-      "Job information unavailable",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const result=
-    callEngine(
-      "JobEngine",
-      "saveJob",
-      [jobId]
-    );
-
-
-  if(result!==null){
-
-    showToast(
-      "Job saved",
-      "success"
-    );
-
-    syncEngineData();
-
-    updateCounters();
-
-    return;
-
-  }
-
-
-  if(
-    !JobFlow.state.savedJobs
-      .includes(jobId)
-  ){
-
-    JobFlow.state.savedJobs.push(
-      jobId
-    );
-
-    saveLocalState();
-
-    updateCounters();
-
-    showToast(
-      "Job saved",
-      "success"
-    );
-
-  }else{
-
-    showToast(
-      "Already saved",
-      "info"
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   APPLY
-   ========================================= */
-
-function applyForJob(jobId){
-
-  if(!jobId){
-
-    showToast(
-      "Job information unavailable",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const result=
-    callEngine(
-      "ApplicationEngine",
-      "apply",
-      [jobId]
-    );
-
-
-  if(result!==null){
-
-    showToast(
-      "Application added",
-      "success"
-    );
-
-    syncEngineData();
-
-    updateCounters();
-
-    return;
-
-  }
-
-
-  const exists=
-    JobFlow.state.applications
-      .some(function(item){
-
-        return item.jobId===jobId;
-
-      });
-
-
-  if(!exists){
-
-    JobFlow.state.applications.push({
-
-      id:
-        "application-"+
-        Date.now(),
-
-      jobId,
-
-      status:"Applied",
-
-      createdAt:
-        new Date().toISOString()
-
-    });
-
-    saveLocalState();
-
-    updateCounters();
-
-    addActivity(
-      "Application added"
-    );
-
-    showToast(
-      "Application added",
-      "success"
-    );
-
-  }else{
-
-    showToast(
-      "Already applied",
-      "info"
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   JOB DETAILS
-   ========================================= */
-
-function openJobDetails(jobId){
-
-  const modal=
-    $("#jobDetailsModal");
-
-  const content=
-    $("#jobDetailsContent");
-
-  if(!modal || !content) return;
-
-
-  let jobs=
-    JobFlow.state.jobs;
-
-  if(
-    !Array.isArray(jobs) ||
-    !jobs.length
-  ){
-
-    jobs=
-      getDemoJobs();
-
-  }
-
-
-  const job=
-    jobs.find(function(item){
-
-      return String(item.id)===
-        String(jobId);
-
-    });
-
-
-  if(!job){
-
-    showToast(
-      "Job details unavailable",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  content.innerHTML=`
-
-    <div class="modal-job">
-
-      <div class="company-logo large">
-        ${escapeHTML(
-          String(
-            job.company||"J"
-          ).charAt(0)
-        )}
-      </div>
+    <div class="modal-head">
 
       <h2>
-        ${escapeHTML(
-          job.title
-        )}
+        Job Details
       </h2>
 
-      <p class="company-name">
-        ${escapeHTML(
-          job.company
-        )}
-      </p>
-
-      <div class="job-meta">
-
-        <span>
-          📍 ${escapeHTML(
-            job.location||""
-          )}
-        </span>
-
-        <span>
-          💼 ${escapeHTML(
-            job.type||""
-          )}
-        </span>
-
-      </div>
-
-      <div class="job-tags">
-
-        ${
-          (job.skills||[])
-          .map(
-            skill =>
-              `<span>${escapeHTML(skill)}</span>`
-          )
-          .join("")
-        }
-
-      </div>
-
-      <h3>
-        Compensation
-      </h3>
-
-      <p>
-        ${escapeHTML(
-          job.salary ||
-          "Not specified"
-        )}
-      </p>
-
       <button
-        class="primary-btn"
-        data-modal-apply="${escapeHTML(job.id)}">
-        Apply Now
+        class="modal-close"
+        data-close-modal>
+        ✕
       </button>
 
     </div>
 
-  `;
+    <div id="jobDetailsContent"></div>
 
+  </div>
 
-  modal.classList.remove(
-    "hidden"
-  );
+</div>
 
 
-  const applyButton=
-    content.querySelector(
-      "[data-modal-apply]"
-    );
+<!-- =======================================================
+     APP
+     ======================================================= -->
 
-  if(applyButton){
+<div class="app">
 
-    applyButton.addEventListener(
-      "click",
-      function(){
+  <!-- SIDEBAR -->
 
-        applyForJob(
-          applyButton.dataset.modalApply
-        );
+  <aside id="sidebar"
+         class="sidebar">
 
-        modal.classList.add(
-          "hidden"
-        );
+    <div class="brand">
 
-      }
-    );
+      <div class="brand-mark">
+        J
+      </div>
 
-  }
-
-}
-
-
-function bindModal(){
-
-  $$("[data-close-modal]")
-    .forEach(function(element){
-
-      element.addEventListener(
-        "click",
-        function(){
-
-          $("#jobDetailsModal")
-            ?.classList
-            .add("hidden");
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================================
-   COUNTERS
-   ========================================= */
-
-function updateCounters(){
-
-  const applications=
-    Array.isArray(
-      JobFlow.state.applications
-    )
-      ? JobFlow.state.applications.length
-      : 0;
-
-
-  const saved=
-    Array.isArray(
-      JobFlow.state.savedJobs
-    )
-      ? JobFlow.state.savedJobs.length
-      : 0;
-
-
-  const applicationCount=
-    $("#applicationCount");
-
-  const savedCount=
-    $("#savedCount");
-
-  const sideApplicationCount=
-    $("#sideApplicationCount");
-
-  const sideSavedCount=
-    $("#sideSavedCount");
-
-
-  if(applicationCount)
-    applicationCount.textContent=
-      applications;
-
-
-  if(savedCount)
-    savedCount.textContent=
-      saved;
-
-
-  if(sideApplicationCount)
-    sideApplicationCount.textContent=
-      applications;
-
-
-  if(sideSavedCount)
-    sideSavedCount.textContent=
-      saved;
-
-}
-
-
-/* =========================================
-   ACTIVITY
-   ========================================= */
-
-function addActivity(message){
-
-  if(
-    !Array.isArray(
-      JobFlow.state.activities
-    )
-  ){
-
-    JobFlow.state.activities=[];
-
-  }
-
-  JobFlow.state.activities.unshift({
-
-    message:message,
-
-    time:
-      new Date().toISOString()
-
-  });
-
-  JobFlow.state.activities=
-    JobFlow.state.activities
-      .slice(0,10);
-
-  saveLocalState();
-
-  renderActivities();
-
-}
-
-
-function renderActivities(){
-
-  const list=
-    $("#activityList");
-
-  if(!list) return;
-
-  const activities=
-    JobFlow.state.activities;
-
-  if(
-    !activities ||
-    !activities.length
-  ){
-
-    return;
-
-  }
-
-  list.innerHTML=
-    activities
-      .slice(0,5)
-      .map(function(item){
-
-        return `
-
-          <div class="activity-item">
-
-            <span class="activity-icon">
-              ⚡
-            </span>
-
-            <div>
-
-              <strong>
-                ${escapeHTML(
-                  item.message
-                )}
-              </strong>
-
-              <small>
-                Career activity
-              </small>
-
-            </div>
-
-            <time>
-              Recent
-            </time>
-
-          </div>
-
-        `;
-
-      })
-      .join("");
-
-}
-
-
-/* =========================================
-   AI COMMAND CENTER
-   ========================================= */
-
-function openAI(){
-
-  const panel=
-    $("#aiCommandCenter");
-
-  if(!panel) return;
-
-  panel.classList.remove(
-    "hidden"
-  );
-
-  setTimeout(function(){
-
-    const input=
-      $("#aiCommandInput");
-
-    if(input){
-      input.focus();
-    }
-
-  },50);
-
-}
-
-
-function closeAI(){
-
-  const panel=
-    $("#aiCommandCenter");
-
-  if(panel){
-
-    panel.classList.add(
-      "hidden"
-    );
-
-  }
-
-}
-
-
-function askAI(question){
-
-  if(!question) return;
-
-  const result=
-    $("#aiCommandResult");
-
-  if(!result) return;
-
-  result.innerHTML=`
-
-    <div class="ai-result">
-
-      <strong>
-        ✨ JobFlow AI
-      </strong>
-
-      <p>
-        I'm analyzing:
-        <b>${escapeHTML(question)}</b>
-      </p>
-
-      <small>
-        Your connected career engines can
-        provide deeper recommendations as
-        your profile and job data grow.
-      </small>
+      <div class="brand-text">
+        Job<span>Flow</span> AI
+      </div>
 
     </div>
 
-  `;
 
-  const engineResult=
-    callEngine(
-      "CareerEngine",
-      "ask",
-      [question]
-    );
+    <nav class="nav">
 
-  if(
-    typeof engineResult==="string" &&
-    engineResult.trim()
-  ){
+      <div class="nav-label">
+        Workspace
+      </div>
 
-    result.innerHTML=`
 
-      <div class="ai-result">
+      <button
+        class="nav-item active"
+        data-page-link="dashboard">
 
-        <strong>
-          ✨ JobFlow AI
-        </strong>
+        <span class="nav-icon">
+          ▦
+        </span>
 
-        <p>
-          ${escapeHTML(
-            engineResult
-          )}
+        Dashboard
+
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-page-link="jobs">
+
+        <span class="nav-icon">
+          🔎
+        </span>
+
+        Jobs
+
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-page-link="applications">
+
+        <span class="nav-icon">
+          📋
+        </span>
+
+        Applications
+
+        <span
+          id="sideApplicationCount"
+          class="nav-count">
+          0
+        </span>
+
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-page-link="saved">
+
+        <span class="nav-icon">
+          🔖
+        </span>
+
+        Saved Jobs
+
+        <span
+          id="sideSavedCount"
+          class="nav-count">
+          0
+        </span>
+
+      </button>
+
+
+      <div class="nav-label">
+        Career Tools
+      </div>
+
+
+      <button
+        class="nav-item"
+        data-page-link="resume">
+
+        <span class="
+icon">📄</span>
+        <span class="nav-label">Resume</span>
+      </a>
+
+      <a href="javascript:void(0)"
+         class="nav-item"
+         data-page-link="cover-letter">
+        <span class="icon">✉️</span>
+        <span class="nav-label">Cover Letter</span>
+      </a>
+
+      <a href="javascript:void(0)"
+         class="nav-item"
+         data-page-link="interview">
+        <span class="icon">🎤</span>
+        <span class="nav-label">Interview</span>
+      </a>
+
+      <a href="javascript:void(0)"
+         class="nav-item"
+         data-page-link="career">
+        <span class="icon">🚀</span>
+        <span class="nav-label">Career</span>
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a href="javascript:void(0)"
+         class="nav-item"
+         data-page-link="analytics">
+        <span class="icon">📊</span>
+        <span class="nav-label">Analytics</span>
+      </a>
+
+      <a href="javascript:void(0)"
+         class="nav-item"
+         data-page-link="settings">
+        <span class="icon">⚙️</span>
+        <span class="nav-label">Settings</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="connection-status">
+        <span class="status-dot"></span>
+        <span>All systems ready</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <button
+        type="button"
+        class="mobile-menu-btn"
+        id="mobileMenuBtn"
+        aria-label="Open menu">
+        ☰
+      </button>
+
+      <div class="page-heading">
+        <h1 id="pageTitle">Dashboard</h1>
+        <p id="pageSubtitle">
+          Your career workspace at a glance
         </p>
+      </div>
+
+      <div class="topbar-actions">
+
+        <button
+          type="button"
+          class="icon-btn"
+          id="searchBtn"
+          title="Search">
+          🔎
+        </button>
+
+        <button
+          type="button"
+          class="icon-btn"
+          id="notificationBtn"
+          title="Notifications">
+          🔔
+          <span class="notification-badge" id="notificationBadge">0</span>
+        </button>
+
+        <div class="profile-menu">
+          <button
+            type="button"
+            class="profile-btn"
+            id="profileBtn">
+            <span class="avatar">J</span>
+            <span class="profile-name">JobFlow</span>
+            <span class="profile-arrow">⌄</span>
+          </button>
+
+          <div
+            class="profile-dropdown"
+            id="profileDropdown"
+            hidden>
+
+            <button type="button" data-action="profile">
+              👤 Profile
+            </button>
+
+            <button type="button" data-action="settings">
+              ⚙️ Settings
+            </button>
+
+            <button type="button" data-action="logout">
+              🚪 Logout
+            </button>
+
+          </div>
+        </div>
 
       </div>
 
-    `;
-
-  }
-
-}
-
-
-/* =========================================
-   AI EVENTS
-   ========================================= */
-
-function bindAI(){
-
-  $$("[data-open-command]")
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        openAI
-      );
-
-    });
-
-
-  $$("[data-close-command]")
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        closeAI
-      );
-
-    });
-
-
-  $$("[data-ai-command]")
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        function(){
-
-          const question=
-            button.dataset.aiCommand;
-
-          const input=
-            $("#aiCommandInput");
-
-          if(input){
-
-            input.value=
-              question;
-
-          }
-
-          askAI(question);
-
-        }
-      );
-
-    });
-
-
-  const input=
-    $("#aiCommandInput");
-
-  if(input){
-
-    input.addEventListener(
-      "keydown",
-      function(event){
-
-        if(
-          event.key==="Enter"
-        ){
-
-          event.preventDefault();
-
-          askAI(
-            input.value.trim()
-          );
-
-        }
-
-      }
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   NOTIFICATIONS
-   ========================================= */
-
-function openNotifications(){
-
-  const panel=
-    $("#notificationPanel");
-
-  if(!panel) return;
-
-  panel.classList.toggle(
-    "hidden"
-  );
-
-}
-
-
-function bindNotifications(){
-
-  $$("[data-open-notifications]")
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        function(event){
-
-          event.stopPropagation();
-
-          openNotifications();
-
-        }
-      );
-
-    });
-
-
-  const clearButton=
-    $("#clearNotifications");
-
-  if(clearButton){
-
-    clearButton.addEventListener(
-      "click",
-      function(){
-
-        JobFlow.state.notifications=[];
-
-        saveLocalState();
-
-        renderNotifications();
-
-        showToast(
-          "Notifications cleared",
-          "success"
-        );
-
-      }
-    );
-
-  }
-
-}
-
-
-function renderNotifications(){
-
-  const list=
-    $("#notificationList");
-
-  const count=
-    $("#notificationCount");
-
-  if(!list) return;
-
-  const notifications=
-    JobFlow.state.notifications || [];
-
-  if(count){
-
-    count.textContent=
-      notifications.length+
-      " new";
-
-  }
-
-  if(
-    notifications.length===0
-  ){
-
-    list.innerHTML=`
-
-      <div class="notification-empty">
-
-        <span>🔔</span>
-
-        <p>
-          No new notifications
-        </p>
+    </header>
+
+    <!-- SEARCH BAR -->
+    <div class="global-search" id="globalSearch" hidden>
+      <div class="search-wrapper">
+
+        <span>🔎</span>
+
+        <input
+          type="search"
+          id="globalSearchInput"
+          placeholder="Search jobs, applications, companies..."
+          autocomplete="off">
+
+        <button
+          type="button"
+          id="closeSearchBtn">
+          ×
+        </button>
 
       </div>
 
-    `;
+      <div
+        class="search-results"
+        id="searchResults">
+      </div>
+    </div>
 
-    return;
+    <!-- PAGE CONTAINER -->
+    <section class="page-container" id="pageContainer">
 
-  }
+      <!-- DASHBOARD -->
+      <section
+        class="page-section active"
+        id="page-dashboard"
+        data-page="dashboard">
 
-  list.innerHTML=
-    notifications
-      .map(function(item){
+        <div class="welcome-row">
 
-        return `
-
-          <div class="notification-item">
-
-            <span>
-              🔔
+          <div>
+            <span class="eyebrow">
+              CAREER COMMAND CENTER
             </span>
 
-            <div>
+            <h2>
+              Welcome back 👋
+            </h2>
 
-              <strong>
-                ${escapeHTML(
-                  item.title ||
-                  "Notification"
-                )}
+            <p>
+              Track your jobs, applications and career progress
+              from one place.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="primary-btn"
+            id="quickAddJobBtn">
+            + Add Job
+          </button>
+
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-grid">
+
+          <div class="stat-card">
+
+            <div class="stat-icon blue">
+              💼
+            </div>
+
+            <div class="stat-content">
+              <span class="stat-label">
+                Total Jobs
+              </span>
+
+              <strong
+                class="stat-value"
+                id="dashboardJobCount">
+                0
               </strong>
 
-              <small>
-                ${escapeHTML(
-                  item.message ||
-                  ""
-                )}
-              </small>
+              <span class="stat-change">
+                Saved opportunities
+              </span>
+            </div>
+
+          </div>
+
+          <div class="stat-card">
+
+            <div class="stat-icon purple">
+              📤
+            </div>
+
+            <div class="stat-content">
+              <span class="stat-label">
+                Applications
+              </span>
+
+              <strong
+                class="stat-value"
+                id="dashboardApplicationCount">
+                0
+              </strong>
+
+              <span class="stat-change">
+                Applications sent
+              </span>
+            </div>
+
+          </div>
+
+          <div class="stat-card">
+
+            <div class="stat-icon green">
+              🎯
+            </div>
+
+            <div class="stat-content">
+              <span class="stat-label">
+                Interviews
+              </span>
+
+              <strong
+                class="stat-value"
+                id="dashboardInterviewCount">
+                0
+              </strong>
+
+              <span class="stat-change">
+                Upcoming & completed
+              </span>
+            </div>
+
+          </div>
+
+          <div class="stat-card">
+
+            <div class="stat-icon orange">
+              ⭐
+            </div>
+
+            <div class="stat-content">
+              <span class="stat-label">
+                Offers
+              </span>
+
+              <strong
+                class="stat-value"
+                id="dashboardOfferCount">
+                0
+              </strong>
+
+              <span class="stat-change">
+                Career opportunities
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- DASHBOARD CONTENT -->
+        <div class="dashboard-grid">
+
+          <div class="dashboard-card large">
+
+            <div class="card-header">
+
+              <div>
+                <h3>Recent Applications</h3>
+                <p>Your latest job activity</p>
+              </div>
+
+              <button
+                type="button"
+                class="text-btn"
+                data-page-link="applications">
+                View all →
+              </button>
+
+            </div>
+
+            <div
+              class="application-list"
+              id="recentApplications">
+
+              <div class="empty-state small">
+                <div class="empty-icon">📭</div>
+                <h4>No applications yet</h4>
+                <p>
+                  Add your first job application to get started.
+                </p>
+
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  id="emptyAddApplicationBtn">
+                  Add Application
+                </button>
+              </div>
 
             </div>
 
           </div>
 
-        `;
+          <div class="dashboard-card">
 
-      })
-      .join("");
+            <div class="card-header">
 
-}
+              <div>
+                <h3>Quick Actions</h3>
+                <p>Jump into your workflow</p>
+              </div>
+
+            </div>
+
+            <div class="quick-actions">
+
+              <button
+                type="button"
+                class="quick-action"
+                data-action="add-job">
+
+                <span class="quick-icon">➕</span>
+
+                <span>
+                  <strong>Add Job</strong>
+                  <small>Save a new opportunity</small>
+                </span>
+
+              </button>
+
+              <button
+                type="button"
+                class="quick-action"
+                data-action="resume">
+
+                <span class="quick-icon">📄</span>
+
+                <span>
+                  <strong>Build Resume</strong>
+                  <small>Create or update your resume</small>
+                </span>
+
+              </button>
+
+              <button
+                type="button"
+                class="quick-action"
+                data-action="cover-letter">
+
+                <span class="quick-icon">✉️</span>
+
+                <span>
+                  <strong>Cover Letter</strong>
+                  <small>Create a tailored letter</small>
+                </span>
+
+              </button>
+
+              <button
+                type="button"
+                class="quick-action"
+                data-action="interview">
+
+                <span class="quick-icon">🎤</span>
+
+                <span>
+                  <strong>Practice Interview</strong>
+                  <small>Prepare for your interview</small>
+                </span>
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- APPLICATION PIPELINE -->
+        <div class="dashboard-card pipeline-card">
+
+          <div class="card-header">
+
+            <div>
+              <h3>Application Pipeline</h3>
+              <p>Track your progress</p>
+            </div>
+
+            <button
+              type="button"
+              class="text-btn"
+              data-page-link="applications">
+              Manage →
+            </button>
+
+          </div>
+
+          <div class="pipeline">
+
+            <button
+              type="button"
+              class="pipeline-stage"
+              data-status="saved">
+
+              <span class="pipeline-number"
+                    id="pipelineSaved">
+                0
+              </span>
+
+              <span class="pipeline-label">
+                Saved
+              </span>
+
+            </button>
+
+            <span class="pipeline-line"></span>
+
+            <button
+              type="button"
+              class="pipeline-stage"
+              data-status="applied">
+
+              <span class="pipeline-number"
+                    id="pipelineApplied">
+                0
+              </span>
+
+              <span class="pipeline-label">
+                Applied
+              </span>
+
+            </button>
+
+            <span class="pipeline-line"></span>
+
+            <button
+              type="button"
+              class="pipeline-stage"
+              data-status="interview">
+
+              <span class="pipeline-number"
+                    id="pipelineInterview">
+                0
+              </span>
+
+              <span class="pipeline-label">
+                Interview
+              </span>
+
+            </button>
+
+            <span class="pipeline-line"></span>
+
+            <button
+              type="button"
+              class="pipeline-stage"
+              data-status="offer">
+
+              <span class="pipeline-number"
+                    id="pipelineOffer">
+                0
+              </span>
+
+              <span class="pipeline-label">
+                Offer
+              </span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- JOBS -->
+      <section
+        class="page-section"
+        id="page-jobs"
+        data-page="jobs">
+
+        <div class="section-top">
+
+          <div>
+            <span class="eyebrow">OPPORTUNITIES</span>
+            <h2>Jobs</h2>
+            <p>
+              Manage and organize your saved job opportunities.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="primary-btn"
+            id="addJobBtn">
+            + Add Job
+          </button>
+
+        </div>
+
+        <div class="toolbar">
+
+          <div class="toolbar-search">
+            🔎
+            <input
+              type="search"
+              id="jobSearch"
+              placeholder="Search jobs or companies...">
+          </div>
+
+          <select id="jobStatusFilter">
+            <option value="all">All Jobs</option>
+            <option value="saved">Saved</option>
+            <option value="applied">Applied</option>
+            <option value="interview">Interview</option>
+            <option value="offer">Offer</option>
+            <option value="rejected">Rejected</option>
+          </select>
+
+          <select id="jobTypeFilter">
+            <option value="all">All Types</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+            <option value="Remote">Remote</option>
+          </select>
+
+        </div>
+
+        <div
+          class="job-grid"
+          id="jobGrid">
+
+          <div class="empty-state">
+            <div class="empty-icon">💼</div>
+            <h3>No jobs added</h3>
+            <p>
+              Start building your career pipeline by adding a job.
+            </p>
+
+            <button
+              type="button"
+              class="primary-btn"
+              data-action="add-job">
+              + Add Your First Job
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- APPLICATIONS -->
+      <section
+        class="page-section"
+        id="page-applications"
+        data-page="applications">
+
+        <div class="section-top">
+
+          <div>
+            <span class="eyebrow">TRACKING</span>
+            <h2>Applications</h2>
+            <p>
+              Monitor every application and its current stage.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="primary-btn"
+            id="addApplicationBtn">
+            + Add Application
+          </button>
+
+        </div>
+
+        <div class="application-board">
+
+          <div class="application-column">
+
+            <div class="column-header">
+              <span>Saved</span>
+              <b id="savedColumnCount">0</b>
+            </div>
+
+            <div
+              class="column-list"
+              id="savedApplications">
+            </div>
+
+          </div>
+
+          <div class="application-column">
+
+            <div class="column-header">
+              <span>Applied</span>
+              <b id="appliedColumnCount">0</b>
+            </div>
+
+            <div
+              class="column-list"
+              id="appliedApplications">
+            </div>
+
+          </div>
+
+          <div class="application-column">
+
+            <div class="column-header">
+              <span>Interview</span>
+              <b id="interviewColumnCount">0</b>
+            </div>
+
+            <div
+              class="column-list"
+              id="interviewApplications">
+            </div>
+
+          </div>
+
+          <div class="application-column">
+
+            <div class="column-header">
+              <span>Offer</span>
+              <b id="offerColumnCount">0</b>
+            </div>
+
+            <div
+              class="column-list"
+              id="offerApplications">
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- RESUME -->
+      <section
+        class="page-section"
+        id="page-resume"
+        data-page="resume">
+
+        <div class="section-top">
+
+          <div>
+            <span class="eyebrow">DOCUMENT BUILDER</span>
+            <h2>Resume Builder</h2>
+            <p>
+              Build and manage your professional resume.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="primary-btn"
+            id="saveResumeBtn">
+            Save Resume
+          </button>
+
+        </div>
+
+        <div class="resume-layout">
+
+          <form
+            class="editor-card"
+            id="resumeForm">
+
+            <div class="form-section">
+
+              <h3>Personal Information</h3>
+
+              <div class="form-grid">
+
+                <div class="field">
+                  <label for="resumeName">
+                    Full Name
+                  </label>
+
+                  <input
+                    id="resumeName"
+                    type="text"
+                    placeholder="Your full name">
+                </div>
+
+                <div class="field">
+                  <label for="resumeEmail">
+                    Email
+                  </label>
+
+                  <input
+                    id="resumeEmail"
+                    type="email"
+                    placeholder="you@example.com">
+                </div>
+
+                <div class="field">
+                  <label for="resumePhone">
+                    Phone
+                  </label>
+
+                  <input
+                    id="resumePhone"
+                    type="tel"
+                    placeholder="+91 XXXXX XXXXX">
+                </div>
+
+                <div class="field">
+                  <label for="resumeLocation">
+                    Location
+                  </label>
+
+                  <input
+                    id="resumeLocation"
+                    type="text"
+                    placeholder="Hyderabad, Remote...">
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="form-section">
+
+              <h3>Professional Summary</h3>
+
+              <textarea
+                id="resumeSummary"
+                rows="5"
+                placeholder="Write a short professional summary..."></textarea>
+
+            </div>
+
+            <div class="form-section">
+
+              <h3>Experience</h3>
+
+              <textarea
+                id="resumeExperience"
+                style="min-height:160px"
+                placeholder="Your work experience..."></textarea>
+
+            </div>
+
+            <div class="form-section">
+
+              <h3>Education</h3>
+
+              <textarea
+                id="resumeEducation"
+                style="min-height:130px"
+                placeholder="Your education details..."></textarea>
+
+            </div>
+
+            <div class="form-section">
+
+              <h3>Skills</h3>
+
+              <textarea
+                id="resumeSkills"
+                rows="4"
+                placeholder="JavaScript, Sales, Marketing, Communication..."></textarea>
+
+            </div>
+
+          </form>
+
+          <div class="resume-preview-card">
+
+            <div class="preview-header">
+              <h3>Live Preview</h3>
+
+              <button
+                type="button"
+                class="secondary-btn"
+                id="printResumeBtn">
+                Print
+              </button>
+            </div>
+
+            <div
+              class="resume-preview"
+              id="resumePreview">
+
+              <div class="preview-name">
+                Your Name
+              </div>
+
+              <div class="preview-contact">
+                Email • Phone • Location
+              </div>
+
+              <hr>
+
+              <h4>Professional Summary</h4>
+
+              <p id="previewSummary">
+                Your professional summary will appear here.
+              </p>
+
+              <h4>Experience</h4>
+
+              <p id="previewExperience">
+                Your experience will appear here.
+              </p>
+
+              <h4>Education</h4>
+
+              <p id="previewEducation">
+                Your education will appear here.
+              </p>
+
+              <h4>Skills</h4>
+
+              <p id="previewSkills">
+                Your skills will appear here.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+      <!-- COVER LETTER -->
+      <section
+        class="page-section"
+        id="page-cover-letter"
+        data-page="cover-letter">
+
+        <div class="section-top">
+
+          <div>
+            <span class="eyebrow">AI WRITING TOOL</span>
+            <h2>Cover Letter</h2>
+            <p>
+              Create a professional cover letter for your next application.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="primary-btn"
+            id="saveCoverLetterBtn">
+            Save Letter
+          </button>
+
+        </div>
+
+        <div class="editor-layout">
+
+          <div class="editor-card">
+
+            <div class="form-section">
+
+              <h3>Application Details</h3>
+
+              <div class="form-grid">
+
+                <div class="field">
+                  <label for="coverName">Your Name</label>
+                  <input
+                    id="coverName"
+                    type="text"
+                    placeholder="Your name">
+                </div>
+
+                <div class="field">
+                  <label for="coverCompany">Company</label>
+                  <input
+                    id="coverCompany"
+                    type="text"
+                    placeholder="Company name">
+                </div>
+
+                <div class="field">
+                  <label for="coverRole">Job Title</label>
+                  <input
+                    id="coverRole"
+                    type="text"
+                    placeholder="Job title">
+                </div>
+
+                <div class="field">
+                  <label for="coverHiringManager">
+                    Hiring Manager
+                  </label>
+                  <input
+                    id="coverHiringManager"
+                    type="text"
+                    placeholder="Hiring manager name">
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="form-section">
+
+              <h3>Letter Content</h3>
+
+              <textarea
+                id="coverLetterText"
+                class="large-textarea"
+                placeholder="Write your cover letter here..."></textarea>
+
+            </div>
+
+            <div class="form-actions">
+
+              <button
+                type="button"
+                class="secondary-btn"
+                id="generateCoverLetterBtn">
+                ✨ Generate
+              </button>
+
+              <button
+                type="button"
+                class="secondary-btn"
+                id="clearCoverLetterBtn">
+                Clear
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="preview-card">
+
+            <div class="preview-header">
+              <h3>Preview</h3>
+
+              <button
+                type="button"
+                class="secondary-btn"
+                id="printCoverLetterBtn">
+                Print
+              </button>
+            </div>
+
+            <div
+              class="document-preview"
+              id="coverLetterPreview">
+
+              <h2 id="previewCoverName">
+                Your Name
+              </h2>
+
+              <p class="muted">
+                <span id="previewCoverCompany">
+                  Company
+                </span>
+              </p>
+
+              <p>
+                Dear
+                <span id="previewHiringManager">
+                  Hiring Manager
+                </span>,
+              </p>
+
+              <p id="previewCoverText">
+                Your cover letter content will appear here.
+              </p>
+
+              <p>
+                Sincerely,<br>
+                <strong id="previewCoverSignature">
+                  Your Name
+                </strong>
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
 
 
-/* =========================================
-   DEMO INITIALIZATION
-   ========================================= */
+      <!-- INTERVIEW -->
+      <section
+        class="page-section"
+        id="page-interview"
+        data-page="interview">
 
-function initializeDemoData(){
+        <div class="section-top">
 
-  if(
-    !Array.isArray(
-      JobFlow.state.jobs
-    ) ||
-    !JobFlow.state.jobs.length
-  ){
+          <div>
+            <span class="eyebrow">INTERVIEW PREPARATION</span>
+            <h2>Interview Center</h2>
+            <p>
+              Prepare questions, practice answers and track interviews.
+            </p>
+          </div>
 
-    JobFlow.state.jobs=
-      getDemoJobs();
+          <button
+            type="button"
+            class="primary-btn"
+            id="addInterviewBtn">
+            + Add Interview
+          </button>
 
+        </div>
+
+        <div class="interview-grid">
+
+          <div class="dashboard-card">
+
+            <div class="card-header">
+              <div>
+                <h3>Upcoming Interviews</h3>
+                <p>Your scheduled interviews</p>
+              </div>
+            </div>
+
+            <div
+              id="interviewList"
+              class="interview-list">
+
+              <div class="empty-state small">
+                <div class="empty-icon">🎤</div>
+                <h4>No interviews scheduled</h4>
+                <p>
+                  Add an interview when a company schedules one.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="dashboard-card">
+
+            <div class="card-header">
+              <div>
+                <h3>Practice Interview</h3>
+                <p>Improve your interview confidence</p>
+              </div>
+            </div>
+
+            <div class="practice-box">
+
+              <div class="practice-question">
+
+                <span class="question-label">
+                  SAMPLE QUESTION
+                </span>
+
+                <h3 id="practiceQuestion">
+                  Tell me about yourself.
+                </h3>
+
+              </div>
+
+              <textarea
+                id="practiceAnswer"
+                rows="7"
+                placeholder="Type your answer..."></textarea>
+
+              <div class="practice-actions">
+
+                <button
+                  type="button"
+                  class="primary-btn"
+                  id="nextQuestionBtn">
+                  Next Question
+                </button>
+
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  id="clearAnswerBtn">
+                  Clear
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="dashboard-card">
+
+          <div class="card-header">
+            <div>
+              <h3>Interview Questions</h3>
+              <p>Common questions to practice</p>
+            </div>
+          </div>
+
+          <div
+            class="question-grid"
+            id="questionGrid">
+
+            <button
+              type="button"
+              class="question-card"
+              data-question="Tell me about yourself.">
+              <strong>Tell me about yourself.</strong>
+              <span>Introduction</span>
+            </button>
+
+            <button
+              type="button"
+              class="question-card"
+              data-question="Why do you want to work here?">
+              <strong>Why do you want to work here?</strong>
+              <span>Motivation</span>
+            </button>
+
+            <button
+              type="button"
+              class="question-card"
+              data-question="What are your greatest strengths?">
+              <strong>What are your greatest strengths?</strong>
+              <span>Strengths</span>
+            </button>
+
+            <button
+              type="button"
+              class="question-card"
+              data-question="What is your biggest weakness?">
+              <strong>What is your biggest weakness?</strong>
+              <span>Self-awareness</span>
+            </button>
+
+            <button
+              type="button"
+              class="question-card"
+              data-question="Why should we hire you?">
+              <strong>Why should we hire you?</strong>
+              <span>Value</span>
+            </button>
+
+            <button
+              type="button"
+              class="question-card"
+              data-question="Where do you see yourself in five years?">
+              <strong>Where do you see yourself in five years?</strong>
+              <span>Career goals</span>
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- CAREER -->
+      <section
+        class="page-section"
+        id="page-career"
+        data-page="career">
+
+        <div class="section-top">
+
+          <div>
+            <span class="eyebrow">CAREER DEVELOPMENT</span>
+            <h2>Career Center</h2>
+            <p>
+              Plan your next move and keep your professional goals organized.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="career-grid">
+
+          <div class="dashboard-card">
+
+            <div class="card-header">
+              <div>
+                <h3>Career Goal</h3>
+                <p>Define your next target</p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="careerGoal">
+                Target Role
+              </label>
+
+              <input
+                id="careerGoal"
+                type="text"
+                placeholder="e.g. Senior Software Engineer">
+            </div>
+
+            <div class="field">
+              <label for="careerIndustry">
+                Target Industry
+              </label>
+
+              <input
+                id="careerIndustry"
+                type="text"
+                placeholder="e.g. Technology">
+            </div>
+
+            <div class="field">
+              <label for="careerTimeline">
+                Target Timeline
+              </label>
+
+              <select id="careerTimeline">
+                <option value="30">30 Days</option>
+                <option value="60">60 Days</option>
+                <option value="90">90 Days</option>
+                <option value="180">6 Months</option>
+              </select>
+            </div>
+
+            <button
+              type="button"
+              class="primary-btn full-width"
+              id="saveCareerGoalBtn">
+              Save Career Goal
+            </button>
+
+          </div>
+
+          <div class="dashboard-card">
+
+            <div class="card-header">
+              <div>
+                <h3>Career Progress</h3>
+                <p>Your current progress</p>
+              </div>
+            </div>
+
+            <div class="progress-container">
+
+              <div class="progress-label">
+                <span>Overall Progress</span>
+                <strong id="careerProgressText">
+                  0%
+                </strong>
+              </div>
+
+              <div class="progress-bar">
+                <span
+                  id="careerProgressBar"
+                  style="width:0%">
+                </span>
+              </div>
+
+            </div>
+
+            <div class="career-metrics">
+
+              <div>
+                <strong id="careerApplications">
+                  0
+                </strong>
+                <span>Applications</span>
+              </div>
+
+              <div>
+                <strong id="careerInterviews">
+                  0
+                </strong>
+                <span>Interviews</span>
+              </div>
+
+              <div>
+                <strong id="careerOffers">
+                  0
+                </strong>
+                <span>Offers</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ANALYTICS -->
+      <section
+        class="page-section"
+        id="page-analytics"
+        data-page="analytics">
+
+        <div class="section-top">
+
+          <div>
+            <span class="eyebrow">INSIGHTS</span>
+            <h2>Analytics</h2>
+            <p>
+              Understand your job search performance.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="secondary-btn"
+            id="refreshAnalyticsBtn">
+            ↻ Refresh
+          </button>
+
+        </div>
+
+        <div class="stats-grid">
+
+          <div class="stat-card">
+            <div class="stat-icon blue">💼</div>
+            <div class="stat-content">
+              <span class="stat-label">Jobs Saved</span>
+              <strong
+                class="stat-value"
+                id="analyticsJobs">
+                0
+              </strong>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon purple">📤</div>
+            <div class="stat-content">
+              <span class="stat-label">Applications</span>
+              <strong
+                class="stat-value"
+                id="analyticsApplications">
+                0
+              </strong>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">🎯</div>
+            <div class="stat-content">
+              <span class="stat-label">Interview Rate</span>
+              <strong
+                class="stat-value"
+                id="analyticsInterviewRate">
+                0%
+              </strong>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon orange">⭐</div>
+            <div class="stat-content">
+              <span class="stat-label">Offer Rate</span>
+              <strong
+                class="stat-value"
+                id="analyticsOfferRate">
+                0%
+              </strong>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="analytics-grid">
+
+          <div class="dashboard-card">
+
+            <div class="card-header">
+              <div>
+                <h3>Application Funnel</h3>
+                <p>Applications by stage</p>
+              </div>
+            </div>
+
+            <div class="funnel-chart">
+
+              <div class="funnel-row">
+                <span>Saved</span>
+                <div class="funnel-track">
+                  <span id="funnelSaved" style="width:0%"></span>
+                </div>
+                <strong id="funnelSavedCount">0</strong>
+              </div>
+
+              <div class="funnel-row">
+                <span>Applied</span>
+                <div class="funnel-track">
+                  <span id="funnelApplied" style="width:0%"></span>
+                </div>
+                <strong id="funnelAppliedCount">0</strong>
+              </div>
+
+              <div class="funnel-row">
+                <span>Interview</span>
+                <div class="funnel-track">
+                  <span id="funnelInterview" style="width:0%"></span>
+                </div>
+                <strong id="funnelInterviewCount">0</strong>
+              </div>
+
+              <div class="funnel-row">
+                <span>Offer</span>
+                <div class="funnel-track">
+                  <span id="funnelOffer" style="width:0%"></span>
+                </div>
+                <strong id="funnelOfferCount">0</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="dashboard-card">
+
+            <div class="card-header">
+              <div>
+                <h3>Recent Activity</h3>
+                <p>Your latest JobFlow activity</p>
+              </div>
+            </div>
+
+            <div
+              class="activity-list"
+              id="analyticsActivity">
+
+              <div class="empty-state small">
+                <div class="empty-icon">📈</div>
+                <h4>No activity yet</h4>
+                <p>
+                  Your activity will appear here.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- SETTINGS -->
+      <section
+        class="page-section"
+        id="page-settings"
+        data-page="settings">
+
+        <div class="section-top">
+
+          <div>
+            <span class="eyebrow">PREFERENCES</span>
+            <h2>Settings</h2>
+            <p>
+              Customize your JobFlow workspace.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="primary-btn"
+            id="saveSettingsBtn">
+            Save Settings
+          </button>
+
+        </div>
+
+        <div class="settings-layout">
+
+          <div class="settings-card">
+
+            <div class="settings-header">
+              <h3>General</h3>
+              <p>Basic application preferences</p>
+            </div>
+
+            <div class="setting-row">
+
+              <div>
+                <strong>Auto Save</strong>
+                <span>
+                  Automatically save your changes.
+                </span>
+              </div>
+
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  id="settingAutoSave"
+                  checked>
+                <span class="slider"></span>
+              </label>
+
+            </div>
+
+            <div class="setting-row">
+
+              <div>
+                <strong>Notifications</strong>
+                <span>
+                  Show important application reminders.
+                </span>
+              </div>
+
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  id="settingNotifications"
+                  checked>
+                <span class="slider"></span>
+              </label>
+
+            </div>
+
+            <div class="setting-row">
+
+              <div>
+                <strong>Compact Mode</strong>
+                <span>
+                  Use a denser interface.
+                </span>
+              </div>
+
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  id="settingCompact">
+                <span class="slider"></span>
+              </label>
+
+            </div>
+
+          </div>
+
+          <div class="settings-card">
+
+            <div class="settings-header">
+              <h3>Data Management</h3>
+              <p>Manage your local JobFlow data.</p>
+            </div>
+
+            <div class="settings-actions">
+
+              <button
+                type="button"
+                class="secondary-btn"
+                id="exportDataBtn">
+                ⬇ Export Data
+              </button>
+
+              <button
+                type="button"
+                class="secondary-btn"
+                id="importDataBtn">
+                ⬆ Import Data
+              </button>
+
+              <input
+                type="file"
+                id="importDataFile"
+                accept=".json"
+                hidden>
+
+              <button
+                type="button"
+                class="danger-btn"
+                id="clearDataBtn">
+                🗑 Clear All Data
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="settings-card">
+
+            <div class="settings-header">
+              <h3>About JobFlow</h3>
+              <p>Your career management workspace.</p>
+            </div>
+
+            <div class="about-info">
+
+              <div class="about-logo">
+                JF
+              </div>
+
+              <div>
+                <strong>JobFlow AI</strong>
+                <span>
+                  Smart career management platform
+                </span>
+                <small>
+                  Version 1.0
+                </small>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+  <!-- JOB MODAL -->
+  <div
+    class="modal-overlay"
+    id="modalOverlay"
+    hidden>
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true">
+
+      <div class="modal-header">
+
+        <div>
+          <h3 id="modalTitle">
+            Add Job
+          </h3>
+
+          <p id="modalSubtitle">
+            Add a new job opportunity.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="modal-close"
+          id="modalCloseBtn">
+          ×
+        </button>
+
+      </div>
+
+      <form id="jobForm">
+
+        <input
+          type="hidden"
+  id="jobId"
+  name="jobId"
+  value=""
+>
+
+<div class="form-grid">
+
+  <div class="field">
+    <label for="jobTitleInput">Job Title</label>
+    <input
+      id="jobTitleInput"
+      name="jobTitle"
+      type="text"
+      placeholder="Software Engineer"
+      required
+    >
+  </div>
+
+  <div class="field">
+    <label for="jobCompanyInput">Company</label>
+    <input
+      id="jobCompanyInput"
+      name="company"
+      type="text"
+      placeholder="Company name"
+      required
+    >
+  </div>
+
+  <div class="field">
+    <label for="jobLocationInput">Location</label>
+    <input
+      id="jobLocationInput"
+      name="location"
+      type="text"
+      placeholder="Hyderabad, Remote..."
+    >
+  </div>
+
+  <div class="field">
+    <label for="jobTypeInput">Job Type</label>
+    <select id="jobTypeInput" name="type">
+      <option value="Full-time">Full-time</option>
+      <option value="Part-time">Part-time</option>
+      <option value="Contract">Contract</option>
+      <option value="Internship">Internship</option>
+      <option value="Remote">Remote</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="jobStatusInput">Status</label>
+    <select id="jobStatusInput" name="status">
+      <option value="saved">Saved</option>
+      <option value="applied">Applied</option>
+      <option value="interview">Interview</option>
+      <option value="offer">Offer</option>
+      <option value="rejected">Rejected</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="jobSalaryInput">Salary</label>
+    <input
+      id="jobSalaryInput"
+      name="salary"
+      type="text"
+      placeholder="₹8–12 LPA"
+    >
+  </div>
+
+</div>
+
+<div class="field">
+  <label for="jobUrlInput">Job URL</label>
+  <input
+    id="jobUrlInput"
+    name="url"
+    type="url"
+    placeholder="https://..."
+  >
+</div>
+
+<div class="field">
+  <label for="jobNotesInput">Notes</label>
+  <textarea
+    id="jobNotesInput"
+    name="notes"
+    rows="4"
+    placeholder="Add notes about this opportunity..."
+  ></textarea>
+</div>
+
+<div class="modal-actions">
+
+  <button
+    type="button"
+    class="secondary-btn"
+    id="cancelJobBtn">
+    Cancel
+  </button>
+
+  <button
+    type="submit"
+    class="primary-btn"
+    id="saveJobBtn">
+    Save Job
+  </button>
+
+</div>
+
+</form>
+</div>
+</div>
+
+<!-- TOAST -->
+<div
+  class="toast"
+  id="toast"
+  role="status"
+  aria-live="polite">
+
+  <span id="toastIcon">✓</span>
+
+  <span id="toastMessage">
+    Saved successfully
+  </span>
+
+</div>
+<!-- ENGINE CONNECTIONS -->
+
+<script src="storage-engine.js" defer></script>
+<script src="job-engine.js" defer></script>
+<script src="application-engine.js" defer></script>
+<script src="resume-engine.js" defer></script>
+<script src="cover-letter-engine.js" defer></script>
+<script src="interview-engine.js" defer></script>
+<script src="career-engine.js" defer></script>
+<script src="analytics-engine.js" defer></script>
+<script src="ats-engine.js" defer></script>
+<script src="ui-engine.js" defer></script>
+<script src="app-engine.js" defer></script>
+<script src="app.js" defer></script>
+
+<script>
+(function () {
+
+  "use strict";
+
+  const $ = (selector) =>
+    document.querySelector(selector);
+
+  const $$ = (selector) =>
+    Array.from(document.querySelectorAll(selector));
+
+  function showToast(message) {
+
+    const toast = $("#toast");
+    const text = $("#toastMessage");
+
+    if (!toast || !text) return;
+
+    text.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(window.jobFlowToastTimer);
+
+    window.jobFlowToastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2200);
   }
 
-  if(
-    !Array.isArray(
-      JobFlow.state.applications
-    )
-  ){
+  function navigate(page) {
 
-    JobFlow.state.applications=[];
+    const target =
+      document.querySelector(
+        '.page-section[data-page="' + page + '"]'
+      );
 
+    if (!target) {
+      console.warn("JobFlow page not found:", page);
+      return;
+    }
+
+    $$(".page-section").forEach(section => {
+      section.classList.toggle(
+        "active",
+        section === target
+      );
+    });
+
+    $$(".nav-item").forEach(item => {
+      item.classList.toggle(
+        "active",
+        item.dataset.pageLink === page
+      );
+    });
+
+    const titles = {
+      dashboard: [
+        "Dashboard",
+        "Your career workspace at a glance"
+      ],
+
+      jobs: [
+        "Jobs",
+        "Manage your job opportunities"
+      ],
+
+      applications: [
+        "Applications",
+        "Track your applications"
+      ],
+
+      resume: [
+        "Resume Builder",
+        "Create and manage your resume"
+      ],
+
+      "cover-letter": [
+        "Cover Letter",
+        "Create professional cover letters"
+      ],
+
+      interview: [
+        "Interview Center",
+        "Prepare for your interviews"
+      ],
+
+      career: [
+        "Career Center",
+        "Plan your career"
+      ],
+
+      analytics: [
+        "Analytics",
+        "Understand your job search"
+      ],
+
+      settings: [
+        "Settings",
+        "Manage your preferences"
+      ]
+    };
+
+    const info =
+      titles[page] || titles.dashboard;
+
+    const title = $("#pageTitle");
+    const subtitle = $("#pageSubtitle");
+
+    if (title)
+      title.textContent = info[0];
+
+    if (subtitle)
+      subtitle.textContent = info[1];
+
+    history.replaceState(
+      null,
+      "",
+      "#" + page
+    );
+
+    window.scrollTo({
+      top: 0,
+      behavior: "instant"
+    });
   }
 
-  if(
-    !Array.isArray(
-      JobFlow.state.savedJobs
-    )
-  ){
+  /* NAVIGATION */
 
-    JobFlow.state.savedJobs=[];
+  document.addEventListener(
+    "click",
+    function (event) {
 
-  }
+      const link =
+        event.target.closest(
+          "[data-page-link]"
+        );
 
-  if(
-    !Array.isArray(
-      JobFlow.state.notifications
-    )
-  ){
+      if (!link) return;
 
-    JobFlow.state.notifications=[];
+      event.preventDefault();
 
-  }
+      navigate(
+        link.dataset.pageLink
+      );
 
-  if(
-    !Array.isArray(
-      JobFlow.state.activities
-    )
-  ){
-
-    JobFlow.state.activities=[];
-
-  }
-
-  saveLocalState();
-
-}
-
-
-/* =========================================
-   APPLICATION BOOT
-   ========================================= */
-
-function boot(){
-
-  setLoader(true);
-
-  loadLocalState();
-
-  detectEngines();
-
-  initializeDemoData();
-
-  syncEngineData();
-
-  bindNavigation();
-
-  bindMenu();
-
-  bindSearch();
-
-  bindModal();
-
-  bindAI();
-
-  bindNotifications();
-
-  renderNotifications();
-
-  renderActivities();
-
-  updateCounters();
-
-  renderRecommendedJobs(
-    JobFlow.state.jobs
+    }
   );
 
-  updatePageHeader(
-    JobFlow.state.page ||
-    "dashboard"
+  /* ADD JOB */
+
+  const addJobButtons =
+    $$("[data-action='add-job']");
+
+  addJobButtons.forEach(button => {
+
+    button.addEventListener(
+      "click",
+      function () {
+
+        const modal =
+          $("#modalOverlay");
+
+        if (!modal) return;
+
+        modal.hidden = false;
+
+        requestAnimationFrame(() => {
+          modal.classList.add("show");
+        });
+
+        $("#jobTitleInput")?.focus();
+
+      }
+    );
+
+  });
+
+  /* CLOSE MODAL */
+
+  const closeModal = () => {
+
+    const modal =
+      $("#modalOverlay");
+
+    if (!modal) return;
+
+    modal.classList.remove("show");
+
+    setTimeout(() => {
+      modal.hidden = true;
+    }, 160);
+
+  };
+
+  $("#modalCloseBtn")
+    ?.addEventListener(
+      "click",
+      closeModal
+    );
+
+  $("#cancelJobBtn")
+    ?.addEventListener(
+      "click",
+      closeModal
+    );
+
+  $("#modalOverlay")
+    ?.addEventListener(
+      "click",
+      function (event) {
+
+        if (event.target === this) {
+          closeModal();
+        }
+
+      }
+    );
+
+  /* ESC KEY */
+
+  document.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (event.key === "Escape") {
+        closeModal();
+      }
+
+    }
   );
 
-  JobFlow.ready=true;
+  /* MOBILE MENU */
 
-  window.JobFlow=
-    JobFlow;
+  $("#mobileMenuBtn")
+    ?.addEventListener(
+      "click",
+      function () {
 
-  setLoader(false);
+        document.body.classList.toggle(
+          "sidebar-open"
+        );
+
+      }
+    );
+
+  /* PROFILE */
+
+  $("#profileBtn")
+    ?.addEventListener(
+      "click",
+      function () {
+
+        const menu =
+          $("#profileDropdown");
+
+        if (!menu) return;
+
+        menu.hidden = !menu.hidden;
+
+      }
+    );
+
+  /* GLOBAL SEARCH */
+
+  $("#searchBtn")
+    ?.addEventListener(
+      "click",
+      function () {
+
+        const search =
+          $("#globalSearch");
+
+        if (!search) return;
+
+        search.hidden =
+          !search.hidden;
+
+        if (!search.hidden) {
+          $("#globalSearchInput")
+            ?.focus();
+        }
+
+      }
+    );
+
+  $("#closeSearchBtn")
+    ?.addEventListener(
+      "click",
+      function () {
+
+        const search =
+          $("#globalSearch");
+
+        if (search)
+          search.hidden = true;
+
+      }
+    );
+
+  /* SEARCH */
+
+  $("#globalSearchInput")
+    ?.addEventListener(
+      "input",
+      function () {
+
+        const value =
+          this.value
+            .trim()
+            .toLowerCase();
+
+        if (!value) return;
+
+        const job =
+          document.querySelector(
+            "#jobGrid"
+          );
+
+        if (!job) return;
+
+        job.querySelectorAll(
+          ".job-card"
+        ).forEach(card => {
+
+          card.style.display =
+            card.textContent
+              .toLowerCase()
+              .includes(value)
+              ? ""
+              : "none";
+
+        });
+
+      }
+    );
+
+  /* HASH ROUTING */
+
+  function loadRoute() {
+
+    const page =
+      location.hash
+        .replace("#", "")
+        .trim();
+
+    if (
+      page &&
+      document.querySelector(
+        '.page-section[data-page="' +
+        page +
+        '"]'
+      )
+    ) {
+
+      navigate(page);
+
+    } else {
+
+      navigate("dashboard");
+
+    }
+
+  }
+
+  /* ENGINE READY EVENT */
+
+  window.addEventListener(
+    "jobflow:ready",
+    function () {
+
+      showToast(
+        "JobFlow connected successfully"
+      );
+
+    }
+  );
+
+  /* START */
+
+  if (
+    document.readyState ===
+    "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      loadRoute,
+      { once: true }
+    );
+
+  } else {
+
+    loadRoute();
+
+  }
 
   console.log(
     "JobFlow AI master interface connected."
   );
 
-}
-
-
-if(
-  document.readyState==="loading"
-){
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    boot,
-    {once:true}
-  );
-
-}else{
-
-  boot();
-
-}
-
 })();
 </script>
-
 </body>
 </html>
