@@ -4,14 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#2563eb">
-<title>JobFlow AI</title>
+<title>JobFlow AI 2.0</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
 
 body{
 font-family:Arial,Helvetica,sans-serif;
-background:#f5f7fb;
+background:#f4f7fb;
 color:#111827;
 line-height:1.5
 }
@@ -26,12 +30,13 @@ justify-content:space-between;
 padding:0 5%;
 position:sticky;
 top:0;
-z-index:10
+z-index:20
 }
 
 .logo{
 font-size:21px;
-font-weight:800
+font-weight:800;
+white-space:nowrap
 }
 
 .logo span{
@@ -40,26 +45,38 @@ color:#2563eb
 
 nav{
 display:flex;
-gap:4px
+gap:3px;
+overflow:auto
 }
 
 nav button{
 background:transparent;
 color:#475569;
-padding:8px 9px
+padding:8px;
+font-size:12px
 }
 
 button{
 border:0;
 border-radius:9px;
 padding:11px 15px;
+font:inherit;
 font-weight:700;
 cursor:pointer
+}
+
+button:active{
+transform:scale(.98)
 }
 
 .primary{
 background:#2563eb;
 color:#fff
+}
+
+.secondary{
+background:#eaf1ff;
+color:#1d4ed8
 }
 
 .danger{
@@ -68,26 +85,26 @@ color:#b91c1c
 }
 
 .hero{
-max-width:900px;
+max-width:950px;
 margin:auto;
 text-align:center;
-padding:55px 20px 30px
+padding:48px 20px 25px
 }
 
 .tag{
 display:inline-block;
 background:#eaf1ff;
 color:#2563eb;
-padding:6px 11px;
+padding:6px 12px;
 border-radius:20px;
-font-size:12px;
-font-weight:700;
+font-size:11px;
+font-weight:800;
 margin-bottom:14px
 }
 
-h1{
-font-size:clamp(34px,8vw,58px);
-line-height:1.05;
+.hero h1{
+font-size:clamp(35px,8vw,60px);
+line-height:1.04;
 letter-spacing:-2px
 }
 
@@ -96,13 +113,13 @@ color:#2563eb
 }
 
 .hero p{
-max-width:650px;
+max-width:680px;
 margin:16px auto;
 color:#64748b
 }
 
 .section{
-max-width:900px;
+max-width:950px;
 margin:auto;
 padding:20px
 }
@@ -110,14 +127,15 @@ padding:20px
 .card{
 background:#fff;
 border:1px solid #e5e7eb;
-border-radius:14px;
+border-radius:15px;
 padding:20px;
-margin-bottom:18px
+margin-bottom:18px;
+box-shadow:0 2px 8px rgba(15,23,42,.03)
 }
 
-h2{
-font-size:22px;
-margin-bottom:5px
+.card h2{
+font-size:21px;
+margin-bottom:4px
 }
 
 .sub{
@@ -137,12 +155,13 @@ input,
 textarea,
 select{
 width:100%;
-border:1px solid #d8dee8;
+border:1px solid #d6dce6;
 border-radius:9px;
 padding:12px;
 font:inherit;
 outline:0;
-background:#fff
+background:#fff;
+color:#111827
 }
 
 input:focus,
@@ -152,7 +171,7 @@ border-color:#2563eb
 }
 
 textarea{
-min-height:130px;
+min-height:125px;
 resize:vertical
 }
 
@@ -165,12 +184,16 @@ margin-top:12px
 .resume,
 .letter,
 .interview,
-.match{
+.match,
+.gap,
+.ats,
+.notes{
 display:none;
-background:#f8fafc;
-border-radius:10px;
-padding:15px;
 margin-top:15px;
+background:#f8fafc;
+border:1px solid #e2e8f0;
+border-radius:11px;
+padding:16px;
 font-size:13px
 }
 
@@ -178,60 +201,66 @@ font-size:13px
 .letter,
 .interview,
 .match{
-background:#fff;
-border:1px solid #ddd;
-padding:25px
+background:#fff
 }
 
 .chip{
 display:inline-block;
 background:#eaf1ff;
-color:#2563eb;
+color:#1d4ed8;
 padding:5px 9px;
 border-radius:20px;
-font-size:12px;
+font-size:11px;
+font-weight:700;
 margin:3px
+}
+
+.chip.missing{
+background:#fff1f2;
+color:#be123c
 }
 
 .score{
 display:inline-block;
 background:#eaf1ff;
 color:#2563eb;
-padding:9px 13px;
+padding:8px 13px;
 border-radius:9px;
 font-size:20px;
 font-weight:800
 }
 
+.bigscore{
+font-size:42px;
+font-weight:900;
+color:#2563eb
+}
+
 .notice{
 background:#eef6ff;
 color:#1d4ed8;
-padding:10px;
+padding:11px;
 border-radius:9px;
 font-size:13px;
-margin-top:10px
+margin-top:12px
 }
 
-.resume h1{
-font-size:28px;
-letter-spacing:0
+.warning{
+background:#fff7ed;
+color:#c2410c;
+padding:11px;
+border-radius:9px;
+font-size:13px;
+margin-top:12px
 }
 
-.resume h3{
-margin-top:18px;
-border-bottom:1px solid #ddd;
-padding-bottom:5px
-}
-
-.resume p,
-.letter p{
-font-size:14px;
-margin-top:9px
-}
-
-.resume ul{
-padding-left:20px;
-margin-top:7px
+.success{
+background:#ecfdf5;
+color:#047857;
+padding:11px;
+border-radius:9px;
+font-size:13px;
+margin-top:12px
 }
 
 .actions{
@@ -254,7 +283,7 @@ margin-top:15px
 .stat{
 background:#f8fafc;
 border:1px solid #e5e7eb;
-padding:13px;
+padding:14px 10px;
 border-radius:10px;
 text-align:center
 }
@@ -266,6 +295,31 @@ color:#2563eb
 }
 
 .stat small{
+color:#64748b
+}
+
+.command-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-top:15px
+}
+
+.command{
+background:#f8fafc;
+border:1px solid #e5e7eb;
+border-radius:11px;
+padding:15px
+}
+
+.command b{
+display:block;
+font-size:19px;
+color:#2563eb
+}
+
+.command span{
+font-size:12px;
 color:#64748b
 }
 
@@ -303,18 +357,100 @@ padding:25px;
 color:#64748b
 }
 
+.saved-job{
+border:1px solid #e5e7eb;
+border-radius:10px;
+padding:14px;
+margin-top:10px;
+background:#fff
+}
+
+.saved-job b{
+display:block;
+margin-bottom:3px
+}
+
+.note{
+border:1px solid #e5e7eb;
+background:#fff;
+border-radius:10px;
+padding:13px;
+margin-top:10px
+}
+
+.note small{
+color:#64748b
+}
+
+.roadmap{
+border-left:3px solid #2563eb;
+padding-left:15px;
+margin-top:12px
+}
+
+.road-step{
+padding:10px 0
+}
+
+.road-step b{
+display:block
+}
+
+.progress{
+height:9px;
+background:#e5e7eb;
+border-radius:20px;
+overflow:hidden;
+margin-top:8px
+}
+
+.progress i{
+display:block;
+height:100%;
+background:#2563eb;
+width:0
+}
+
+.resume h1{
+font-size:28px;
+letter-spacing:0
+}
+
+.resume h3{
+margin-top:18px;
+border-bottom:1px solid #ddd;
+padding-bottom:5px
+}
+
+.resume p,
+.letter p{
+font-size:14px;
+margin-top:9px
+}
+
+.resume ul{
+padding-left:20px;
+margin-top:7px
+}
+
 footer{
 text-align:center;
 padding:25px;
 color:#64748b;
 font-size:12px;
-border-top:1px solid #e5e7eb
+border-top:1px solid #e5e7eb;
+margin-top:10px
 }
 
-@media(max-width:650px){
+@media(max-width:700px){
 
 header{
 padding:0 4%
+}
+
+header>button{
+padding:8px 10px;
+font-size:11px
 }
 
 nav{
@@ -322,10 +458,14 @@ display:none
 }
 
 .hero{
-padding-top:42px
+padding-top:40px
 }
 
 .stats{
+grid-template-columns:repeat(2,1fr)
+}
+
+.command-grid{
 grid-template-columns:repeat(2,1fr)
 }
 
@@ -365,53 +505,108 @@ Job<span>Flow</span> AI
 </div>
 
 <nav>
+<button onclick="show('command')">Command</button>
 <button onclick="show('analyzer')">Analyze</button>
 <button onclick="show('builder')">Resume</button>
-<button onclick="show('cover')">Cover</button>
-<button onclick="show('interviewCard')">Interview</button>
 <button onclick="show('tracker')">Tracker</button>
 </nav>
 
-<button class="primary" onclick="show('tracker')">
-Tracker
+<button class="primary" onclick="show('command')">
+Command Center
 </button>
 
 </header>
 
+
 <section class="hero">
 
 <div class="tag">
-AI JOB APPLICATION TOOLKIT
+JOBFLOW AI 2.0
 </div>
 
 <h1>
-Get <span>job-ready.</span><br>
-from your phone.
+Your personal<br>
+<span>career command center.</span>
 </h1>
 
 <p>
-Analyze jobs, build resumes, create cover letters,
-prepare for interviews and track applications.
+Analyze jobs, build resumes, measure your match,
+find skill gaps and manage applications from one place.
 </p>
 
-<button class="primary" onclick="show('analyzer')">
-Start Free →
+<button class="primary" onclick="show('command')">
+Open Command Center →
 </button>
 
 </section>
 
+
 <section class="section">
 
-<!-- FEATURE 1 -->
+
+<!-- COMMAND CENTER -->
+
+<div class="card" id="command">
+
+<h2>
+⚡ Career Command Center
+</h2>
+
+<p class="sub">
+Your complete job-search overview.
+</p>
+
+<div class="command-grid">
+
+<div class="command">
+<b id="dashApplications">0</b>
+<span>Applications</span>
+</div>
+
+<div class="command">
+<b id="dashInterviews">0</b>
+<span>Interviews</span>
+</div>
+
+<div class="command">
+<b id="dashOffers">0</b>
+<span>Offers</span>
+</div>
+
+<div class="command">
+<b id="dashSaved">0</b>
+<span>Saved Jobs</span>
+</div>
+
+<div class="command">
+<b id="dashSkills">0</b>
+<span>Detected Skills</span>
+</div>
+
+<div class="command">
+<b id="dashMatch">—</b>
+<span>Job Match</span>
+</div>
+
+</div>
+
+<div class="notice">
+Tip: Analyze a job first, then run the Match Score and Skill Gap Analyzer.
+</div>
+
+</div>
+
+
+<!-- JOB ANALYZER -->
 
 <div class="card" id="analyzer">
 
 <h2>
-1. Job Analyzer
+1. Smart Job Analyzer
 </h2>
 
 <p class="sub">
-Paste a job description and discover what the employer wants.
+Paste a job description to extract skills, requirements and responsibilities.
 </p>
 
 <label>
@@ -436,16 +631,17 @@ id="analysis">
 
 </div>
 
-<!-- FEATURE 2 -->
+
+<!-- RESUME BUILDER -->
 
 <div class="card" id="builder">
 
 <h2>
-2. Resume Builder
+2. Resume Builder Pro
 </h2>
 
 <p class="sub">
-Create your professional resume.
+Build and save your professional resume directly in your browser.
 </p>
 
 <label>
@@ -494,7 +690,7 @@ Professional Summary
 
 <textarea
 id="summary"
-placeholder="Your professional summary...">
+placeholder="Write a short professional summary...">
 </textarea>
 
 <label>
@@ -530,10 +726,15 @@ onclick="buildResume()">
 Create Resume →
 </button>
 
+<div
+class="resume"
+id="resume">
+</div>
+
 <div class="actions">
 
 <button
-class="primary"
+class="secondary"
 onclick="window.print()">
 Print / Save PDF
 </button>
@@ -545,23 +746,95 @@ Copy Resume
 
 </div>
 
+</div>
+
+
+<!-- ATS SCORE -->
+
+<div class="card" id="atsCard">
+
+<h2>
+3. ATS Readiness Scanner
+</h2>
+
+<p class="sub">
+Check whether your resume is prepared for automated screening.
+</p>
+
+<button
+class="primary full"
+onclick="atsScan()">
+Scan Resume →
+</button>
+
 <div
-class="resume"
-id="resume">
+class="ats"
+id="ats">
 </div>
 
 </div>
 
-<!-- FEATURE 3 -->
+
+<!-- SKILL GAP -->
+
+<div class="card" id="skillGapCard">
+
+<h2>
+4. Skill Gap Analyzer
+</h2>
+
+<p class="sub">
+Find what skills are missing between your resume and the target job.
+</p>
+
+<button
+class="primary full"
+onclick="skillGap()">
+Find Skill Gaps →
+</button>
+
+<div
+class="gap"
+id="gap">
+</div>
+
+</div>
+
+
+<!-- CAREER ROADMAP -->
+
+<div class="card" id="roadmapCard">
+
+<h2>
+5. Career Roadmap
+</h2>
+
+<p class="sub">
+Turn your missing skills into a practical learning path.
+</p>
+
+<button
+class="primary full"
+onclick="careerRoadmap()">
+Build My Roadmap →
+</button>
+
+<div
+class="result"
+id="roadmap">
+</div>
+
+</div>
+<!-- COVER LETTER -->
 
 <div class="card" id="cover">
 
 <h2>
-3. Cover Letter
+6. Cover Letter Generator
 </h2>
 
 <p class="sub">
-Create a job-specific cover letter.
+Create a tailored application letter from your target job.
 </p>
 
 <label>
@@ -602,7 +875,7 @@ id="letter">
 <div class="actions">
 
 <button
-class="primary"
+class="secondary"
 onclick="window.print()">
 Print / Save PDF
 </button>
@@ -615,24 +888,24 @@ Copy Letter
 </div>
 
 </div>
-<!-- FEATURE 4 -->
 
-<div
-class="card"
-id="interviewCard">
+
+<!-- INTERVIEW PREP -->
+
+<div class="card" id="interviewCard">
 
 <h2>
-4. Interview Prep
+7. Interview Simulator
 </h2>
 
 <p class="sub">
-Prepare technical and HR questions from the job.
+Generate technical and HR questions from the analyzed job.
 </p>
 
 <button
 class="primary full"
 onclick="interview()">
-Prepare Interview →
+Start Interview Prep →
 </button>
 
 <div
@@ -640,42 +913,25 @@ class="interview"
 id="interview">
 </div>
 
-<div class="actions">
-
-<button
-class="primary"
-onclick="window.print()">
-Print / Save PDF
-</button>
-
-<button
-onclick="copyBox('interview')">
-Copy Questions
-</button>
-
-</div>
-
 </div>
 
 
-<!-- FEATURE 5 -->
+<!-- JOB MATCH -->
 
-<div
-class="card"
-id="matchCard">
+<div class="card" id="matchCard">
 
 <h2>
-5. Job Match Score
+8. Job Match Engine
 </h2>
 
 <p class="sub">
-Compare your resume skills with the job requirements.
+Compare your resume skills with the target job.
 </p>
 
 <button
 class="primary full"
 onclick="matchScore()">
-Check My Match →
+Calculate Match →
 </button>
 
 <div
@@ -686,18 +942,64 @@ id="match">
 </div>
 
 
-<!-- FEATURE 6 -->
+<!-- SAVED JOBS -->
 
-<div
-class="card"
-id="tracker">
+<div class="card" id="savedJobs">
 
 <h2>
-6. Application Tracker
+9. Saved Jobs
 </h2>
 
 <p class="sub">
-Save jobs and track your applications directly in your browser.
+Bookmark opportunities you want to apply to later.
+</p>
+
+<label>
+Company
+</label>
+
+<input
+id="savedCompany"
+placeholder="Company name">
+
+<label>
+Job Title
+</label>
+
+<input
+id="savedRole"
+placeholder="Software Engineer">
+
+<label>
+Job Link
+</label>
+
+<input
+id="savedLink"
+placeholder="https://example.com/job">
+
+<button
+class="primary full"
+onclick="saveJob()">
+Save Job →
+</button>
+
+<div id="savedList">
+</div>
+
+</div>
+
+
+<!-- APPLICATION TRACKER -->
+
+<div class="card" id="tracker">
+
+<h2>
+10. Application Tracker
+</h2>
+
+<p class="sub">
+Manage your complete application pipeline.
 </p>
 
 <label>
@@ -725,7 +1027,7 @@ id="appLink"
 placeholder="https://example.com/job">
 
 <label>
-Application Status
+Status
 </label>
 
 <select id="appStatus">
@@ -752,12 +1054,20 @@ Rejected
 
 </select>
 
+<label>
+Application Note
+</label>
+
+<textarea
+id="appNote"
+placeholder="Recruiter name, follow-up details, interview notes...">
+</textarea>
+
 <button
 class="primary full"
 onclick="addApplication()">
 Add Application →
 </button>
-
 
 <div class="stats">
 
@@ -783,47 +1093,245 @@ Add Application →
 
 </div>
 
-
 <div id="applications">
 </div>
 
 </div>
 
 
-<!-- DASHBOARD -->
+<!-- NOTES -->
+
+<div class="card" id="notesCard">
+
+<h2>
+11. Career Notes
+</h2>
+
+<p class="sub">
+Keep useful job-search notes inside JobFlow.
+</p>
+
+<label>
+Note Title
+</label>
+
+<input
+id="noteTitle"
+placeholder="Example: Google interview preparation">
+
+<label>
+Note
+</label>
+
+<textarea
+id="noteText"
+placeholder="Write your note here...">
+</textarea>
+
+<button
+class="primary full"
+onclick="addNote()">
+Save Note →
+</button>
+
+<div
+class="notes"
+id="notes">
+</div>
+
+</div>
+
+
+<!-- ACHIEVEMENT BUILDER -->
+
+<div class="card" id="achievementCard">
+
+<h2>
+12. Achievement Builder
+</h2>
+
+<p class="sub">
+Turn basic work into stronger resume achievement statements.
+</p>
+
+<label>
+What did you do?
+</label>
+
+<input
+id="achievementAction"
+placeholder="Built a website">
+
+<label>
+What technology or method did you use?
+</label>
+
+<input
+id="achievementTool"
+placeholder="HTML, CSS and JavaScript">
+
+<label>
+What was the result?
+</label>
+
+<input
+id="achievementResult"
+placeholder="Improved user experience">
+
+<button
+class="primary full"
+onclick="buildAchievement()">
+Improve Achievement →
+</button>
+
+<div
+class="result"
+id="achievement">
+</div>
+
+</div>
+
+
+<!-- INTERVIEW ANSWER BANK -->
+
+<div class="card" id="answerBank">
+
+<h2>
+13. Interview Answer Bank
+</h2>
+
+<p class="sub">
+Save answers you want to practice repeatedly.
+</p>
+
+<label>
+Question
+</label>
+
+<input
+id="answerQuestion"
+placeholder="Tell me about yourself">
+
+<label>
+Your Answer
+</label>
+
+<textarea
+id="answerText"
+placeholder="Write your answer...">
+</textarea>
+
+<button
+class="primary full"
+onclick="saveAnswer()">
+Save Answer →
+</button>
+
+<div id="answers">
+</div>
+
+</div>
+
+
+<!-- PROFILE -->
+
+<div class="card" id="profile">
+
+<h2>
+14. Career Profile
+</h2>
+
+<p class="sub">
+Your reusable career information.
+</p>
+
+<label>
+Target Role
+</label>
+
+<input
+id="targetRole"
+placeholder="Frontend Developer">
+
+<label>
+Years of Experience
+</label>
+
+<input
+id="years"
+type="number"
+min="0"
+placeholder="1">
+
+<label>
+Preferred Location
+</label>
+
+<input
+id="preferredLocation"
+placeholder="Remote / Hyderabad / Bengaluru">
+
+<label>
+Career Goal
+</label>
+
+<textarea
+id="careerGoal"
+placeholder="Describe the type of career you want...">
+</textarea>
+
+<button
+class="primary full"
+onclick="saveProfile()">
+Save Career Profile →
+</button>
+
+<div
+class="notice"
+id="profileMessage"
+style="display:none">
+Profile saved.
+</div>
+
+</div>
+
+
+<!-- DATA BACKUP -->
 
 <div class="card">
 
 <h2>
-JobFlow Dashboard
+15. Data Center
 </h2>
 
 <p class="sub">
-Your current progress.
+Protect your JobFlow information.
 </p>
 
-<div class="stats">
+<div class="actions">
 
-<div class="stat">
-<b id="skillCount">0</b>
-<small>Job Skills</small>
+<button
+class="secondary"
+onclick="exportData()">
+Export Backup
+</button>
+
+<button
+onclick="document.getElementById('importFile').click()">
+Import Backup
+</button>
+
 </div>
 
-<div class="stat">
-<b id="resumeStatus">0%</b>
-<small>Resume</small>
-</div>
+<input
+id="importFile"
+type="file"
+accept=".json"
+style="display:none"
+onchange="importData(event)">
 
-<div class="stat">
-<b id="matchStatus">—</b>
-<small>Match</small>
-</div>
-
-<div class="stat">
-<b id="dashApps">0</b>
-<small>Applications</small>
-</div>
-
+<div class="notice">
+Your data is stored locally in this browser. Export a backup before clearing browser data.
 </div>
 
 </div>
@@ -833,7 +1341,7 @@ Your current progress.
 
 
 <footer>
-© 2026 JobFlow AI · Free browser-based job toolkit
+© 2026 JobFlow AI · Career Command Center
 </footer>
 
 
@@ -844,6 +1352,9 @@ let jobReq=[];
 let jobDuties=[];
 
 let applications=[];
+let savedJobs=[];
+let notes=[];
+let answers=[];
 
 try{
 
@@ -858,6 +1369,45 @@ applications=[];
 
 }
 
+try{
+
+savedJobs=
+JSON.parse(
+localStorage.getItem("jobflow_saved_jobs")
+)||[];
+
+}catch(e){
+
+savedJobs=[];
+
+}
+
+try{
+
+notes=
+JSON.parse(
+localStorage.getItem("jobflow_notes")
+)||[];
+
+}catch(e){
+
+notes=[];
+
+}
+
+try{
+
+answers=
+JSON.parse(
+localStorage.getItem("jobflow_answers")
+)||[];
+
+}catch(e){
+
+answers=[];
+
+}
+
 
 const skillsList=[
 
@@ -869,6 +1419,7 @@ const skillsList=[
 "vue",
 "angular",
 "node.js",
+"node",
 "python",
 "java",
 "c++",
@@ -879,6 +1430,7 @@ const skillsList=[
 "api",
 "apis",
 "rest",
+"rest api",
 "git",
 "github",
 "aws",
@@ -894,7 +1446,14 @@ const skillsList=[
 "php",
 "ruby",
 "swift",
-"kotlin"
+"kotlin",
+"next.js",
+"nextjs",
+"express",
+"firebase",
+"flutter",
+"android",
+"ios"
 
 ];
 
@@ -911,7 +1470,10 @@ const reqList=[
 "collaboration",
 "creativity",
 "adaptability",
-"attention to detail"
+"attention to detail",
+"organization",
+"critical thinking",
+"customer service"
 
 ];
 
@@ -933,7 +1495,10 @@ const dutyList=[
 "create",
 "integrate",
 "optimize",
-"support"
+"support",
+"research",
+"monitor",
+"document"
 
 ];
 
@@ -1013,7 +1578,6 @@ value("job");
 const box=
 document.getElementById("analysis");
 
-
 if(text.length<40){
 
 box.style.display="block";
@@ -1025,10 +1589,8 @@ return;
 
 }
 
-
 const lower=
 text.toLowerCase();
-
 
 jobSkills=
 skillsList.filter(function(x){
@@ -1037,14 +1599,12 @@ return lower.includes(x);
 
 });
 
-
 jobReq=
 reqList.filter(function(x){
 
 return lower.includes(x);
 
 });
-
 
 jobDuties=
 dutyList.filter(function(x){
@@ -1053,26 +1613,16 @@ return lower.includes(x);
 
 });
 
-
 let score=
 40+
 Math.min(jobSkills.length*3,25)+
 Math.min(jobReq.length*2,15)+
 Math.min(jobDuties.length*2,20);
 
-
 score=
 Math.min(score,100);
 
-
-document
-.getElementById("skillCount")
-.textContent=
-jobSkills.length;
-
-
 box.style.display="block";
-
 
 box.innerHTML=
 
@@ -1082,9 +1632,7 @@ box.innerHTML=
 
 "<div>"+
 "<h3>Job Analysis</h3>"+
-"<p style='color:#64748b'>"+
-"Requirements detected"+
-"</p>"+
+"<p style='color:#64748b'>Requirements detected</p>"+
 "</div>"+
 
 "<span class='score'>"+
@@ -1095,22 +1643,21 @@ score+
 "</div>"+
 
 "<br><b>Technical Skills</b>"+
-
 "<div>"+
 chips(jobSkills)+
 "</div>"+
 
 "<br><b>Core Requirements</b>"+
-
 "<div>"+
 chips(jobReq)+
 "</div>"+
 
 "<br><b>Responsibilities</b>"+
-
 "<div>"+
 chips(jobDuties)+
 "</div>";
+
+updateDashboard();
 
 }
 
@@ -1119,7 +1666,6 @@ function buildResume(){
 
 const name=
 value("name");
-
 
 if(!name){
 
@@ -1132,7 +1678,6 @@ show("builder");
 return;
 
 }
-
 
 const skills=
 value("skills");
@@ -1147,14 +1692,10 @@ return x.trim();
 })
 .filter(Boolean);
 
-
 const resume=
 document.getElementById("resume");
 
-
-resume.style.display=
-"block";
-
+resume.style.display="block";
 
 resume.innerHTML=
 
@@ -1220,15 +1761,280 @@ value("education")||
 )+
 "</p>";
 
-
-document
-.getElementById("resumeStatus")
-.textContent=
-"100%";
+saveResumeData();
 
 }
 
 
+function atsScan(){
+
+const checks=[];
+
+if(value("name"))
+checks.push("Name");
+
+if(value("email"))
+checks.push("Email");
+
+if(value("phone"))
+checks.push("Phone");
+
+if(value("summary"))
+checks.push("Summary");
+
+if(value("skills"))
+checks.push("Skills");
+
+if(value("experience"))
+checks.push("Experience");
+
+if(value("education"))
+checks.push("Education");
+
+const total=7;
+
+const score=
+Math.round(
+checks.length/
+total*
+100
+);
+
+const missing=[];
+
+if(!value("name"))
+missing.push("Name");
+
+if(!value("email"))
+missing.push("Email");
+
+if(!value("phone"))
+missing.push("Phone");
+
+if(!value("summary"))
+missing.push("Professional summary");
+
+if(!value("skills"))
+missing.push("Skills");
+
+if(!value("experience"))
+missing.push("Experience");
+
+if(!value("education"))
+missing.push("Education");
+
+const box=
+document.getElementById("ats");
+
+box.style.display="block";
+
+box.innerHTML=
+
+"<div style='text-align:center'>"+
+
+"<div class='bigscore'>"+
+score+
+"%"+
+"</div>"+
+
+"<b>ATS Readiness</b>"+
+
+"</div>"+
+
+"<div class='progress'>"+
+"<i style='width:"+
+score+
+"%'></i>"+
+"</div>"+
+
+"<br><b>Completed</b>"+
+
+"<p>"+
+checks.join(" · ")||
+"None"+
+"</p>"+
+
+(
+missing.length
+?
+"<div class='warning'><b>Improve:</b> "+
+esc(missing.join(", "))+
+"</div>"
+:
+"<div class='success'>"+
+"Your basic resume sections are complete."
++
+"</div>"
+);
+
+}
+
+
+function skillGap(){
+
+if(!jobSkills.length){
+
+alert(
+"Analyze a job description first."
+);
+
+show("analyzer");
+
+return;
+
+}
+
+const skills=
+value("skills").toLowerCase();
+
+const found=
+jobSkills.filter(function(x){
+
+return skills.includes(x);
+
+});
+
+const missing=
+jobSkills.filter(function(x){
+
+return !skills.includes(x);
+
+});
+
+const percent=
+jobSkills.length
+?
+Math.round(
+found.length/
+jobSkills.length*
+100
+)
+:100;
+
+const box=
+document.getElementById("gap");
+
+box.style.display="block";
+
+box.innerHTML=
+
+"<h3>Skill Gap Report</h3>"+
+
+"<p>Current alignment: <b>"+
+percent+
+"%</b></p>"+
+
+"<div class='progress'>"+
+"<i style='width:"+
+percent+
+"%'></i>"+
+"</div>"+
+
+"<br><b>Skills you already have</b>"+
+
+"<div>"+
+chips(found)+
+"</div>"+
+
+"<br><b>Skills to develop</b>"+
+
+"<div>"+
+missing.map(function(x){
+
+return "<span class='chip missing'>"+
+esc(x)+
+"</span>";
+
+}).join("")+
+"</div>"+
+
+(
+missing.length
+?
+"<div class='warning'>"+
+"Focus on the missing skills before applying to similar roles."
++
+"</div>"
+:
+"<div class='success'>"+
+"Excellent. Your detected skills cover the analyzed technical requirements."
++
+"</div>"
+);
+
+}
+
+
+function careerRoadmap(){
+
+if(!jobSkills.length){
+
+alert(
+"Analyze a job description first."
+);
+
+show("analyzer");
+
+return;
+
+}
+
+const skills=
+value("skills").toLowerCase();
+
+const missing=
+jobSkills.filter(function(x){
+
+return !skills.includes(x);
+
+});
+
+const roadmap=
+document.getElementById("roadmap");
+
+roadmap.style.display="block";
+
+if(!missing.length){
+
+roadmap.innerHTML=
+"<div class='success'>"+
+"<b>Your roadmap is clear.</b><br>"+
+"You currently match all detected technical skills. Focus on projects, interview preparation and applications."
++
+"</div>";
+
+return;
+
+}
+
+let html=
+"<h3>Your Learning Roadmap</h3>"+
+"<div class='roadmap'>";
+
+missing.forEach(function(skill,i){
+
+html+=
+
+"<div class='road-step'>"+
+"<b>Step "+
+(i+1)+
+": Learn "+
+esc(skill)+
+"</b>"+
+"<span style='font-size:12px;color:#64748b'>"+
+"Study the fundamentals, build one small project and add the skill to your portfolio only after gaining practical experience."+
+"</span>"+
+"</div>";
+
+});
+
+html+=
+"</div>";
+
+roadmap.innerHTML=
+html;
+
+}
 function coverLetter(){
 
 const name=
@@ -1240,11 +2046,10 @@ value("company");
 const title=
 value("jobtitle");
 
-
 if(!name){
 
 alert(
-"Enter your name first."
+"Enter your name in Resume Builder first."
 );
 
 show("builder");
@@ -1252,7 +2057,6 @@ show("builder");
 return;
 
 }
-
 
 if(!company||!title){
 
@@ -1264,14 +2068,10 @@ return;
 
 }
 
-
 const letter=
 document.getElementById("letter");
 
-
-letter.style.display=
-"block";
-
+letter.style.display="block";
 
 letter.innerHTML=
 
@@ -1295,27 +2095,27 @@ value("manager")||
 esc(title)+
 "</b> position at <b>"+
 esc(company)+
-"</b>. I am excited about the opportunity to contribute my skills and experience to your team."+
+"</b>. I am excited about the opportunity to contribute my skills and grow with your team."+
 "</p>"+
 
 "<p>"+
-"My relevant skills include "+
+"My relevant skills include <b>"+
 esc(
 value("skills")||
 jobSkills.join(", ")
 )+
-". I enjoy solving problems, learning new technologies and building practical solutions."+
+"</b>. I enjoy solving problems, learning new technologies and creating practical solutions."+
 "</p>"+
 
 "<p>"+
 esc(
 value("summary")||
-"I am a motivated professional eager to contribute, learn and grow."
+"I am a motivated professional who is eager to contribute, learn and develop in a challenging environment."
 )+
 "</p>"+
 
 "<p>"+
-"I would welcome the opportunity to discuss how my background could contribute to "+
+"I would welcome the opportunity to discuss how my background and skills could contribute to "+
 esc(company)+
 ". Thank you for considering my application."+
 "</p>"+
@@ -1331,7 +2131,7 @@ esc(name)+
 function interview(){
 
 if(
-!jobSkills.length&&
+!jobSkills.length &&
 !jobReq.length
 ){
 
@@ -1345,12 +2145,10 @@ return;
 
 }
 
-
 let questions=[];
 
-
 jobSkills
-.slice(0,7)
+.slice(0,8)
 .forEach(function(skill){
 
 questions.push([
@@ -1358,94 +2156,101 @@ questions.push([
 "How would you describe your experience with "+
 skill+"?",
 
-"Explain your practical experience, mention a project and describe the result."
+"Explain your practical experience, mention a project and describe what you achieved."
 
 ]);
 
-
 questions.push([
 
-"What important concepts do you know about "+
+"What are the most important concepts in "+
 skill+"?",
 
-"Choose two or three concepts you understand well and explain them with examples."
+"Choose two or three concepts you understand well and explain them with practical examples."
 
 ]);
 
 });
-
 
 const general=[
 
 [
 "Tell me about yourself.",
 
-"Give a short introduction covering your education, experience, strongest skills and career goals."
+"Give a 60–90 second introduction covering your background, strongest skills and career direction."
 ],
 
 [
-"Why do you want this job?",
+"Why do you want this position?",
 
-"Connect your skills and goals directly to the requirements in the job description."
+"Connect your skills and career goals directly to the job requirements."
 ],
 
 [
 "Why should we hire you?",
 
-"Mention two or three strengths that directly match the position."
+"Give two or three strengths that directly solve problems mentioned in the job description."
 ],
 
 [
 "Tell me about a difficult problem you solved.",
 
-"Use the STAR method: Situation, Task, Action and Result."
+"Use STAR: Situation, Task, Action and Result."
+],
+
+[
+"Tell me about a project you are proud of.",
+
+"Explain your role, technology used, challenge and measurable result."
 ],
 
 [
 "What is your biggest weakness?",
 
-"Give a genuine weakness and explain what you are doing to improve it."
+"Give a genuine weakness and explain the specific action you are taking to improve it."
 ],
 
 [
-"How do you handle deadlines?",
+"How do you handle pressure?",
 
-"Explain how you prioritize tasks and communicate about deadlines."
+"Explain how you prioritize tasks and communicate when deadlines become difficult."
 ],
 
 [
 "Where do you see yourself in five years?",
 
-"Give a realistic answer connected to your professional growth."
+"Give a realistic answer connected to professional growth."
 ],
 
 [
-"Do you have questions for us?",
+"How do you learn new technology?",
 
-"Ask about the team, role expectations, projects or success measures."
+"Describe your process: documentation, practice, projects and feedback."
+],
+
+[
+"Do you have any questions for us?",
+
+"Ask about the team, role expectations, projects or how success is measured."
 ]
 
 ];
 
+general.forEach(function(q){
 
-general.forEach(function(x){
-
-questions.push(x);
+questions.push(q);
 
 });
-
 
 let html=
 "<h3>Interview Preparation</h3>"+
 "<p style='color:#64748b'>"+
 questions.length+
-" questions prepared"+
+" questions generated for this job"+
 "</p>";
 
-
 questions
-.slice(0,20)
-.forEach(function(x,i){
+.slice(0,25)
+.forEach(function(q,i){
 
 html+=
 
@@ -1457,32 +2262,29 @@ html+=
 "<b>"+
 (i+1)+
 ". "+
-esc(x[0])+
+esc(q[0])+
 "</b>"+
 
-"<p style='color:#475569;"+
-"font-size:13px;margin-top:6px'>"+
-"<b>Answer guidance:</b> "+
-esc(x[1])+
+"<p style='color:#475569;font-size:13px;margin-top:7px'>"+
+"<b>Answer strategy:</b> "+
+esc(q[1])+
 "</p>"+
 
 "</div>";
 
 });
 
-
 const box=
 document.getElementById("interview");
 
-
-box.style.display=
-"block";
-
+box.style.display="block";
 
 box.innerHTML=
 html;
 
 }
+
+
 function matchScore(){
 
 const skills=
@@ -1503,7 +2305,7 @@ return;
 if(!skills){
 
 alert(
-"Enter your skills first."
+"Enter your skills in Resume Builder first."
 );
 
 show("builder");
@@ -1545,9 +2347,9 @@ box.innerHTML=
 
 "<div style='text-align:center'>"+
 
-"<h3>Your Job Match</h3>"+
+"<h3>Job Match Score</h3>"+
 
-"<div class='score' style='font-size:32px'>"+
+"<div class='bigscore'>"+
 score+
 "%"+
 "</div>"+
@@ -1556,42 +2358,231 @@ score+
 found.length+
 " of "+
 jobSkills.length+
-" technical skills matched"+
+" detected job skills matched"+
 "</p>"+
 
 "</div>"+
 
-"<br><b>Matched Skills</b>"+
+"<div class='progress'>"+
+"<i style='width:"+
+score+
+"%'></i>"+
+"</div>"+
+
+"<br><b>Matched</b>"+
 
 "<div>"+
 chips(found)+
 "</div>"+
 
-"<br><b>Skills To Improve</b>"+
+"<br><b>Missing</b>"+
 
 "<div>"+
-chips(missing)+
+missing.map(function(x){
+
+return "<span class='chip missing'>"+
+esc(x)+
+"</span>";
+
+}).join("")+
 "</div>"+
 
 "<div class='notice'>"+
 
 (
-score>=80
-?"Strong match."
+score>=85
+?
+"Excellent alignment. Focus on tailoring your experience."
 :
-score>=60
-?"Good starting match."
+score>=65
+?
+"Good alignment. Strengthen the missing skills and keywords."
 :
-"Improve your resume alignment with this job."
+"Low alignment. Review the skill gap before applying."
 )+
 
 "</div>";
 
 document
-.getElementById("matchStatus")
+.getElementById("dashMatch")
 .textContent=
 score+
 "%";
+
+}
+
+
+function saveJob(){
+
+const company=
+value("savedCompany");
+
+const role=
+value("savedRole");
+
+const link=
+value("savedLink");
+
+if(!company||!role){
+
+alert(
+"Enter company and job title."
+);
+
+return;
+
+}
+
+savedJobs.unshift({
+
+id:Date.now(),
+
+company:company,
+
+role:role,
+
+link:link,
+
+date:new Date().toLocaleDateString()
+
+});
+
+try{
+
+localStorage.setItem(
+"jobflow_saved_jobs",
+JSON.stringify(savedJobs)
+);
+
+}catch(e){}
+
+document.getElementById("savedCompany").value="";
+
+document.getElementById("savedRole").value="";
+
+document.getElementById("savedLink").value="";
+
+renderSavedJobs();
+
+updateDashboard();
+
+}
+
+
+function deleteSavedJob(id){
+
+savedJobs=
+savedJobs.filter(function(job){
+
+return job.id!==id;
+
+});
+
+localStorage.setItem(
+"jobflow_saved_jobs",
+JSON.stringify(savedJobs)
+);
+
+renderSavedJobs();
+
+updateDashboard();
+
+}
+
+
+function moveSavedToTracker(id){
+
+const job=
+savedJobs.find(function(x){
+
+return x.id===id;
+
+});
+
+if(!job)return;
+
+document.getElementById("appCompany").value=
+job.company;
+
+document.getElementById("appRole").value=
+job.role;
+
+document.getElementById("appLink").value=
+job.link;
+
+show("tracker");
+
+}
+
+
+function renderSavedJobs(){
+
+const box=
+document.getElementById("savedList");
+
+if(!savedJobs.length){
+
+box.innerHTML=
+"<div class='empty'>"+
+"No saved jobs yet."
++
+"</div>";
+
+return;
+
+}
+
+box.innerHTML=
+savedJobs.map(function(job){
+
+return
+
+"<div class='saved-job'>"+
+
+"<b>"+
+esc(job.role)+
+"</b>"+
+
+"<small>"+
+esc(job.company)+
+" · Saved "+
+esc(job.date)+
+"</small>"+
+
+(
+job.link
+?
+"<p style='margin-top:7px'>"+
+"<a href='"+
+esc(job.link)+
+"' target='_blank' rel='noopener'>"+
+"Open Job →"+
+"</a></p>"
+:
+""
+)+
+
+"<div class='actions'>"+
+
+"<button class='secondary' "+
+"onclick='moveSavedToTracker("+
+job.id+
+")'>"+
+"Apply / Track"+
+"</button>"+
+
+"<button class='danger' "+
+"onclick='deleteSavedJob("+
+job.id+
+")'>"+
+"Delete"+
+"</button>"+
+
+"</div>"+
+
+"</div>";
+
+}).join("");
 
 }
 
@@ -1610,6 +2601,9 @@ value("appLink");
 const status=
 document.getElementById("appStatus").value;
 
+const note=
+value("appNote");
+
 if(!company||!role){
 
 alert(
@@ -1620,7 +2614,7 @@ return;
 
 }
 
-const application={
+applications.unshift({
 
 id:Date.now(),
 
@@ -1632,11 +2626,11 @@ link:link,
 
 status:status,
 
+note:note,
+
 date:new Date().toLocaleDateString()
 
-};
-
-applications.unshift(application);
+});
 
 saveApplications();
 
@@ -1647,6 +2641,10 @@ document.getElementById("appCompany").value="";
 document.getElementById("appRole").value="";
 
 document.getElementById("appLink").value="";
+
+document.getElementById("appNote").value="";
+
+updateDashboard();
 
 }
 
@@ -1682,6 +2680,8 @@ saveApplications();
 
 renderApplications();
 
+updateDashboard();
+
 }
 
 
@@ -1701,6 +2701,8 @@ item.status=status;
 saveApplications();
 
 renderApplications();
+
+updateDashboard();
 
 }
 
@@ -1736,23 +2738,24 @@ return x.status==="Offer";
 
 }).length;
 
-document.getElementById("totalApps").textContent=total;
+document.getElementById("totalApps").textContent=
+total;
 
-document.getElementById("appliedApps").textContent=applied;
+document.getElementById("appliedApps").textContent=
+applied;
 
-document.getElementById("interviewApps").textContent=interviews;
+document.getElementById("interviewApps").textContent=
+interviews;
 
-document.getElementById("offerApps").textContent=offers;
-
-document.getElementById("dashApps").textContent=total;
+document.getElementById("offerApps").textContent=
+offers;
 
 if(!applications.length){
 
 box.innerHTML=
-
 "<div class='empty'>"+
-"No applications yet.<br>"+
-"Add your first job above."+
+"No applications yet."
++
 "</div>";
 
 return;
@@ -1804,6 +2807,17 @@ esc(item.link)+
 ""
 )+
 
+(
+item.note
+?
+"<p style='margin-top:8px;color:#64748b'>"+
+"<b>Note:</b> "+
+esc(item.note)+
+"</p>"
+:
+""
+)+
+
 "<select style='margin-top:10px' "+
 "onchange='updateStatus("+
 item.id+
@@ -1837,7 +2851,7 @@ status+
 "onclick='deleteApplication("+
 item.id+
 ")'>"+
-"Delete"+
+"Delete Application"+
 "</button>"+
 
 "</div>";
@@ -1847,91 +2861,352 @@ item.id+
 }
 
 
-function copyBox(id){
+function addNote(){
 
-const box=
-document.getElementById(id);
+const title=
+value("noteTitle");
 
-if(!box||!box.innerText){
+const text=
+value("noteText");
+
+if(!title||!text){
 
 alert(
-"Create the content first."
+"Enter a title and note."
 );
 
 return;
 
 }
 
-const text=
-box.innerText;
+notes.unshift({
 
-if(
-navigator.clipboard &&
-navigator.clipboard.writeText
-){
+id:Date.now(),
 
-navigator.clipboard
-.writeText(text)
-.then(function(){
+title:title,
 
-alert(
-"Copied successfully!"
-);
+text:text,
 
-})
-.catch(function(){
-
-fallbackCopy(text);
+date:new Date().toLocaleString()
 
 });
 
-}else{
+try{
 
-fallbackCopy(text);
+localStorage.setItem(
+"jobflow_notes",
+JSON.stringify(notes)
+);
+
+}catch(e){}
+
+document.getElementById("noteTitle").value="";
+
+document.getElementById("noteText").value="";
+
+renderNotes();
 
 }
 
+
+function deleteNote(id){
+
+notes=
+notes.filter(function(x){
+
+return x.id!==id;
+
+});
+
+localStorage.setItem(
+"jobflow_notes",
+JSON.stringify(notes)
+);
+
+renderNotes();
+
 }
 
 
-function fallbackCopy(text){
+function renderNotes(){
 
-const area=
-document.createElement("textarea");
+const box=
+document.getElementById("notes");
 
-area.value=text;
+box.style.display="block";
 
-area.style.position="fixed";
+if(!notes.length){
 
-area.style.left="-9999px";
+box.innerHTML=
+"<div class='empty'>"+
+"No career notes saved."
++
+"</div>";
 
-document.body.appendChild(area);
+return;
 
-area.select();
+}
+
+box.innerHTML=
+notes.map(function(note){
+
+return
+
+"<div class='note'>"+
+
+"<b>"+
+esc(note.title)+
+"</b>"+
+
+"<br>"+
+
+"<small>"+
+esc(note.date)+
+"</small>"+
+
+"<p style='white-space:pre-line;margin-top:8px'>"+
+esc(note.text)+
+"</p>"+
+
+"<button class='danger full' "+
+"onclick='deleteNote("+
+note.id+
+")'>"+
+"Delete Note"+
+"</button>"+
+
+"</div>";
+
+}).join("");
+
+}
+
+
+function buildAchievement(){
+
+const action=
+value("achievementAction");
+
+const tool=
+value("achievementTool");
+
+const result=
+value("achievementResult");
+
+if(!action){
+
+alert(
+"Describe what you did first."
+);
+
+return;
+
+}
+
+const box=
+document.getElementById("achievement");
+
+box.style.display="block";
+
+box.innerHTML=
+
+"<h3>Improved Resume Achievement</h3>"+
+
+"<p style='font-size:15px;margin-top:8px'>"+
+"<b>"+
+esc(action)+
+"</b> using "+
+"<b>"+
+esc(tool||"relevant tools")+
+"</b>, resulting in "+
+"<b>"+
+esc(result||"a practical improvement")+
+"</b>."
++
+"</p>"+
+
+"<div class='notice'>"+
+"Tip: Replace general claims with real numbers whenever you have them."
++
+"</div>";
+
+}
+
+
+function saveAnswer(){
+
+const question=
+value("answerQuestion");
+
+const answer=
+value("answerText");
+
+if(!question||!answer){
+
+alert(
+"Enter both the question and answer."
+);
+
+return;
+
+}
+
+answers.unshift({
+
+id:Date.now(),
+
+question:question,
+
+answer:answer,
+
+date:new Date().toLocaleDateString()
+
+});
+
+localStorage.setItem(
+"jobflow_answers",
+JSON.stringify(answers)
+);
+
+document.getElementById("answerQuestion").value="";
+
+document.getElementById("answerText").value="";
+
+renderAnswers();
+
+}
+
+
+function deleteAnswer(id){
+
+answers=
+answers.filter(function(x){
+
+return x.id!==id;
+
+});
+
+localStorage.setItem(
+"jobflow_answers",
+JSON.stringify(answers)
+);
+
+renderAnswers();
+
+}
+
+
+function renderAnswers(){
+
+const box=
+document.getElementById("answers");
+
+if(!answers.length){
+
+box.innerHTML=
+"<div class='empty'>"+
+"No interview answers saved."
++
+"</div>";
+
+return;
+
+}
+
+box.innerHTML=
+answers.map(function(item){
+
+return
+
+"<div class='note'>"+
+
+"<b>Q: "+
+esc(item.question)+
+"</b>"+
+
+"<p style='white-space:pre-line;margin-top:8px'>"+
+esc(item.answer)+
+"</p>"+
+
+"<button class='danger full' "+
+"onclick='deleteAnswer("+
+item.id+
+")'>"+
+"Delete Answer"+
+"</button>"+
+
+"</div>";
+
+}).join("");
+
+}
+
+
+function saveProfile(){
+
+const data={
+
+targetRole:value("targetRole"),
+
+years:value("years"),
+
+preferredLocation:value("preferredLocation"),
+
+careerGoal:value("careerGoal")
+
+};
 
 try{
 
-document.execCommand("copy");
-
-alert(
-"Copied successfully!"
+localStorage.setItem(
+"jobflow_profile",
+JSON.stringify(data)
 );
 
-}catch(e){
+}catch(e){}
 
-alert(
-"Copy failed. Please select the text manually."
-);
+const msg=
+document.getElementById("profileMessage");
+
+msg.style.display="block";
+
+setTimeout(function(){
+
+msg.style.display="none";
+
+},2500);
 
 }
 
-document.body.removeChild(area);
+
+function loadProfile(){
+
+try{
+
+const data=
+JSON.parse(
+localStorage.getItem("jobflow_profile")
+);
+
+if(!data)return;
+
+Object.keys(data).forEach(function(id){
+
+const el=
+document.getElementById(id);
+
+if(el&&data[id]){
+
+el.value=data[id];
 
 }
 
+});
 
-/* Keep resume information
-when the page is refreshed */
+}catch(e){}
+
+}
+
 
 function saveResumeData(){
 
@@ -1998,6 +3273,227 @@ el.value=data[id];
 }
 
 
+function updateDashboard(){
+
+document.getElementById(
+"dashApplications"
+).textContent=
+applications.length;
+
+document.getElementById(
+"dashInterviews"
+).textContent=
+applications.filter(function(x){
+
+return x.status==="Interview";
+
+}).length;
+
+document.getElementById(
+"dashOffers"
+).textContent=
+applications.filter(function(x){
+
+return x.status==="Offer";
+
+}).length;
+
+document.getElementById(
+"dashSaved"
+).textContent=
+savedJobs.length;
+
+document.getElementById(
+"dashSkills"
+).textContent=
+jobSkills.length;
+
+}
+
+
+function exportData(){
+
+const data={
+
+version:"2.0",
+
+exportedAt:new Date().toISOString(),
+
+resume:localStorage.getItem(
+"jobflow_resume"
+),
+
+profile:localStorage.getItem(
+"jobflow_profile"
+),
+
+applications:applications,
+
+savedJobs:savedJobs,
+
+notes:notes,
+
+answers:answers,
+
+jobDescription:value("job")
+
+};
+
+const blob=
+new Blob(
+[
+JSON.stringify(data,null,2)
+],
+{
+type:"application/json"
+}
+);
+
+const url=
+URL.createObjectURL(blob);
+
+const a=
+document.createElement("a");
+
+a.href=url;
+
+a.download=
+"jobflow-ai-backup.json";
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+URL.revokeObjectURL(url);
+
+}
+
+
+function importData(event){
+
+const file=
+event.target.files[0];
+
+if(!file)return;
+
+const reader=
+new FileReader();
+
+reader.onload=function(){
+
+try{
+
+const data=
+JSON.parse(reader.result);
+
+if(data.resume){
+
+localStorage.setItem(
+"jobflow_resume",
+data.resume
+);
+
+}
+
+if(data.profile){
+
+localStorage.setItem(
+"jobflow_profile",
+data.profile
+);
+
+}
+
+if(Array.isArray(data.applications)){
+
+applications=
+data.applications;
+
+localStorage.setItem(
+"jobflow_applications",
+JSON.stringify(applications)
+);
+
+}
+
+if(Array.isArray(data.savedJobs)){
+
+savedJobs=
+data.savedJobs;
+
+localStorage.setItem(
+"jobflow_saved_jobs",
+JSON.stringify(savedJobs)
+);
+
+}
+
+if(Array.isArray(data.notes)){
+
+notes=
+data.notes;
+
+localStorage.setItem(
+"jobflow_notes",
+JSON.stringify(notes)
+);
+
+}
+
+if(Array.isArray(data.answers)){
+
+answers=
+data.answers;
+
+localStorage.setItem(
+"jobflow_answers",
+JSON.stringify(answers)
+);
+
+}
+
+if(data.jobDescription){
+
+document.getElementById("job").value=
+data.jobDescription;
+
+}
+
+loadResumeData();
+
+loadProfile();
+
+renderApplications();
+
+renderSavedJobs();
+
+renderNotes();
+
+renderAnswers();
+
+updateDashboard();
+
+alert(
+"JobFlow backup imported successfully."
+);
+
+}catch(e){
+
+alert(
+"Invalid JobFlow backup file."
+);
+
+}
+
+};
+
+reader.readAsText(file);
+
+}
+
+
 [
 "name",
 "title",
@@ -2025,43 +3521,19 @@ saveResumeData
 });
 
 
-/* Start application tracker */
-
 loadResumeData();
+
+loadProfile();
 
 renderApplications();
 
+renderSavedJobs();
 
-/* Allow Enter on simple inputs */
+renderNotes();
 
-document
-.getElementById("appRole")
-.addEventListener(
-"keydown",
-function(e){
+renderAnswers();
 
-if(e.key==="Enter"){
-
-addApplication();
-
-}
-
-});
-
-
-/* Prevent accidental broken
-links from crashing the app */
-
-window.addEventListener(
-"error",
-function(e){
-
-console.log(
-"JobFlow error:",
-e.message
-);
-
-});
+updateDashboard();
 
 
 </script>
