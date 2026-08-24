@@ -1479,4 +1479,253 @@ const UIEngine = {
         font-size:13px;
       }
 
+.jobflow-progress-track{
+  height:8px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#e5e7eb;
+}
+
+.jobflow-progress-value{
+  height:100%;
+  border-radius:20px;
+  background:#2563eb;
+  transition:width .3s ease;
+}
+
+.jobflow-stat-card{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:18px;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  background:#fff;
+}
+
+.jobflow-stat-icon{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:#eff6ff;
+  color:#2563eb;
+  font-weight:700;
+}
+
+.jobflow-stat-content{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+
+.jobflow-stat-content span{
+  color:#64748b;
+  font-size:12px;
+}
+
+.jobflow-stat-content strong{
+  font-size:24px;
+  color:#0f172a;
+}
+
+.jobflow-stat-content small{
+  color:#94a3b8;
+}
+
+.jobflow-badge{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+  background:#f1f5f9;
+  color:#475569;
+}
+
+.jobflow-badge-blue{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.jobflow-badge-purple{
+  background:#ede9fe;
+  color:#6d28d9;
+}
+
+.jobflow-badge-orange{
+  background:#ffedd5;
+  color:#c2410c;
+}
+
+.jobflow-badge-green{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.jobflow-badge-red{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.jobflow-empty-state{
+  padding:45px 20px;
+  text-align:center;
+  border:1px dashed #cbd5e1;
+  border-radius:16px;
+  color:#64748b;
+}
+
+.jobflow-empty-icon{
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+.jobflow-empty-state h3{
+  margin:0 0 7px;
+  color:#0f172a;
+}
+
+.jobflow-empty-state p{
+  margin:0 0 15px;
+}
+
+.jobflow-search{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:42px;
+  padding:0 12px;
+  border:1px solid #dbe2ea;
+  border-radius:11px;
+  background:#fff;
+}
+
+.jobflow-search input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+}
+
+.jobflow-table-wrap{
+  width:100%;
+  overflow-x:auto;
+}
+
+.jobflow-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.jobflow-table th,
+.jobflow-table td{
+  padding:12px;
+  text-align:left;
+  border-bottom:1px solid #e5e7eb;
+  white-space:nowrap;
+}
+
+.jobflow-table th{
+  color:#64748b;
+  font-size:12px;
+}
+
+.jobflow-table td{
+  color:#334155;
+  font-size:14px;
+}
+
+.jobflow-select{
+  min-height:40px;
+  padding:0 10px;
+  border:1px solid #dbe2ea;
+  border-radius:10px;
+  background:#fff;
+}
+
+.jobflow-loading{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:30px;
+  color:#64748b;
+}
+
+.jobflow-spinner{
+  width:20px;
+  height:20px;
+  border:3px solid #e2e8f0;
+  border-top-color:#2563eb;
+  border-radius:50%;
+  animation:jobflowSpin .7s linear infinite;
+}
+
+@keyframes jobflowSpin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes jobflowIn{
+  from{
+    opacity:0;
+    transform:translateY(-8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@media(max-width:600px){
+
+  .jobflow-notifications{
+    left:12px;
+    right:12px;
+    top:12px;
+    max-width:none;
+  }
+
+  .jobflow-modal-overlay{
+    padding:10px;
+    align-items:flex-end;
+  }
+
+  .jobflow-modal{
+    max-height:92vh;
+    border-radius:18px 18px 0 0;
+  }
+
+  .jobflow-stat-card{
+    padding:14px;
+  }
+
+  .jobflow-stat-content strong{
+    font-size:21px;
+  }
+
+}
+
+`;
+
+document.head.appendChild(
+  style
+);
+
+
+/* -----------------------------------------
+   INITIALIZE
+   ----------------------------------------- */
+
+UIEngine.init();
+
+
+console.log(
+  "JobFlow UI Engine loaded."
+);
+
   
