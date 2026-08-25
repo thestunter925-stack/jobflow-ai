@@ -1721,11 +1721,21 @@ document.head.appendChild(
    INITIALIZE
    ----------------------------------------- */
 
+init() {
+
+  this.injectStyles();
+
+}
+
+
+};
+
+
+/* Start UI engine */
+
 UIEngine.init();
 
 
 console.log(
   "JobFlow UI Engine loaded."
 );
-
-  
