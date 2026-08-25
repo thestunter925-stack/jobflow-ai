@@ -5815,6 +5815,572 @@ document.getElementById("menuBtn").onclick = function(){
 
 console.log("JobFlow navigation working");
 </script>
+<script>
+/* =====================================
+   JOBFLOW DATA ENGINE
+===================================== */
+
+var JOBFLOW_DATA_KEY = "jobflow_data_v3";
+
+var jobflowData = JSON.parse(
+  localStorage.getItem(JOBFLOW_DATA_KEY) ||
+  '{"jobs":[],"applications":[]}'
+);
+
+function saveJobFlowData(){
+  localStorage.setItem(
+    JOBFLOW_DATA_KEY,
+    JSON.stringify(jobflowData)
+  );
+}
+
+
+/* =====================================
+   JOBS
+===================================== */
+
+var saveJobBtn = document.getElementById("saveJobBtn");
+
+if(saveJobBtn){
+
+  saveJobBtn.onclick = function(){
+
+    var title =
+      document.getElementById("jobTitle").value.trim();
+
+    var company =
+      document.getElementById("jobCompany").value.trim();
+
+    var location =
+      document.getElementById("jobLocation").value.trim();
+
+    var url =
+      document.getElementById("jobUrl").value.trim();
+
+    if(!title || !company){
+
+      alert("Please enter Job Title and Company.");
+
+      return;
+    }
+
+    jobflowData.jobs.unshift({
+
+      id:Date.now(),
+
+      title:title,
+
+      company:company,
+
+      location:location || "Not specified",
+
+      url:url,
+
+      created:new Date().toISOString()
+
+    });
+
+    saveJobFlowData();
+
+    document.getElementById("jobTitle").value="";
+    document.getElementById("jobCompany").value="";
+    document.getElementById("jobLocation").value="";
+    document.getElementById("jobUrl").value="";
+
+    renderJobFlowJobs();
+
+    updateJobFlowStats();
+
+    alert("Job saved successfully!");
+
+  };
+
+}
+
+
+/* =====================================
+   RENDER JOBS
+===================================== */
+
+function renderJobFlowJobs(){
+
+  var box =
+    document.getElementById("jobsList");
+
+  if(!box)return;
+
+  if(!jobflowData.jobs.length){
+
+    box.innerHTML =
+      '<div class="empty">No saved jobs yet.</div>';
+
+    return;
+  }
+
+  box.innerHTML =
+    jobflowData.jobs.map(function(job){
+
+      return `
+      <div class="job">
+
+        <strong>${jobflowEscape(job.title)}</strong>
+
+        <div class="muted">
+          ${jobflowEscape(job.company)}
+          ·
+          ${jobflowEscape(job.location)}
+        </div>
+
+        <div class="actions">
+
+          ${
+            job.url
+            ?
+            `<a href="${jobflowEscape(job.url)}"
+                target="_blank"
+                class="btn light">
+                Open Job
+             </a>`
+            :
+            ""
+          }
+
+          <button
+            class="btn light"
+            onclick="deleteJobFlowJob(${job.id})">
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+      `;
+
+    }).join("");
+
+}
+
+
+window.deleteJobFlowJob = function(id){
+
+  jobflowData.jobs =
+    jobflowData.jobs.filter(function(job){
+
+      return job.id !== id;
+
+    });
+
+  saveJobFlowData();
+
+  renderJobFlowJobs();
+
+  updateJobFlowStats();
+
+};
+
+
+/* =====================================
+   APPLICATIONS
+===================================== */
+
+var addAppBtn =
+  document.getElementById("addAppBtn");
+
+if(addAppBtn){
+
+  addAppBtn.onclick = function(){
+
+    var company =
+      document.getElementById("appCompany")
+      .value.trim();
+
+    var role =
+      document.getElementById("appRole")
+      .value.trim();
+
+    var location =
+      document.getElementById("appLocation")
+      .value.trim();
+
+    var status =
+      document.getElementById("appStatus")
+      .value;
+
+    if(!company || !role){
+
+      alert("Please enter Company and Role.");
+
+      return;
+    }
+
+    jobflowData.applications.unshift({
+
+      id:Date.now(),
+
+      company:company,
+
+      role:role,
+
+      location:location,
+
+      status:status,
+
+      created:new Date().toISOString()
+
+    });
+
+    saveJobFlowData();
+
+    document.getElementById("appCompany").value="";
+    document.getElementById("appRole").value="";
+    document.getElementById("appLocation").value="";
+
+    renderJobFlowApplications();
+
+    renderJobFlowPipeline();
+
+    updateJobFlowStats();
+
+    alert("Application added!");
+
+  };
+
+}
+
+
+/* =====================================
+   RENDER APPLICATIONS
+===================================== */
+
+function renderJobFlowApplications(){
+
+  var list =
+    document.getElementById("applicationsList");
+
+  if(!list)return;
+
+  if(!jobflowData.applications.length){
+
+    list.innerHTML =
+      '<tr><td colspan="4"><div class="empty">No applications yet.</div></td></tr>';
+
+    return;
+  }
+
+  list.innerHTML =
+    jobflowData.applications.map(function(app){
+
+      return `
+      <tr>
+
+        <td>
+          ${jobflowEscape(app.company)}
+        </td>
+
+        <td>
+          ${jobflowEscape(app.role)}
+        </td>
+
+        <td>
+
+          <select
+            onchange="changeJobFlowStatus(${app.id},this.value)">
+
+            ${[
+              "Saved",
+              "Applied",
+              "Screening",
+              "Interview",
+              "Final Round",
+              "Offer",
+              "Rejected"
+            ].map(function(status){
+
+              return `
+              <option
+                value="${status}"
+                ${app.status===status?"selected":""}>
+                ${status}
+              </option>
+              `;
+
+            }).join("")}
+
+          </select>
+
+        </td>
+
+        <td>
+
+          <button
+            class="btn light"
+            onclick="deleteJobFlowApplication(${app.id})">
+            Delete
+          </button>
+
+        </td>
+
+      </tr>
+      `;
+
+    }).join("");
+
+}
+
+
+window.changeJobFlowStatus =
+function(id,status){
+
+  var app =
+    jobflowData.applications.find(
+      function(item){
+        return item.id === id;
+      }
+    );
+
+  if(!app)return;
+
+  app.status = status;
+
+  saveJobFlowData();
+
+  renderJobFlowApplications();
+
+  renderJobFlowPipeline();
+
+  updateJobFlowStats();
+
+};
+
+
+window.deleteJobFlowApplication =
+function(id){
+
+  jobflowData.applications =
+    jobflowData.applications.filter(
+      function(app){
+        return app.id !== id;
+      }
+    );
+
+  saveJobFlowData();
+
+  renderJobFlowApplications();
+
+  renderJobFlowPipeline();
+
+  updateJobFlowStats();
+
+};
+
+
+/* =====================================
+   PIPELINE
+===================================== */
+
+function renderJobFlowPipeline(){
+
+  var board =
+    document.getElementById("pipelineBoard");
+
+  if(!board)return;
+
+  var stages = [
+    "Applied",
+    "Screening",
+    "Interview",
+    "Offer"
+  ];
+
+  board.innerHTML =
+    stages.map(function(stage){
+
+      var apps =
+        jobflowData.applications.filter(
+          function(app){
+
+            if(stage === "Interview"){
+
+              return (
+                app.status === "Interview" ||
+                app.status === "Final Round"
+              );
+
+            }
+
+            return app.status === stage;
+
+          }
+        );
+
+      return `
+      <div class="column">
+
+        <h3>
+          ${stage}
+          (${apps.length})
+        </h3>
+
+        ${
+          apps.length
+          ?
+          apps.map(function(app){
+
+            return `
+            <div class="job">
+
+              <strong>
+                ${jobflowEscape(app.company)}
+              </strong>
+
+              <div class="muted">
+                ${jobflowEscape(app.role)}
+              </div>
+
+            </div>
+            `;
+
+          }).join("")
+          :
+          '<div class="muted">No applications</div>'
+        }
+
+      </div>
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================
+   DASHBOARD STATS
+===================================== */
+
+function updateJobFlowStats(){
+
+  var jobs =
+    document.getElementById("statJobs");
+
+  var applications =
+    document.getElementById("statApplications");
+
+  var interviews =
+    document.getElementById("statInterviews");
+
+  var offers =
+    document.getElementById("statOffers");
+
+  if(jobs)
+    jobs.textContent =
+      jobflowData.jobs.length;
+
+  if(applications)
+    applications.textContent =
+      jobflowData.applications.length;
+
+  var interviewCount =
+    jobflowData.applications.filter(
+      function(app){
+
+        return (
+          app.status === "Interview" ||
+          app.status === "Final Round"
+        );
+
+      }
+    ).length;
+
+  var offerCount =
+    jobflowData.applications.filter(
+      function(app){
+
+        return app.status === "Offer";
+
+      }
+    ).length;
+
+  if(interviews)
+    interviews.textContent =
+      interviewCount;
+
+  if(offers)
+    offers.textContent =
+      offerCount;
+
+  var recent =
+    document.getElementById("recentList");
+
+  if(recent){
+
+    var recentApps =
+      jobflowData.applications.slice(0,5);
+
+    recent.innerHTML =
+      recentApps.length
+      ?
+      recentApps.map(function(app){
+
+        return `
+        <tr>
+
+          <td>
+            ${jobflowEscape(app.company)}
+          </td>
+
+          <td>
+            ${jobflowEscape(app.role)}
+          </td>
+
+          <td>
+            ${jobflowEscape(app.status)}
+          </td>
+
+        </tr>
+        `;
+
+      }).join("")
+      :
+      '<tr><td colspan="3"><div class="empty">No applications yet.</div></td></tr>';
+
+  }
+
+}
+
+
+/* =====================================
+   SECURITY
+===================================== */
+
+function jobflowEscape(value){
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================
+   START DATA ENGINE
+===================================== */
+
+renderJobFlowJobs();
+
+renderJobFlowApplications();
+
+renderJobFlowPipeline();
+
+updateJobFlowStats();
+
+console.log(
+  "JobFlow Jobs, Applications and Pipeline ready."
+);
+
+</script>
 </body>
 </html>
 
