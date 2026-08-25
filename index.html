@@ -2,56 +2,56 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#2563eb">
-<meta name="description" content="JobFlow AI Career Command Center">
-<title>JobFlow AI — Career Command Center</title>
+<meta name="description" content="JobFlow AI Career Management">
+<title>JobFlow AI - Career Command Center</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-:root{
-  --blue:#2563eb;
-  --blue2:#1d4ed8;
-  --bg:#f4f7fb;
-  --card:#fff;
-  --text:#0f172a;
-  --muted:#64748b;
-  --border:#e2e8f0;
-  --dark:#0f172a;
-  --danger:#dc2626;
-  --success:#16a34a;
-  --warning:#ea580c;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+  background:#f5f7fb;
+  color:#111827;
   min-height:100vh;
 }
 
-button,input,select,textarea{font:inherit}
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
 
-button{cursor:pointer}
+button{
+  cursor:pointer;
+}
 
-button:active{transform:scale(.98)}
+.app{
+  min-height:100vh;
+}
 
-.app{min-height:100vh}
+/* SIDEBAR */
 
 .sidebar{
   position:fixed;
+  left:0;
   top:0;
   bottom:0;
-  left:0;
-  width:235px;
+  width:240px;
   background:#111827;
   color:#fff;
   z-index:1000;
   overflow-y:auto;
-  transition:.2s;
 }
 
 .logo{
@@ -61,31 +61,40 @@ button:active{transform:scale(.98)}
   border-bottom:1px solid #263244;
 }
 
-.logo span{color:#60a5fa}
+.logo span{
+  color:#60a5fa;
+}
 
-.nav{padding:12px}
+.nav{
+  padding:14px 10px;
+}
 
 .nav button{
-  display:block;
   width:100%;
-  padding:12px 13px;
-  margin:3px 0;
   border:0;
-  border-radius:9px;
   background:transparent;
   color:#cbd5e1;
+  padding:13px 14px;
+  margin-bottom:5px;
+  border-radius:10px;
   text-align:left;
   font-weight:600;
 }
 
-.nav button:hover,
-.nav button.active{
-  background:var(--blue);
+.nav button:hover{
+  background:#1e293b;
   color:#fff;
 }
 
+.nav button.active{
+  background:#2563eb;
+  color:#fff;
+}
+
+/* MAIN */
+
 .main{
-  margin-left:235px;
+  margin-left:240px;
   min-height:100vh;
 }
 
@@ -93,14 +102,13 @@ button:active{transform:scale(.98)}
   position:sticky;
   top:0;
   z-index:500;
-  min-height:70px;
+  min-height:72px;
   padding:15px 25px;
   background:#fff;
-  border-bottom:1px solid var(--border);
+  border-bottom:1px solid #e5e7eb;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  gap:12px;
+  justify-content:space-between;
 }
 
 .topbar-left{
@@ -109,74 +117,103 @@ button:active{transform:scale(.98)}
   gap:12px;
 }
 
-.topbar h1{font-size:23px}
+.topbar h1{
+  font-size:24px;
+}
 
 .user-pill{
-  padding:8px 13px;
-  border-radius:20px;
   background:#f1f5f9;
+  padding:9px 14px;
+  border-radius:20px;
   font-size:13px;
   font-weight:700;
 }
 
-.content{padding:25px}
+.content{
+  padding:25px;
+}
 
-.page{display:none}
+/* MOBILE BUTTON */
 
-.page.active{display:block}
+.mobile-menu{
+  display:none;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:9px;
+  background:#2563eb;
+  color:#fff;
+  font-size:20px;
+}
+
+/* PAGE */
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+/* CARDS */
 
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
+  background:#fff;
+  border:1px solid #e5e7eb;
   border-radius:16px;
   padding:20px;
-  box-shadow:0 5px 18px rgba(15,23,42,.035);
+  box-shadow:0 5px 18px rgba(15,23,42,.04);
 }
 
 .grid{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:16px;
+  margin-bottom:20px;
 }
 
-.stat-card{
-  display:flex;
-  align-items:center;
-  gap:13px;
-}
-
-.stat-icon{
-  width:43px;
-  height:43px;
-  display:grid;
-  place-items:center;
-  border-radius:12px;
-  background:#eff6ff;
-  color:var(--blue);
-  font-size:19px;
-}
-
-.muted{
-  color:var(--muted);
+.stat-label{
+  color:#64748b;
   font-size:13px;
+  margin-bottom:8px;
 }
 
-.stat{
-  display:block;
-  margin-top:5px;
-  font-size:27px;
+.stat-number{
+  font-size:30px;
   font-weight:800;
 }
 
-.hero{
-  margin-bottom:20px;
-  padding:27px;
-  border-radius:18px;
-  color:#fff;
-  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+.blue{
+  color:#2563eb;
 }
 
-.hero h2{font-size:26px;margin-bottom:8px}
+.green{
+  color:#16a34a;
+}
+
+.orange{
+  color:#ea580c;
+}
+
+.red{
+  color:#dc2626;
+}
+
+/* HERO */
+
+.hero{
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+  color:#fff;
+  border-radius:18px;
+  padding:28px;
+  margin-bottom:20px;
+}
+
+.hero h2{
+  font-size:26px;
+  margin-bottom:8px;
+}
 
 .hero p{
   color:#dbeafe;
@@ -184,243 +221,183 @@ button:active{transform:scale(.98)}
   max-width:720px;
 }
 
+/* BUTTONS */
+
 .actions{
   display:flex;
   flex-wrap:wrap;
-  gap:9px;
-  margin-top:17px;
+  gap:10px;
+  margin-top:18px;
 }
 
 .btn{
   border:0;
-  border-radius:9px;
-  padding:10px 14px;
+  border-radius:10px;
+  padding:11px 16px;
   font-weight:700;
 }
 
-.btn-blue{background:var(--blue);color:#fff}
-.btn-dark{background:#111827;color:#fff}
-.btn-light{background:#e2e8f0;color:#0f172a}
-.btn-white{background:#fff;color:#1d4ed8}
-.btn-danger{background:#fee2e2;color:#b91c1c}
+.btn-blue{
+  background:#2563eb;
+  color:#fff;
+}
+
+.btn-dark{
+  background:#111827;
+  color:#fff;
+}
+
+.btn-light{
+  background:#e2e8f0;
+  color:#111827;
+}
+
+.btn-white{
+  background:#fff;
+  color:#1d4ed8;
+}
+
+/* SECTION */
 
 .section-title{
+  font-size:19px;
   margin-bottom:14px;
-  font-size:18px;
 }
+
+.muted{
+  color:#64748b;
+  font-size:14px;
+}
+
+.empty{
+  text-align:center;
+  padding:30px;
+  color:#64748b;
+}
+
+/* FORM */
 
 .form-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:14px;
+  gap:15px;
 }
 
 .field{
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:7px;
 }
 
-.field.full{grid-column:1/-1}
+.field.full{
+  grid-column:1/-1;
+}
 
 .field label{
-  font-size:12px;
+  font-size:13px;
   font-weight:700;
   color:#334155;
 }
 
 .field input,
-.field select,
-.field textarea{
+.field textarea,
+.field select{
   width:100%;
-  padding:11px;
   border:1px solid #cbd5e1;
   border-radius:9px;
+  padding:11px;
   outline:none;
   background:#fff;
 }
 
 .field textarea{
-  min-height:110px;
+  min-height:120px;
   resize:vertical;
 }
 
 .field input:focus,
-.field select:focus,
-.field textarea:focus{
-  border-color:var(--blue);
+.field textarea:focus,
+.field select:focus{
+  border-color:#2563eb;
   box-shadow:0 0 0 3px rgba(37,99,235,.1);
 }
 
-.table-wrap{overflow-x:auto}
+/* TABLE */
 
-table{
+.table-wrap{
   width:100%;
-  border-collapse:collapse;
-  min-width:600px;
-}
-
-th,td{
-  padding:12px;
-  border-bottom:1px solid var(--border);
-  text-align:left;
-  font-size:13px;
-}
-
-th{
-  color:#475569;
-  background:#f8fafc;
-}
-
-.badge{
-  display:inline-flex;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:11px;
-  font-weight:700;
-}
-
-.badge-blue{background:#dbeafe;color:#1d4ed8}
-.badge-purple{background:#ede9fe;color:#6d28d9}
-.badge-orange{background:#ffedd5;color:#c2410c}
-.badge-green{background:#dcfce7;color:#15803d}
-.badge-red{background:#fee2e2;color:#b91c1c}
-.badge-gray{background:#f1f5f9;color:#475569}
-
-.job-card{
-  margin-top:12px;
-  transition:.15s;
-}
-
-.job-card:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 25px rgba(15,23,42,.08);
-}
-
-.job-head{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-}
-
-.job-title{
-  font-size:17px;
-  font-weight:800;
-}
-
-.job-company{
-  margin-top:5px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-.search-row{
-  display:grid;
-  grid-template-columns:1fr 1fr auto;
-  gap:10px;
-}
-
-.pipeline{
-  display:grid;
-  grid-template-columns:repeat(5,minmax(180px,1fr));
-  gap:12px;
   overflow-x:auto;
 }
 
-.pipeline-column{
-  min-height:250px;
+table{
+  width:100%;
+  min-width:600px;
+  border-collapse:collapse;
+}
+
+th,
+td{
   padding:13px;
-  background:#f8fafc;
-  border:1px solid var(--border);
-  border-radius:13px;
-}
-
-.pipeline-column h3{
+  text-align:left;
+  border-bottom:1px solid #e5e7eb;
   font-size:14px;
-  margin-bottom:12px;
 }
 
-.pipeline-item{
-  padding:12px;
-  margin-bottom:8px;
-  border-radius:10px;
-  background:#fff;
-  border:1px solid var(--border);
+th{
+  background:#f8fafc;
+  color:#475569;
+}
+
+/* BADGES */
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
   font-size:12px;
+  font-weight:700;
 }
 
-.progress{
-  height:8px;
-  background:#e2e8f0;
-  border-radius:20px;
-  overflow:hidden;
+.badge-blue{
+  background:#dbeafe;
+  color:#1d4ed8;
 }
 
-.progress-value{
-  height:100%;
-  background:var(--blue);
-  border-radius:20px;
+.badge-green{
+  background:#dcfce7;
+  color:#15803d;
 }
 
-.empty{
-  padding:30px 15px;
-  text-align:center;
-  color:var(--muted);
+.badge-orange{
+  background:#ffedd5;
+  color:#c2410c;
 }
 
-.modal-bg{
-  position:fixed;
-  inset:0;
-  z-index:5000;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-  background:rgba(15,23,42,.6);
+.badge-red{
+  background:#fee2e2;
+  color:#b91c1c;
 }
 
-.modal-bg.show{display:flex}
-
-.modal{
-  width:min(620px,100%);
-  max-height:90vh;
-  overflow:auto;
-  background:#fff;
-  border-radius:17px;
-  padding:20px;
-}
-
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
-}
-
-.close{
-  width:35px;
-  height:35px;
-  border:0;
-  border-radius:9px;
+.badge-gray{
   background:#f1f5f9;
-  font-size:20px;
+  color:#475569;
 }
+
+/* TOAST */
 
 .toast{
   position:fixed;
   right:18px;
   bottom:18px;
-  z-index:9000;
-  max-width:330px;
-  padding:12px 15px;
-  border-radius:10px;
+  z-index:5000;
   background:#111827;
   color:#fff;
+  padding:13px 17px;
+  border-radius:10px;
   opacity:0;
-  transform:translateY(10px);
   pointer-events:none;
+  transform:translateY(12px);
   transition:.2s;
-  font-size:13px;
 }
 
 .toast.show{
@@ -428,72 +405,68 @@ th{
   transform:translateY(0);
 }
 
-.mobile-menu{
-  display:none;
-  width:40px;
-  height:40px;
-  border:0;
-  border-radius:9px;
-  background:var(--blue);
-  color:#fff;
-  font-size:19px;
+/* PIPELINE */
+
+.pipeline{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(180px,1fr));
+  gap:14px;
+  overflow-x:auto;
 }
+
+.pipeline-column{
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:14px;
+  padding:12px;
+  min-height:220px;
+}
+
+.pipeline-column h3{
+  font-size:14px;
+  margin-bottom:10px;
+}
+
+.pipeline-item{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:9px;
+}
+
+.pipeline-item strong{
+  display:block;
+  margin-bottom:4px;
+}
+
+.pipeline-item small{
+  color:#64748b;
+}
+
+/* RESUME */
 
 .resume-preview{
-  max-width:760px;
-  margin:auto;
-  line-height:1.6;
+  line-height:1.7;
 }
-
-.resume-preview h1{font-size:30px}
 
 .resume-preview h2{
-  margin-top:22px;
-  margin-bottom:7px;
-  font-size:17px;
-  border-bottom:1px solid var(--border);
-  padding-bottom:5px;
+  font-size:25px;
 }
 
-.setting-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  padding:15px 0;
-  border-bottom:1px solid var(--border);
+.resume-preview h3{
+  margin-top:18px;
+  margin-bottom:5px;
+  color:#2563eb;
 }
 
-.toggle{
-  width:48px;
-  height:26px;
-  border:0;
-  border-radius:20px;
-  background:#cbd5e1;
-}
+/* MOBILE */
 
-.toggle.on{background:var(--blue)}
+@media(max-width:900px){
 
-.toggle span{
-  display:block;
-  width:20px;
-  height:20px;
-  margin:3px;
-  border-radius:50%;
-  background:#fff;
-  transition:.2s;
-}
-
-.toggle.on span{transform:translateX(22px)}
-
-@media(max-width:1000px){
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .pipeline{grid-template-columns:repeat(5,190px)}
-}
-
-@media(max-width:800px){
   .sidebar{
     transform:translateX(-100%);
+    transition:.2s;
   }
 
   .sidebar.open{
@@ -508,19 +481,25 @@ th{
     display:block;
   }
 
-  .search-row{
-    grid-template-columns:1fr;
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
+
 }
 
 @media(max-width:600px){
-  .content{padding:15px}
+
+  .content{
+    padding:15px;
+  }
 
   .topbar{
     padding:12px 15px;
   }
 
-  .topbar h1{font-size:19px}
+  .topbar h1{
+    font-size:19px;
+  }
 
   .user-pill{
     display:none;
@@ -542,29 +521,10 @@ th{
     padding:21px;
   }
 
-  .hero h2{font-size:22px}
-
-  .card{padding:16px}
-
-  .modal-bg{
-    align-items:flex-end;
+  .hero h2{
+    font-size:22px;
   }
 
-  .modal{
-    max-height:92vh;
-    border-radius:17px 17px 0 0;
-  }
-}
-
-@media print{
-  body *{visibility:hidden}
-  #resumePreview,#resumePreview *{visibility:visible}
-  #resumePreview{
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-  }
 }
 </style>
 </head>
@@ -575,2256 +535,1773 @@ th{
 
 <aside class="sidebar" id="sidebar">
 
-<div class="logo">
-Job<span>Flow</span>
-</div>
+  <div class="logo">
+    Job<span>Flow</span>
+  </div>
 
-<nav class="nav">
+  <nav class="nav">
 
-<button class="active" data-page="dashboard">
-🏠 Dashboard
-</button>
+    <button class="active" data-page="dashboard">
+      🏠 Dashboard
+    </button>
 
-<button data-page="jobs">
-💼 Jobs
-</button>
+    <button data-page="jobs">
+      💼 Jobs
+    </button>
 
-<button data-page="applications">
-📋 Applications
-</button>
+    <button data-page="applications">
+      📋 Applications
+    </button>
 
-<button data-page="pipeline">
-🔄 Pipeline
-</button>
+    <button data-page="pipeline">
+      🔄 Pipeline
+    </button>
 
-<button data-page="analytics">
-📊 Analytics
-</button>
+    <button data-page="analytics">
+      📊 Analytics
+    </button>
 
-<button data-page="resume">
-📄 Resume
-</button>
+    <button data-page="resume">
+      📄 Resume Builder
+    </button>
 
-<button data-page="interview">
-🎤 Interview
-</button>
+    <button data-page="interview">
+      🎤 Interview
+    </button>
 
-<button data-page="subscription">
-💳 Premium
-</button>
+    <button data-page="subscription">
+      💳 Subscription
+    </button>
 
-<button data-page="profile">
-👤 Profile
-</button>
+    <button data-page="profile">
+      👤 Profile
+    </button>
 
-<button data-page="settings">
-⚙️ Settings
-</button>
+    <button data-page="settings">
+      ⚙️ Settings
+    </button>
 
-</nav>
+  </nav>
+
 </aside>
-
 
 <main class="main">
 
 <header class="topbar">
 
-<div class="topbar-left">
+  <div class="topbar-left">
 
-<button class="mobile-menu" id="menuBtn">
-☰
-</button>
+    <button
+      class="mobile-menu"
+      id="mobileMenu"
+    >☰</button>
 
-<h1 id="pageTitle">
-Dashboard
-</h1>
+    <h1 id="pageTitle">
+      Dashboard
+    </h1>
 
-</div>
+  </div>
 
-<div class="user-pill">
-👤 <span id="topUser">Job Seeker</span>
-</div>
+  <div class="user-pill">
+    👤 <span id="topUser">Job Seeker</span>
+  </div>
 
 </header>
 
-
 <div class="content">
+<!-- =========================
+     DASHBOARD
+========================= -->
 
-
-<!-- DASHBOARD -->
-
-<section class="page active" id="dashboard">
-
-<div class="hero">
-
-<h2>Career Command Center</h2>
-
-<p>
-Manage your job search, applications,
-resume, interviews and career progress
-from one fast workspace.
-</p>
-
-<div class="actions">
-
-<button class="btn btn-white" data-go="jobs">
-Find Jobs
-</button>
-
-<button class="btn btn-white" data-go="applications">
-Add Application
-</button>
-
-<button class="btn btn-white" data-go="resume">
-Build Resume
-</button>
-
-</div>
-
-</div>
-
-
-<div class="grid" id="dashboardStats"></div>
-
-
-<div class="card" style="margin-top:18px">
-
-<h2 class="section-title">
-Recent Applications
-</h2>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Company</th>
-<th>Role</th>
-<th>Status</th>
-<th>Location</th>
-</tr>
-</thead>
-
-<tbody id="recentApplications"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- JOBS -->
-
-<section class="page" id="jobs">
-
-<div class="hero">
-
-<h2>Job Search</h2>
-
-<p>
-Search your saved opportunities and
-quickly move them into your application
-pipeline.
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="search-row">
-
-<input
-id="jobSearch"
-placeholder="Job title, company..."
+<section
+  id="dashboard"
+  class="page active"
 >
 
-<input
-id="jobLocation"
-placeholder="Location..."
->
-
-<button class="btn btn-blue" id="searchBtn">
-Search
-</button>
-
-</div>
-
-</div>
-
-<div id="jobResults"></div>
-
-</section>
-
-
-<!-- APPLICATIONS -->
-
-<section class="page" id="applications">
-
-<div class="card">
-
-<h2>Applications</h2>
-
-<p class="muted" style="margin-top:6px">
-Track and update every application.
-</p>
-
-<div class="actions">
-
-<button class="btn btn-blue" id="addApplicationBtn">
-+ Add Application
-</button>
-
-</div>
-
-</div>
-
-<div class="card" style="margin-top:18px">
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>Company</th>
-<th>Role</th>
-<th>Status</th>
-<th>Priority</th>
-<th>Action</th>
-</tr>
-
-</thead>
-
-<tbody id="applicationsList"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- PIPELINE -->
-
-<section class="page" id="pipeline">
-
-<div class="hero">
-
-<h2>Application Pipeline</h2>
-
-<p>
-See exactly where your applications
-are in the hiring process.
-</p>
-
-</div>
-
-<div class="pipeline" id="pipelineBoard"></div>
-
-</section>
-
-
-<!-- ANALYTICS -->
-
-<section class="page" id="analytics">
-
-<div class="hero">
-
-<h2>Career Analytics</h2>
-
-<p>
-Track your job-search performance.
-</p>
-
-</div>
-
-<div class="grid" id="analyticsStats"></div>
-
-<div class="card" style="margin-top:18px">
-
-<h3>Interview Progress</h3>
-
-<div style="margin-top:15px">
-
-<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
-<span>Interview conversion</span>
-<strong id="progressText">0%</strong>
-</div>
-
-<div class="progress">
-<div class="progress-value" id="progressBar" style="width:0%"></div>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- RESUME -->
-
-<section class="page" id="resume">
-
-<div class="hero">
-
-<h2>Resume Builder</h2>
-
-<p>
-Create a clean professional resume
-and print/save it as PDF.
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="form-grid">
-
-<div class="field">
-
-<label>Full Name</label>
-
-<input id="resumeName" placeholder="Your full name">
-
-</div>
-
-<div class="field">
-
-<label>Professional Title</label>
-
-<input id="resumeTitle" placeholder="Software Engineer">
-
-</div>
-
-<div class="field">
-
-<label>Email</label>
-
-<input id="resumeEmail" placeholder="you@example.com">
-
-</div>
-
-<div class="field">
-
-<label>Phone</label>
-
-<input id="resumePhone" placeholder="+91...">
-
-</div>
-
-<div class="field full">
-
-<label>Summary</label>
-
-<textarea id="resumeSummary" placeholder="Professional summary"></textarea>
-
-</div>
-
-<div class="field full">
-
-<label>Skills</label>
-
-<input id="resumeSkills" placeholder="JavaScript, Python, SQL, React">
-
-</div>
-
-<div class="field full">
-
-<label>Experience</label>
-
-<textarea id="resumeExperience" placeholder="Describe your experience"></textarea>
-
-</div>
-
-<div class="field full">
-
-<label>Education</label>
-
-<textarea id="resumeEducation" placeholder="Education details"></textarea>
-
-</div>
-
-</div>
-
-<div class="actions">
-
-<button class="btn btn-blue" id="generateResumeBtn">
-Generate Resume
-</button>
-
-<button class="btn btn-light" id="printResumeBtn">
-Print / Save PDF
-</button>
-
-</div>
-
-</div>
-
-<div class="card" style="margin-top:18px">
-
-<div id="resumePreview">
-
-<div class="empty">
-Fill in your information and generate your resume.
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- INTERVIEW -->
-
-<section class="page" id="interview">
-
-<div class="hero">
-
-<h2>Interview Practice</h2>
-
-<p>
-Practice common interview questions
-before your next interview.
-</p>
-
-</div>
-
-<div class="card">
-
-<span class="badge badge-blue">
-Question <span id="questionNumber">1</span>
-</span>
-
-<h2 id="interviewQuestion" style="margin-top:15px">
-Tell me about yourself.
-</h2>
-
-<textarea
-id="interviewAnswer"
-style="width:100%;margin-top:15px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;min-height:130px"
-placeholder="Write your answer..."
-></textarea>
-
-<div class="actions">
-
-<button class="btn btn-blue" id="nextQuestionBtn">
-Next Question
-</button>
-
-<button class="btn btn-light" id="clearAnswerBtn">
-Clear Answer
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- SUBSCRIPTION -->
-
-<section class="page" id="subscription">
-
-<div class="hero">
-
-<h2>JobFlow Premium</h2>
-
-<p>
-Unlock advanced career productivity
-features as JobFlow grows.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Free</h3>
-
-<div class="stat">₹0</div>
-
-<p class="muted" style="margin-top:8px">
-For getting started
-</p>
-
-<div style="line-height:2;margin-top:15px">
-✓ Job tracking<br>
-✓ Applications<br>
-✓ Pipeline<br>
-✓ Basic resume
-</div>
-
-</div>
-
-
-<div class="card" style="border:2px solid #2563eb">
-
-<h3>Premium</h3>
-
-<div class="stat">₹499</div>
-
-<p class="muted" style="margin-top:8px">
-Premium career tools
-</p>
-
-<div style="line-height:2;margin-top:15px">
-✓ Advanced resume tools<br>
-✓ Interview preparation<br>
-✓ Advanced analytics<br>
-✓ Premium tools<br>
-✓ Priority features
-</div>
-
-<div class="actions">
-
-<button class="btn btn-blue" id="upgradeBtn">
-Upgrade
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- PROFILE -->
-
-<section class="page" id="profile">
-
-<div class="card">
-
-<h2>Profile</h2>
-
-<div class="form-grid" style="margin-top:18px">
-
-<div class="field">
-
-<label>Name</label>
-
-<input id="profileName" placeholder="Your name">
-
-</div>
-
-<div class="field">
-
-<label>Email</label>
-
-<input id="profileEmail" type="email" placeholder="you@example.com">
-
-</div>
-
-<div class="field">
-
-<label>Target Role</label>
-
-<input id="profileRole" placeholder="Your target role">
-
-</div>
-
-<div class="field">
-
-<label>Target Location</label>
-
-<input id="profileLocation" placeholder="Hyderabad / Remote">
-
-</div>
-
-</div>
-
-<div class="actions">
-
-<button class="btn btn-blue" id="saveProfileBtn">
-Save Profile
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- SETTINGS -->
-
-<section class="page" id="settings">
-
-<div class="card">
-
-<h2>Settings</h2>
-
-<p class="muted" style="margin-top:6px">
-Manage your local JobFlow preferences.
-</p>
-
-<div class="setting-row">
-
-<div>
-<strong>Dark Mode</strong>
-<p class="muted">Change the appearance.</p>
-</div>
-
-<button class="toggle" id="darkToggle">
-<span></span>
-</button>
-
-</div>
-
-<div class="setting-row">
-
-<div>
-<strong>Export Data</strong>
-<p class="muted">Download your JobFlow backup.</p>
-</div>
-
-<button class="btn btn-light" id="exportBtn">
-Export
-</button>
-
-</div>
-
-<div class="setting-row">
-
-<div>
-<strong>Reset Data</strong>
-<p class="muted">Delete local JobFlow data.</p>
-</div>
-
-<button class="btn btn-danger" id="resetBtn">
-Reset
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-</div>
-</main>
-</div>
-
-
-<!-- APPLICATION MODAL -->
-
-<div class="modal-bg" id="modalBg">
-
-<div class="modal">
-
-<div class="modal-head">
-
-<h2 id="modalTitle">
-Add Application
-</h2>
-
-<button class="close" id="modalClose">
-×
-</button>
-
-</div>
-
-<form id="applicationForm">
-
-<input type="hidden" id="editId">
-
-<div class="form-grid">
-
-<div class="field">
-
-<label>Company</label>
-
-<input id="appCompany" required>
-
-</div>
-
-<div class="field">
-
-<label>Job Role</label>
-
-<input id="appRole" required>
-
-</div>
-
-<div class="field">
-
-<label>Location</label>
-
-<input id="appLocation">
-
-</div>
-
-<div class="field">
-
-<label>Priority</label>
-
-<select id="appPriority">
-
-<option>Low</option>
-<option selected>Medium</option>
-<option>High</option>
-<option>Urgent</option>
-
-</select>
-
-</div>
-
-<div class="field">
-
-<label>Status</label>
-
-<select id="appStatus">
-
-<option value="saved">Saved</option>
-<option value="applied">Applied</option>
-<option value="screening">Screening</option>
-<option value="interview">Interview</option>
-<option value="offer">Offer</option>
-<option value="rejected">Rejected</option>
-
-</select>
-
-</div>
-
-<div class="field">
-
-<label>Job URL</label>
-
-<input id="appUrl" placeholder="https://...">
-
-</div>
-
-<div class="field full">
-
-<label>Notes</label>
-
-<textarea id="appNotes"></textarea>
-
-</div>
-
-</div>
-
-<div class="actions">
-
-<button type="submit" class="btn btn-blue">
-Save Application
-</button>
-
-<button type="button" class="btn btn-light" id="modalCancel">
-Cancel
-</button>
-
-</div>
-
-</form>
-
-</div>
-</div>
-
-
-<div class="toast" id="toast"></div>
-
-
-<script>
-(function(){
-
-"use strict";
-
-
-/* =========================
-   STORAGE
-========================= */
-
-const KEY = "jobflow_v2";
-
-const defaultState = {
-  jobs:[],
-  profile:{},
-  resume:{},
-  dark:false,
-  premium:false
-};
-
-let state = load();
-
-
-function load(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(KEY);
-
-    if(!saved){
-
-      return {
-        ...defaultState
-      };
-
-    }
-
-    return {
-      ...defaultState,
-      ...JSON.parse(saved)
-    };
-
-  }catch(e){
-
-    return {
-      ...defaultState
-    };
-
-  }
-
-}
-
-
-function save(){
-
-  try{
-
-    localStorage.setItem(
-      KEY,
-      JSON.stringify(state)
-    );
-
-  }catch(e){
-
-    toast("Could not save data.");
-
-  }
-
-}
-
-
-/* =========================
-   HELPERS
-========================= */
-
-const $ = id =>
-  document.getElementById(id);
-
-
-function esc(value){
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-function toast(message){
-
-  const box = $("toast");
-
-  if(!box)return;
-
-  box.textContent = message;
-
-  box.classList.add("show");
-
-  clearTimeout(
-    window.__toastTimer
-  );
-
-  window.__toastTimer =
-    setTimeout(
-      () => box.classList.remove("show"),
-      2400
-    );
-
-}
-
-
-function badge(status){
-
-  const map = {
-
-    saved:["Saved","badge-gray"],
-applied:["Applied","badge-blue"],
-screening:["Screening","badge-purple"],
-interview:["Interview","badge-orange"],
-"final round":["Final Round","badge-orange"],
-offer:["Offer","badge-green"],
-rejected:["Rejected","badge-red"]
-};
-
-function statusBadge(status){
-
-  const key =
-    String(status || "Saved")
-      .toLowerCase();
-
-  const data =
-    STATUS[key] ||
-    STATUS.saved;
-
-  return `
-    <span class="badge ${data[1]}">
-      ${escapeHTML(data[0])}
-    </span>
-  `;
-}
-
-
-/* =========================
-   RENDER APPLICATIONS
-========================= */
-
-function renderApplications(){
-
-  const list =
-    document.getElementById(
-      "applicationsList"
-    );
-
-  if(!list)return;
-
-  const applications =
-    jobs.filter(
-      job =>
-        job.type === "application"
-    );
-
-  if(!applications.length){
-
-    list.innerHTML = `
-      <tr>
-        <td colspan="4">
-          <div class="empty">
-            No applications yet.
-          </div>
-        </td>
-      </tr>
-    `;
-
-    return;
-  }
-
-  list.innerHTML =
-    applications
-      .map(
-        job => `
-          <tr>
-
-            <td>
-              <strong>
-                ${escapeHTML(job.company)}
-              </strong>
-            </td>
-
-            <td>
-              ${escapeHTML(job.title)}
-            </td>
-
-            <td>
-              ${statusBadge(job.status)}
-            </td>
-
-            <td>
-
-              <select
-                class="status-select"
-                onchange="
-                  updateApplicationStatus(
-                    '${job.id}',
-                    this.value
-                  )
-                "
-              >
-
-                ${[
-                  "Saved",
-                  "Applied",
-                  "Screening",
-                  "Interview",
-                  "Final Round",
-                  "Offer",
-                  "Rejected"
-                ]
-                  .map(
-                    status => `
-                      <option
-                        value="${status}"
-                        ${
-                          status === job.status
-                            ? "selected"
-                            : ""
-                        }
-                      >
-                        ${status}
-                      </option>
-                    `
-                  )
-                  .join("")}
-
-              </select>
-
-              <button
-                class="small-btn"
-                onclick="
-                  deleteApplication('${job.id}')
-                "
-              >
-                Delete
-              </button>
-
-            </td>
-
-          </tr>
-        `
-      )
-      .join("");
-
-}
-
-
-/* =========================
-   UPDATE STATUS
-========================= */
-
-window.updateApplicationStatus =
-function(id,status){
-
-  const job =
-    jobs.find(
-      item =>
-        String(item.id) ===
-        String(id)
-    );
-
-  if(!job)return;
-
-  job.status =
-    status;
-
-  job.updatedAt =
-    new Date()
-      .toISOString();
-
-  saveJobs();
-
-  updateDashboard();
-
-  renderApplications();
-
-  renderPipeline();
-
-  renderAnalytics();
-
-  toast(
-    "Application status updated"
-  );
-
-};
-
-
-/* =========================
-   DELETE APPLICATION
-========================= */
-
-window.deleteApplication =
-function(id){
-
-  const confirmed =
-    confirm(
-      "Delete this application?"
-    );
-
-  if(!confirmed)return;
-
-  jobs =
-    jobs.filter(
-      job =>
-        String(job.id) !==
-        String(id)
-    );
-
-  saveJobs();
-
-  updateDashboard();
-
-  renderApplications();
-
-  renderPipeline();
-
-  renderAnalytics();
-
-  toast(
-    "Application deleted"
-  );
-
-};
-
-
-/* =========================
-   JOB SEARCH
-========================= */
-
-window.searchJobs =
-function(){
-
-  const title =
-    document
-      .getElementById(
-        "jobSearch"
-      )
-      ?.value
-      .trim()
-      .toLowerCase();
-
-  const location =
-    document
-      .getElementById(
-        "jobLocation"
-      )
-      ?.value
-      .trim()
-      .toLowerCase();
-
-  const results =
-    document.getElementById(
-      "jobResults"
-    );
-
-  if(!results)return;
-
-  if(!title && !location){
-
-    renderJobs();
-
-    return;
-
-  }
-
-  const filtered =
-    jobs.filter(
-      job => {
-
-        if(
-          job.type ===
-          "application"
-        ){
-
-          return false;
-
-        }
-
-        const text =
-          (
-            job.title +
-            " " +
-            job.company +
-            " " +
-            job.location
-          )
-          .toLowerCase();
-
-        return (
-          (!title ||
-            text.includes(title)) &&
-          (!location ||
-            text.includes(location))
-        );
-
-      }
-    );
-
-  renderJobResults(
-    filtered
-  );
-
-};
-
-
-/* =========================
-   CLEAR SEARCH
-========================= */
-
-window.clearJobSearch =
-function(){
-
-  const title =
-    document.getElementById(
-      "jobSearch"
-    );
-
-  const location =
-    document.getElementById(
-      "jobLocation"
-    );
-
-  if(title)
-    title.value = "";
-
-  if(location)
-    location.value = "";
-
-  renderJobs();
-
-};
-
-
-/* =========================
-   RENDER JOBS
-========================= */
-
-function renderJobs(){
-
-  const results =
-    document.getElementById(
-      "jobResults"
-    );
-
-  if(!results)return;
-
-  const jobList =
-    jobs.filter(
-      job =>
-        job.type !==
-        "application"
-    );
-
-  renderJobResults(
-    jobList
-  );
-
-}
-
-
-function renderJobResults(
-  list
-){
-
-  const results =
-    document.getElementById(
-      "jobResults"
-    );
-
-  if(!results)return;
-
-  if(!list.length){
-
-    results.innerHTML = `
-      <div class="card">
-        <div class="empty">
-          No matching jobs found.
-        </div>
+  <div
+    id="accessBanner"
+    class="card"
+    style="margin-bottom:18px"
+  >
+    <strong>Welcome to JobFlow AI</strong>
+    <p class="muted" style="margin-top:6px">
+      Your career command center is ready.
+    </p>
+  </div>
+
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="stat-label">
+        Saved Jobs
       </div>
-    `;
-
-    return;
-
-  }
-
-  results.innerHTML =
-    list
-      .map(
-        job => `
 
-          <div
-            class="card job-card"
-          >
+      <div
+        class="stat-number blue"
+        id="totalJobs"
+      >
+        0
+      </div>
+    </div>
 
-            <div
-              class="job-card-top"
-            >
 
-              <div>
+    <div class="card">
+      <div class="stat-label">
+        Applications
+      </div>
 
-                <h3>
-                  ${escapeHTML(job.title)}
-                </h3>
+      <div
+        class="stat-number orange"
+        id="totalApplications"
+      >
+        0
+      </div>
+    </div>
 
-                <p class="muted">
-                  ${escapeHTML(job.company)}
-                  ·
-                  ${escapeHTML(job.location)}
-                </p>
 
-              </div>
+    <div class="card">
+      <div class="stat-label">
+        Interviews
+      </div>
 
-              <span
-                class="badge badge-blue"
-              >
-                ${job.match || 0}% Match
-              </span>
+      <div
+        class="stat-number green"
+        id="totalInterviews"
+      >
+        0
+      </div>
+    </div>
 
-            </div>
 
-            <p
-              style="
-                margin-top:12px;
-                line-height:1.6;
-                color:#475569;
-              "
-            >
-              ${escapeHTML(
-                job.description ||
-                "Job opportunity matching your career goals."
-              )}
-            </p>
+    <div class="card">
+      <div class="stat-label">
+        Offers
+      </div>
 
-            <div class="actions">
+      <div
+        class="stat-number blue"
+        id="totalOffers"
+      >
+        0
+      </div>
+    </div>
 
-              <button
-                class="btn btn-blue"
-                onclick="
-                  applyForJob('${job.id}')
-                "
-              >
-                Apply / Track
-              </button>
+  </div>
 
-              <button
-                class="btn btn-light"
-                onclick="
-                  saveJob('${job.id}')
-                "
-              >
-                Save
-              </button>
 
-            </div>
+  <div class="hero">
 
-          </div>
+    <h2>
+      Career Command Center
+    </h2>
 
-        `
-      )
-      .join("");
+    <p>
+      Manage jobs, applications, interviews,
+      your resume and career progress from one
+      fast workspace.
+    </p>
 
-}
+    <div class="actions">
 
+      <button
+        class="btn btn-white"
+        data-go="jobs"
+      >
+        Find Jobs
+      </button>
 
-/* =========================
-   SAVE JOB
-========================= */
+      <button
+        class="btn btn-white"
+        data-go="applications"
+      >
+        Applications
+      </button>
 
-window.saveJob =
-function(id){
+      <button
+        class="btn btn-white"
+        data-go="resume"
+      >
+        Build Resume
+      </button>
 
-  const job =
-    jobs.find(
-      item =>
-        String(item.id) ===
-        String(id)
-    );
+    </div>
 
-  if(!job)return;
+  </div>
 
-  job.saved =
-    true;
 
-  saveJobs();
+  <div class="card">
 
-  updateDashboard();
+    <h3 class="section-title">
+      Recent Applications
+    </h3>
 
-  toast(
-    "Job saved"
-  );
+    <div class="table-wrap">
 
-};
+      <table>
 
-
-/* =========================
-   APPLY / TRACK JOB
-========================= */
-
-window.applyForJob =
-function(id){
-
-  const original =
-    jobs.find(
-      item =>
-        String(item.id) ===
-        String(id)
-    );
-
-  if(!original)return;
-
-  const application = {
-
-    id:
-      Date.now(),
-
-    type:
-      "application",
-
-    company:
-      original.company,
-
-    title:
-      original.title,
-
-    location:
-      original.location,
-
-    url:
-      original.url || "",
-
-    status:
-      "Applied",
-
-    createdAt:
-      new Date()
-        .toISOString(),
-
-    updatedAt:
-      new Date()
-        .toISOString()
-
-  };
-
-  jobs.push(
-    application
-  );
-
-  saveJobs();
-
-  updateDashboard();
-
-  toast(
-    "Application added to pipeline"
-  );
-
-};
-
-
-/* =========================
-   PIPELINE
-========================= */
-
-function renderPipeline(){
-
-  const board =
-    document.getElementById(
-      "pipelineBoard"
-    );
-
-  if(!board)return;
-
-  const stages = [
-    "Saved",
-    "Applied",
-    "Screening",
-    "Interview",
-    "Final Round",
-    "Offer",
-    "Rejected"
-  ];
-
-  const applications =
-    jobs.filter(
-      job =>
-        job.type ===
-        "application"
-    );
-
-  board.innerHTML =
-    stages
-      .map(
-        stage => {
-
-          const items =
-            applications.filter(
-              job =>
-                job.status ===
-                stage
-            );
-
-          return `
-
-            <div
-              class="card pipeline-column"
-            >
-
-              <div
-                class="pipeline-header"
-              >
-
-                <strong>
-                  ${stage}
-                </strong>
-
-                <span>
-                  ${items.length}
-                </span>
-
-              </div>
-
-              <div
-                class="pipeline-items"
-              >
-
-                ${
-                  items.length
-                    ? items
-                        .map(
-                          job => `
-                            <div
-                              class="pipeline-item"
-                            >
-
-                              <strong>
-                                ${escapeHTML(
-                                  job.company
-                                )}
-                              </strong>
-
-                              <span>
-                                ${escapeHTML(
-                                  job.title
-                                )}
-                              </span>
-
-                              <select
-                                onchange="
-                                  updateApplicationStatus(
-                                    '${job.id}',
-                                    this.value
-                                  )
-                                "
-                              >
-
-                                ${stages
-                                  .map(
-                                    option => `
-                                      <option
-                                        value="${option}"
-                                        ${
-                                          option ===
-                                          job.status
-                                            ? "selected"
-                                            : ""
-                                        }
-                                      >
-                                        ${option}
-                                      </option>
-                                    `
-                                  )
-                                  .join("")}
-
-                              </select>
-
-                            </div>
-                          `
-                        )
-                        .join("")
-                    : `
-                      <div
-                        class="pipeline-empty"
-                      >
-                        Empty
-                      </div>
-                    `
-                }
-
-              </div>
-
-            </div>
-
-          `;
-
-        }
-      )
-      .join("");
-
-}
-
-
-/* =========================
-   ANALYTICS
-========================= */
-
-function renderAnalytics(){
-
-  const applications =
-    jobs.filter(
-      job =>
-        job.type ===
-        "application"
-    );
-
-  const total =
-    applications.length;
-
-  const interviews =
-    applications.filter(
-      job =>
-        [
-          "Interview",
-          "Final Round"
-        ].includes(
-          job.status
-        )
-    ).length;
-
-  const offers =
-    applications.filter(
-      job =>
-        job.status ===
-        "Offer"
-    ).length;
-
-  const rate =
-    total
-      ? Math.round(
-          (
-            interviews /
-            total
-          ) *
-          100
-        )
-      : 0;
-
-  setText(
-    "analyticsTotal",
-    total
-  );
-
-  setText(
-    "analyticsInterviews",
-    interviews
-  );
-
-  setText(
-    "analyticsOffers",
-    offers
-  );
-
-  setText(
-    "analyticsInterviewRate",
-    rate + "%"
-  );
-
-}
-
-
-/* =========================
-   DASHBOARD
-========================= */
-
-function updateDashboard(){
-
-  const saved =
-    jobs.filter(
-      job =>
-        job.type !==
-        "application" &&
-        job.saved
-    ).length;
-
-  const applications =
-    jobs.filter(
-      job =>
-        job.type ===
-        "application"
-    );
-
-  const interviews =
-    applications.filter(
-      job =>
-        [
-          "Interview",
-          "Final Round"
-        ].includes(
-          job.status
-        )
-    ).length;
-
-  const offers =
-    applications.filter(
-      job =>
-        job.status ===
-        "Offer"
-    ).length;
-
-  setText(
-    "totalJobs",
-    saved
-  );
-
-  setText(
-    "totalApplications",
-    applications.length
-  );
-
-  setText(
-    "totalInterviews",
-    interviews
-  );
-
-  setText(
-    "totalOffers",
-    offers
-  );
-
-  renderRecentApplications();
-
-}
-
-
-/* =========================
-   RECENT APPLICATIONS
-========================= */
-
-function renderRecentApplications(){
-
-  const table =
-    document.getElementById(
-      "recentApplications"
-    );
-
-  if(!table)return;
-
-  const applications =
-    jobs
-      .filter(
-        job =>
-          job.type ===
-          "application"
-      )
-      .slice()
-      .sort(
-        (a,b) =>
-          new Date(
-            b.createdAt
-          ) -
-          new Date(
-            a.createdAt
-          )
-      )
-      .slice(
-        0,
-        5
-      );
-
-  if(!applications.length){
-
-    table.innerHTML = `
-      <tr>
-        <td colspan="3">
-          <div class="empty">
-            No applications yet.
-          </div>
-        </td>
-      </tr>
-    `;
-
-    return;
-
-  }
-
-  table.innerHTML =
-    applications
-      .map(
-        job => `
+        <thead>
           <tr>
-
-            <td>
-              ${escapeHTML(
-                job.company
-              )}
-            </td>
-
-            <td>
-              ${escapeHTML(
-                job.title
-              )}
-            </td>
-
-            <td>
-              ${statusBadge(
-                job.status
-              )}
-            </td>
-
+            <th>Company</th>
+            <th>Role</th>
+            <th>Status</th>
           </tr>
-        `
-      )
-      .join("");
+        </thead>
 
-}
+        <tbody id="recentApplications">
+
+          <tr>
+            <td colspan="3">
+              <div class="empty">
+                No applications yet.
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
 
 
-/* =========================
-   RESUME
-========================= */
+<!-- =========================
+     JOBS
+========================= -->
 
-window.generateResume =
-function(){
+<section
+  id="jobs"
+  class="page"
+>
 
-  const name =
-    document.getElementById(
-      "resumeName"
-    )?.value.trim();
+  <div class="hero">
 
-  const title =
-    document.getElementById(
-      "resumeTitle"
-    )?.value.trim();
+    <h2>
+      Find Jobs
+    </h2>
 
-  const summary =
-    document.getElementById(
-      "resumeSummary"
-    )?.value.trim();
+    <p>
+      Search and save job opportunities
+      directly inside JobFlow.
+    </p>
 
-  const skills =
-    document.getElementById(
-      "resumeSkills"
-    )?.value.trim();
+  </div>
 
-  if(!name){
 
-    toast(
-      "Please enter your name"
-    );
+  <div class="card">
 
-    return;
+    <div class="form-grid">
 
-  }
+      <div class="field">
 
-  const profileData = {
+        <label>
+          Job Title
+        </label>
 
-    name,
-    title,
-    summary,
-    skills
+        <input
+          id="jobSearch"
+          type="search"
+          placeholder="Software Engineer"
+        >
 
-  };
+      </div>
 
-  localStorage.setItem(
-    "jobflow_resume",
-    JSON.stringify(
-      profileData
-    )
-  );
 
-  const preview =
-    document.getElementById(
-      "resumePreview"
-    );
+      <div class="field">
 
-  preview.innerHTML = `
+        <label>
+          Location
+        </label>
+
+        <input
+          id="jobLocation"
+          type="search"
+          placeholder="Hyderabad"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="btn btn-blue"
+        id="searchJobsBtn"
+      >
+        Search Jobs
+      </button>
+
+      <button
+        class="btn btn-light"
+        id="clearJobsBtn"
+      >
+        Clear
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="jobResults"
+    style="margin-top:18px"
+  ></div>
+
+</section>
+<!-- =========================
+     APPLICATIONS
+========================= -->
+
+<section
+  id="applications"
+  class="page"
+>
+
+  <div class="card">
+
+    <h2>
+      Applications
+    </h2>
+
+    <p
+      class="muted"
+      style="margin-top:7px"
+    >
+      Track every application and update
+      its status as you progress.
+    </p>
+
+    <div class="actions">
+
+      <button
+        class="btn btn-blue"
+        id="addApplicationBtn"
+      >
+        + Add Application
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="card"
+    style="margin-top:18px"
+  >
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Company</th>
+            <th>Role</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+
+        <tbody
+          id="applicationsList"
+        ></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PIPELINE
+========================= -->
+
+<section
+  id="pipeline"
+  class="page"
+>
+
+  <div class="hero">
+
+    <h2>
+      Application Pipeline
+    </h2>
+
+    <p>
+      See your applications by career stage
+      and keep your job search organized.
+    </p>
+
+  </div>
+
+
+  <div
+    id="pipelineBoard"
+    class="pipeline"
+  ></div>
+
+</section>
+
+
+<!-- =========================
+     ANALYTICS
+========================= -->
+
+<section
+  id="analytics"
+  class="page"
+>
+
+  <div class="hero">
+
+    <h2>
+      Career Analytics
+    </h2>
+
+    <p>
+      Understand your application activity,
+      interview progress and offers.
+    </p>
+
+  </div>
+
+
+  <div class="grid">
+
+    <div class="card">
+
+      <div class="stat-label">
+        Total Applications
+      </div>
+
+      <div
+        class="stat-number blue"
+        id="analyticsTotal"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="stat-label">
+        Interviews
+      </div>
+
+      <div
+        class="stat-number green"
+        id="analyticsInterviews"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="stat-label">
+        Offers
+      </div>
+
+      <div
+        class="stat-number blue"
+        id="analyticsOffers"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="stat-label">
+        Interview Rate
+      </div>
+
+      <div
+        class="stat-number orange"
+        id="analyticsInterviewRate"
+      >
+        0%
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="card"
+    style="margin-top:18px"
+  >
+
+    <h3 class="section-title">
+      Application Summary
+    </h3>
+
+    <div id="analyticsSummary">
+
+      <div class="empty">
+        Start adding applications to see
+        your career analytics.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+<!-- =========================
+     RESUME BUILDER
+========================= -->
+
+<section
+  id="resume"
+  class="page"
+>
+
+  <div class="hero">
+
+    <h2>
+      Resume Builder
+    </h2>
+
+    <p>
+      Create a clean professional resume
+      using your JobFlow profile.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label>
+          Full Name
+        </label>
+
+        <input
+          id="resumeName"
+          placeholder="Your full name"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Professional Title
+        </label>
+
+        <input
+          id="resumeTitle"
+          placeholder="Software Engineer"
+        >
+
+      </div>
+
+
+      <div class="field full">
+
+        <label>
+          Professional Summary
+        </label>
+
+        <textarea
+          id="resumeSummary"
+          placeholder="Write a short professional summary..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="field full">
+
+        <label>
+          Skills
+        </label>
+
+        <input
+          id="resumeSkills"
+          placeholder="JavaScript, Python, SQL, React..."
+        >
+
+      </div>
+
+
+      <div class="field full">
+
+        <label>
+          Experience
+        </label>
+
+        <textarea
+          id="resumeExperience"
+          placeholder="Describe your experience..."
+        ></textarea>
+
+      </div>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="btn btn-blue"
+        id="saveResumeBtn"
+      >
+        Save Resume
+      </button>
+
+      <button
+        class="btn btn-dark"
+        id="generateResumeBtn"
+      >
+        Generate Preview
+      </button>
+
+      <button
+        class="btn btn-light"
+        id="downloadResumeBtn"
+      >
+        Download Resume
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="resumePreview"
+    class="card"
+    style="margin-top:18px"
+  >
+
+    <div class="empty">
+      Your professional resume preview
+      will appear here.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     INTERVIEW
+========================= -->
+
+<section
+  id="interview"
+  class="page"
+>
+
+  <div class="hero">
+
+    <h2>
+      Interview Preparation
+    </h2>
+
+    <p>
+      Practice common interview questions
+      and improve your preparation.
+    </p>
+
+  </div>
+
+
+  <div class="card">
 
     <div
+      class="muted"
+      id="questionCounter"
+    >
+      Question 1
+    </div>
+
+
+    <h3
+      id="interviewQuestion"
       style="
-        max-width:760px;
-        margin:auto;
-        line-height:1.7;
+        margin-top:12px;
+        font-size:20px;
+        line-height:1.5;
       "
     >
+      Tell me about yourself.
+    </h3>
 
-      <h1>
-        ${escapeHTML(name)}
-      </h1>
 
-      <h3
-        style="
-          color:#2563eb;
-          margin-top:5px;
-        "
+    <div class="field" style="margin-top:20px">
+
+      <label>
+        Your Answer
+      </label>
+
+      <textarea
+        id="interviewAnswer"
+        placeholder="Type your answer here..."
+      ></textarea>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="btn btn-blue"
+        id="saveAnswerBtn"
       >
-        ${escapeHTML(title)}
-      </h3>
+        Save Answer
+      </button>
 
-      <hr
-        style="
-          margin:18px 0;
-          border:0;
-          border-top:1px solid #e5e7eb;
-        "
+      <button
+        class="btn btn-light"
+        id="nextQuestionBtn"
       >
+        Next Question
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="card"
+    style="margin-top:18px"
+  >
+
+    <h3 class="section-title">
+      Interview Tips
+    </h3>
+
+    <p class="muted">
+      Keep answers clear, use specific
+      examples and explain the result of
+      your work whenever possible.
+    </p>
+
+  </div>
+
+</section>
+<!-- =========================
+     APPLICATIONS
+========================= -->
+
+<section id="applications" class="page">
+
+  <div class="page-header">
+    <div>
+      <h2>Applications</h2>
+      <p>Track and manage all your job applications.</p>
+    </div>
+
+    <button class="btn btn-primary" onclick="openAddApplication()">
+      + Add Application
+    </button>
+  </div>
+
+  <div class="stats-row">
+
+    <div class="mini-card">
+      <span>Total</span>
+      <strong id="appTotal">0</strong>
+    </div>
+
+    <div class="mini-card">
+      <span>Applied</span>
+      <strong id="appApplied">0</strong>
+    </div>
+
+    <div class="mini-card">
+      <span>Interviews</span>
+      <strong id="appInterviews">0</strong>
+    </div>
+
+    <div class="mini-card">
+      <span>Offers</span>
+      <strong id="appOffers">0</strong>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="toolbar">
+
+      <input
+        id="applicationSearch"
+        type="search"
+        placeholder="Search company or role..."
+        oninput="renderApplications()"
+      >
+
+      <select
+        id="applicationFilter"
+        onchange="renderApplications()"
+      >
+        <option value="all">All Status</option>
+        <option value="saved">Saved</option>
+        <option value="applied">Applied</option>
+        <option value="screening">Screening</option>
+        <option value="interview">Interview</option>
+        <option value="offer">Offer</option>
+        <option value="rejected">Rejected</option>
+      </select>
+
+    </div>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Role</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody id="applicationsList"></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+<!-- =========================
+     PIPELINE
+========================= --><section id="pipeline" class="page">  <div class="page-header"><div>
+  <span class="eyebrow">APPLICATION FLOW</span>
+
+  <h2>Application Pipeline</h2>
+
+  <p>
+    Track every opportunity from saved job to offer.
+  </p>
+</div>
+
+<button
+  class="btn btn-primary"
+  onclick="openAddApplication()"
+>
+  + Add Application
+</button>
+
+  </div>  <div
+    id="pipelineBoard"
+    class="pipeline-board"
+  ></div></section><!-- =========================
+     ANALYTICS
+========================= --><section id="analytics" class="page">  <div class="page-header"><div>
+  <span class="eyebrow">INSIGHTS</span>
+
+  <h2>Career Analytics</h2>
+
+  <p>
+    Understand your job search performance.
+  </p>
+</div>
+
+  </div>  <div class="stats-grid"><div class="stat-card">
+
+  <div class="stat-icon">📋</div>
+
+  <div>
+    <span>Total Applications</span>
+
+    <strong id="analyticsTotal">
+      0
+    </strong>
+  </div>
+
+</div>
+
+
+<div class="stat-card">
+
+  <div class="stat-icon">🎤</div>
+
+  <div>
+    <span>Interviews</span>
+
+    <strong id="analyticsInterviews">
+      0
+    </strong>
+  </div>
+
+</div>
+
+
+<div class="stat-card">
+
+  <div class="stat-icon">🏆</div>
+
+  <div>
+    <span>Offers</span>
+
+    <strong id="analyticsOffers">
+      0
+    </strong>
+  </div>
+
+</div>
+
+
+<div class="stat-card">
+
+  <div class="stat-icon">📈</div>
+
+  <div>
+    <span>Interview Rate</span>
+
+    <strong id="analyticsInterviewRate">
+      0%
+    </strong>
+  </div>
+
+</div>
+
+  </div>  <div class="dashboard-grid"><div class="card">
+
+  <div class="card-header">
+
+    <div>
+      <h3>Application Breakdown</h3>
+
+      <p>
+        Current status of your applications.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div
+    id="analyticsSummary"
+    class="analytics-summary"
+  >
+
+    <div class="empty-state">
+
+      <div class="empty-icon">
+        📊
+      </div>
 
       <h3>
-        Professional Summary
+        No data yet
       </h3>
 
       <p>
-        ${escapeHTML(
-          summary ||
-          "Professional summary not added."
-        )}
-      </p>
-
-      <h3
-        style="
-          margin-top:20px;
-        "
-      >
-        Skills
-      </h3>
-
-      <p>
-        ${escapeHTML(
-          skills ||
-          "Skills not added."
-        )}
+        Add applications to generate analytics.
       </p>
 
     </div>
 
-  `;
+  </div>
 
-  toast(
-    "Resume generated"
-  );
+</div>
 
+
+<div class="card">
+
+  <div class="card-header">
+
+    <div>
+      <h3>Job Search Health</h3>
+
+      <p>
+        Quick overview of your progress.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="health-item">
+
+    <div class="progress-label">
+      <span>Applications</span>
+      <strong id="healthApplications">0</strong>
+    </div>
+
+    <div class="progress-track">
+
+      <div
+        id="healthApplicationsBar"
+        class="progress-value"
+        style="width:0%"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <div class="health-item">
+
+    <div class="progress-label">
+      <span>Interviews</span>
+      <strong id="healthInterviews">0</strong>
+    </div>
+
+    <div class="progress-track">
+
+      <div
+        id="healthInterviewsBar"
+        class="progress-value"
+        style="width:0%"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <div class="health-item">
+
+    <div class="progress-label">
+      <span>Offers</span>
+      <strong id="healthOffers">0</strong>
+    </div>
+
+    <div class="progress-track">
+
+      <div
+        id="healthOffersBar"
+        class="progress-value"
+        style="width:0%"
+      ></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+  </div></section>
+<!-- =========================
+     RESUME BUILDER
+========================= --><section id="resume" class="page">  <div class="page-header"><div>
+  <span class="eyebrow">CAREER TOOLS</span>
+
+  <h2>Resume Builder</h2>
+
+  <p>
+    Build and save your professional resume.
+  </p>
+</div>
+
+  </div>  <div class="card"><div class="form-grid">
+
+  <div class="field">
+
+    <label>Full Name</label>
+
+    <input
+      id="resumeName"
+      type="text"
+      placeholder="Your full name"
+    >
+
+  </div>
+
+
+  <div class="field">
+
+    <label>Professional Title</label>
+
+    <input
+      id="resumeTitle"
+      type="text"
+      placeholder="Software Engineer"
+    >
+
+  </div>
+
+
+  <div class="field full">
+
+    <label>Professional Summary</label>
+
+    <textarea
+      id="resumeSummary"
+      placeholder="Write your professional summary..."
+    ></textarea>
+
+  </div>
+
+
+  <div class="field full">
+
+    <label>Skills</label>
+
+    <input
+      id="resumeSkills"
+      type="text"
+      placeholder="JavaScript, Python, React, SQL..."
+    >
+
+  </div>
+
+
+  <div class="field full">
+
+    <label>Experience</label>
+
+    <textarea
+      id="resumeExperience"
+      placeholder="Describe your experience, projects and achievements..."
+    ></textarea>
+
+  </div>
+
+</div>
+
+
+<div class="action-row">
+
+  <button
+    class="btn btn-primary"
+    onclick="saveResume()"
+  >
+    Save Resume
+  </button>
+
+  <button
+    class="btn btn-dark"
+    onclick="generateResume()"
+  >
+    Generate Preview
+  </button>
+
+  <button
+    class="btn btn-light"
+    onclick="downloadResume()"
+  >
+    Download
+  </button>
+
+</div>
+
+  </div>  <div
+    id="resumePreview"
+    class="card resume-preview"
+  ><div class="empty-state">
+
+  <div class="empty-icon">
+    📄
+  </div>
+
+  <h3>
+    Resume Preview
+  </h3>
+
+  <p>
+    Enter your information and generate your resume.
+  </p>
+
+</div>
+
+  </div></section><!-- =========================
+     INTERVIEW
+========================= --><section id="interview" class="page">  <div class="page-header"><div>
+  <span class="eyebrow">PREPARATION</span>
+
+  <h2>Interview Preparation</h2>
+
+  <p>
+    Practice interview questions and improve your answers.
+  </p>
+</div>
+
+  </div>  <div class="card interview-card"><div class="question-number">
+  <span id="questionCounter">
+    Question 1
+  </span>
+</div>
+
+
+<h3
+  id="interviewQuestion"
+  class="interview-question"
+>
+  Tell me about yourself.
+</h3>
+
+
+<div class="field">
+
+  <label>Your Answer</label>
+
+  <textarea
+    id="interviewAnswer"
+    placeholder="Type your answer here..."
+  ></textarea>
+
+</div>
+
+
+<div class="action-row">
+
+  <button
+    class="btn btn-primary"
+    onclick="saveInterviewAnswer()"
+  >
+    Save Answer
+  </button>
+
+  <button
+    class="btn btn-light"
+    onclick="nextInterviewQuestion()"
+  >
+    Next Question →
+  </button>
+
+</div>
+
+  </div>  <div class="card"><div class="card-header">
+
+  <div>
+    <h3>Interview Tips</h3>
+
+    <p>
+      Simple techniques to improve your interview performance.
+    </p>
+  </div>
+
+</div>
+
+
+<div class="tips-grid">
+
+  <div class="tip">
+    <strong>01</strong>
+    <span>Keep your answer clear and structured.</span>
+  </div>
+
+  <div class="tip">
+    <strong>02</strong>
+    <span>Use real examples from your experience.</span>
+  </div>
+
+  <div class="tip">
+    <strong>03</strong>
+    <span>Explain the result of your actions.</span>
+  </div>
+
+  <div class="tip">
+    <strong>04</strong>
+    <span>Practice before attending the interview.</span>
+  </div>
+
+</div>
+
+  </div></section>
+<!-- =========================
+     SUBSCRIPTION
+========================= -->
+
+<section id="subscription" class="page">
+
+  <div class="page-header">
+    <div>
+      <span class="eyebrow">PREMIUM</span>
+      <h2>JobFlow Premium</h2>
+      <p>Unlock advanced career management features.</p>
+    </div>
+  </div>
+
+  <div class="pricing-card">
+
+    <div class="pricing-header">
+      <span class="premium-badge">PREMIUM</span>
+      <h2>JobFlow Pro</h2>
+      <p>Everything you need to manage your career faster.</p>
+    </div>
+
+    <div class="price">
+      <strong>₹499</strong>
+      <span>/ month</span>
+    </div>
+
+    <div class="feature-list">
+      <div>✓ Advanced Resume Builder</div>
+      <div>✓ Interview Preparation</div>
+      <div>✓ Application Analytics</div>
+      <div>✓ Unlimited Job Tracking</div>
+      <div>✓ Career Insights</div>
+      <div>✓ Premium Tools</div>
+    </div>
+
+    <button
+      class="btn btn-primary"
+      onclick="openPayment()"
+    >
+      Upgrade to Premium
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<section id="profile" class="page">
+
+  <div class="page-header">
+    <div>
+      <span class="eyebrow">ACCOUNT</span>
+      <h2>My Profile</h2>
+      <p>Manage your personal JobFlow information.</p>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>Full Name</label>
+
+        <input
+          id="profileName"
+          type="text"
+          placeholder="Your name"
+        >
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+
+        <input
+          id="profileEmail"
+          type="email"
+          placeholder="you@example.com"
+        >
+      </div>
+
+      <div class="field">
+        <label>Target Role</label>
+
+        <input
+          id="profileRole"
+          type="text"
+          placeholder="Software Engineer"
+        >
+      </div>
+
+      <div class="field">
+        <label>Preferred Location</label>
+
+        <input
+          id="profileLocation"
+          type="text"
+          placeholder="Hyderabad"
+        >
+      </div>
+
+    </div>
+
+    <div class="action-row">
+
+      <button
+        class="btn btn-primary"
+        onclick="saveProfile()"
+      >
+        Save Profile
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<section id="settings" class="page">
+
+  <div class="page-header">
+    <div>
+      <span class="eyebrow">CONTROL CENTER</span>
+      <h2>Settings</h2>
+      <p>Manage your JobFlow preferences and local data.</p>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="settings-row">
+
+      <div>
+        <strong>Notifications</strong>
+        <p>Show JobFlow notifications.</p>
+      </div>
+
+      <label class="switch">
+        <input
+          type="checkbox"
+          id="notificationSetting"
+          checked
+        >
+        <span></span>
+      </label>
+
+    </div>
+
+
+    <div class="settings-row">
+
+      <div>
+        <strong>Auto Save</strong>
+        <p>Automatically save your JobFlow data.</p>
+      </div>
+
+      <label class="switch">
+        <input
+          type="checkbox"
+          id="autoSaveSetting"
+          checked
+        >
+        <span></span>
+      </label>
+
+    </div>
+
+
+    <div class="settings-actions">
+
+      <button
+        class="btn btn-light"
+        onclick="exportJobFlowData()"
+      >
+        Export Data
+      </button>
+
+      <button
+        class="btn btn-danger"
+        onclick="clearAllData()"
+      >
+        Clear Local Data
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PAYMENT MODAL
+========================= -->
+
+<div
+  id="paymentModal"
+  class="modal-overlay"
+  hidden
+>
+
+  <div class="modal-box">
+
+    <button
+      class="modal-close"
+      onclick="closePayment()"
+    >
+      ×
+    </button>
+
+    <h2>Upgrade JobFlow Premium</h2>
+
+    <p>
+      Choose your preferred payment method.
+    </p>
+
+    <div class="payment-options">
+
+      <button
+        class="payment-option"
+        onclick="startPayment('UPI')"
+      >
+        <strong>UPI</strong>
+        <span>Pay securely using UPI</span>
+      </button>
+
+      <button
+        class="payment-option"
+        onclick="startPayment('Card')"
+      >
+        <strong>Card</strong>
+        <span>Credit or debit card</span>
+      </button>
+
+    </div>
+
+    <small>
+      Payment processing must be connected to a real
+      payment provider before accepting real payments.
+    </small>
+
+  </div>
+
+</div>
+<script>
+"use strict";
+
+/* =========================
+   JOBFLOW DATA
+========================= */
+
+const JOBFLOW_KEYS = {
+  jobs: "jobflow_jobs",
+  profile: "jobflow_profile",
+  subscription: "jobflow_subscription",
+  settings: "jobflow_settings"
 };
+
+let jobs = loadData(JOBFLOW_KEYS.jobs, []);
+let profile = loadData(JOBFLOW_KEYS.profile, {});
+let subscription = loadData(
+  JOBFLOW_KEYS.subscription,
+  { plan: "Free", active: false }
+);
+
+let settings = loadData(
+  JOBFLOW_KEYS.settings,
+  {
+    notifications: true,
+    autoSave: true
+  }
+);
 
 
 /* =========================
-   LOAD RESUME
+   SAFE STORAGE
 ========================= */
 
-function loadResume(){
-
-  try{
-
-    const data =
-      JSON.parse(
-        localStorage.getItem(
-          "jobflow_resume"
-        ) || "{}"
-      );
-
-    setInput(
-      "resumeName",
-      data.name
-    );
-
-    setInput(
-      "resumeTitle",
-      data.title
-    );
-
-    setInput(
-      "resumeSummary",
-      data.summary
-    );
-
-    setInput(
-      "resumeSkills",
-      data.skills
-    );
-
-  }catch(error){
-
-    console.warn(
-      "Resume load failed"
-    );
-
+function loadData(key, fallback) {
+  try {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallback;
+  } catch (error) {
+    return fallback;
   }
+}
 
+
+function saveData(key, value) {
+  try {
+    localStorage.setItem(
+      key,
+      JSON.stringify(value)
+    );
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 }
 
 
 /* =========================
-   INTERVIEW
+   TOAST
 ========================= */
 
-const interviewQuestions = [
+function toast(message, type = "success") {
 
-  "Tell me about yourself.",
+  const box =
+    document.getElementById("toast");
 
-  "Why do you want to work for this company?",
+  if (!box) return;
 
-  "What are your greatest strengths?",
+  box.textContent = message;
 
-  "What is your biggest weakness?",
+  box.className =
+    "toast show " + type;
 
-  "Why should we hire you?",
-
-  "Tell me about a difficult problem you solved.",
-
-  "Where do you see yourself in five years?",
-
-  "Tell me about a successful project you completed.",
-
-  "How do you handle pressure and deadlines?",
-
-  "Do you have any questions for us?"
-
-];
-
-let interviewIndex =
-  0;
-
-
-window.nextInterviewQuestion =
-function(){
-
-  interviewIndex++;
-
-  if(
-    interviewIndex >=
-    interviewQuestions.length
-  ){
-
-    interviewIndex = 0;
-
-  }
-
-  setText(
-    "interviewQuestion",
-    interviewQuestions[
-      interviewIndex
-    ]
+  clearTimeout(
+    window.jobflowToastTimer
   );
 
-};
+  window.jobflowToastTimer =
+    setTimeout(() => {
+
+      box.classList.remove("show");
+
+    }, 2500);
+}
 
 
 /* =========================
-   PROFILE
+   SIDEBAR
 ========================= */
 
-window.saveProfile =
-function(){
+function toggleSidebar() {
 
-  const name =
-    document.getElementById(
-      "profileName"
-    )?.value.trim();
+  const sidebar =
+    document.getElementById("sidebar");
 
-  const email =
-    document.getElementById(
-      "profileEmail"
-    )?.value.trim();
+  if (!sidebar) return;
 
-  profile = {
+  sidebar.classList.toggle("open");
+}
 
-    name,
-    email
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(page, button = null) {
+
+  document
+    .querySelectorAll(".page")
+    .forEach(section => {
+
+      section.classList.toggle(
+        "active",
+        section.id === page
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(btn => {
+
+      btn.classList.remove("active");
+
+    });
+
+
+  if (button) {
+
+    button.classList.add("active");
+
+  } else {
+
+    const navButton =
+      document.querySelector(
+        '.nav button[data-page="' +
+        page +
+        '"]'
+      );
+
+    if (navButton) {
+      navButton.classList.add("active");
+    }
+
+  }
+
+
+  const titles = {
+
+    dashboard: "Dashboard",
+    jobs: "Jobs",
+    applications: "Applications",
+    pipeline: "Pipeline",
+    analytics: "Analytics",
+    resume: "Resume Builder",
+    interview: "Interview",
+    subscription: "Subscription",
+    profile: "Profile",
+    settings: "Settings"
 
   };
 
-  localStorage.setItem(
-    PROFILE_KEY,
-    JSON.stringify(
-      profile
-    )
-  );
 
-  updateProfileUI();
+  const title =
+    document.getElementById("pageTitle");
 
-  toast(
-    "Profile saved"
-  );
+  if (title) {
 
-};
-
-
-function loadProfileUI(){
-
-  setInput(
-    "profileName",
-    profile.name
-  );
-
-  setInput(
-    "profileEmail",
-    profile.email
-  );
-
-  updateProfileUI();
-
-}
-
-
-function updateProfileUI(){
-
-  const name =
-    profile.name ||
-    "Job Seeker";
-
-  setText(
-    "topUser",
-    name
-  );
-
-}
-
-
-/* =========================
-   SUBSCRIPTION
-========================= */
-
-function loadSubscription(){
-
-  const premium =
-    localStorage.getItem(
-      SUBSCRIPTION_KEY
-    ) ===
-    "premium";
-
-  const banner =
-    document.getElementById(
-      "accessBanner"
-    );
-
-  if(!banner)return;
-
-  if(premium){
-
-    banner.innerHTML = `
-      <strong>
-        Premium Active
-      </strong>
-
-      <p
-        style="
-          margin-top:6px;
-          color:#15803d;
-        "
-      >
-        Your JobFlow Premium access
-        is active on this device.
-      </p>
-    `;
-
-  }else{
-
-    banner.innerHTML = `
-      <strong>
-        Free Plan
-      </strong>
-
-      <p
-        style="
-          margin-top:6px;
-          color:#64748b;
-        "
-      >
-        You are currently using
-        JobFlow Free.
-      </p>
-    `;
+    title.textContent =
+      titles[page] || "JobFlow";
 
   }
 
-}
 
+  if (window.innerWidth <= 900) {
 
-window.openPayment =
-function(){
+    const sidebar =
+      document.getElementById("sidebar");
 
-  const confirmed =
-    confirm(
-      "Continue to Premium checkout?"
-    );
-
-  if(!confirmed)return;
-
-  /*
-    Replace this demo checkout with
-    your real payment gateway later.
-
-    Never store card information
-    inside localStorage.
-  */
-
-  toast(
-    "Checkout system ready for integration"
-  );
-
-};
-
-
-/* =========================
-   SETTINGS
-========================= */
-
-window.clearAllData =
-function(){
-
-  const confirmed =
-    confirm(
-      "This will delete your local JobFlow data. Continue?"
-    );
-
-  if(!confirmed)return;
-
-  localStorage.removeItem(
-    JOBS_KEY
-  );
-
-  localStorage.removeItem(
-    PROFILE_KEY
-  );
-    return data
-      ? JSON.parse(data)
-      : {};
-
-  }catch(error){
-
-    console.error(
-      "Profile load error:",
-      error
-    );
-
-    return {};
+    if (sidebar) {
+      sidebar.classList.remove("open");
+    }
 
   }
 
-}
 
-
-/* =========================
-   SAVE PROFILE
-========================= */
-
-function saveProfileData(){
-
-  try{
-
-    localStorage.setItem(
-      PROFILE_KEY,
-      JSON.stringify(profile)
-    );
-
-    return true;
-
-  }catch(error){
-
-    console.error(
-      "Profile save error:",
-      error
-    );
-
-    return false;
-
+  if (page === "dashboard") {
+    renderDashboard();
   }
 
-}
+  if (page === "jobs") {
+    renderJobs();
+  }
 
+  if (page === "applications") {
+    renderApplications();
+  }
 
-/* =========================
-   SUBSCRIPTION
-========================= */
+  if (page === "pipeline") {
+    renderPipeline();
+  }
 
-function isPremium(){
+  if (page === "analytics") {
+    renderAnalytics();
+  }
 
-  return localStorage.getItem(
-    SUBSCRIPTION_KEY
-  ) === "premium";
+  if (page === "resume") {
+    loadResume();
+  }
 
+  if (page === "profile") {
+    loadProfileForm();
+  }
+
+  if (page === "settings") {
+    loadSettings();
+  }
 }
 
 
@@ -2832,40 +2309,10 @@ function isPremium(){
    DASHBOARD
 ========================= */
 
-function updateDashboard(){
-
-  const applications =
-    jobs.filter(
-      function(job){
-        return job.type === "application";
-      }
-    );
-
-  const interviews =
-    applications.filter(
-      function(job){
-        return [
-          "interview",
-          "final",
-          "offer"
-        ].includes(
-          job.status
-        );
-      }
-    );
-
-  const offers =
-    applications.filter(
-      function(job){
-        return job.status === "offer";
-      }
-    );
-
+function renderDashboard() {
 
   const totalJobs =
-    document.getElementById(
-      "totalJobs"
-    );
+    document.getElementById("totalJobs");
 
   const totalApplications =
     document.getElementById(
@@ -2883,116 +2330,91 @@ function updateDashboard(){
     );
 
 
-  if(totalJobs){
-
+  if (totalJobs) {
     totalJobs.textContent =
       jobs.filter(
-        function(job){
-          return job.type !== "application";
-        }
+        job => job.type !== "application"
       ).length;
-
   }
 
 
-  if(totalApplications){
-
+  if (totalApplications) {
     totalApplications.textContent =
-      applications.length;
-
+      jobs.filter(
+        job => job.type === "application"
+      ).length;
   }
 
 
-  if(totalInterviews){
-
+  if (totalInterviews) {
     totalInterviews.textContent =
-      interviews.length;
-
+      jobs.filter(
+        job =>
+          job.status === "Interview" ||
+          job.status === "Final Round"
+      ).length;
   }
 
 
-  if(totalOffers){
-
+  if (totalOffers) {
     totalOffers.textContent =
-      offers.length;
-
+      jobs.filter(
+        job => job.status === "Offer"
+      ).length;
   }
 
 
   renderRecentApplications();
 
+  updateAccessBanner();
 }
 
 
-/* =========================
-   RECENT APPLICATIONS
-========================= */
+function renderRecentApplications() {
 
-function renderRecentApplications(){
-
-  const list =
+  const tbody =
     document.getElementById(
       "recentApplications"
     );
 
-  if(!list)return;
+  if (!tbody) return;
 
 
   const applications =
-    jobs
-      .filter(
-        function(job){
-          return job.type === "application";
-        }
-      )
-      .slice()
-      .reverse()
-      .slice(0,5);
+    jobs.filter(
+      job => job.type === "application"
+    ).slice(-5).reverse();
 
 
-  if(!applications.length){
+  if (!applications.length) {
 
-    list.innerHTML =
-      `
-      <tr>
+    tbody.innerHTML =
+      `<tr>
         <td colspan="3">
           <div class="empty">
             No applications yet.
           </div>
         </td>
-      </tr>
-      `;
+      </tr>`;
 
     return;
-
   }
 
 
-  list.innerHTML =
-    applications.map(
-      function(job){
+  tbody.innerHTML =
+    applications.map(job => {
 
-        return `
+      return `
         <tr>
-
-          <td>
-            ${escapeHTML(job.company)}
-          </td>
-
-          <td>
-            ${escapeHTML(job.title)}
-          </td>
-
+          <td>${escapeHTML(job.company)}</td>
+          <td>${escapeHTML(job.title)}</td>
           <td>
             ${statusBadge(job.status)}
           </td>
-
         </tr>
-        `;
+      `;
 
-      }
-    ).join("");
-
+    }).join("");
 }
 
 
@@ -3000,1473 +2422,70 @@ function renderRecentApplications(){
    JOB SEARCH
 ========================= */
 
-window.searchJobs =
-function(){
-
-  const title =
-    document
-      .getElementById(
-        "jobSearch"
-      )
-      ?.value
-      .trim()
-      .toLowerCase() || "";
-
-
-  const location =
-    document
-      .getElementById(
-        "jobLocation"
-      )
-      ?.value
-      .trim()
-      .toLowerCase() || "";
-
-
-  const results =
-    document.getElementById(
-      "jobResults"
-    );
-
-
-  if(!results)return;
-
-
-  if(!title && !location){
-
-    results.innerHTML =
-      `
-      <div class="card">
-        <div class="empty">
-          Enter a job title or location
-          to search.
-        </div>
-      </div>
-      `;
-
-    return;
-
-  }
-
-
-  const existing =
-    jobs.filter(
-      function(job){
-
-        if(
-          job.type ===
-          "application"
-        ){
-
-          return false;
-
-        }
-
-        const text =
-          (
-            job.title +
-            " " +
-            job.company +
-            " " +
-            job.location
-          )
-          .toLowerCase();
-
-
-        return (
-          (!title ||
-            text.includes(title)) &&
-          (!location ||
-            text.includes(location))
-        );
-
-      }
-    );
-
-
-  if(existing.length){
-
-    renderJobCards(
-      existing
-    );
-
-    return;
-
-  }
-
-
-  const demoJobs = [
-
-    {
-      id:Date.now()+1,
-      type:"job",
-      company:"TechNova",
-      title:title
-        ? title
-        : "Software Engineer",
-      location:location
-        ? location
-        : "Hyderabad",
-      status:"Saved"
-    },
-
-    {
-      id:Date.now()+2,
-      type:"job",
-      company:"Growth Labs",
-      title:title
-        ? title
-        : "Product Analyst",
-      location:location
-        ? location
-        : "Bengaluru",
-      status:"Saved"
-    },
-
-    {
-      id:Date.now()+3,
-      type:"job",
-      company:"Nova Systems",
-      title:title
-        ? title
-        : "Frontend Developer",
-      location:location
-        ? location
-        : "Remote",
-      status:"Saved"
-    }
-
-  ];
-
-
-  jobs =
-    jobs.concat(
-      demoJobs
-    );
-
-
-  saveJobs();
-
-
-  renderJobCards(
-    demoJobs
-  );
-
-
-  updateDashboard();
-
-};
-
-
-/* =========================
-   CLEAR JOB SEARCH
-========================= */
-
-window.clearJobSearch =
-function(){
-
-  const title =
-    document.getElementById(
-      "jobSearch"
-    );
-
-  const location =
-    document.getElementById(
-      "jobLocation"
-    );
-
-  if(title){
-    title.value = "";
-  }
-
-  if(location){
-    location.value = "";
-  }
-
-
-  const results =
-    document.getElementById(
-      "jobResults"
-    );
-
-  if(results){
-
-    results.innerHTML = "";
-
-  }
-
-};
-
-
-/* =========================
-   JOB CARDS
-========================= */
-
-function renderJobs(){
-
-  const results =
-    document.getElementById(
-      "jobResults"
-    );
-
-  if(!results)return;
-
-
-  const list =
-    jobs.filter(
-      function(job){
-
-        return job.type !==
-          "application";
-
-      }
-    );
-
-
-  if(!list.length){
-
-    results.innerHTML =
-      `
-      <div class="card">
-        <div class="empty">
-          Search for jobs to see
-          opportunities here.
-        </div>
-      </div>
-      `;
-
-    return;
-
-  }
-
-
-  renderJobCards(
-    list
-  );
-
-}
-
-
-function renderJobCards(
-  list
-){
-
-  const results =
-    document.getElementById(
-      "jobResults"
-    );
-
-  if(!results)return;
-
-
-  results.innerHTML =
-    list.map(
-      function(job){
-
-        return `
-        <div class="card"
-             style="margin-bottom:14px">
-
-          <div style="
-            display:flex;
-            justify-content:space-between;
-            gap:15px;
-            align-items:flex-start;
-            flex-wrap:wrap;
-          ">
-
-            <div>
-
-              <h3>
-                ${escapeHTML(job.title)}
-              </h3>
-
-              <p class="muted"
-                 style="margin-top:6px">
-
-                ${escapeHTML(job.company)}
-                ·
-                ${escapeHTML(job.location)}
-
-              </p>
-
-            </div>
-
-            ${statusBadge(
-              job.status || "Saved"
-            )}
-
-          </div>
-
-
-          <div class="actions">
-
-            <button
-              class="btn btn-blue"
-              onclick="applyToJob(${job.id})"
-            >
-              Apply
-            </button>
-
-            <button
-              class="btn btn-light"
-              onclick="saveJob(${job.id})"
-            >
-              Save
-            </button>
-
-          </div>
-
-        </div>
-        `;
-
-      }
-    ).join("");
-
-}
-
-
-/* =========================
-   SAVE JOB
-========================= */
-
-window.saveJob =
-function(id){
-
-  const job =
-    jobs.find(
-      function(item){
-        return item.id === id;
-      }
-    );
-
-  if(!job)return;
-
-
-  job.status =
-    "Saved";
-
-
-  saveJobs();
-
-  renderJobs();
-
-  toast(
-    "Job saved successfully."
-  );
-
-  updateDashboard();
-
-};
-
-
-/* =========================
-   APPLY TO JOB
-========================= */
-
-window.applyToJob =
-function(id){
-
-  const job =
-    jobs.find(
-      function(item){
-        return item.id === id;
-      }
-    );
-
-  if(!job)return;
-
-
-  job.type =
-    "application";
-
-  job.status =
-    "applied";
-
-  job.appliedAt =
-    new Date()
-      .toISOString();
-
-
-  saveJobs();
-
-  updateDashboard();
-
-  renderApplications();
-
-  toast(
-    "Application added."
-  );
-
-};
-
-
-/* =========================
-   APPLICATION LIST
-========================= */
-
-function renderApplications(){
-
-  const list =
-    document.getElementById(
-      "applicationsList"
-    );
-
-  if(!list)return;
-
-
-  const applications =
-    jobs.filter(
-      function(job){
-
-        return job.type ===
-          "application";
-
-      }
-    );
-
-
-  if(!applications.length){
-
-    list.innerHTML =
-      `
-      <tr>
-        <td colspan="4">
-          <div class="empty">
-            No applications yet.
-          </div>
-        </td>
-      </tr>
-      `;
-
-    return;
-
-  }
-
-
-  list.innerHTML =
-    applications.map(
-      function(job){
-
-        return `
-        <tr>
-
-          <td>
-            ${escapeHTML(job.company)}
-          </td>
-
-          <td>
-            ${escapeHTML(job.title)}
-          </td>
-
-          <td>
-
-            <select
-              onchange="changeApplicationStatus(
-                ${job.id},
-                this.value
-              )"
-            >
-
-              ${applicationOptions(
-                job.status
-              )}
-
-            </select>
-
-          </td>
-
-          <td>
-
-            <button
-              class="btn btn-light"
-              onclick="deleteApplication(${job.id})"
-            >
-              Delete
-            </button>
-
-          </td>
-
-        </tr>
-        `;
-
-      }
-    ).join("");
-
-}
-
-
-/* =========================
-   APPLICATION OPTIONS
-========================= */
-
-function applicationOptions(
-  selected
-){
-
-  const options = [
-
-    ["applied","Applied"],
-    ["screening","Screening"],
-    ["interview","Interview"],
-    ["final","Final Round"],
-    ["offer","Offer"],
-    ["rejected","Rejected"]
-
-  ];
-
-
-  return options.map(
-    function(option){
-
-      return `
-      <option
-        value="${option[0]}"
-        ${selected === option[0]
-          ? "selected"
-          : ""}
-      >
-        ${option[1]}
-      </option>
-      `;
-
-    }
-  ).join("");
-
-}
-
-
-/* =========================
-   STATUS BADGE
-========================= */
-
-function statusBadge(
-  status
-){
-
-  const map = {
-
-    Saved:
-      ["badge-blue","Saved"],
-
-    saved:
-      ["badge-blue","Saved"],
-
-    applied:
-      ["badge-blue","Applied"],
-
-    screening:
-      ["badge-orange","Screening"],
-
-    interview:
-      ["badge-green","Interview"],
-
-    final:
-      ["badge-orange","Final Round"],
-
-    offer:
-      ["badge-green","Offer"],
-
-    rejected:
-      ["badge-red","Rejected"]
-
-  };
-
-
-  const item =
-    map[status] ||
-    ["badge-blue",status];
-
-
-  return `
-    <span class="badge ${item[0]}">
-      ${escapeHTML(item[1])}
-    </span>
-  `;
-
-}
-
-
-/* =========================
-   CHANGE STATUS
-========================= */
-
-window.changeApplicationStatus =
-function(
-  id,
-  status
-){
-
-  const job =
-    jobs.find(
-      function(item){
-        return item.id === id;
-      }
-    );
-
-  if(!job)return;
-
-
-  job.status =
-    status;
-
-
-  saveJobs();
-
-  renderApplications();
-
-  renderPipeline();
-
-  renderAnalytics();
-
-  updateDashboard();
-
-  toast(
-    "Application status updated."
-  );
-
-};
-
-
-/* =========================
-   DELETE APPLICATION
-========================= */
-
-window.deleteApplication =
-function(id){
-
-  if(
-    !confirm(
-      "Delete this application?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  jobs =
-    jobs.filter(
-      function(job){
-
-        return job.id !== id;
-
-      }
-    );
-
-
-  saveJobs();
-
-  renderApplications();
-
-  renderPipeline();
-
-  renderAnalytics();
-
-  updateDashboard();
-
-  toast(
-    "Application deleted."
-  );
-
-};
-
-
-/* =========================
-   ADD APPLICATION
-========================= */
-
-window.openAddApplication =
-function(){
-
-  const company =
-    prompt(
-      "Company name:"
-    );
-
-  if(!company)return;
-
-
-  const title =
-    prompt(
-      "Job title:"
-    );
-
-  if(!title)return;
-
-
-  const location =
-    prompt(
-      "Location:"
-    ) ||
-    "Not specified";
-
-
-  jobs.push({
-
-    id:
-      Date.now(),
-
-    type:
-      "application",
-
-    company:
-      company.trim(),
-
-    title:
-      title.trim(),
-
-    location:
-      location.trim(),
-
-    status:
-      "applied",
-
-    createdAt:
-      new Date()
-        .toISOString(),
-
-    appliedAt:
-      new Date()
-        .toISOString()
-
-  });
-
-
-  saveJobs();
-
-  renderApplications();
-
-  updateDashboard();
-
-  toast(
-    "Application added."
-  );
-
-};
-
-
-/* =========================
-   PIPELINE
-========================= */
-
-function renderPipeline(){
-
-  const board =
-    document.getElementById(
-      "pipelineBoard"
-    );
-
-  if(!board)return;
-
-
-  const stages = [
-
-    ["applied","Applied"],
-    ["screening","Screening"],
-    ["interview","Interview"],
-    ["final","Final Round"],
-    ["offer","Offer"],
-    ["rejected","Rejected"]
-
-  ];
-
-
-  const applications =
-    jobs.filter(
-      function(job){
-
-        return job.type ===
-          "application";
-
-      }
-    );
-
-
-  board.innerHTML =
-    stages.map(
-      function(stage){
-
-        const items =
-          applications.filter(
-            function(job){
-
-              return job.status ===
-                stage[0];
-
-            }
-          );
-
-
-        return `
-        <div class="card">
-
-          <h3>
-            ${stage[1]}
-            <span
-              style="
-              color:#64748b;
-              font-size:13px;
-              "
-            >
-              (${items.length})
-            </span>
-          </h3>
-
-          <div style="
-            margin-top:15px;
-            display:flex;
-            flex-direction:column;
-            gap:10px;
-          ">
-
-            ${
-              items.length
-              ? items.map(
-                  function(job){
-
-                    return `
-                    <div style="
-                      padding:12px;
-                      border:1px solid #e5e7eb;
-                      border-radius:10px;
-                    ">
-
-                      <strong>
-                        ${escapeHTML(
-                          job.company
-                        )}
-                      </strong>
-
-                      <div
-                        class="muted"
-                        style="margin-top:4px"
-                      >
-                        ${escapeHTML(
-                          job.title
-                        )}
-                      </div>
-
-                    </div>
-                    `;
-
-                  }
-                ).join("")
-              : `
-                <div class="empty">
-                  No applications
-                </div>
-              `
-            }
-
-          </div>
-
-        </div>
-        `;
-
-      }
-    ).join("");
-
-}
-
-
-/* =========================
-   ANALYTICS
-========================= */
-
-function renderAnalytics(){
-
-  const applications =
-    jobs.filter(
-      function(job){
-
-        return job.type ===
-          "application";
-
-      }
-    );
-
-
-  const interviews =
-    applications.filter(
-      function(job){
-
-        return [
-          "interview",
-          "final",
-          "offer"
-        ].includes(
-          job.status
-        );
-
-      }
-    );
-
-
-  const offers =
-    applications.filter(
-      function(job){
-
-        return job.status ===
-          "offer";
-
-      }
-    );
-
-
-  const rate =
-    applications.length
-      ? Math.round(
-          interviews.length /
-          applications.length *
-          100
-        )
-      : 0;
-
-
-  setText(
-    "analyticsTotal",
-    applications.length
-  );
-
-  setText(
-    "analyticsInterviews",
-    interviews.length
-  );
-
-  setText(
-    "analyticsOffers",
-    offers.length
-  );
-
-  setText(
-    "analyticsInterviewRate",
-    rate + "%"
-  );
-
-}
-
-
-/* =========================
-   RESUME
-========================= */
-
-window.generateResume =
-function(){
-
-  const name =
-    document.getElementById(
-      "resumeName"
-    )?.value.trim() || "Your Name";
-
-
-  const title =
-    document.getElementById(
-      "resumeTitle"
-    )?.value.trim() ||
-    "Professional";
-
-
-  const summary =
-    document.getElementById(
-      "resumeSummary"
-    )?.value.trim() ||
-    "Professional summary";
-
-
-  const skills =
-    document.getElementById(
-      "resumeSkills"
-    )?.value.trim() ||
-    "Add your skills";
-
-
-  profile.resume = {
-
-    name,
-    title,
-    summary,
-    skills
-
-  };
-
-
-  saveProfileData();
-
-
-  const preview =
-    document.getElementById(
-      "resumePreview"
-    );
-
-
-  if(preview){
-
-    preview.innerHTML =
-      `
-      <div style="
-        max-width:760px;
-        margin:auto;
-        line-height:1.7;
-      ">
-
-        <h1>
-          ${escapeHTML(name)}
-        </h1>
-
-        <p
-          style="
-          color:#2563eb;
-          font-weight:700;
-          margin-top:5px;
-          "
-        >
-          ${escapeHTML(title)}
-        </p>
-
-        <hr
-          style="
-          margin:18px 0;
-          border:0;
-          border-top:1px solid #e5e7eb;
-          "
-        >
-
-        <h3>Professional Summary</h3>
-
-        <p style="margin-top:7px">
-          ${escapeHTML(summary)}
-        </p>
-
-        <h3 style="margin-top:20px">
-          Skills
-        </h3>
-
-        <p style="margin-top:7px">
-          ${escapeHTML(skills)}
-        </p>
-
-      </div>
-      `;
-
-  }
-
-
-  toast(
-    "Resume generated."
-  );
-
-};
-
-
-/* =========================
-   INTERVIEW
-========================= */
-
-const interviewQuestions = [
-
-  "Tell me about yourself.",
-
-  "Why do you want to work for our company?",
-
-  "What are your strongest skills?",
-
-  "Tell me about a difficult problem you solved.",
-
-  "Where do you see yourself in five years?",
-
-  "Why should we hire you?",
-
-  "What is your biggest professional achievement?",
-
-  "How do you handle pressure and deadlines?"
-
-];
-
-
-let interviewIndex = 0;
-
-
-window.nextInterviewQuestion =
-function(){
-
-  interviewIndex++;
-
-  if(
-    interviewIndex >=
-    interviewQuestions.length
-  ){
-
-    interviewIndex = 0;
-
-  }
-
-
-  const question =
-    document.getElementById(
-      "interviewQuestion"
-    );
-
-
-  if(question){
-
-    question.textContent =
-      interviewQuestions[
-        interviewIndex
-      ];
-
-  }
-
-};
-
-
-/* =========================
-   PROFILE
-========================= */
-
-window.saveProfile =
-function(){
-
-  const name =
-    document.getElementById(
-      "profileName"
-    )?.value.trim() || "";
-
-
-  const email =
-    document.getElementById(
-      "profileEmail"
-    )?.value.trim() || "";
-
-
-  profile.name =
-    name;
-
-  profile.email =
-    email;
-
-
-  saveProfileData();
-
-  updateUserName();
-
-  toast(
-    "Profile saved successfully."
-  );
-
-};
-
-
-function updateUserName(){
-
-  const name =
-    profile.name ||
-    "Job Seeker";
-
-
-  setText(
-    "topUser",
-    name
-  );
-
-
-  const profileName =
-    document.getElementById(
-      "profileName"
-    );
-
-
-  if(
-    profileName &&
-    !profileName.value
-  ){
-
-    profileName.value =
-      profile.name || "";
-
-  }
-
-
-  const profileEmail =
-    document.getElementById(
-      "profileEmail"
-    );
-
-
-  if(
-    profileEmail &&
-    !profileEmail.value
-  ){
-
-    profileEmail.value =
-      profile.email || "";
-
-  }
-
-}
-
-
-/* =========================
-   PREMIUM PAYMENT
-========================= */
-
-window.openPayment =
-function(){
-
-  if(isPremium()){
-
-    toast(
-      "Premium is already active."
-    );
-
-    return;
-
-  }
-
-
-  const confirmed =
-    confirm(
-      "Upgrade to JobFlow Premium?"
-    );
-
-
-  if(!confirmed)return;
-
-
-  /*
-    DEMO PAYMENT STATE
-
-    Replace this section later
-    with a real payment gateway.
-  */
-
-
-  localStorage.setItem(
-    SUBSCRIPTION_KEY,
-    "premium"
-  );
-
-
-  updateAccessBanner();
-
-  toast(
-    "Premium activated."
-  );
-
-};
-
-
-/* =========================
-   ACCESS BANNER
-========================= */
-
-function updateAccessBanner(){
-
-  const banner =
-    document.getElementById(
-      "sidebar"
-    ).classList.remove("open");
-  }
-
-  if(page === "jobs"){
-    renderJobs();
-  }
-
-  if(page === "applications"){
-    renderApplications();
-  }
-
-  if(page === "pipeline"){
-    renderPipeline();
-  }
-
-  if(page === "analytics"){
-    renderAnalytics();
-  }
-
-  if(page === "resume"){
-    loadResume();
-  }
-
-  if(page === "profile"){
-    loadProfileForm();
-  }
-
-};
-
-
-/* =========================
-   MOBILE SIDEBAR
-========================= */
-
-window.toggleSidebar = function(){
-
-  document
-    .getElementById("sidebar")
-    .classList.toggle("open");
-
-};
-
-
-/* =========================
-   ADD APPLICATION
-========================= */
-
-window.openAddApplication = function(){
-
-  const company = prompt("Company name:");
-  if(!company) return;
-
-  const title = prompt("Job title:");
-  if(!title) return;
-
-  const location =
-    prompt("Location:") || "Not specified";
-
-  const job = {
-    id: Date.now(),
-    company: company.trim(),
-    title: title.trim(),
-    location: location.trim(),
-    status: "Applied",
-    createdAt: new Date().toISOString()
-  };
-
-  jobs.push(job);
-
-  saveJobs();
-
-  renderAll();
-
-  toast("Application added successfully.");
-
-};
-
-
-/* =========================
-   UPDATE APPLICATION
-========================= */
-
-window.updateApplicationStatus =
-function(id,status){
-
-  const job =
-    jobs.find(function(item){
-      return String(item.id) === String(id);
-    });
-
-  if(!job) return;
-
-  job.status = status;
-
-  saveJobs();
-
-  renderAll();
-
-  toast("Application status updated.");
-
-};
-
-
-/* =========================
-   DELETE APPLICATION
-========================= */
-
-window.deleteApplication =
-function(id){
-
-  if(!confirm("Delete this application?")){
-    return;
-  }
-
-  jobs =
-    jobs.filter(function(item){
-      return String(item.id) !== String(id);
-    });
-
-  saveJobs();
-
-  renderAll();
-
-  toast("Application deleted.");
-
-};
-
-
-/* =========================
-   JOB SEARCH
-========================= */
-
-window.searchJobs = function(){
+function searchJobs() {
 
   const title =
     document
       .getElementById("jobSearch")
-      .value
+      ?.value
       .trim()
-      .toLowerCase();
+      .toLowerCase() || "";
 
   const location =
     document
       .getElementById("jobLocation")
-      .value
+      ?.value
       .trim()
-      .toLowerCase();
+      .toLowerCase() || "";
 
-  const results =
-    document.getElementById("jobResults");
-
-  if(!results) return;
-
-  if(!title && !location){
-
-    results.innerHTML = `
-      <div class="card">
-        <div class="empty">
-          Enter a job title or location to search.
-        </div>
-      </div>
-    `;
-
-    return;
-  }
 
   const demoJobs = [
+
     {
-      company:"TechNova",
-      title:"Software Engineer",
-      location:"Hyderabad"
+      id: "j1",
+      company: "TechNova",
+      title: "Software Engineer",
+      location: "Hyderabad",
+      type: "job"
     },
+
     {
-      company:"GrowthLabs",
-      title:"Frontend Developer",
-      location:"Bengaluru"
+      id: "j2",
+      company: "GrowthLabs",
+      title: "Frontend Developer",
+      location: "Bengaluru",
+      type: "job"
     },
+
     {
-      company:"CloudCore",
-      title:"Backend Developer",
-      location:"Pune"
+      id: "j3",
+      company: "CloudWorks",
+      title: "Backend Developer",
+      location: "Pune",
+      type: "job"
     },
+
     {
-      company:"AI Systems",
-      title:"AI Engineer",
-      location:"Hyderabad"
+      id: "j4",
+      company: "DataSphere",
+      title: "Data Analyst",
+      location: "Hyderabad",
+      type: "job"
     },
+
     {
-      company:"DigitalWorks",
-      title:"Product Designer",
-      location:"Remote"
-    },
-    {
-      company:"FinTech Labs",
-      title:"Full Stack Developer",
-      location:"Mumbai"
+      id: "j5",
+      company: "AI Systems",
+      title: "AI/ML Engineer",
+      location: "Remote",
+      type: "job"
     }
+
   ];
 
-  const filtered =
-    demoJobs.filter(function(job){
+
+  const results =
+    demoJobs.filter(job => {
 
       const matchesTitle =
         !title ||
@@ -4487,88 +2506,2358 @@ window.searchJobs = function(){
 
     });
 
-  if(!filtered.length){
 
-    results.innerHTML = `
-      <div class="card">
+  renderJobResults(results);
+}
+
+
+function renderJobs() {
+
+  const box =
+    document.getElementById(
+      "jobResults"
+    );
+
+  if (!box) return;
+
+
+  if (!box.innerHTML.trim()) {
+
+    box.innerHTML =
+      `<div class="card">
+        <div class="empty">
+          Search for jobs to see opportunities.
+        </div>
+      </div>`;
+
+  }
+}
+
+
+function renderJobResults(results) {
+
+  const box =
+    document.getElementById(
+      "jobResults"
+    );
+
+  if (!box) return;
+
+
+  if (!results.length) {
+
+    box.innerHTML =
+      `<div class="card">
         <div class="empty">
           No matching jobs found.
         </div>
-      </div>
-    `;
+      </div>`;
 
     return;
   }
 
-  results.innerHTML = `
-    <div class="card">
 
-      <h3 class="section-title">
-        Job Opportunities
+  box.innerHTML =
+    results.map(job => {
+
+      return `
+        <div class="card job-result">
+
+          <div>
+            <h3>${escapeHTML(job.title)}</h3>
+
+            <p class="muted">
+              ${escapeHTML(job.company)}
+              •
+              ${escapeHTML(job.location)}
+            </p>
+          </div>
+
+          <div class="actions">
+
+            <button
+              class="btn btn-blue"
+              onclick="saveJob('${job.id}')"
+            >
+              Save Job
+            </button>
+
+            <button
+              class="btn btn-light"
+              onclick="applyToJob('${job.id}')"
+            >
+              Apply
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+
+function clearJobSearch() {
+
+  const title =
+    document.getElementById("jobSearch");
+
+  const location =
+    document.getElementById("jobLocation");
+
+  if (title) title.value = "";
+  if (location) location.value = "";
+
+  renderJobs();
+}
+
+
+/* =========================
+   SAVE JOB
+========================= */
+
+function saveJob(id) {
+
+  const job =
+    getDemoJob(id);
+
+  if (!job) return;
+
+
+  const exists =
+    jobs.some(
+      item =>
+        item.sourceId === id &&
+        item.type === "job"
+    );
+
+
+  if (exists) {
+
+    toast("Job already saved", "warning");
+    return;
+
+  }
+
+
+  jobs.push({
+
+    ...job,
+
+    sourceId: id,
+    type: "job",
+    status: "Saved",
+    createdAt:
+      new Date().toISOString()
+
+  });
+
+
+  saveData(
+    JOBFLOW_KEYS.jobs,
+    jobs
+  );
+
+
+  renderDashboard();
+
+  toast("Job saved successfully");
+}
+
+
+function applyToJob(id) {
+
+  const job =
+    getDemoJob(id);
+
+  if (!job) return;
+
+
+  jobs.push({
+
+    ...job,
+
+    sourceId: id,
+    type: "application",
+    status: "Applied",
+    createdAt:
+      new Date().toISOString()
+
+  });
+
+
+  saveData(
+    JOBFLOW_KEYS.jobs,
+    jobs
+  );
+
+
+  renderDashboard();
+
+  toast("Application added");
+
+  showPage("applications");
+}
+
+
+/* =========================
+   DEMO JOB DATABASE
+========================= */
+
+function getDemoJob(id) {
+
+  const list = {
+
+    j1: {
+      id: "j1",
+      company: "TechNova",
+      title: "Software Engineer",
+      location: "Hyderabad"
+    },
+
+    j2: {
+      id: "j2",
+      company: "GrowthLabs",
+      title: "Frontend Developer",
+      location: "Bengaluru"
+    },
+
+    j3: {
+      id: "j3",
+      company: "CloudWorks",
+      title: "Backend Developer",
+      location: "Pune"
+    },
+
+    j4: {
+      id: "j4",
+      company: "DataSphere",
+      title: "Data Analyst",
+      location: "Hyderabad"
+    },
+
+    j5: {
+      id: "j5",
+      company: "AI Systems",
+      title: "AI/ML Engineer",
+      location: "Remote"
+    }
+
+  };
+
+
+  return list[id] || null;
+}
+<script>
+/* =========================
+   APPLICATION MANAGEMENT
+========================= */
+
+function openAddApplication() {
+
+  const company =
+    prompt("Company name:");
+
+  if (!company || !company.trim()) {
+    return;
+  }
+
+
+  const title =
+    prompt("Job title:");
+
+  if (!title || !title.trim()) {
+    return;
+  }
+
+
+  const location =
+    prompt("Location:") ||
+    "Not specified";
+
+
+  const application = {
+
+    id:
+      "app_" +
+      Date.now(),
+
+    company:
+      company.trim(),
+
+    title:
+      title.trim(),
+
+    location:
+      location.trim(),
+
+    type:
+      "application",
+
+    status:
+      "Applied",
+
+    priority:
+      "Medium",
+
+    notes:
+      "",
+
+    createdAt:
+      new Date().toISOString(),
+
+    updatedAt:
+      new Date().toISOString()
+
+  };
+
+
+  jobs.push(application);
+
+
+  saveData(
+    JOBFLOW_KEYS.jobs,
+    jobs
+  );
+
+
+  renderDashboard();
+  renderApplications();
+  renderPipeline();
+  renderAnalytics();
+
+
+  toast(
+    "Application added successfully"
+  );
+}
+
+
+/* =========================
+   APPLICATION LIST
+========================= */
+
+function renderApplications() {
+
+  const list =
+    document.getElementById(
+      "applicationsList"
+    );
+
+  if (!list) return;
+
+
+  const applications =
+    jobs.filter(
+      job =>
+        job.type ===
+        "application"
+    );
+
+
+  if (!applications.length) {
+
+    list.innerHTML =
+      `<tr>
+        <td colspan="4">
+          <div class="empty">
+            No applications yet.
+          </div>
+        </td>
+      </tr>`;
+
+    return;
+  }
+
+
+  list.innerHTML =
+    applications
+      .slice()
+      .reverse()
+      .map(
+        job => {
+
+          return `
+            <tr>
+
+              <td>
+                <strong>
+                  ${escapeHTML(job.company)}
+                </strong>
+              </td>
+
+              <td>
+                ${escapeHTML(job.title)}
+              </td>
+
+              <td>
+
+                <select
+                  class="status-select"
+                  onchange="
+                    updateApplicationStatus(
+                      '${job.id}',
+                      this.value
+                    )
+                  "
+                >
+
+                  ${statusOptions(
+                    job.status
+                  )}
+
+                </select>
+
+              </td>
+
+              <td>
+
+                <button
+                  class="small-btn"
+                  onclick="
+                    deleteApplication(
+                      '${job.id}'
+                    )
+                  "
+                >
+                  Delete
+                </button>
+
+              </td>
+
+            </tr>
+          `;
+
+        }
+      )
+      .join("");
+}
+
+
+/* =========================
+   STATUS OPTIONS
+========================= */
+
+function statusOptions(
+  selected
+) {
+
+  const statuses = [
+
+    "Saved",
+    "Applied",
+    "Screening",
+    "Interview",
+    "Final Round",
+    "Offer",
+    "Rejected"
+
+  ];
+
+
+  return statuses
+    .map(
+      status => {
+
+        return `
+          <option
+            value="${status}"
+            ${status === selected
+              ? "selected"
+              : ""}
+          >
+            ${status}
+          </option>
+        `;
+
+      }
+    )
+    .join("");
+}
+
+
+/* =========================
+   UPDATE STATUS
+========================= */
+
+function updateApplicationStatus(
+  id,
+  status
+) {
+
+  const application =
+    jobs.find(
+      job =>
+        job.id === id
+    );
+
+
+  if (!application) return;
+
+
+  application.status =
+    status;
+
+  application.updatedAt =
+    new Date().toISOString();
+
+
+  saveData(
+    JOBFLOW_KEYS.jobs,
+    jobs
+  );
+
+
+  renderDashboard();
+  renderApplications();
+  renderPipeline();
+  renderAnalytics();
+
+
+  toast(
+    "Application status updated"
+  );
+}
+
+
+/* =========================
+   DELETE APPLICATION
+========================= */
+
+function deleteApplication(id) {
+
+  const application =
+    jobs.find(
+      job =>
+        job.id === id
+    );
+
+
+  if (!application) return;
+
+
+  const confirmed =
+    confirm(
+      "Delete this application?"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  jobs =
+    jobs.filter(
+      job =>
+        job.id !== id
+    );
+
+
+  saveData(
+    JOBFLOW_KEYS.jobs,
+    jobs
+  );
+
+
+  renderDashboard();
+  renderApplications();
+  renderPipeline();
+  renderAnalytics();
+
+
+  toast(
+    "Application deleted"
+  );
+}
+
+
+/* =========================
+   PIPELINE
+========================= */
+
+function renderPipeline() {
+
+  const board =
+    document.getElementById(
+      "pipelineBoard"
+    );
+
+  if (!board) return;
+
+
+  const stages = [
+
+    "Saved",
+    "Applied",
+    "Screening",
+    "Interview",
+    "Final Round",
+    "Offer",
+    "Rejected"
+
+  ];
+
+
+  const applications =
+    jobs.filter(
+      job =>
+        job.type ===
+        "application"
+    );
+
+
+  board.innerHTML =
+    stages
+      .map(
+        stage => {
+
+          const items =
+            applications.filter(
+              job =>
+                job.status ===
+                stage
+            );
+
+
+          return `
+            <div class="card">
+
+              <h3>
+                ${stage}
+              </h3>
+
+              <div
+                style="
+                  margin-top:14px;
+                  display:flex;
+                  flex-direction:column;
+                  gap:10px;
+                "
+              >
+
+                ${
+                  items.length
+                    ? items
+                        .map(
+                          job => `
+                            <div
+                              style="
+                                padding:12px;
+                                border:1px solid #e5e7eb;
+                                border-radius:10px;
+                                background:#f8fafc;
+                              "
+                            >
+
+                              <strong>
+                                ${escapeHTML(
+                                  job.company
+                                )}
+                              </strong>
+
+                              <div
+                                style="
+                                  color:#64748b;
+                                  font-size:13px;
+                                  margin-top:4px;
+                                "
+                              >
+                                ${escapeHTML(
+                                  job.title
+                                )}
+                              </div>
+
+                            </div>
+                          `
+                        )
+                        .join("")
+                    : `
+                      <div
+                        style="
+                          color:#94a3b8;
+                          font-size:13px;
+                          padding:12px 0;
+                        "
+                      >
+                        No applications
+                      </div>
+                    `
+                }
+
+              </div>
+
+            </div>
+          `;
+
+        }
+      )
+      .join("");
+}
+
+
+/* =========================
+   ANALYTICS
+========================= */
+
+function renderAnalytics() {
+
+  const applications =
+    jobs.filter(
+      job =>
+        job.type ===
+        "application"
+    );
+
+
+  const interviews =
+    applications.filter(
+      job =>
+        job.status ===
+          "Interview" ||
+        job.status ===
+          "Final Round"
+    );
+
+
+  const offers =
+    applications.filter(
+      job =>
+        job.status ===
+        "Offer"
+    );
+
+
+  const total =
+    applications.length;
+
+
+  const interviewRate =
+    total
+      ? Math.round(
+          (
+            interviews.length /
+            total
+          ) * 100
+        )
+      : 0;
+
+
+  const totalElement =
+    document.getElementById(
+      "analyticsTotal"
+    );
+
+  const interviewElement =
+    document.getElementById(
+      "analyticsInterviews"
+    );
+
+  const offersElement =
+    document.getElementById(
+      "analyticsOffers"
+    );
+
+  const rateElement =
+    document.getElementById(
+      "analyticsInterviewRate"
+    );
+
+
+  if (totalElement) {
+
+    totalElement.textContent =
+      total;
+
+  }
+
+
+  if (interviewElement) {
+
+    interviewElement.textContent =
+      interviews.length;
+
+  }
+
+
+  if (offersElement) {
+
+    offersElement.textContent =
+      offers.length;
+
+  }
+
+
+  if (rateElement) {
+
+    rateElement.textContent =
+      interviewRate + "%";
+
+  }
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function loadProfileForm() {
+
+  const name =
+    document.getElementById(
+      "profileName"
+    );
+
+  const email =
+    document.getElementById(
+      "profileEmail"
+    );
+
+  const role =
+    document.getElementById(
+      "profileRole"
+    );
+
+  const location =
+    document.getElementById(
+      "profileLocation"
+    );
+
+
+  if (name) {
+    name.value =
+      profile.name || "";
+  }
+
+  if (email) {
+    email.value =
+      profile.email || "";
+  }
+
+  if (role) {
+    role.value =
+      profile.role || "";
+  }
+
+  if (location) {
+    location.value =
+      profile.location || "";
+  }
+
+
+  updateUserName();
+}
+
+
+/* =========================
+   SAVE PROFILE
+========================= */
+
+function saveProfile() {
+
+  profile = {
+
+    name:
+      document
+        .getElementById(
+          "profileName"
+        )?.value
+        .trim() || "",
+
+    email:
+      document
+        .getElementById(
+          "profileEmail"
+        )?.value
+        .trim() || "",
+
+    role:
+      document
+        .getElementById(
+          "profileRole"
+        )?.value
+        .trim() || "",
+
+    location:
+      document
+        .getElementById(
+          "profileLocation"
+        )?.value
+        .trim() || ""
+
+  };
+
+
+  saveData(
+    JOBFLOW_KEYS.profile,
+    profile
+  );
+
+
+  updateUserName();
+
+  toast(
+    "Profile saved successfully"
+  );
+}
+
+
+/* =========================
+   USER NAME
+========================= */
+
+function updateUserName() {
+
+  const element =
+    document.getElementById(
+      "topUser"
+    );
+
+  if (!element) return;
+
+
+  element.textContent =
+    profile.name ||
+    "Job Seeker";
+}
+
+
+/* =========================
+   SUBSCRIPTION
+========================= */
+
+function updateAccessBanner() {
+
+  const banner =
+    document.getElementById(
+      "accessBanner"
+    );
+
+  if (!banner) return;
+
+
+  if (subscription.active) {
+
+    banner.innerHTML = `
+      <strong>
+        Premium Active
+      </strong>
+
+      <div
+        style="
+          margin-top:5px;
+          color:#64748b;
+        "
+      >
+        Your JobFlow Premium features
+        are active.
+      </div>
+    `;
+
+  } else {
+
+    banner.innerHTML = `
+      <strong>
+        JobFlow Free Plan
+      </strong>
+
+      <div
+        style="
+          margin-top:5px;
+          color:#64748b;
+        "
+      >
+        Upgrade when you need advanced
+        career tools.
+      </div>
+    `;
+
+  }
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+function openPayment() {
+
+  const modal =
+    document.getElementById(
+      "paymentModal"
+    );
+
+  if (modal) {
+
+    modal.hidden = false;
+
+  }
+}
+
+
+function closePayment() {
+
+  const modal =
+    document.getElementById(
+      "paymentModal"
+    );
+
+  if (modal) {
+
+    modal.hidden = true;
+
+  }
+}
+
+
+function startPayment(method) {
+
+  /*
+   * This is only the UI entry point.
+   * Connect a real payment gateway such
+   * as Razorpay/Stripe before accepting
+   * real payments.
+   */
+
+  toast(
+    method +
+    " payment setup is ready to connect.",
+    "warning"
+  );
+
+  closePayment();
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+function loadSettings() {
+
+  const notification =
+    document.getElementById(
+      "notificationSetting"
+    );
+
+  const autoSave =
+    document.getElementById(
+      "autoSaveSetting"
+    );
+
+
+  if (notification) {
+
+    notification.checked =
+      settings.notifications !== false;
+
+  }
+
+
+  if (autoSave) {
+
+    autoSave.checked =
+      settings.autoSave !== false;
+
+  }
+}
+
+
+function saveSettings() {
+
+  const notification =
+    document.getElementById(
+      "notificationSetting"
+    );
+
+  const autoSave =
+    document.getElementById(
+      "autoSaveSetting"
+    );
+
+
+  settings = {
+
+    notifications:
+      notification
+        ? notification.checked
+        : true,
+
+    autoSave:
+      autoSave
+        ? autoSave.checked
+        : true
+
+  };
+
+
+  saveData(
+    JOBFLOW_KEYS.settings,
+    settings
+  );
+}
+
+
+/* =========================
+   EXPORT DATA
+========================= */
+
+function exportJobFlowData() {
+
+  const data = {
+
+    jobs:
+      jobs,
+
+    profile:
+      profile,
+
+    subscription:
+      subscription,
+
+    settings:
+      settings,
+
+    exportedAt:
+      new Date().toISOString()
+
+  };
+
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:
+          "application/json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const link =
+    document.createElement(
+      "a"
+    );
+
+  link.href =
+    url;
+
+  link.download =
+    "jobflow-backup.json";
+
+  document.body.appendChild(
+    link
+  );
+
+  link.click();
+
+  link.remove();
+
+
+  setTimeout(
+    () => {
+      URL.revokeObjectURL(url);
+    },
+    1000
+  );
+
+
+  toast(
+    "JobFlow data exported"
+  );
+}
+
+
+/* =========================
+   CLEAR DATA
+========================= */
+
+function clearAllData() {
+
+  const confirmed =
+    confirm(
+      "This will delete your locally saved JobFlow data. Continue?"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  localStorage.removeItem(
+    JOBFLOW_KEYS.jobs
+  );
+
+  localStorage.removeItem(
+    JOBFLOW_KEYS.profile
+  );
+
+  localStorage.removeItem(
+    JOBFLOW_KEYS.subscription
+  );
+
+  localStorage.removeItem(
+    JOBFLOW_KEYS.settings
+  );
+
+
+  jobs = [];
+
+  profile = {};
+
+  subscription = {
+    plan: "Free",
+    active: false
+  };
+
+  settings = {
+    notifications: true,
+    autoSave: true
+  };
+
+
+  renderDashboard();
+  renderApplications();
+  renderPipeline();
+  renderAnalytics();
+  loadProfileForm();
+  loadSettings();
+
+
+  toast(
+    "All local data cleared"
+  );
+}
+
+
+/* =========================
+   REFRESH
+========================= */
+
+function refreshJobFlow() {
+
+  location.reload();
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value) {
+
+  return String(
+    value ?? ""
+  )
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+}
+
+
+/* =========================
+   STATUS BADGE
+========================= */
+
+function statusBadge(status) {
+
+  const classes = {
+
+    Saved:
+      "badge-gray",
+
+    Applied:
+      "badge-blue",
+
+    Screening:
+      "badge-purple",
+
+    Interview:
+      "badge-orange",
+
+    "Final Round":
+      "badge-orange",
+
+    Offer:
+      "badge-green",
+
+    Rejected:
+      "badge-red"
+
+  };
+
+
+  const cls =
+    classes[status] ||
+    "badge-gray";
+
+
+  return `
+    <span class="badge ${cls}">
+      ${escapeHTML(status)}
+    </span>
+  `;
+}
+
+
+/* =========================
+   RESUME
+========================= */
+
+function loadResume() {
+
+  const saved =
+    loadData(
+      "jobflow_resume",
+      {}
+    );
+
+
+  const name =
+    document.getElementById(
+      "resumeName"
+    );
+
+  const title =
+    document.getElementById(
+      "resumeTitle"
+    );
+
+  const summary =
+    document.getElementById(
+      "resumeSummary"
+    );
+
+  const skills =
+    document.getElementById(
+      "resumeSkills"
+    );
+
+
+  if (name) {
+    name.value =
+      saved.name || "";
+  }
+
+  if (title) {
+    title.value =
+      saved.title || "";
+  }
+
+  if (summary) {
+    summary.value =
+      saved.summary || "";
+  }
+
+  if (skills) {
+    skills.value =
+      saved.skills || "";
+  }
+}
+
+
+/* =========================
+   SAVE + GENERATE RESUME
+========================= */
+
+function generateResume() {
+
+  const resume = {
+
+    name:
+      document.getElementById(
+        "resumeName"
+      )?.value.trim() || "",
+
+    title:
+      document.getElementById(
+        "resumeTitle"
+      )?.value.trim() || "",
+
+    summary:
+      document.getElementById(
+        "resumeSummary"
+      )?.value.trim() || "",
+
+    skills:
+      document.getElementById(
+        "resumeSkills"
+      )?.value.trim() || ""
+
+  };
+
+
+  saveData(
+    "jobflow_resume",
+    resume
+  );
+
+
+  const preview =
+    document.getElementById(
+      "resumePreview"
+    );
+
+
+  if (!preview) return;
+
+
+  preview.innerHTML = `
+
+    <div class="resume-preview">
+
+      <h1>
+        ${escapeHTML(resume.name || "Your Name")}
+      </h1>
+
+      <h3>
+        ${escapeHTML(
+          resume.title ||
+          "Professional Title"
+        )}
       </h3>
 
-      <div class="table-wrap">
+      <hr>
 
-        <table>
+      <h4>
+        Professional Summary
+      </h4>
 
-          <thead>
-            <tr>
-              <th>Company</th>
-              <th>Role</th>
-              <th>Location</th>
-              <th>Action</th>
-            </tr>
-          </thead>
+      <p>
+        ${escapeHTML(
+          resume.summary ||
+          "Add your professional summary."
+        )}
+      </p>
 
-          <tbody>
+      <h4>
+        Skills
+      </h4>
 
-            ${filtered.map(function(job){
+      <p>
+        ${escapeHTML(
+          resume.skills ||
+          "Add your skills."
+        )}
+      </p>
 
-              return `
-                <tr>
+    </div>
 
-                  <td>
-                    <strong>
-                      ${escapeHTML(job.company)}
-                    </strong>
-                  </td>
+  `;
 
-                  <td>
-                    ${escapeHTML(job.title)}
-                  </td>
 
-                  <td>
-                    ${escapeHTML(job.location)}
-                  </td>
+  toast(
+    "Resume generated successfully"
+  );
+}
 
-                  <td>
 
-                    <button
-                      class="btn btn-blue"
-                      onclick="saveFoundJob(
-                        '${escapeAttribute(job.company)}',
-                        '${escapeAttribute(job.title)}',
-                        '${escapeAttribute(job.location)}'
-                      )"
-                    >
-                      Save
-                    </button>
+/* =========================
+   INTERVIEW
+========================= */
 
-                  </td>
+const interviewQuestions = [
 
-                </tr>
-              `;
+  "Tell me about yourself.",
 
-            }).join("")}
+  "Why do you want to work for this company?",
 
-          </tbody>
+  "What are your greatest strengths?",
 
-        </table>
+  "What is one weakness you are working on?",
 
+  "Tell me about a challenging project you completed.",
+
+  "Where do you see yourself in five years?",
+
+  "Why should we hire you?",
+
+  "Tell me about a time you solved a difficult problem."
+
+];
+
+
+let interviewIndex = 0;
+
+
+function nextInterviewQuestion() {
+
+  interviewIndex++;
+
+  if (
+    interviewIndex >=
+    interviewQuestions.length
+  ) {
+
+    interviewIndex = 0;
+
+  }
+
+
+  const element =
+    document.getElementById(
+      "interviewQuestion"
+    );
+
+
+  if (element) {
+
+    element.textContent =
+      interviewQuestions[
+        interviewIndex
+      ];
+
+  }
+}
+
+
+/* =========================
+   STARTUP
+========================= */
+
+function initJobFlow() {
+
+  updateUserName();
+
+  renderDashboard();
+
+  loadProfileForm();
+
+  loadSettings();
+
+  updateAccessBanner();
+
+
+  const notification =
+    document.getElementById(
+      "notificationSetting"
+    );
+
+  const autoSave =
+    document.getElementById(
+      "autoSaveSetting"
+    );
+
+
+  if (notification) {
+
+    notification.addEventListener(
+      "change",
+      saveSettings
+    );
+
+  }
+
+
+  if (autoSave) {
+
+    autoSave.addEventListener(
+      "change",
+      saveSettings
+    );
+
+  }
+
+
+  console.log(
+    "JobFlow loaded successfully."
+  );
+}
+
+
+if (
+  document.readyState ===
+  "loading"
+) {
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    initJobFlow
+  );
+
+} else {
+
+  initJobFlow();
+
+}
+</script>
+<!-- =========================
+     APPLICATIONS
+========================= -->
+
+<section id="applications" class="page">
+
+  <div class="hero">
+    <h2>Applications</h2>
+    <p>Track and manage all your job applications.</p>
+  </div>
+
+  <div class="card">
+    <div class="actions">
+      <button class="btn btn-blue" onclick="addApplication()">
+        + Add Application
+      </button>
+
+      <button class="btn btn-light" onclick="renderAll()">
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Role</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody id="applicationsList">
+
+          <tr>
+            <td colspan="5">
+              <div class="empty">
+                No applications yet.
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PIPELINE
+========================= -->
+
+<section id="pipeline" class="page">
+
+  <div class="hero">
+    <h2>Application Pipeline</h2>
+    <p>Track your applications from saved to offer.</p>
+  </div>
+
+  <div id="pipelineBoard" class="pipeline-grid"></div>
+
+</section>
+
+
+<!-- =========================
+     ANALYTICS
+========================= -->
+
+<section id="analytics" class="page">
+
+  <div class="hero">
+    <h2>Career Analytics</h2>
+    <p>See how your job search is performing.</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="muted">Applications</div>
+      <div class="stat blue" id="analyticsTotal">0</div>
+    </div>
+
+    <div class="card">
+      <div class="muted">Interviews</div>
+      <div class="stat green" id="analyticsInterviews">0</div>
+    </div>
+
+    <div class="card">
+      <div class="muted">Offers</div>
+      <div class="stat blue" id="analyticsOffers">0</div>
+    </div>
+
+    <div class="card">
+      <div class="muted">Success Rate</div>
+      <div class="stat orange" id="analyticsRate">0%</div>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h3 class="section-title">
+      Career Progress
+    </h3>
+
+    <div id="analyticsProgress"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     RESUME BUILDER
+========================= -->
+
+<section id="resume" class="page">
+
+  <div class="hero">
+    <h2>Resume Builder</h2>
+    <p>Create a professional resume using your JobFlow profile.</p>
+  </div>
+
+  <div class="card">
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>Full Name</label>
+        <input
+          id="resumeName"
+          placeholder="Your full name"
+        >
+      </div>
+
+      <div class="field">
+        <label>Professional Title</label>
+        <input
+          id="resumeTitle"
+          placeholder="Software Engineer"
+        >
+      </div>
+
+      <div class="field full">
+        <label>Professional Summary</label>
+        <textarea
+          id="resumeSummary"
+          placeholder="Write your professional summary..."
+        ></textarea>
+      </div>
+
+      <div class="field full">
+        <label>Skills</label>
+        <input
+          id="resumeSkills"
+          placeholder="JavaScript, Python, SQL..."
+        >
+      </div>
+
+      <div class="field full">
+        <label>Experience</label>
+        <textarea
+          id="resumeExperience"
+          placeholder="Describe your experience..."
+        ></textarea>
       </div>
 
     </div>
-  `;
+
+    <div class="actions">
+
+      <button
+        class="btn btn-blue"
+        onclick="generateResume()"
+      >
+        Generate Resume
+      </button>
+
+      <button
+        class="btn btn-light"
+        onclick="saveResume()"
+      >
+        Save Resume
+      </button>
+
+    </div>
+
+  </div>
+
+  <div
+    id="resumePreview"
+    class="card"
+    style="margin-top:18px"
+  >
+
+    <div class="empty">
+      Your resume preview will appear here.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     INTERVIEW
+========================= -->
+
+<section id="interview" class="page">
+
+  <div class="hero">
+    <h2>Interview Preparation</h2>
+    <p>Practice interview questions and improve your confidence.</p>
+  </div>
+
+  <div class="card">
+
+    <div class="muted">
+      Interview Question
+    </div>
+
+    <h3
+      id="interviewQuestion"
+      style="margin-top:12px;line-height:1.6"
+    >
+      Tell me about yourself.
+    </h3>
+
+    <div class="actions">
+
+      <button
+        class="btn btn-blue"
+        onclick="nextInterviewQuestion()"
+      >
+        Next Question
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+<!-- =========================
+     RESUME PAGE
+========================= -->
+
+<section id="resume" class="page">
+  <div class="hero">
+    <h2>Resume Builder</h2>
+    <p>Create a professional resume quickly.</p>
+  </div>
+
+  <div class="card">
+    <div class="form-grid">
+      <div class="field">
+        <label>Full Name</label>
+        <input id="resumeName" placeholder="Your name">
+      </div>
+
+      <div class="field">
+        <label>Professional Title</label>
+        <input id="resumeTitle" placeholder="Software Engineer">
+      </div>
+
+      <div class="field full">
+        <label>Summary</label>
+        <textarea id="resumeSummary" placeholder="Professional summary"></textarea>
+      </div>
+
+      <div class="field full">
+        <label>Skills</label>
+        <input id="resumeSkills" placeholder="JavaScript, Python, SQL">
+      </div>
+
+      <div class="field full">
+        <label>Experience</label>
+        <textarea id="resumeExperience" placeholder="Your experience"></textarea>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-blue" onclick="generateResume()">
+        Generate Resume
+      </button>
+
+      <button class="btn btn-light" onclick="downloadResume()">
+        Download Resume
+      </button>
+    </div>
+  </div>
+
+  <div id="resumePreview" class="card" style="margin-top:18px">
+    <div class="empty">Resume preview will appear here.</div>
+  </div>
+</section>
+
+
+<!-- =========================
+     INTERVIEW
+========================= -->
+
+<section id="interview" class="page">
+  <div class="hero">
+    <h2>Interview Preparation</h2>
+    <p>Practice interview questions and improve your answers.</p>
+  </div>
+
+  <div class="card">
+    <h3>Practice Question</h3>
+
+    <p id="interviewQuestion"
+       style="margin-top:15px;line-height:1.7">
+      Tell me about yourself.
+    </p>
+
+    <textarea
+      id="interviewAnswer"
+      placeholder="Write your answer here..."
+      style="width:100%;margin-top:18px;min-height:120px;padding:12px;border:1px solid #cbd5e1;border-radius:10px">
+    </textarea>
+
+    <div class="actions">
+      <button class="btn btn-blue" onclick="nextInterviewQuestion()">
+        Next Question
+      </button>
+
+      <button class="btn btn-light" onclick="saveInterviewAnswer()">
+        Save Answer
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
+     SUBSCRIPTION
+========================= -->
+
+<section id="subscription" class="page">
+  <div class="hero">
+    <h2>JobFlow Premium</h2>
+    <p>Unlock advanced career-management features.</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>Free</h3>
+      <p class="muted" style="margin-top:8px">₹0</p>
+
+      <div style="line-height:2;margin-top:15px">
+        ✓ Job tracking<br>
+        ✓ Application tracking<br>
+        ✓ Basic resume builder<br>
+        ✓ Interview questions
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-light" onclick="toast('Free plan active')">
+          Current Plan
+        </button>
+      </div>
+    </div>
+
+    <div class="card" style="border:2px solid #2563eb">
+      <h3>Premium</h3>
+      <p class="muted" style="margin-top:8px">₹299 / month</p>
+
+      <div style="line-height:2;margin-top:15px">
+        ✓ Unlimited applications<br>
+        ✓ Advanced resume tools<br>
+        ✓ Advanced interview preparation<br>
+        ✓ Career analytics<br>
+        ✓ Premium tools
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-blue" onclick="openPayment()">
+          Upgrade Premium
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<section id="profile" class="page">
+  <div class="card">
+    <h2>Profile</h2>
+
+    <div class="form-grid" style="margin-top:20px">
+
+      <div class="field">
+        <label>Name</label>
+        <input id="profileName" placeholder="Your name">
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input id="profileEmail" type="email" placeholder="you@example.com">
+      </div>
+
+      <div class="field">
+        <label>Target Role</label>
+        <input id="profileRole" placeholder="Software Engineer">
+      </div>
+
+      <div class="field">
+        <label>Target Location</label>
+        <input id="profileLocation" placeholder="Hyderabad">
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-blue" onclick="saveProfile()">
+        Save Profile
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<section id="settings" class="page">
+  <div class="card">
+    <h2>Settings</h2>
+
+    <p class="muted" style="margin-top:8px">
+      Manage your JobFlow application.
+    </p>
+
+    <div class="actions">
+      <button class="btn btn-blue" onclick="exportData()">
+        Export Data
+      </button>
+
+      <button class="btn btn-light" onclick="refreshJobFlow()">
+        Refresh
+      </button>
+
+      <button class="btn"
+        style="background:#fee2e2;color:#b91c1c"
+        onclick="clearAllData()">
+        Clear Local Data
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
+     PAYMENT MODAL
+========================= -->
+
+<div id="paymentModal" class="modal">
+  <div class="modal-box">
+
+    <button class="modal-close" onclick="closePayment()">×</button>
+
+    <h2>Upgrade JobFlow Premium</h2>
+
+    <p class="muted" style="margin-top:8px">
+      Premium subscription
+    </p>
+
+    <div class="card" style="margin-top:18px;background:#f8fafc">
+      <strong>₹299 / month</strong>
+      <p style="margin-top:8px">
+        Secure payment checkout
+      </p>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-blue" onclick="startPayment()">
+        Continue to Payment
+      </button>
+
+      <button class="btn btn-light" onclick="closePayment()">
+        Cancel
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+"use strict";
+
+/* =========================
+   STORAGE
+========================= */
+
+const JOBFLOW_KEY = "jobflow_v2";
+
+let state = JSON.parse(
+  localStorage.getItem(JOBFLOW_KEY) || "null"
+) || {
+  jobs: [],
+  applications: [],
+  profile: {},
+  resume: {},
+  premium: false,
+  interviewAnswers: []
+};
+
+
+function saveState(){
+  localStorage.setItem(
+    JOBFLOW_KEY,
+    JSON.stringify(state)
+  );
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+window.toast = function(message){
+
+  const box = document.getElementById("toast");
+
+  if(!box) return;
+
+  box.textContent = message;
+  box.classList.add("show");
+
+  clearTimeout(window.__toastTimer);
+
+  window.__toastTimer = setTimeout(function(){
+    box.classList.remove("show");
+  },2500);
+};
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+const pageNames = {
+  dashboard:"Dashboard",
+  jobs:"Jobs",
+  applications:"Applications",
+  pipeline:"Pipeline",
+  analytics:"Analytics",
+  resume:"Resume Builder",
+  interview:"Interview",
+  subscription:"Subscription",
+  profile:"Profile",
+  settings:"Settings"
+};
+
+
+window.showPage = function(page,button){
+
+  document.querySelectorAll(".page").forEach(function(p){
+    p.classList.remove("active");
+  });
+
+  const target = document.getElementById(page);
+
+  if(!target){
+    toast("Page not found");
+    return;
+  }
+
+  target.classList.add("active");
+
+  document.querySelectorAll(".nav button").forEach(function(b){
+    b.classList.remove("active");
+  });
+
+  if(button){
+    button.classList.add("active");
+  }else{
+    document.querySelectorAll(".nav button").forEach(function(b){
+      if((b.getAttribute("onclick") || "").includes("'" + page + "'")){
+        b.classList.add("active");
+      }
+    });
+  }
+
+  document.getElementById("pageTitle").textContent =
+    pageNames[page] || "JobFlow";
+
+  if(window.innerWidth <= 900){
+    document.getElementById("sidebar").classList.remove("open");
+  }
+
+  if(page === "dashboard") renderDashboard();
+  if(page === "jobs") renderJobs();
+  if(page === "applications") renderApplications();
+  if(page === "pipeline") renderPipeline();
+  if(page === "analytics") renderAnalytics();
+  if(page === "resume") loadResume();
+  if(page === "profile") loadProfile();
+
+};
+
+
+window.toggleSidebar = function(){
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+};
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function renderDashboard(){
+
+  document.getElementById("totalJobs").textContent =
+    state.jobs.length;
+
+  document.getElementById("totalApplications").textContent =
+    state.applications.length;
+
+  document.getElementById("totalInterviews").textContent =
+    state.applications.filter(function(a){
+      return a.status === "Interview" ||
+             a.status === "Final Round";
+    }).length;
+
+  document.getElementById("totalOffers").textContent =
+    state.applications.filter(function(a){
+      return a.status === "Offer";
+    }).length;
+
+
+  const list =
+    document.getElementById("recentApplications");
+
+  if(!list) return;
+
+  const recent =
+    state.applications.slice(-5).reverse();
+
+  if(!recent.length){
+
+    list.innerHTML =
+      '<tr><td colspan="3"><div class="empty">No applications yet.</div></td></tr>';
+
+    return;
+  }
+
+  list.innerHTML = recent.map(function(a){
+
+    return `
+      <tr>
+        <td>${safe(a.company)}</td>
+        <td>${safe(a.title)}</td>
+        <td>${statusBadge(a.status)}</td>
+      </tr>
+    `;
+
+  }).join("");
+
+}
+
+
+/* =========================
+   JOB SEARCH
+========================= */
+
+window.searchJobs = function(){
+
+  const title =
+    document.getElementById("jobSearch").value.trim();
+
+  const location =
+    document.getElementById("jobLocation").value.trim();
+
+  if(!title && !location){
+
+    toast("Enter a job title or location");
+
+    return;
+  }
+
+  const samples = [
+    {
+      company:"TechNova",
+      title:title || "Software Engineer",
+      location:location || "Hyderabad"
+    },
+    {
+      company:"GrowthLabs",
+      title:title || "Frontend Developer",
+      location:location || "Bengaluru"
+    },
+    {
+      company:"CloudWorks",
+      title:title || "Backend Developer",
+      location:location || "Remote"
+    }
+  ];
+
+  state.jobs = samples.map(function(j,i){
+
+    return {
+      id:Date.now()+i,
+      company:j.company,
+      title:j.title,
+      location:j.location
+    };
+
+  });
+
+  saveState();
+  renderJobs();
+
+  toast("Jobs loaded");
 
 };
 
@@ -4583,238 +4872,233 @@ window.clearJobSearch = function(){
 };
 
 
-window.saveFoundJob =
-function(company,title,location){
+function renderJobs(){
 
-  const exists =
-    jobs.some(function(item){
+  const box =
+    document.getElementById("jobResults");
 
-      return (
-        item.company === company &&
-        item.title === title
-      );
+  if(!box) return;
 
-    });
+  if(!state.jobs.length){
 
-  if(exists){
-
-    toast("Job already saved.");
+    box.innerHTML =
+      '<div class="card"><div class="empty">Search for jobs to see opportunities.</div></div>';
 
     return;
-
   }
 
-  jobs.push({
+  box.innerHTML = state.jobs.map(function(job){
 
+    return `
+      <div class="card" style="margin-bottom:12px">
+        <h3>${safe(job.title)}</h3>
+        <p class="muted" style="margin-top:6px">
+          ${safe(job.company)} • ${safe(job.location)}
+        </p>
+
+        <div class="actions">
+          <button class="btn btn-blue"
+            onclick="applyJob(${job.id})">
+            Apply
+          </button>
+
+          <button class="btn btn-light"
+            onclick="saveJob(${job.id})">
+            Save Job
+          </button>
+        </div>
+      </div>
+    `;
+
+  }).join("");
+
+}
+
+
+window.saveJob = function(id){
+
+  const job =
+    state.jobs.find(function(j){
+      return j.id === id;
+    });
+
+  if(!job) return;
+
+  toast("Job saved");
+
+};
+
+
+window.applyJob = function(id){
+
+  const job =
+    state.jobs.find(function(j){
+      return j.id === id;
+    });
+
+  if(!job) return;
+
+  state.applications.push({
     id:Date.now(),
-
-    company:company,
-
-    title:title,
-
-    location:location,
-
-    status:"Saved",
-
-    createdAt:
-      new Date().toISOString()
-
+    company:job.company,
+    title:job.title,
+    location:job.location,
+    status:"Applied",
+    createdAt:new Date().toISOString()
   });
 
-  saveJobs();
+  saveState();
+  renderDashboard();
 
-  renderAll();
-
-  toast("Job saved successfully.");
+  toast("Application added");
 
 };
 
 
 /* =========================
-   RENDER JOBS
+   APPLICATIONS
 ========================= */
 
-function renderJobs(){
+window.openAddApplication = function(){
 
-  const results =
-    document.getElementById(
-      "jobResults"
-    );
+  const company =
+    prompt("Company name:");
 
-  if(!results)return;
+  if(!company) return;
 
-  if(!jobs.length){
+  const title =
+    prompt("Job title:");
 
-    results.innerHTML = `
-      <div class="card">
-        <div class="empty">
-          Search for jobs and save opportunities here.
-        </div>
-      </div>
-    `;
+  if(!title) return;
 
-    return;
+  state.applications.push({
+    id:Date.now(),
+    company:company,
+    title:title,
+    location:"Not specified",
+    status:"Applied",
+    createdAt:new Date().toISOString()
+  });
 
-  }
+  saveState();
+  renderApplications();
+  renderDashboard();
 
-  results.innerHTML = `
-    <div class="card">
+  toast("Application added");
 
-      <h3 class="section-title">
-        Saved Jobs
-      </h3>
+};
 
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-            <tr>
-              <th>Company</th>
-              <th>Role</th>
-              <th>Location</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            ${jobs.map(function(job){
-
-              return `
-                <tr>
-
-                  <td>
-                    <strong>
-                      ${escapeHTML(job.company)}
-                    </strong>
-                  </td>
-
-                  <td>
-                    ${escapeHTML(job.title)}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(job.location)}
-                  </td>
-
-                  <td>
-                    ${statusBadge(job.status)}
-                  </td>
-
-                </tr>
-              `;
-
-            }).join("")}
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-  `;
-
-}
-
-
-/* =========================
-   APPLICATION LIST
-========================= */
 
 function renderApplications(){
 
   const list =
-    document.getElementById(
-      "applicationsList"
-    );
+    document.getElementById("applicationsList");
 
-  if(!list)return;
+  if(!list) return;
 
-  if(!jobs.length){
+  if(!state.applications.length){
 
-    list.innerHTML = `
-      <tr>
-        <td colspan="4">
-          <div class="empty">
-            No applications yet.
-          </div>
-        </td>
-      </tr>
-    `;
+    list.innerHTML =
+      '<tr><td colspan="4"><div class="empty">No applications yet.</div></td></tr>';
 
     return;
-
   }
 
   list.innerHTML =
-    jobs.map(function(job){
+    state.applications.map(function(a){
 
       return `
         <tr>
-
+          <td>${safe(a.company)}</td>
+          <td>${safe(a.title)}</td>
           <td>
-            <strong>
-              ${escapeHTML(job.company)}
-            </strong>
-          </td>
-
-          <td>
-            ${escapeHTML(job.title)}
-          </td>
-
-          <td>
-
-            <select
-              onchange="updateApplicationStatus(
-                '${job.id}',
-                this.value
-              )"
-            >
-
-              ${[
-                "Saved",
-                "Applied",
-                "Screening",
-                "Interview",
-                "Final Round",
-                "Offer",
-                "Rejected"
-              ].map(function(status){
-
-                return `
-                  <option
-                    value="${status}"
-                    ${job.status === status ? "selected" : ""}
-                  >
-                    ${status}
-                  </option>
-                `;
-
-              }).join("")}
-
+            <select onchange="changeStatus(${a.id},this.value)">
+              ${statusOptions(a.status)}
             </select>
-
           </td>
-
           <td>
-
-            <button
-              class="btn btn-light"
-              onclick="deleteApplication('${job.id}')"
-            >
+            <button class="btn btn-light"
+              onclick="deleteApplication(${a.id})">
               Delete
             </button>
-
           </td>
-
         </tr>
       `;
 
     }).join("");
 
 }
+
+
+function statusOptions(current){
+
+  const statuses = [
+    "Saved",
+    "Applied",
+    "Screening",
+    "Interview",
+    "Final Round",
+    "Offer",
+    "Rejected"
+  ];
+
+  return statuses.map(function(s){
+
+    return `
+      <option
+        value="${s}"
+        ${s === current ? "selected" : ""}>
+        ${s}
+      </option>
+    `;
+
+  }).join("");
+
+}
+
+
+window.changeStatus = function(id,status){
+
+  const app =
+    state.applications.find(function(a){
+      return a.id === id;
+    });
+
+  if(!app) return;
+
+  app.status = status;
+
+  saveState();
+
+  renderApplications();
+  renderDashboard();
+  renderPipeline();
+  renderAnalytics();
+
+  toast("Status updated");
+
+};
+
+
+window.deleteApplication = function(id){
+
+  if(!confirm("Delete this application?")) return;
+
+  state.applications =
+    state.applications.filter(function(a){
+      return a.id !== id;
+    });
+
+  saveState();
+
+  renderApplications();
+  renderDashboard();
+  renderPipeline();
+  renderAnalytics();
+
+  toast("Application deleted");
+
+};
 
 
 /* =========================
@@ -4824,11 +5108,9 @@ function renderApplications(){
 function renderPipeline(){
 
   const board =
-    document.getElementById(
-      "pipelineBoard"
-    );
+    document.getElementById("pipelineBoard");
 
-  if(!board)return;
+  if(!board) return;
 
   const stages = [
     "Saved",
@@ -4843,78 +5125,33 @@ function renderPipeline(){
   board.innerHTML =
     stages.map(function(stage){
 
-      const items =
-        jobs.filter(function(job){
-
-          return job.status === stage;
-
+      const list =
+        state.applications.filter(function(a){
+          return a.status === stage;
         });
 
       return `
         <div class="card">
-
-          <h3>
-            ${stage}
-          </h3>
-
-          <div
-            style="
-              margin-top:15px;
-              display:flex;
-              flex-direction:column;
-              gap:10px;
-            "
-          >
-
-            ${
-              items.length
-
-              ? items.map(function(job){
-
-                  return `
-                    <div
-                      style="
-                        padding:12px;
-                        border:1px solid #e5e7eb;
-                        border-radius:10px;
-                        background:#f8fafc;
-                      "
-                    >
-
-                      <strong>
-                        ${escapeHTML(job.company)}
-                      </strong>
-
-                      <div
-                        style="
-                          color:#64748b;
-                          font-size:13px;
-                          margin-top:4px;
-                        "
-                      >
-                        ${escapeHTML(job.title)}
-                      </div>
-
-                    </div>
-                  `;
-
-                }).join("")
-
-              : `
-                <div
-                  style="
-                    color:#94a3b8;
-                    font-size:13px;
-                    padding:10px 0;
-                  "
-                >
-                  No applications
-                </div>
-              `
-            }
-
+          <h3>${stage}</h3>
+          <div class="stat blue" style="margin-top:8px">
+            ${list.length}
           </div>
 
+          <div style="margin-top:14px">
+            ${
+              list.length
+              ? list.map(function(a){
+                  return `
+                    <div style="padding:9px 0;border-bottom:1px solid #e5e7eb">
+                      <strong>${safe(a.company)}</strong>
+                      <br>
+                      <small>${safe(a.title)}</small>
+                    </div>
+                  `;
+                }).join("")
+              : '<span class="muted">No applications</span>'
+            }
+          </div>
         </div>
       `;
 
@@ -4930,201 +5167,37 @@ function renderPipeline(){
 function renderAnalytics(){
 
   const total =
-    jobs.length;
+    state.applications.length;
 
   const interviews =
-    jobs.filter(function(job){
-
-      return [
-        "Interview",
-        "Final Round"
-      ].includes(job.status);
-
+    state.applications.filter(function(a){
+      return a.status === "Interview" ||
+             a.status === "Final Round";
     }).length;
 
   const offers =
-    jobs.filter(function(job){
-
-      return job.status === "Offer";
-
+    state.applications.filter(function(a){
+      return a.status === "Offer";
     }).length;
 
   const rate =
     total
-      ? Math.round(
-          (
-            interviews /
-            total
-          ) * 100
-        )
-      : 0;
+    ? Math.round((interviews / total) * 100)
+    : 0;
 
-  document.getElementById(
-    "analyticsTotal"
-  ).textContent =
-    total;
+  const set = function(id,value){
 
-  document.getElementById(
-    "analyticsInterviews"
-  ).textContent =
-    interviews;
+    const el =
+      document.getElementById(id);
 
-  document.getElementById(
-    "analyticsOffers"
-  ).textContent =
-    offers;
-
-  document.getElementById(
-    "analyticsInterviewRate"
-  ).textContent =
-    rate + "%";
-
-}
-
-
-/* =========================
-   DASHBOARD
-========================= */
-
-function renderDashboard(){
-
-  const totalJobs =
-    jobs.filter(function(job){
-
-      return job.status === "Saved";
-
-    }).length;
-
-  const totalApplications =
-    jobs.filter(function(job){
-
-      return job.status !== "Saved";
-
-    }).length;
-
-  const interviews =
-    jobs.filter(function(job){
-
-      return [
-        "Interview",
-        "Final Round"
-      ].includes(job.status);
-
-    }).length;
-
-  const offers =
-    jobs.filter(function(job){
-
-      return job.status === "Offer";
-
-    }).length;
-
-  document.getElementById(
-    "totalJobs"
-  ).textContent =
-    totalJobs;
-
-  document.getElementById(
-    "totalApplications"
-  ).textContent =
-    totalApplications;
-
-  document.getElementById(
-    "totalInterviews"
-  ).textContent =
-    interviews;
-
-  document.getElementById(
-    "totalOffers"
-  ).textContent =
-    offers;
-
-
-  const recent =
-    document.getElementById(
-      "recentApplications"
-    );
-
-  if(!recent)return;
-
-  if(!jobs.length){
-
-    recent.innerHTML = `
-      <tr>
-        <td colspan="3">
-          <div class="empty">
-            No applications yet.
-          </div>
-        </td>
-      </tr>
-    `;
-
-    return;
-
-  }
-
-  const recentJobs =
-    jobs.slice(-5).reverse();
-
-  recent.innerHTML =
-    recentJobs.map(function(job){
-
-      return `
-        <tr>
-
-          <td>
-            ${escapeHTML(job.company)}
-          </td>
-
-          <td>
-            ${escapeHTML(job.title)}
-          </td>
-
-          <td>
-            ${statusBadge(job.status)}
-          </td>
-
-        </tr>
-      `;
-
-    }).join("");
-
-}
-
-
-/* =========================
-   STATUS BADGE
-========================= */
-
-function statusBadge(status){
-
-  const map = {
-
-    Saved:"badge-gray",
-
-    Applied:"badge-blue",
-
-    Screening:"badge-purple",
-
-    Interview:"badge-orange",
-
-    "Final Round":"badge-orange",
-
-    Offer:"badge-green",
-
-    Rejected:"badge-red"
+    if(el) el.textContent = value;
 
   };
 
-  const cls =
-    map[status] ||
-    "badge-gray";
-
-  return `
-    <span class="badge ${cls}">
-      ${escapeHTML(status)}
-    </span>
-  `;
+  set("analyticsTotal",total);
+  set("analyticsInterviews",interviews);
+  set("analyticsOffers",offers);
+  set("analyticsInterviewRate",rate + "%");
 
 }
 
@@ -5133,162 +5206,141 @@ function statusBadge(status){
    RESUME
 ========================= */
 
-window.generateResume =
-function(){
+window.generateResume = function(){
 
-  const name =
-    document.getElementById(
-      "resumeName"
-    ).value.trim();
-
-  const title =
-    document.getElementById(
-      "resumeTitle"
-    ).value.trim();
-
-  const summary =
-    document.getElementById(
-      "resumeSummary"
-    ).value.trim();
-
-  const skills =
-    document.getElementById(
-      "resumeSkills"
-    ).value.trim();
-
-  if(!name){
-
-    toast("Enter your name first.");
-
-    return;
-
-  }
-
-  const resume = {
-
-    name:name,
-
-    title:title,
-
-    summary:summary,
-
-    skills:skills
-
+  state.resume = {
+    name:document.getElementById("resumeName").value,
+    title:document.getElementById("resumeTitle").value,
+    summary:document.getElementById("resumeSummary").value,
+    skills:document.getElementById("resumeSkills").value,
+    experience:document.getElementById("resumeExperience").value
   };
 
-  localStorage.setItem(
-    "jobflow_resume",
-    JSON.stringify(resume)
-  );
+  saveState();
 
-  document.getElementById(
-    "resumePreview"
-  ).innerHTML = `
+  renderResume();
 
-    <div
-      style="
-        max-width:750px;
-        margin:auto;
-        padding:20px;
-      "
-    >
-
-      <h1>
-        ${escapeHTML(name)}
-      </h1>
-
-      <p
-        style="
-          color:#2563eb;
-          font-weight:700;
-          margin-top:5px;
-        "
-      >
-        ${escapeHTML(title)}
-      </p>
-
-      <hr
-        style="
-          margin:18px 0;
-          border:0;
-          border-top:1px solid #e5e7eb;
-        "
-      >
-
-      <h3>Professional Summary</h3>
-
-      <p
-        style="
-          margin-top:8px;
-          line-height:1.7;
-        "
-      >
-        ${escapeHTML(summary || "Add your professional summary.")}
-      </p>
-
-      <h3 style="margin-top:20px">
-        Skills
-      </h3>
-
-      <p
-        style="
-          margin-top:8px;
-          line-height:1.7;
-        "
-      >
-        ${escapeHTML(skills || "Add your skills.")}
-      </p>
-
-    </div>
-
-  `;
-
-  toast("Resume generated.");
+  toast("Resume generated");
 
 };
 
 
 function loadResume(){
 
-  try{
+  const r = state.resume || {};
 
-    const data =
-      localStorage.getItem(
-        "jobflow_resume"
-      );
+  document.getElementById("resumeName").value =
+    r.name || "";
 
-    if(!data)return;
+  document.getElementById("resumeTitle").value =
+    r.title || "";
 
-    const resume =
-      JSON.parse(data);
+  document.getElementById("resumeSummary").value =
+    r.summary || "";
 
-    document.getElementById(
-      "resumeName"
-    ).value =
-      resume.name || "";
+  document.getElementById("resumeSkills").value =
+    r.skills || "";
 
-    document.getElementById(
-      "resumeTitle"
-    ).value =
-      resume.title || "";
+  document.getElementById("resumeExperience").value =
+    r.experience || "";
 
-    document.getElementById(
-      "resumeSummary"
-    ).value =
-      resume.summary || "";
-
-    document.getElementById(
-      "resumeSkills"
-    ).value =
-      resume.skills || "";
-
-  }catch(error){
-
-    console.error(error);
-
-  }
+  renderResume();
 
 }
+
+
+function renderResume(){
+
+  const r = state.resume || {};
+
+  const box =
+    document.getElementById("resumePreview");
+
+  if(!box) return;
+
+  if(!r.name && !r.title){
+
+    box.innerHTML =
+      '<div class="empty">Your resume preview will appear here.</div>';
+
+    return;
+  }
+
+  box.innerHTML = `
+    <div style="max-width:750px;margin:auto;padding:20px">
+      <h1>${safe(r.name)}</h1>
+      <h3 style="color:#2563eb;margin-top:5px">
+        ${safe(r.title)}
+      </h3>
+
+      <hr style="margin:18px 0">
+
+      <h3>Professional Summary</h3>
+      <p style="margin-top:8px;line-height:1.7">
+        ${safe(r.summary)}
+      </p>
+
+      <h3 style="margin-top:20px">Skills</h3>
+      <p style="margin-top:8px">
+        ${safe(r.skills)}
+      </p>
+
+      <h3 style="margin-top:20px">Experience</h3>
+      <p style="margin-top:8px;line-height:1.7">
+        ${safe(r.experience)}
+      </p>
+    </div>
+  `;
+
+}
+
+
+window.downloadResume = function(){
+
+  const r = state.resume || {};
+
+  if(!r.name){
+
+    toast("Generate your resume first");
+
+    return;
+  }
+
+  const text =
+`${r.name}
+${r.title}
+
+PROFESSIONAL SUMMARY
+${r.summary}
+
+SKILLS
+${r.skills}
+
+EXPERIENCE
+${r.experience}
+`;
+
+  const blob =
+    new Blob([text],{type:"text/plain"});
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+  a.download = "JobFlow-Resume.txt";
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+  toast("Resume downloaded");
+
+};
 
 
 /* =========================
@@ -5296,48 +5348,60 @@ function loadResume(){
 ========================= */
 
 const interviewQuestions = [
-
   "Tell me about yourself.",
-
-  "Why do you want this job?",
-
-  "What are your biggest strengths?",
-
-  "What is one weakness you are working on?",
-
   "Why should we hire you?",
-
-  "Tell me about a difficult problem you solved.",
-
+  "What are your biggest strengths?",
+  "What is your biggest weakness?",
+  "Why do you want this job?",
   "Where do you see yourself in five years?",
-
-  "Tell me about a successful project you worked on."
-
+  "Tell me about a difficult problem you solved.",
+  "Why are you leaving your current role?"
 ];
 
 let interviewIndex = 0;
 
 
-window.nextInterviewQuestion =
-function(){
+window.nextInterviewQuestion = function(){
 
   interviewIndex++;
 
-  if(
-    interviewIndex >=
-    interviewQuestions.length
-  ){
-
+  if(interviewIndex >= interviewQuestions.length){
     interviewIndex = 0;
-
   }
 
   document.getElementById(
     "interviewQuestion"
   ).textContent =
-    interviewQuestions[
-      interviewIndex
-    ];
+    interviewQuestions[interviewIndex];
+
+  document.getElementById(
+    "interviewAnswer"
+  ).value = "";
+
+};
+
+
+window.saveInterviewAnswer = function(){
+
+  const answer =
+    document.getElementById("interviewAnswer").value.trim();
+
+  if(!answer){
+
+    toast("Write an answer first");
+
+    return;
+  }
+
+  state.interviewAnswers.push({
+    question:interviewQuestions[interviewIndex],
+    answer:answer,
+    createdAt:new Date().toISOString()
+  });
+
+  saveState();
+
+  toast("Answer saved");
 
 };
 
@@ -5346,246 +5410,208 @@ function(){
    PROFILE
 ========================= */
 
-function loadProfileForm(){
+window.saveProfile = function(){
 
-  document.getElementById(
-    "profileName"
-  ).value =
-    profile.name || "";
-
-  document.getElementById(
-    "profileEmail"
-  ).value =
-    profile.email || "";
-
-  document.getElementById(
-    "topUser"
-  ).textContent =
-    profile.name ||
-    "Job Seeker";
-
-}
-
-
-window.saveProfile =
-function(){
-
-  profile = {
-
-    name:
-      document
-        .getElementById("profileName")
-        .value
-        .trim(),
-
-    email:
-      document
-        .getElementById("profileEmail")
-        .value
-        .trim()
-
+  state.profile = {
+    name:document.getElementById("profileName").value.trim(),
+    email:document.getElementById("profileEmail").value.trim(),
+    role:document.getElementById("profileRole").value.trim(),
+    location:document.getElementById("profileLocation").value.trim()
   };
 
-  localStorage.setItem(
-    PROFILE_KEY,
-    JSON.stringify(profile)
-  );
+  saveState();
+  updateUser();
 
-  document.getElementById(
-    "topUser"
-  ).textContent =
-    profile.name ||
-    "Job Seeker";
-
-  toast(
-    "Profile saved successfully."
-  );
+  toast("Profile saved");
 
 };
 
 
-/* =========================
-   SUBSCRIPTION
-========================= */
+function loadProfile(){
 
-window.openPayment =
-function(){
+  const p = state.profile || {};
 
-  const existing =
-    localStorage.getItem(
-      SUBSCRIPTION_KEY
-    );
+  const name =
+    document.getElementById("profileName");
 
-  if(existing === "premium"){
+  const email =
+    document.getElementById("profileEmail");
 
-    toast(
-      "Premium is already active."
-    );
+  const role =
+    document.getElementById("profileRole");
 
-    return;
+  const location =
+    document.getElementById("profileLocation");
 
-  }
+  if(name) name.value = p.name || "";
+  if(email) email.value = p.email || "";
+  if(role) role.value = p.role || "";
+  if(location) location.value = p.location || "";
 
-  const confirmed =
-    confirm(
-      "Continue to Premium checkout?"
-    );
-
-  if(!confirmed)return;
-
-  /*
-     Demo checkout flow.
-
-     IMPORTANT:
-     Real payments require a
-     payment provider/backend.
-     Never store card details
-     in localStorage.
-  */
-
-  const plan =
-    prompt(
-      "Enter plan: Monthly or Yearly"
-    );
-
-  if(!plan)return;
-
-  localStorage.setItem(
-    SUBSCRIPTION_KEY,
-    "premium"
-  );
-
-  updateAccessBanner();
-
-  toast(
-    "Premium activated in demo mode."
-  );
-
-};
-
-
-/* =========================
-   ACCESS BANNER
-========================= */
-
-function updateAccessBanner(){
-
-  const banner =
-    document.getElementById(
-      "accessBanner"
-    );
-
-  if(!banner)return;
-
-  const premium =
-    localStorage.getItem(
-      SUBSCRIPTION_KEY
-    ) === "premium";
-
-  if(premium){
-
-    banner.innerHTML = `
-      <strong>
-        ✓ Premium Active
-      </strong>
-
-      <div
-        style="
-          margin-top:6px;
-          color:#64748b;
-          font-size:14px;
-        "
-      >
-        Advanced JobFlow features are available.
-      </div>
-    `;
-
-  }else{
-
-    banner.innerHTML = `
-      <strong>
-        JobFlow Free Plan
-      </strong>
-
-      <div
-        style="
-          margin-top:6px;
-          color:#64748b;
-          font-size:14px;
-        "
-      >
-        Upgrade when you need advanced career tools.
-      </div>
-    `;
-
-  }
+  updateUser();
 
 }
+
+
+function updateUser(){
+
+  const user =
+    document.getElementById("topUser");
+
+  if(!user) return;
+
+  user.textContent =
+    state.profile?.name || "Job Seeker";
+
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+window.openPayment = function(){
+
+  const modal =
+    document.getElementById("paymentModal");
+
+  if(modal){
+    modal.classList.add("show");
+  }
+
+};
+
+
+window.closePayment = function(){
+
+  const modal =
+    document.getElementById("paymentModal");
+
+  if(modal){
+    modal.classList.remove("show");
+  }
+
+};
+
+
+window.startPayment = function(){
+
+  toast(
+    "Payment checkout is ready to connect."
+  );
+
+};
+
+
+/* =========================
+   EXPORT DATA
+========================= */
+
+window.exportData = function(){
+
+  try{
+
+    const data =
+      JSON.stringify(
+        state,
+        null,
+        2
+      );
+
+    const blob =
+      new Blob(
+        [data],
+        {
+          type:"application/json"
+        }
+      );
+
+    const url =
+      URL.createObjectURL(blob);
+
+    const link =
+      document.createElement("a");
+
+    link.href = url;
+    link.download =
+      "jobflow-backup.json";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    URL.revokeObjectURL(url);
+
+    toast("Backup exported");
+
+  }catch(error){
+
+    console.error(error);
+
+    toast("Export failed");
+
+  }
+
+};
 
 
 /* =========================
    CLEAR DATA
 ========================= */
 
-window.clearAllData =
-function(){
+window.clearAllData = function(){
 
   const confirmed =
     confirm(
-      "This will remove your JobFlow local data. Continue?"
+      "Delete all JobFlow data?"
     );
 
-  if(!confirmed)return;
+  if(!confirmed){
+    return;
+  }
 
   localStorage.removeItem(
-    JOBS_KEY
+    JOBFLOW_KEY
   );
 
-  localStorage.removeItem(
-    PROFILE_KEY
+  state = {
+    jobs:[],
+    applications:[],
+    profile:{},
+    resume:{},
+    premium:false,
+    interviewAnswers:[]
+  };
+
+  renderDashboard();
+  renderApplications();
+  renderPipeline();
+  renderAnalytics();
+  loadProfile();
+  loadResume();
+
+  toast(
+    "All JobFlow data cleared."
   );
-
-  localStorage.removeItem(
-    "jobflow_resume"
-  );
-
-  localStorage.removeItem(
-    SUBSCRIPTION_KEY
-  );
-
-  jobs = [];
-
-  profile = {};
-
-  renderAll();
-
-loadProfileForm();
-
-updateAccessBanner();
-
-toast(
-  "Local JobFlow data cleared."
-);
 
 };
 
 
 /* =========================
-   REFRESH JOBFLOW
+   REFRESH
 ========================= */
 
-window.refreshJobFlow =
-function(){
+window.refreshJobFlow = function(){
 
-  jobs = loadJobs();
-
-  profile = loadProfile();
-
-  renderAll();
-
-  loadProfileForm();
-
-  updateAccessBanner();
+  renderDashboard();
+  renderJobs();
+  renderApplications();
+  renderPipeline();
+  renderAnalytics();
+  loadResume();
+  loadProfile();
 
   toast(
     "JobFlow refreshed."
@@ -5598,7 +5624,7 @@ function(){
    ESCAPE HTML
 ========================= */
 
-function escapeHTML(value){
+function safe(value){
 
   return String(
     value ?? ""
@@ -5627,22 +5653,11 @@ function escapeHTML(value){
 }
 
 
-function escapeAttribute(value){
-
-  return escapeHTML(value)
-    .replace(
-      /`/g,
-      "&#096;"
-    );
-
-}
-
-
 /* =========================
-   RENDER ALL
+   START APPLICATION
 ========================= */
 
-function renderAll(){
+function initJobFlow(){
 
   renderDashboard();
 
@@ -5654,66 +5669,57 @@ function renderAll(){
 
   renderAnalytics();
 
-}
-
-
-/* =========================
-   INITIALIZE
-========================= */
-
-function initialize(){
-
-  renderAll();
-
   loadResume();
 
-  loadProfileForm();
-
-  updateAccessBanner();
-
+  loadProfile();
 
   document
-    .querySelectorAll(
-      ".nav button"
-    )
-    .forEach(
-      function(button){
+    .querySelectorAll(".page")
+    .forEach(function(page){
 
-        button.addEventListener(
-          "click",
-          function(){
+      page.classList.remove(
+        "active"
+      );
 
-            if(
-              window.innerWidth <=
-              900
-            ){
+    });
 
-              document
-                .getElementById(
-                  "sidebar"
-                )
-                .classList.remove(
-                  "open"
-                );
 
-            }
-
-          }
-        );
-
-      }
+  const dashboard =
+    document.getElementById(
+      "dashboard"
     );
+
+  if(dashboard){
+
+    dashboard.classList.add(
+      "active"
+    );
+
+  }
+
+
+  const title =
+    document.getElementById(
+      "pageTitle"
+    );
+
+  if(title){
+
+    title.textContent =
+      "Dashboard";
+
+  }
 
 
   console.log(
-    "JobFlow loaded successfully."
+    "JobFlow initialized successfully."
   );
 
 }
 
 
 /* =========================
-   START
+   DOM READY
 ========================= */
 
 if(
@@ -5723,21 +5729,25 @@ if(
 
   document.addEventListener(
     "DOMContentLoaded",
-    initialize
+    initJobFlow
   );
 
 }else{
 
-  initialize();
+  initJobFlow();
 
 }
-
-})();
 
 </script>
 
 </body>
 </html>
-    
 
-  
+
+
+
+
+
+
+
+
