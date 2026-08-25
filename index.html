@@ -2,481 +2,569 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#2563eb">
-<meta name="description" content="JobFlow AI Career Management">
-<title>JobFlow - Career Command Center</title>
+<meta name="description" content="JobFlow AI Career Command Center">
+<title>JobFlow AI — Career Command Center</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --blue:#2563eb;
+  --blue2:#1d4ed8;
+  --bg:#f4f7fb;
+  --card:#fff;
+  --text:#0f172a;
+  --muted:#64748b;
+  --border:#e2e8f0;
+  --dark:#0f172a;
+  --danger:#dc2626;
+  --success:#16a34a;
+  --warning:#ea580c;
 }
 
-html{
-  scroll-behavior:smooth
-}
+html{scroll-behavior:smooth}
 
 body{
   font-family:Arial,Helvetica,sans-serif;
-  background:#f4f7fb;
-  color:#111827;
-  min-height:100vh
-}
-
-button,
-input,
-select,
-textarea{
-  font:inherit
-}
-
-button{
-  cursor:pointer
-}
-
-.app{
+  background:var(--bg);
+  color:var(--text);
   min-height:100vh;
-  display:flex
 }
 
-/* =========================
-   SIDEBAR
-========================= */
+button,input,select,textarea{font:inherit}
+
+button{cursor:pointer}
+
+button:active{transform:scale(.98)}
+
+.app{min-height:100vh}
 
 .sidebar{
-  width:240px;
-  background:#111827;
-  color:white;
   position:fixed;
-  left:0;
   top:0;
   bottom:0;
+  left:0;
+  width:235px;
+  background:#111827;
+  color:#fff;
   z-index:1000;
-  overflow-y:auto
+  overflow-y:auto;
+  transition:.2s;
 }
 
 .logo{
+  padding:22px 20px;
   font-size:25px;
   font-weight:800;
-  padding:24px 20px;
-  border-bottom:1px solid #263244
+  border-bottom:1px solid #263244;
 }
 
-.logo span{
-  color:#60a5fa
-}
+.logo span{color:#60a5fa}
 
-.nav{
-  padding:14px 10px
-}
+.nav{padding:12px}
 
 .nav button{
+  display:block;
   width:100%;
+  padding:12px 13px;
+  margin:3px 0;
   border:0;
+  border-radius:9px;
   background:transparent;
   color:#cbd5e1;
   text-align:left;
-  padding:13px 14px;
-  margin-bottom:4px;
-  border-radius:10px;
-  transition:.2s;
-  font-weight:600
+  font-weight:600;
 }
 
-.nav button:hover{
-  background:#1e293b;
-  color:white
-}
-
+.nav button:hover,
 .nav button.active{
-  background:#2563eb;
-  color:white
+  background:var(--blue);
+  color:#fff;
 }
-
-/* =========================
-   MAIN
-========================= */
 
 .main{
-  margin-left:240px;
-  width:calc(100% - 240px);
-  min-height:100vh
+  margin-left:235px;
+  min-height:100vh;
 }
 
 .topbar{
-  background:white;
-  min-height:76px;
-  padding:18px 28px;
-  border-bottom:1px solid #e5e7eb;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
   position:sticky;
   top:0;
-  z-index:500
+  z-index:500;
+  min-height:70px;
+  padding:15px 25px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
 }
 
-.topbar h1{
-  font-size:25px
+.topbar-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.user{
-  background:#f1f5f9;
-  padding:9px 13px;
+.topbar h1{font-size:23px}
+
+.user-pill{
+  padding:8px 13px;
   border-radius:20px;
-  font-size:14px;
-  font-weight:600
+  background:#f1f5f9;
+  font-size:13px;
+  font-weight:700;
 }
 
-.content{
-  padding:28px
+.content{padding:25px}
+
+.page{display:none}
+
+.page.active{display:block}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 5px 18px rgba(15,23,42,.035);
 }
-
-/* =========================
-   PAGES
-========================= */
-
-.page{
-  display:none
-}
-
-.page.active{
-  display:block
-}
-
-/* =========================
-   DASHBOARD
-========================= */
 
 .grid{
   display:grid;
-  grid-template-columns:
-    repeat(4,minmax(0,1fr));
-  gap:18px;
-  margin-bottom:22px
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;
 }
 
-.card{
-  background:white;
-  border:1px solid #e5e7eb;
-  border-radius:16px;
-  padding:20px;
-  box-shadow:
-    0 5px 18px
-    rgba(15,23,42,.04)
+.stat-card{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.stat-icon{
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:#eff6ff;
+  color:var(--blue);
+  font-size:19px;
 }
 
 .muted{
-  color:#64748b;
-  font-size:14px;
-  margin-bottom:9px
+  color:var(--muted);
+  font-size:13px;
 }
 
 .stat{
-  font-size:30px;
-  font-weight:800
-}
-
-.blue{
-  color:#2563eb
-}
-
-.orange{
-  color:#ea580c
-}
-
-.green{
-  color:#16a34a
+  display:block;
+  margin-top:5px;
+  font-size:27px;
+  font-weight:800;
 }
 
 .hero{
-  background:
-    linear-gradient(
-      135deg,
-      #2563eb,
-      #1d4ed8
-    );
-  color:white;
+  margin-bottom:20px;
+  padding:27px;
   border-radius:18px;
-  padding:28px;
-  margin-bottom:22px
+  color:#fff;
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);
 }
 
-.hero h2{
-  font-size:26px;
-  margin-bottom:8px
-}
+.hero h2{font-size:26px;margin-bottom:8px}
 
 .hero p{
   color:#dbeafe;
   line-height:1.6;
-  max-width:700px
+  max-width:720px;
 }
 
 .actions{
   display:flex;
   flex-wrap:wrap;
-  gap:10px;
-  margin-top:20px
+  gap:9px;
+  margin-top:17px;
 }
 
 .btn{
   border:0;
-  border-radius:10px;
-  padding:11px 16px;
+  border-radius:9px;
+  padding:10px 14px;
   font-weight:700;
-  transition:.2s
 }
 
-.btn:hover{
-  transform:translateY(-1px)
-}
-
-.btn-primary{
-  background:white;
-  color:#1d4ed8
-}
-
-.btn-dark{
-  background:#111827;
-  color:white
-}
-
-.btn-blue{
-  background:#2563eb;
-  color:white
-}
-
-.btn-light{
-  background:#e2e8f0;
-  color:#0f172a
-}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-dark{background:#111827;color:#fff}
+.btn-light{background:#e2e8f0;color:#0f172a}
+.btn-white{background:#fff;color:#1d4ed8}
+.btn-danger{background:#fee2e2;color:#b91c1c}
 
 .section-title{
-  font-size:19px;
-  margin-bottom:14px
+  margin-bottom:14px;
+  font-size:18px;
 }
-
-.empty{
-  padding:30px;
-  text-align:center;
-  color:#64748b
-}
-
-/* =========================
-   TABLE
-========================= */
-
-.table-wrap{
-  overflow-x:auto
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:650px
-}
-
-th,
-td{
-  padding:13px;
-  border-bottom:1px solid #e5e7eb;
-  text-align:left;
-  font-size:14px
-}
-
-th{
-  color:#475569;
-  background:#f8fafc
-}
-
-/* =========================
-   FORM
-========================= */
 
 .form-grid{
   display:grid;
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-  gap:15px
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
 }
 
 .field{
   display:flex;
   flex-direction:column;
-  gap:7px
+  gap:6px;
 }
 
-.field.full{
-  grid-column:1/-1
-}
+.field.full{grid-column:1/-1}
 
 .field label{
-  font-size:13px;
+  font-size:12px;
   font-weight:700;
-  color:#334155
+  color:#334155;
 }
 
 .field input,
 .field select,
 .field textarea{
   width:100%;
+  padding:11px;
   border:1px solid #cbd5e1;
   border-radius:9px;
-  padding:11px;
   outline:none;
-  background:white
+  background:#fff;
+}
+
+.field textarea{
+  min-height:110px;
+  resize:vertical;
 }
 
 .field input:focus,
 .field select:focus,
 .field textarea:focus{
-  border-color:#2563eb;
-  box-shadow:
-    0 0 0 3px
-    rgba(37,99,235,.1)
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(37,99,235,.1);
 }
 
-.field textarea{
-  min-height:120px;
-  resize:vertical
+.table-wrap{overflow-x:auto}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:600px;
 }
 
-/* =========================
-   BADGES
-========================= */
+th,td{
+  padding:12px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-size:13px;
+}
+
+th{
+  color:#475569;
+  background:#f8fafc;
+}
 
 .badge{
-  display:inline-block;
+  display:inline-flex;
   padding:5px 9px;
   border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.badge-blue{background:#dbeafe;color:#1d4ed8}
+.badge-purple{background:#ede9fe;color:#6d28d9}
+.badge-orange{background:#ffedd5;color:#c2410c}
+.badge-green{background:#dcfce7;color:#15803d}
+.badge-red{background:#fee2e2;color:#b91c1c}
+.badge-gray{background:#f1f5f9;color:#475569}
+
+.job-card{
+  margin-top:12px;
+  transition:.15s;
+}
+
+.job-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(15,23,42,.08);
+}
+
+.job-head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.job-title{
+  font-size:17px;
+  font-weight:800;
+}
+
+.job-company{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.search-row{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+}
+
+.pipeline{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(180px,1fr));
+  gap:12px;
+  overflow-x:auto;
+}
+
+.pipeline-column{
+  min-height:250px;
+  padding:13px;
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:13px;
+}
+
+.pipeline-column h3{
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+.pipeline-item{
+  padding:12px;
+  margin-bottom:8px;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid var(--border);
   font-size:12px;
-  font-weight:700
 }
 
-.badge-blue{
-  background:#dbeafe;
-  color:#1d4ed8
+.progress{
+  height:8px;
+  background:#e2e8f0;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-.badge-green{
-  background:#dcfce7;
-  color:#15803d
+.progress-value{
+  height:100%;
+  background:var(--blue);
+  border-radius:20px;
 }
 
-.badge-orange{
-  background:#ffedd5;
-  color:#c2410c
+.empty{
+  padding:30px 15px;
+  text-align:center;
+  color:var(--muted);
 }
 
-.badge-red{
-  background:#fee2e2;
-  color:#b91c1c
+.modal-bg{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  background:rgba(15,23,42,.6);
 }
 
-/* =========================
-   TOAST
-========================= */
+.modal-bg.show{display:flex}
+
+.modal{
+  width:min(620px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:17px;
+  padding:20px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.close{
+  width:35px;
+  height:35px;
+  border:0;
+  border-radius:9px;
+  background:#f1f5f9;
+  font-size:20px;
+}
 
 .toast{
   position:fixed;
-  right:20px;
-  bottom:20px;
-  background:#111827;
-  color:white;
-  padding:13px 17px;
+  right:18px;
+  bottom:18px;
+  z-index:9000;
+  max-width:330px;
+  padding:12px 15px;
   border-radius:10px;
-  z-index:5000;
+  background:#111827;
+  color:#fff;
   opacity:0;
+  transform:translateY(10px);
   pointer-events:none;
-  transform:translateY(15px);
-  transition:.25s
+  transition:.2s;
+  font-size:13px;
 }
 
 .toast.show{
   opacity:1;
-  transform:translateY(0)
+  transform:translateY(0);
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 .mobile-menu{
   display:none;
+  width:40px;
+  height:40px;
   border:0;
-  background:#2563eb;
-  color:white;
-  width:42px;
-  height:42px;
   border-radius:9px;
-  font-size:20px
+  background:var(--blue);
+  color:#fff;
+  font-size:19px;
 }
 
-@media(max-width:900px){
+.resume-preview{
+  max-width:760px;
+  margin:auto;
+  line-height:1.6;
+}
 
+.resume-preview h1{font-size:30px}
+
+.resume-preview h2{
+  margin-top:22px;
+  margin-bottom:7px;
+  font-size:17px;
+  border-bottom:1px solid var(--border);
+  padding-bottom:5px;
+}
+
+.setting-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:15px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.toggle{
+  width:48px;
+  height:26px;
+  border:0;
+  border-radius:20px;
+  background:#cbd5e1;
+}
+
+.toggle.on{background:var(--blue)}
+
+.toggle span{
+  display:block;
+  width:20px;
+  height:20px;
+  margin:3px;
+  border-radius:50%;
+  background:#fff;
+  transition:.2s;
+}
+
+.toggle.on span{transform:translateX(22px)}
+
+@media(max-width:1000px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pipeline{grid-template-columns:repeat(5,190px)}
+}
+
+@media(max-width:800px){
   .sidebar{
     transform:translateX(-100%);
-    transition:.25s
   }
 
   .sidebar.open{
-    transform:translateX(0)
+    transform:translateX(0);
   }
 
   .main{
     margin-left:0;
-    width:100%
   }
 
   .mobile-menu{
-    display:block
+    display:block;
   }
 
-  .grid{
-    grid-template-columns:
-      repeat(2,minmax(0,1fr))
+  .search-row{
+    grid-template-columns:1fr;
   }
-
 }
 
 @media(max-width:600px){
+  .content{padding:15px}
 
   .topbar{
-    padding:14px 16px
+    padding:12px 15px;
   }
 
-  .topbar h1{
-    font-size:20px
-  }
+  .topbar h1{font-size:19px}
 
-  .content{
-    padding:16px
+  .user-pill{
+    display:none;
   }
 
   .grid{
-    grid-template-columns:1fr
+    grid-template-columns:1fr;
   }
 
   .form-grid{
-    grid-template-columns:1fr
+    grid-template-columns:1fr;
   }
 
   .field.full{
-    grid-column:auto
+    grid-column:auto;
   }
 
   .hero{
-    padding:21px
+    padding:21px;
   }
 
-  .hero h2{
-    font-size:22px
+  .hero h2{font-size:22px}
+
+  .card{padding:16px}
+
+  .modal-bg{
+    align-items:flex-end;
   }
 
+  .modal{
+    max-height:92vh;
+    border-radius:17px 17px 0 0;
+  }
+}
+
+@media print{
+  body *{visibility:hidden}
+  #resumePreview,#resumePreview *{visibility:visible}
+  #resumePreview{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+  }
 }
 </style>
 </head>
@@ -485,14 +573,7 @@ th{
 
 <div class="app">
 
-<!-- =========================
-     SIDEBAR
-========================= -->
-
-<aside
-  class="sidebar"
-  id="sidebar"
->
+<aside class="sidebar" id="sidebar">
 
 <div class="logo">
 Job<span>Flow</span>
@@ -500,86 +581,57 @@ Job<span>Flow</span>
 
 <nav class="nav">
 
-<button
-  class="active"
-  onclick="showPage('dashboard',this)"
->
+<button class="active" data-page="dashboard">
 🏠 Dashboard
 </button>
 
-<button
-  onclick="showPage('jobs',this)"
->
+<button data-page="jobs">
 💼 Jobs
 </button>
 
-<button
-  onclick="showPage('applications',this)"
->
+<button data-page="applications">
 📋 Applications
 </button>
 
-<button
-  onclick="showPage('pipeline',this)"
->
+<button data-page="pipeline">
 🔄 Pipeline
 </button>
 
-<button
-  onclick="showPage('analytics',this)"
->
+<button data-page="analytics">
 📊 Analytics
 </button>
 
-<button
-  onclick="showPage('resume',this)"
->
-📄 Resume Builder
+<button data-page="resume">
+📄 Resume
 </button>
 
-<button
-  onclick="showPage('interview',this)"
->
+<button data-page="interview">
 🎤 Interview
 </button>
 
-<button
-  onclick="showPage('subscription',this)"
->
-💳 Subscription
+<button data-page="subscription">
+💳 Premium
 </button>
 
-<button
-  onclick="showPage('profile',this)"
->
+<button data-page="profile">
 👤 Profile
 </button>
 
-<button
-  onclick="showPage('settings',this)"
->
+<button data-page="settings">
 ⚙️ Settings
 </button>
 
 </nav>
-
 </aside>
 
-
-<!-- =========================
-     MAIN
-========================= -->
 
 <main class="main">
 
 <header class="topbar">
 
-<div style="display:flex;align-items:center;gap:12px">
+<div class="topbar-left">
 
-<button
-  class="mobile-menu"
-  onclick="toggleSidebar()"
->
+<button class="mobile-menu" id="menuBtn">
 ☰
 </button>
 
@@ -589,11 +641,8 @@ Dashboard
 
 </div>
 
-<div class="user">
-👤
-<span id="topUser">
-Job Seeker
-</span>
+<div class="user-pill">
+👤 <span id="topUser">Job Seeker</span>
 </div>
 
 </header>
@@ -602,127 +651,31 @@ Job Seeker
 <div class="content">
 
 
-<!-- =========================
-     DASHBOARD
-========================= -->
+<!-- DASHBOARD -->
 
-<section
-  id="dashboard"
-  class="page active"
->
-
-<div
-  id="accessBanner"
-  class="card"
-  style="margin-bottom:18px"
->
-</div>
-
-
-<div class="grid">
-
-<div class="card">
-<div class="muted">
-Saved Jobs
-</div>
-
-<div
-  class="stat blue"
-  id="totalJobs"
->
-0
-</div>
-
-</div>
-
-
-<div class="card">
-<div class="muted">
-Applications
-</div>
-
-<div
-  class="stat orange"
-  id="totalApplications"
->
-0
-</div>
-
-</div>
-
-
-<div class="card">
-<div class="muted">
-Interviews
-</div>
-
-<div
-  class="stat green"
-  id="totalInterviews"
->
-0
-</div>
-
-</div>
-
-
-<div class="card">
-<div class="muted">
-Offers
-</div>
-
-<div
-  class="stat blue"
-  id="totalOffers"
->
-0
-</div>
-
-</div>
-
-</div>
-
+<section class="page active" id="dashboard">
 
 <div class="hero">
 
-<h2>
-Career Command Center
-</h2>
+<h2>Career Command Center</h2>
 
 <p>
-Find jobs, organize applications,
-prepare for interviews, build your
-resume and track your career progress
-from one place.
+Manage your job search, applications,
+resume, interviews and career progress
+from one fast workspace.
 </p>
 
 <div class="actions">
 
-<button
-  class="btn btn-primary"
-  onclick="showPage('jobs')"
->
+<button class="btn btn-white" data-go="jobs">
 Find Jobs
 </button>
 
-<button
-  class="btn btn-primary"
-  onclick="showPage('applications')"
->
-Applications
+<button class="btn btn-white" data-go="applications">
+Add Application
 </button>
 
-<button
-  class="btn btn-primary"
-  onclick="showPage('pipeline')"
->
-Pipeline
-</button>
-
-<button
-  class="btn btn-primary"
-  onclick="showPage('resume')"
->
+<button class="btn btn-white" data-go="resume">
 Build Resume
 </button>
 
@@ -731,39 +684,29 @@ Build Resume
 </div>
 
 
-<div class="card">
+<div class="grid" id="dashboardStats"></div>
 
-<h3 class="section-title">
+
+<div class="card" style="margin-top:18px">
+
+<h2 class="section-title">
 Recent Applications
-</h3>
+</h2>
 
 <div class="table-wrap">
 
 <table>
 
 <thead>
-
 <tr>
 <th>Company</th>
 <th>Role</th>
 <th>Status</th>
+<th>Location</th>
 </tr>
-
 </thead>
 
-<tbody
-  id="recentApplications"
->
-
-<tr>
-<td colspan="3">
-<div class="empty">
-No applications yet.
-</div>
-</td>
-</tr>
-
-</tbody>
+<tbody id="recentApplications"></tbody>
 
 </table>
 
@@ -774,121 +717,64 @@ No applications yet.
 </section>
 
 
-<!-- =========================
-     JOBS
-========================= -->
+<!-- JOBS -->
 
-<section
-  id="jobs"
-  class="page"
->
+<section class="page" id="jobs">
 
 <div class="hero">
 
-<h2>
-Find Jobs
-</h2>
+<h2>Job Search</h2>
 
 <p>
-Search and organize opportunities
-that match your career goals.
+Search your saved opportunities and
+quickly move them into your application
+pipeline.
 </p>
 
 </div>
 
 <div class="card">
 
-<div class="form-grid">
-
-<div class="field">
-
-<label>
-Job title
-</label>
+<div class="search-row">
 
 <input
-  id="jobSearch"
-  placeholder="e.g. Software Engineer"
+id="jobSearch"
+placeholder="Job title, company..."
 >
-
-</div>
-
-<div class="field">
-
-<label>
-Location
-</label>
 
 <input
-  id="jobLocation"
-  placeholder="e.g. Hyderabad"
+id="jobLocation"
+placeholder="Location..."
 >
 
-</div>
-
-</div>
-
-<div class="actions">
-
-<button
-  class="btn btn-blue"
-  onclick="searchJobs()"
->
-Search Jobs
-</button>
-
-<button
-  class="btn btn-light"
-  onclick="clearJobSearch()"
->
-Clear
+<button class="btn btn-blue" id="searchBtn">
+Search
 </button>
 
 </div>
 
 </div>
 
-
-<div
-  id="jobResults"
-  style="margin-top:18px"
->
-
-</div>
+<div id="jobResults"></div>
 
 </section>
 
 
-<!-- =========================
-     APPLICATIONS
-========================= -->
+<!-- APPLICATIONS -->
 
-<section
-  id="applications"
-  class="page"
->
+<section class="page" id="applications">
 
 <div class="card">
 
-<h2>
-Applications
-</h2>
+<h2>Applications</h2>
 
-<p
-  class="muted"
-  style="margin-top:7px"
->
-Track every application in one place.
+<p class="muted" style="margin-top:6px">
+Track and update every application.
 </p>
 
-<div
-  class="actions"
->
+<div class="actions">
 
-<button
-  class="btn btn-blue"
-  onclick="openAddApplication()"
->
+<button class="btn btn-blue" id="addApplicationBtn">
 + Add Application
 </button>
 
@@ -896,11 +782,7 @@ Track every application in one place.
 
 </div>
 
-
-<div
-  class="card"
-  style="margin-top:18px"
->
+<div class="card" style="margin-top:18px">
 
 <div class="table-wrap">
 
@@ -912,16 +794,13 @@ Track every application in one place.
 <th>Company</th>
 <th>Role</th>
 <th>Status</th>
+<th>Priority</th>
 <th>Action</th>
 </tr>
 
 </thead>
 
-<tbody
-  id="applicationsList"
->
-
-</tbody>
+<tbody id="applicationsList"></tbody>
 
 </table>
 
@@ -932,112 +811,57 @@ Track every application in one place.
 </section>
 
 
-<!-- =========================
-     PIPELINE
-========================= -->
+<!-- PIPELINE -->
 
-<section
-  id="pipeline"
-  class="page"
->
+<section class="page" id="pipeline">
 
 <div class="hero">
 
-<h2>
-Application Pipeline
-</h2>
+<h2>Application Pipeline</h2>
 
 <p>
-Move applications through each stage
-of your job search.
+See exactly where your applications
+are in the hiring process.
 </p>
 
 </div>
 
-<div
-  id="pipelineBoard"
-  class="grid"
->
-
-</div>
+<div class="pipeline" id="pipelineBoard"></div>
 
 </section>
 
 
-<!-- =========================
-     ANALYTICS
-========================= -->
+<!-- ANALYTICS -->
 
-<section
-  id="analytics"
-  class="page"
->
+<section class="page" id="analytics">
 
 <div class="hero">
 
-<h2>
-Career Analytics
-</h2>
+<h2>Career Analytics</h2>
 
 <p>
-Understand your application activity
-and progress.
+Track your job-search performance.
 </p>
 
 </div>
 
-<div class="grid">
+<div class="grid" id="analyticsStats"></div>
 
-<div class="card">
-<div class="muted">
-Total Applications
-</div>
+<div class="card" style="margin-top:18px">
 
-<div
-  class="stat blue"
-  id="analyticsTotal"
->
-0
-</div>
+<h3>Interview Progress</h3>
+
+<div style="margin-top:15px">
+
+<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
+<span>Interview conversion</span>
+<strong id="progressText">0%</strong>
 </div>
 
-<div class="card">
-<div class="muted">
-Interviews
+<div class="progress">
+<div class="progress-value" id="progressBar" style="width:0%"></div>
 </div>
 
-<div
-  class="stat green"
-  id="analyticsInterviews"
->
-0
-</div>
-</div>
-
-<div class="card">
-<div class="muted">
-Offers
-</div>
-
-<div
-  class="stat blue"
-  id="analyticsOffers"
->
-0
-</div>
-</div>
-
-<div class="card">
-<div class="muted">
-Interview Rate
-</div>
-
-<div
-  class="stat orange"
-  id="analyticsInterviewRate"
->
-0%
-</div>
 </div>
 
 </div>
@@ -1045,24 +869,17 @@ Interview Rate
 </section>
 
 
-<!-- =========================
-     RESUME
-========================= -->
+<!-- RESUME -->
 
-<section
-  id="resume"
-  class="page"
->
+<section class="page" id="resume">
 
 <div class="hero">
 
-<h2>
-Resume Builder
-</h2>
+<h2>Resume Builder</h2>
 
 <p>
-Create and manage your professional
-resume.
+Create a clean professional resume
+and print/save it as PDF.
 </p>
 
 </div>
@@ -1073,53 +890,65 @@ resume.
 
 <div class="field">
 
-<label>
-Full Name
-</label>
+<label>Full Name</label>
 
-<input
-  id="resumeName"
-  placeholder="Your name"
->
+<input id="resumeName" placeholder="Your full name">
 
 </div>
 
 <div class="field">
 
-<label>
-Professional Title
-</label>
+<label>Professional Title</label>
 
-<input
-  id="resumeTitle"
-  placeholder="Software Engineer"
->
+<input id="resumeTitle" placeholder="Software Engineer">
+
+</div>
+
+<div class="field">
+
+<label>Email</label>
+
+<input id="resumeEmail" placeholder="you@example.com">
+
+</div>
+
+<div class="field">
+
+<label>Phone</label>
+
+<input id="resumePhone" placeholder="+91...">
 
 </div>
 
 <div class="field full">
 
-<label>
-Professional Summary
-</label>
+<label>Summary</label>
 
-<textarea
-  id="resumeSummary"
-  placeholder="Write a short professional summary..."
-></textarea>
+<textarea id="resumeSummary" placeholder="Professional summary"></textarea>
 
 </div>
 
 <div class="field full">
 
-<label>
-Skills
-</label>
+<label>Skills</label>
 
-<input
-  id="resumeSkills"
-  placeholder="JavaScript, Python, SQL..."
->
+<input id="resumeSkills" placeholder="JavaScript, Python, SQL, React">
+
+</div>
+
+<div class="field full">
+
+<label>Experience</label>
+
+<textarea id="resumeExperience" placeholder="Describe your experience"></textarea>
+
+</div>
+
+<div class="field full">
+
+<label>Education</label>
+
+<textarea id="resumeEducation" placeholder="Education details"></textarea>
 
 </div>
 
@@ -1127,25 +956,26 @@ Skills
 
 <div class="actions">
 
-<button
-  class="btn btn-blue"
-  onclick="generateResume()"
->
+<button class="btn btn-blue" id="generateResumeBtn">
 Generate Resume
 </button>
 
-</div>
+<button class="btn btn-light" id="printResumeBtn">
+Print / Save PDF
+</button>
 
 </div>
 
-<div
-  id="resumePreview"
-  class="card"
-  style="margin-top:18px"
->
+</div>
+
+<div class="card" style="margin-top:18px">
+
+<div id="resumePreview">
 
 <div class="empty">
-Your resume preview will appear here.
+Fill in your information and generate your resume.
+</div>
+
 </div>
 
 </div>
@@ -1153,108 +983,45 @@ Your resume preview will appear here.
 </section>
 
 
-<!-- =========================
-     INTERVIEW
-========================= -->
+<!-- INTERVIEW -->
 
-<section
-  id="interview"
-  class="page"
->
+<section class="page" id="interview">
 
 <div class="hero">
 
-<h2>
-Interview Preparation
-</h2>
+<h2>Interview Practice</h2>
 
 <p>
 Practice common interview questions
-and prepare better answers.
+before your next interview.
 </p>
 
 </div>
 
 <div class="card">
 
-<h3>
-Practice Question
-</h3>
+<span class="badge badge-blue">
+Question <span id="questionNumber">1</span>
+</span>
 
-<p
-  id="interviewQuestion"
-  style="margin-top:14px;line-height:1.6"
->
+<h2 id="interviewQuestion" style="margin-top:15px">
 Tell me about yourself.
-</p>
+</h2>
+
+<textarea
+id="interviewAnswer"
+style="width:100%;margin-top:15px;padding:12px;border:1px solid #cbd5e1;border-radius:10px;min-height:130px"
+placeholder="Write your answer..."
+></textarea>
 
 <div class="actions">
 
-<button
-  class="btn btn-blue"
-  onclick="nextInterviewQuestion()"
->
+<button class="btn btn-blue" id="nextQuestionBtn">
 Next Question
 </button>
 
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     SUBSCRIPTION
-========================= -->
-
-<section
-  id="subscription"
-  class="page"
->
-
-<div class="hero">
-
-<h2>
-JobFlow Premium
-</h2>
-
-<p>
-Unlock advanced career tools and
-premium productivity features.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>
-Premium Features
-</h3>
-
-<div
-  style="
-  margin-top:15px;
-  line-height:2;
-  "
->
-
-✓ Advanced resume tools<br>
-✓ Advanced interview preparation<br>
-✓ Application analytics<br>
-✓ Unlimited application tracking<br>
-✓ Premium career tools<br>
-✓ Priority feature access
-
-</div>
-
-<div class="actions">
-
-<button
-  class="btn btn-blue"
-  onclick="openPayment()"
->
-Upgrade Premium
+<button class="btn btn-light" id="clearAnswerBtn">
+Clear Answer
 </button>
 
 </div>
@@ -1264,50 +1031,115 @@ Upgrade Premium
 </section>
 
 
-<!-- =========================
-     PROFILE
-========================= -->
+<!-- SUBSCRIPTION -->
 
-<section
-  id="profile"
-  class="page"
->
+<section class="page" id="subscription">
+
+<div class="hero">
+
+<h2>JobFlow Premium</h2>
+
+<p>
+Unlock advanced career productivity
+features as JobFlow grows.
+</p>
+
+</div>
+
+<div class="grid">
 
 <div class="card">
 
-<h2>
-Profile
-</h2>
+<h3>Free</h3>
 
-<div
-  class="form-grid"
-  style="margin-top:20px"
->
+<div class="stat">₹0</div>
+
+<p class="muted" style="margin-top:8px">
+For getting started
+</p>
+
+<div style="line-height:2;margin-top:15px">
+✓ Job tracking<br>
+✓ Applications<br>
+✓ Pipeline<br>
+✓ Basic resume
+</div>
+
+</div>
+
+
+<div class="card" style="border:2px solid #2563eb">
+
+<h3>Premium</h3>
+
+<div class="stat">₹499</div>
+
+<p class="muted" style="margin-top:8px">
+Premium career tools
+</p>
+
+<div style="line-height:2;margin-top:15px">
+✓ Advanced resume tools<br>
+✓ Interview preparation<br>
+✓ Advanced analytics<br>
+✓ Premium tools<br>
+✓ Priority features
+</div>
+
+<div class="actions">
+
+<button class="btn btn-blue" id="upgradeBtn">
+Upgrade
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section class="page" id="profile">
+
+<div class="card">
+
+<h2>Profile</h2>
+
+<div class="form-grid" style="margin-top:18px">
 
 <div class="field">
 
-<label>
-Name
-</label>
+<label>Name</label>
 
-<input
-  id="profileName"
-  placeholder="Your name"
->
+<input id="profileName" placeholder="Your name">
 
 </div>
 
 <div class="field">
 
-<label>
-Email
-</label>
+<label>Email</label>
 
-<input
-  id="profileEmail"
-  type="email"
-  placeholder="you@example.com"
->
+<input id="profileEmail" type="email" placeholder="you@example.com">
+
+</div>
+
+<div class="field">
+
+<label>Target Role</label>
+
+<input id="profileRole" placeholder="Your target role">
+
+</div>
+
+<div class="field">
+
+<label>Target Location</label>
+
+<input id="profileLocation" placeholder="Hyderabad / Remote">
 
 </div>
 
@@ -1315,10 +1147,7 @@ Email
 
 <div class="actions">
 
-<button
-  class="btn btn-blue"
-  onclick="saveProfile()"
->
+<button class="btn btn-blue" id="saveProfileBtn">
 Save Profile
 </button>
 
@@ -1329,42 +1158,53 @@ Save Profile
 </section>
 
 
-<!-- =========================
-     SETTINGS
-========================= -->
+<!-- SETTINGS -->
 
-<section
-  id="settings"
-  class="page"
->
+<section class="page" id="settings">
 
 <div class="card">
 
-<h2>
-Settings
-</h2>
+<h2>Settings</h2>
 
-<p
-  class="muted"
-  style="margin-top:8px"
->
-Manage your JobFlow preferences.
+<p class="muted" style="margin-top:6px">
+Manage your local JobFlow preferences.
 </p>
 
-<div class="actions">
+<div class="setting-row">
 
-<button
-  class="btn btn-light"
-  onclick="clearAllData()"
->
-Clear Local Data
+<div>
+<strong>Dark Mode</strong>
+<p class="muted">Change the appearance.</p>
+</div>
+
+<button class="toggle" id="darkToggle">
+<span></span>
 </button>
 
-<button
-  class="btn btn-blue"
-  onclick="refreshJobFlow()"
->
-Refresh JobFlow
+</div>
+
+<div class="setting-row">
+
+<div>
+<strong>Export Data</strong>
+<p class="muted">Download your JobFlow backup.</p>
+</div>
+
+<button class="btn btn-light" id="exportBtn">
+Export
+</button>
+
+</div>
+
+<div class="setting-row">
+
+<div>
+<strong>Reset Data</strong>
+<p class="muted">Delete local JobFlow data.</p>
+</div>
+
+<button class="btn btn-danger" id="resetBtn">
+Reset
 </button>
 
 </div>
@@ -1373,124 +1213,196 @@ Refresh JobFlow
 
 </section>
 
-
 </div>
 </main>
 </div>
 
 
-<!-- TOAST -->
+<!-- APPLICATION MODAL -->
 
-<div
-  id="toast"
-  class="toast"
->
+<div class="modal-bg" id="modalBg">
+
+<div class="modal">
+
+<div class="modal-head">
+
+<h2 id="modalTitle">
+Add Application
+</h2>
+
+<button class="close" id="modalClose">
+×
+</button>
+
+</div>
+
+<form id="applicationForm">
+
+<input type="hidden" id="editId">
+
+<div class="form-grid">
+
+<div class="field">
+
+<label>Company</label>
+
+<input id="appCompany" required>
+
+</div>
+
+<div class="field">
+
+<label>Job Role</label>
+
+<input id="appRole" required>
+
+</div>
+
+<div class="field">
+
+<label>Location</label>
+
+<input id="appLocation">
+
+</div>
+
+<div class="field">
+
+<label>Priority</label>
+
+<select id="appPriority">
+
+<option>Low</option>
+<option selected>Medium</option>
+<option>High</option>
+<option>Urgent</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>Status</label>
+
+<select id="appStatus">
+
+<option value="saved">Saved</option>
+<option value="applied">Applied</option>
+<option value="screening">Screening</option>
+<option value="interview">Interview</option>
+<option value="offer">Offer</option>
+<option value="rejected">Rejected</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>Job URL</label>
+
+<input id="appUrl" placeholder="https://...">
+
+</div>
+
+<div class="field full">
+
+<label>Notes</label>
+
+<textarea id="appNotes"></textarea>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button type="submit" class="btn btn-blue">
+Save Application
+</button>
+
+<button type="button" class="btn btn-light" id="modalCancel">
+Cancel
+</button>
+
+</div>
+
+</form>
+
+</div>
 </div>
 
 
-<script>
-/* =========================
-   JOBFLOW CORE
-========================= */
+<div class="toast" id="toast"></div>
 
+
+<script>
 (function(){
 
 "use strict";
 
 
 /* =========================
-   STORAGE KEYS
-========================= */
-
-const JOBS_KEY =
-  "jobflow_jobs";
-
-const PROFILE_KEY =
-  "jobflow_profile";
-
-const SUBSCRIPTION_KEY =
-  "jobflow_subscription";
-
-
-/* =========================
-   STATE
-========================= */
-
-let jobs =
-  loadJobs();
-
-let profile =
-  loadProfile();
-
-
-/* =========================
    STORAGE
 ========================= */
 
-function loadJobs(){
+const KEY = "jobflow_v2";
+
+const defaultState = {
+  jobs:[],
+  profile:{},
+  resume:{},
+  dark:false,
+  premium:false
+};
+
+let state = load();
+
+
+function load(){
 
   try{
 
-    const data =
-      localStorage.getItem(
-        JOBS_KEY
-      );
+    const saved =
+      localStorage.getItem(KEY);
 
-    return data
-      ? JSON.parse(data)
-      : [];
+    if(!saved){
 
-  }catch(error){
+      return {
+        ...defaultState
+      };
 
-    console.error(
-      "Jobs load error:",
-      error
-    );
+    }
 
-    return [];
+    return {
+      ...defaultState,
+      ...JSON.parse(saved)
+    };
+
+  }catch(e){
+
+    return {
+      ...defaultState
+    };
 
   }
 
 }
 
 
-function saveJobs(){
+function save(){
 
   try{
 
     localStorage.setItem(
-      JOBS_KEY,
-      JSON.stringify(jobs)
+      KEY,
+      JSON.stringify(state)
     );
 
-  }catch(error){
+  }catch(e){
 
-    console.error(
-      "Jobs save error:",
-      error
-    );
-
-  }
-
-}
-
-
-function loadProfile(){
-
-  try{
-
-    const data =
-      localStorage.getItem(
-        PROFILE_KEY
-      );
-
-    return data
-      ? JSON.parse(data)
-      : {};
-
-  }catch(error){
-
-    return {};
+    toast("Could not save data.");
 
   }
 
@@ -1498,320 +1410,81 @@ function loadProfile(){
 
 
 /* =========================
-   TOAST
+   HELPERS
 ========================= */
 
-window.toast =
-function(message){
+const $ = id =>
+  document.getElementById(id);
 
-  const box =
-    document.getElementById(
-      "toast"
-    );
+
+function esc(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function toast(message){
+
+  const box = $("toast");
 
   if(!box)return;
 
-  box.textContent =
-    message;
+  box.textContent = message;
 
-  box.classList.add(
-    "show"
-  );
+  box.classList.add("show");
 
   clearTimeout(
-    window.__jobflowToast
+    window.__toastTimer
   );
 
-  window.__jobflowToast =
+  window.__toastTimer =
     setTimeout(
-      function(){
-
-        box.classList.remove(
-          "show"
-        );
-
-      },
-      2500
+      () => box.classList.remove("show"),
+      2400
     );
 
+}
+
+
+function badge(status){
+
+  const map = {
+
+    saved:["Saved","badge-gray"],
+applied:["Applied","badge-blue"],
+screening:["Screening","badge-purple"],
+interview:["Interview","badge-orange"],
+"final round":["Final Round","badge-orange"],
+offer:["Offer","badge-green"],
+rejected:["Rejected","badge-red"]
 };
+
+function statusBadge(status){
+
+  const key =
+    String(status || "Saved")
+      .toLowerCase();
+
+  const data =
+    STATUS[key] ||
+    STATUS.saved;
+
+  return `
+    <span class="badge ${data[1]}">
+      ${escapeHTML(data[0])}
+    </span>
+  `;
+}
 
 
 /* =========================
-   PAGE NAVIGATION
-========================= */
-
-window.showPage =
-function(
-  page,
-  button
-){
-
-  const pages =
-    document.querySelectorAll(
-      ".page"
-    );
-
-  pages.forEach(
-    function(item){
-
-      item.classList.remove(
-        "active"
-      );
-
-    }
-  );
-
-
-  const target =
-    document.getElementById(
-      page
-    );
-
-  if(!target){
-
-    console.error(
-      "Page not found:",
-      page
-    );
-
-    return;
-
-  }
-
-
-  target.classList.add(
-    "active"
-  );
-
-
-  document
-    .querySelectorAll(
-      ".nav button"
-    )
-    .forEach(
-      function(item){
-
-        item.classList.remove(
-          "active"
-        );
-
-      }
-    );
-
-
-  if(button){
-
-    button.classList.add(
-      "active"
-    );
-
-  }else{
-
-    const navButton =
-      Array.from(
-        document.querySelectorAll(
-          ".nav button"
-        )
-      ).find(
-        function(item){
-
-          return item
-            .getAttribute(
-              "onclick"
-            )
-            ?.includes(
-              "'" +
-              page +
-              "'"
-            );
-
-        }
-      );
-
-    if(navButton){
-
-      navButton.classList.add(
-        "active"
-      );
-
-    }
-
-  }
-
-
-  const titles = {
-
-    dashboard:
-      "Dashboard",
-
-    jobs:
-      "Jobs",
-
-    applications:
-      "Applications",
-
-    pipeline:
-      "Pipeline",
-
-    analytics:
-      "Analytics",
-
-    resume:
-      "Resume Builder",
-
-    interview:
-      "Interview",
-
-    subscription:
-      "Subscription",
-
-    profile:
-      "Profile",
-
-    settings:
-      "Settings"
-
-  };
-
-
-  document
-    .getElementById(
-      "pageTitle"
-    )
-    .textContent =
-      titles[page] ||
-      "JobFlow";
-
-
-  if(
-    window.innerWidth <=
-    900
-  ){
-
-    document
-      .getElementById(
-        "sidebar"
-      )
-      .classList.remove(
-        "open"
-      );
-
-  }
-
-
-  if(page === "jobs"){
-
-    renderJobs();
-
-  }
-
-  if(
-    page ===
-    "applications"
-  ){
-
-    renderApplications();
-
-  }
-
-  if(page === "pipeline"){
-
-    renderPipeline();
-
-  }
-
-  if(page === "analytics"){
-
-    renderAnalytics();
-
-  }
-
-};
-
-
-/* =========================
-   MOBILE SIDEBAR
-========================= */
-
-window.toggleSidebar =
-function(){
-
-  document
-    .getElementById(
-      "sidebar"
-    )
-    .classList.toggle(
-      "open"
-    );
-
-};
-
-
-/* =========================
-   ADD APPLICATION
-========================= */
-
-window.openAddApplication =
-function(){
-
-  const company =
-    prompt(
-      "Company name:"
-    );
-
-  if(!company)return;
-
-  const title =
-    prompt(
-      "Job title:"
-    );
-
-  if(!title)return;
-
-  const location =
-    prompt(
-      "Location:"
-    ) || "Not specified";
-
-  const job = {
-
-    id:
-      Date.now(),
-
-    company:
-      company.trim(),
-
-    title:
-      title.trim(),
-
-    location:
-      location.trim(),
-
-    status:
-      "applied",
-
-    createdAt:
-      new Date()
-        .toISOString()
-
-  };
-
-  jobs.push(job);
-
-  saveJobs();
-
-  refreshJobFlow();
-
-  toast(
-    "Application added"
-  );
-
-};
-
-
-/* =========================
-   APPLICATIONS
+   RENDER APPLICATIONS
 ========================= */
 
 function renderApplications(){
@@ -1822,7 +1495,14 @@ function renderApplications(){
     );
 
   if(!list)return;
-  if(!jobs.length){
+
+  const applications =
+    jobs.filter(
+      job =>
+        job.type === "application"
+    );
+
+  if(!applications.length){
 
     list.innerHTML = `
       <tr>
@@ -1835,14 +1515,826 @@ function renderApplications(){
     `;
 
     return;
-
   }
 
   list.innerHTML =
-    jobs.map(
-      function(job){
+    applications
+      .map(
+        job => `
+          <tr>
 
-        return `
+            <td>
+              <strong>
+                ${escapeHTML(job.company)}
+              </strong>
+            </td>
+
+            <td>
+              ${escapeHTML(job.title)}
+            </td>
+
+            <td>
+              ${statusBadge(job.status)}
+            </td>
+
+            <td>
+
+              <select
+                class="status-select"
+                onchange="
+                  updateApplicationStatus(
+                    '${job.id}',
+                    this.value
+                  )
+                "
+              >
+
+                ${[
+                  "Saved",
+                  "Applied",
+                  "Screening",
+                  "Interview",
+                  "Final Round",
+                  "Offer",
+                  "Rejected"
+                ]
+                  .map(
+                    status => `
+                      <option
+                        value="${status}"
+                        ${
+                          status === job.status
+                            ? "selected"
+                            : ""
+                        }
+                      >
+                        ${status}
+                      </option>
+                    `
+                  )
+                  .join("")}
+
+              </select>
+
+              <button
+                class="small-btn"
+                onclick="
+                  deleteApplication('${job.id}')
+                "
+              >
+                Delete
+              </button>
+
+            </td>
+
+          </tr>
+        `
+      )
+      .join("");
+
+}
+
+
+/* =========================
+   UPDATE STATUS
+========================= */
+
+window.updateApplicationStatus =
+function(id,status){
+
+  const job =
+    jobs.find(
+      item =>
+        String(item.id) ===
+        String(id)
+    );
+
+  if(!job)return;
+
+  job.status =
+    status;
+
+  job.updatedAt =
+    new Date()
+      .toISOString();
+
+  saveJobs();
+
+  updateDashboard();
+
+  renderApplications();
+
+  renderPipeline();
+
+  renderAnalytics();
+
+  toast(
+    "Application status updated"
+  );
+
+};
+
+
+/* =========================
+   DELETE APPLICATION
+========================= */
+
+window.deleteApplication =
+function(id){
+
+  const confirmed =
+    confirm(
+      "Delete this application?"
+    );
+
+  if(!confirmed)return;
+
+  jobs =
+    jobs.filter(
+      job =>
+        String(job.id) !==
+        String(id)
+    );
+
+  saveJobs();
+
+  updateDashboard();
+
+  renderApplications();
+
+  renderPipeline();
+
+  renderAnalytics();
+
+  toast(
+    "Application deleted"
+  );
+
+};
+
+
+/* =========================
+   JOB SEARCH
+========================= */
+
+window.searchJobs =
+function(){
+
+  const title =
+    document
+      .getElementById(
+        "jobSearch"
+      )
+      ?.value
+      .trim()
+      .toLowerCase();
+
+  const location =
+    document
+      .getElementById(
+        "jobLocation"
+      )
+      ?.value
+      .trim()
+      .toLowerCase();
+
+  const results =
+    document.getElementById(
+      "jobResults"
+    );
+
+  if(!results)return;
+
+  if(!title && !location){
+
+    renderJobs();
+
+    return;
+
+  }
+
+  const filtered =
+    jobs.filter(
+      job => {
+
+        if(
+          job.type ===
+          "application"
+        ){
+
+          return false;
+
+        }
+
+        const text =
+          (
+            job.title +
+            " " +
+            job.company +
+            " " +
+            job.location
+          )
+          .toLowerCase();
+
+        return (
+          (!title ||
+            text.includes(title)) &&
+          (!location ||
+            text.includes(location))
+        );
+
+      }
+    );
+
+  renderJobResults(
+    filtered
+  );
+
+};
+
+
+/* =========================
+   CLEAR SEARCH
+========================= */
+
+window.clearJobSearch =
+function(){
+
+  const title =
+    document.getElementById(
+      "jobSearch"
+    );
+
+  const location =
+    document.getElementById(
+      "jobLocation"
+    );
+
+  if(title)
+    title.value = "";
+
+  if(location)
+    location.value = "";
+
+  renderJobs();
+
+};
+
+
+/* =========================
+   RENDER JOBS
+========================= */
+
+function renderJobs(){
+
+  const results =
+    document.getElementById(
+      "jobResults"
+    );
+
+  if(!results)return;
+
+  const jobList =
+    jobs.filter(
+      job =>
+        job.type !==
+        "application"
+    );
+
+  renderJobResults(
+    jobList
+  );
+
+}
+
+
+function renderJobResults(
+  list
+){
+
+  const results =
+    document.getElementById(
+      "jobResults"
+    );
+
+  if(!results)return;
+
+  if(!list.length){
+
+    results.innerHTML = `
+      <div class="card">
+        <div class="empty">
+          No matching jobs found.
+        </div>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  results.innerHTML =
+    list
+      .map(
+        job => `
+
+          <div
+            class="card job-card"
+          >
+
+            <div
+              class="job-card-top"
+            >
+
+              <div>
+
+                <h3>
+                  ${escapeHTML(job.title)}
+                </h3>
+
+                <p class="muted">
+                  ${escapeHTML(job.company)}
+                  ·
+                  ${escapeHTML(job.location)}
+                </p>
+
+              </div>
+
+              <span
+                class="badge badge-blue"
+              >
+                ${job.match || 0}% Match
+              </span>
+
+            </div>
+
+            <p
+              style="
+                margin-top:12px;
+                line-height:1.6;
+                color:#475569;
+              "
+            >
+              ${escapeHTML(
+                job.description ||
+                "Job opportunity matching your career goals."
+              )}
+            </p>
+
+            <div class="actions">
+
+              <button
+                class="btn btn-blue"
+                onclick="
+                  applyForJob('${job.id}')
+                "
+              >
+                Apply / Track
+              </button>
+
+              <button
+                class="btn btn-light"
+                onclick="
+                  saveJob('${job.id}')
+                "
+              >
+                Save
+              </button>
+
+            </div>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+}
+
+
+/* =========================
+   SAVE JOB
+========================= */
+
+window.saveJob =
+function(id){
+
+  const job =
+    jobs.find(
+      item =>
+        String(item.id) ===
+        String(id)
+    );
+
+  if(!job)return;
+
+  job.saved =
+    true;
+
+  saveJobs();
+
+  updateDashboard();
+
+  toast(
+    "Job saved"
+  );
+
+};
+
+
+/* =========================
+   APPLY / TRACK JOB
+========================= */
+
+window.applyForJob =
+function(id){
+
+  const original =
+    jobs.find(
+      item =>
+        String(item.id) ===
+        String(id)
+    );
+
+  if(!original)return;
+
+  const application = {
+
+    id:
+      Date.now(),
+
+    type:
+      "application",
+
+    company:
+      original.company,
+
+    title:
+      original.title,
+
+    location:
+      original.location,
+
+    url:
+      original.url || "",
+
+    status:
+      "Applied",
+
+    createdAt:
+      new Date()
+        .toISOString(),
+
+    updatedAt:
+      new Date()
+        .toISOString()
+
+  };
+
+  jobs.push(
+    application
+  );
+
+  saveJobs();
+
+  updateDashboard();
+
+  toast(
+    "Application added to pipeline"
+  );
+
+};
+
+
+/* =========================
+   PIPELINE
+========================= */
+
+function renderPipeline(){
+
+  const board =
+    document.getElementById(
+      "pipelineBoard"
+    );
+
+  if(!board)return;
+
+  const stages = [
+    "Saved",
+    "Applied",
+    "Screening",
+    "Interview",
+    "Final Round",
+    "Offer",
+    "Rejected"
+  ];
+
+  const applications =
+    jobs.filter(
+      job =>
+        job.type ===
+        "application"
+    );
+
+  board.innerHTML =
+    stages
+      .map(
+        stage => {
+
+          const items =
+            applications.filter(
+              job =>
+                job.status ===
+                stage
+            );
+
+          return `
+
+            <div
+              class="card pipeline-column"
+            >
+
+              <div
+                class="pipeline-header"
+              >
+
+                <strong>
+                  ${stage}
+                </strong>
+
+                <span>
+                  ${items.length}
+                </span>
+
+              </div>
+
+              <div
+                class="pipeline-items"
+              >
+
+                ${
+                  items.length
+                    ? items
+                        .map(
+                          job => `
+                            <div
+                              class="pipeline-item"
+                            >
+
+                              <strong>
+                                ${escapeHTML(
+                                  job.company
+                                )}
+                              </strong>
+
+                              <span>
+                                ${escapeHTML(
+                                  job.title
+                                )}
+                              </span>
+
+                              <select
+                                onchange="
+                                  updateApplicationStatus(
+                                    '${job.id}',
+                                    this.value
+                                  )
+                                "
+                              >
+
+                                ${stages
+                                  .map(
+                                    option => `
+                                      <option
+                                        value="${option}"
+                                        ${
+                                          option ===
+                                          job.status
+                                            ? "selected"
+                                            : ""
+                                        }
+                                      >
+                                        ${option}
+                                      </option>
+                                    `
+                                  )
+                                  .join("")}
+
+                              </select>
+
+                            </div>
+                          `
+                        )
+                        .join("")
+                    : `
+                      <div
+                        class="pipeline-empty"
+                      >
+                        Empty
+                      </div>
+                    `
+                }
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =========================
+   ANALYTICS
+========================= */
+
+function renderAnalytics(){
+
+  const applications =
+    jobs.filter(
+      job =>
+        job.type ===
+        "application"
+    );
+
+  const total =
+    applications.length;
+
+  const interviews =
+    applications.filter(
+      job =>
+        [
+          "Interview",
+          "Final Round"
+        ].includes(
+          job.status
+        )
+    ).length;
+
+  const offers =
+    applications.filter(
+      job =>
+        job.status ===
+        "Offer"
+    ).length;
+
+  const rate =
+    total
+      ? Math.round(
+          (
+            interviews /
+            total
+          ) *
+          100
+        )
+      : 0;
+
+  setText(
+    "analyticsTotal",
+    total
+  );
+
+  setText(
+    "analyticsInterviews",
+    interviews
+  );
+
+  setText(
+    "analyticsOffers",
+    offers
+  );
+
+  setText(
+    "analyticsInterviewRate",
+    rate + "%"
+  );
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function updateDashboard(){
+
+  const saved =
+    jobs.filter(
+      job =>
+        job.type !==
+        "application" &&
+        job.saved
+    ).length;
+
+  const applications =
+    jobs.filter(
+      job =>
+        job.type ===
+        "application"
+    );
+
+  const interviews =
+    applications.filter(
+      job =>
+        [
+          "Interview",
+          "Final Round"
+        ].includes(
+          job.status
+        )
+    ).length;
+
+  const offers =
+    applications.filter(
+      job =>
+        job.status ===
+        "Offer"
+    ).length;
+
+  setText(
+    "totalJobs",
+    saved
+  );
+
+  setText(
+    "totalApplications",
+    applications.length
+  );
+
+  setText(
+    "totalInterviews",
+    interviews
+  );
+
+  setText(
+    "totalOffers",
+    offers
+  );
+
+  renderRecentApplications();
+
+}
+
+
+/* =========================
+   RECENT APPLICATIONS
+========================= */
+
+function renderRecentApplications(){
+
+  const table =
+    document.getElementById(
+      "recentApplications"
+    );
+
+  if(!table)return;
+
+  const applications =
+    jobs
+      .filter(
+        job =>
+          job.type ===
+          "application"
+      )
+      .slice()
+      .sort(
+        (a,b) =>
+          new Date(
+            b.createdAt
+          ) -
+          new Date(
+            a.createdAt
+          )
+      )
+      .slice(
+        0,
+        5
+      );
+
+  if(!applications.length){
+
+    table.innerHTML = `
+      <tr>
+        <td colspan="3">
+          <div class="empty">
+            No applications yet.
+          </div>
+        </td>
+      </tr>
+    `;
+
+    return;
+
+  }
+
+  table.innerHTML =
+    applications
+      .map(
+        job => `
           <tr>
 
             <td>
@@ -1858,248 +2350,650 @@ function renderApplications(){
             </td>
 
             <td>
-
-              <select
-                onchange="
-                  updateApplicationStatus(
-                    ${job.id},
-                    this.value
-                  )
-                "
-              >
-
-                ${statusOptions(
-                  job.status
-                )}
-
-              </select>
-
-            </td>
-
-            <td>
-
-              <button
-                class="btn btn-light"
-                onclick="
-                  deleteApplication(
-                    ${job.id}
-                  )
-                "
-              >
-                Delete
-              </button>
-
+              ${statusBadge(
+                job.status
+              )}
             </td>
 
           </tr>
-        `;
-
-      }
-    )
-    .join("");
-
-}
-  /* =========================
-   STATUS OPTIONS
-========================= */
-
-function statusOptions(selected){
-
-  const statuses = [
-    ["saved","Saved"],
-    ["applied","Applied"],
-    ["screening","Screening"],
-    ["interview","Interview"],
-    ["offer","Offer"],
-    ["rejected","Rejected"]
-  ];
-
-  return statuses.map(function(item){
-
-    return `
-      <option
-        value="${item[0]}"
-        ${selected === item[0] ? "selected" : ""}
-      >
-        ${item[1]}
-      </option>
-    `;
-
-  }).join("");
+        `
+      )
+      .join("");
 
 }
 
 
 /* =========================
-   UPDATE APPLICATION STATUS
+   RESUME
 ========================= */
 
-window.updateApplicationStatus =
-function(id,status){
+window.generateResume =
+function(){
 
-  const job = jobs.find(function(item){
+  const name =
+    document.getElementById(
+      "resumeName"
+    )?.value.trim();
 
-    return item.id === id;
+  const title =
+    document.getElementById(
+      "resumeTitle"
+    )?.value.trim();
 
-  });
+  const summary =
+    document.getElementById(
+      "resumeSummary"
+    )?.value.trim();
 
-  if(!job){
+  const skills =
+    document.getElementById(
+      "resumeSkills"
+    )?.value.trim();
 
-    toast("Application not found");
+  if(!name){
+
+    toast(
+      "Please enter your name"
+    );
 
     return;
 
   }
 
-  job.status = status;
+  const profileData = {
 
-  job.updatedAt =
-    new Date().toISOString();
-
-  saveJobs();
-
-  updateDashboard();
-
-  renderApplications();
-
-  renderPipeline();
-
-  renderAnalytics();
-
-  toast("Application status updated");
-
-};
-
-
-/* =========================
-   DELETE APPLICATION
-========================= */
-
-window.deleteApplication =
-function(id){
-
-  const job = jobs.find(function(item){
-
-    return item.id === id;
-
-  });
-
-  if(!job)return;
-
-  const confirmed = confirm(
-    "Delete this application?"
-  );
-
-  if(!confirmed)return;
-
-  jobs = jobs.filter(function(item){
-
-    return item.id !== id;
-
-  });
-
-  saveJobs();
-
-  updateDashboard();
-
-  renderApplications();
-
-  renderPipeline();
-
-  renderAnalytics();
-
-  toast("Application deleted");
-
-};
-
-
-/* =========================
-   ADD APPLICATION
-========================= */
-
-window.openAddApplication =
-function(){
-
-  const company =
-    prompt("Company name:");
-
-  if(!company)return;
-
-  const title =
-    prompt("Job title:");
-
-  if(!title)return;
-
-  const location =
-    prompt(
-      "Location:"
-    ) || "Not specified";
-
-  const job = {
-
-    id: Date.now(),
-
-    company:
-      company.trim(),
-
-    title:
-      title.trim(),
-
-    location:
-      location.trim(),
-
-    status:
-      "applied",
-
-    createdAt:
-      new Date().toISOString()
+    name,
+    title,
+    summary,
+    skills
 
   };
 
-  jobs.push(job);
+  localStorage.setItem(
+    "jobflow_resume",
+    JSON.stringify(
+      profileData
+    )
+  );
 
-  saveJobs();
+  const preview =
+    document.getElementById(
+      "resumePreview"
+    );
 
-  updateDashboard();
+  preview.innerHTML = `
 
-  renderApplications();
+    <div
+      style="
+        max-width:760px;
+        margin:auto;
+        line-height:1.7;
+      "
+    >
 
-  renderPipeline();
+      <h1>
+        ${escapeHTML(name)}
+      </h1>
 
-  renderAnalytics();
+      <h3
+        style="
+          color:#2563eb;
+          margin-top:5px;
+        "
+      >
+        ${escapeHTML(title)}
+      </h3>
+
+      <hr
+        style="
+          margin:18px 0;
+          border:0;
+          border-top:1px solid #e5e7eb;
+        "
+      >
+
+      <h3>
+        Professional Summary
+      </h3>
+
+      <p>
+        ${escapeHTML(
+          summary ||
+          "Professional summary not added."
+        )}
+      </p>
+
+      <h3
+        style="
+          margin-top:20px;
+        "
+      >
+        Skills
+      </h3>
+
+      <p>
+        ${escapeHTML(
+          skills ||
+          "Skills not added."
+        )}
+      </p>
+
+    </div>
+
+  `;
 
   toast(
-    "Application added successfully"
+    "Resume generated"
   );
 
 };
+
+
 /* =========================
-   JOB DATA
+   LOAD RESUME
 ========================= */
 
-const defaultJobs = [
-  {
-    id: 1001,
-    company: "TechNova",
-    title: "Frontend Developer",
-    location: "Hyderabad",
-    status: "saved"
-  },
-  {
-    id: 1002,
-    company: "GrowthLabs",
-    title: "Digital Marketing Executive",
-    location: "Bengaluru",
-    status: "saved"
-  },
-  {
-    id: 1003,
-    company: "CloudWorks",
-    title: "Software Engineer",
-    location: "Pune",
-    status: "saved"
+function loadResume(){
+
+  try{
+
+    const data =
+      JSON.parse(
+        localStorage.getItem(
+          "jobflow_resume"
+        ) || "{}"
+      );
+
+    setInput(
+      "resumeName",
+      data.name
+    );
+
+    setInput(
+      "resumeTitle",
+      data.title
+    );
+
+    setInput(
+      "resumeSummary",
+      data.summary
+    );
+
+    setInput(
+      "resumeSkills",
+      data.skills
+    );
+
+  }catch(error){
+
+    console.warn(
+      "Resume load failed"
+    );
+
   }
+
+}
+
+
+/* =========================
+   INTERVIEW
+========================= */
+
+const interviewQuestions = [
+
+  "Tell me about yourself.",
+
+  "Why do you want to work for this company?",
+
+  "What are your greatest strengths?",
+
+  "What is your biggest weakness?",
+
+  "Why should we hire you?",
+
+  "Tell me about a difficult problem you solved.",
+
+  "Where do you see yourself in five years?",
+
+  "Tell me about a successful project you completed.",
+
+  "How do you handle pressure and deadlines?",
+
+  "Do you have any questions for us?"
+
 ];
+
+let interviewIndex =
+  0;
+
+
+window.nextInterviewQuestion =
+function(){
+
+  interviewIndex++;
+
+  if(
+    interviewIndex >=
+    interviewQuestions.length
+  ){
+
+    interviewIndex = 0;
+
+  }
+
+  setText(
+    "interviewQuestion",
+    interviewQuestions[
+      interviewIndex
+    ]
+  );
+
+};
+
+
+/* =========================
+   PROFILE
+========================= */
+
+window.saveProfile =
+function(){
+
+  const name =
+    document.getElementById(
+      "profileName"
+    )?.value.trim();
+
+  const email =
+    document.getElementById(
+      "profileEmail"
+    )?.value.trim();
+
+  profile = {
+
+    name,
+    email
+
+  };
+
+  localStorage.setItem(
+    PROFILE_KEY,
+    JSON.stringify(
+      profile
+    )
+  );
+
+  updateProfileUI();
+
+  toast(
+    "Profile saved"
+  );
+
+};
+
+
+function loadProfileUI(){
+
+  setInput(
+    "profileName",
+    profile.name
+  );
+
+  setInput(
+    "profileEmail",
+    profile.email
+  );
+
+  updateProfileUI();
+
+}
+
+
+function updateProfileUI(){
+
+  const name =
+    profile.name ||
+    "Job Seeker";
+
+  setText(
+    "topUser",
+    name
+  );
+
+}
+
+
+/* =========================
+   SUBSCRIPTION
+========================= */
+
+function loadSubscription(){
+
+  const premium =
+    localStorage.getItem(
+      SUBSCRIPTION_KEY
+    ) ===
+    "premium";
+
+  const banner =
+    document.getElementById(
+      "accessBanner"
+    );
+
+  if(!banner)return;
+
+  if(premium){
+
+    banner.innerHTML = `
+      <strong>
+        Premium Active
+      </strong>
+
+      <p
+        style="
+          margin-top:6px;
+          color:#15803d;
+        "
+      >
+        Your JobFlow Premium access
+        is active on this device.
+      </p>
+    `;
+
+  }else{
+
+    banner.innerHTML = `
+      <strong>
+        Free Plan
+      </strong>
+
+      <p
+        style="
+          margin-top:6px;
+          color:#64748b;
+        "
+      >
+        You are currently using
+        JobFlow Free.
+      </p>
+    `;
+
+  }
+
+}
+
+
+window.openPayment =
+function(){
+
+  const confirmed =
+    confirm(
+      "Continue to Premium checkout?"
+    );
+
+  if(!confirmed)return;
+
+  /*
+    Replace this demo checkout with
+    your real payment gateway later.
+
+    Never store card information
+    inside localStorage.
+  */
+
+  toast(
+    "Checkout system ready for integration"
+  );
+
+};
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+window.clearAllData =
+function(){
+
+  const confirmed =
+    confirm(
+      "This will delete your local JobFlow data. Continue?"
+    );
+
+  if(!confirmed)return;
+
+  localStorage.removeItem(
+    JOBS_KEY
+  );
+
+  localStorage.removeItem(
+    PROFILE_KEY
+  );
+    return data
+      ? JSON.parse(data)
+      : {};
+
+  }catch(error){
+
+    console.error(
+      "Profile load error:",
+      error
+    );
+
+    return {};
+
+  }
+
+}
+
+
+/* =========================
+   SAVE PROFILE
+========================= */
+
+function saveProfileData(){
+
+  try{
+
+    localStorage.setItem(
+      PROFILE_KEY,
+      JSON.stringify(profile)
+    );
+
+    return true;
+
+  }catch(error){
+
+    console.error(
+      "Profile save error:",
+      error
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================
+   SUBSCRIPTION
+========================= */
+
+function isPremium(){
+
+  return localStorage.getItem(
+    SUBSCRIPTION_KEY
+  ) === "premium";
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function updateDashboard(){
+
+  const applications =
+    jobs.filter(
+      function(job){
+        return job.type === "application";
+      }
+    );
+
+  const interviews =
+    applications.filter(
+      function(job){
+        return [
+          "interview",
+          "final",
+          "offer"
+        ].includes(
+          job.status
+        );
+      }
+    );
+
+  const offers =
+    applications.filter(
+      function(job){
+        return job.status === "offer";
+      }
+    );
+
+
+  const totalJobs =
+    document.getElementById(
+      "totalJobs"
+    );
+
+  const totalApplications =
+    document.getElementById(
+      "totalApplications"
+    );
+
+  const totalInterviews =
+    document.getElementById(
+      "totalInterviews"
+    );
+
+  const totalOffers =
+    document.getElementById(
+      "totalOffers"
+    );
+
+
+  if(totalJobs){
+
+    totalJobs.textContent =
+      jobs.filter(
+        function(job){
+          return job.type !== "application";
+        }
+      ).length;
+
+  }
+
+
+  if(totalApplications){
+
+    totalApplications.textContent =
+      applications.length;
+
+  }
+
+
+  if(totalInterviews){
+
+    totalInterviews.textContent =
+      interviews.length;
+
+  }
+
+
+  if(totalOffers){
+
+    totalOffers.textContent =
+      offers.length;
+
+  }
+
+
+  renderRecentApplications();
+
+}
+
+
+/* =========================
+   RECENT APPLICATIONS
+========================= */
+
+function renderRecentApplications(){
+
+  const list =
+    document.getElementById(
+      "recentApplications"
+    );
+
+  if(!list)return;
+
+
+  const applications =
+    jobs
+      .filter(
+        function(job){
+          return job.type === "application";
+        }
+      )
+      .slice()
+      .reverse()
+      .slice(0,5);
+
+
+  if(!applications.length){
+
+    list.innerHTML =
+      `
+      <tr>
+        <td colspan="3">
+          <div class="empty">
+            No applications yet.
+          </div>
+        </td>
+      </tr>
+      `;
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    applications.map(
+      function(job){
+
+        return `
+        <tr>
+
+          <td>
+            ${escapeHTML(job.company)}
+          </td>
+
+          <td>
+            ${escapeHTML(job.title)}
+          </td>
+
+          <td>
+            ${statusBadge(job.status)}
+          </td>
+
+        </tr>
+        `;
+
+      }
+    ).join("");
+
+}
 
 
 /* =========================
@@ -2109,320 +3003,46 @@ const defaultJobs = [
 window.searchJobs =
 function(){
 
-  const titleInput =
-    document.getElementById(
-      "jobSearch"
-    );
-
-  const locationInput =
-    document.getElementById(
-      "jobLocation"
-    );
-
-  const resultsBox =
-    document.getElementById(
-      "jobResults"
-    );
-
-  if(!resultsBox)return;
-
   const title =
-    titleInput
-      ? titleInput.value
-          .trim()
-          .toLowerCase()
-      : "";
+    document
+      .getElementById(
+        "jobSearch"
+      )
+      ?.value
+      .trim()
+      .toLowerCase() || "";
+
 
   const location =
-    locationInput
-      ? locationInput.value
-          .trim()
-          .toLowerCase()
-      : "";
+    document
+      .getElementById(
+        "jobLocation"
+      )
+      ?.value
+      .trim()
+      .toLowerCase() || "";
 
 
   const results =
-    defaultJobs.filter(
-      function(job){
-
-        const titleMatch =
-          !title ||
-          job.title
-            .toLowerCase()
-            .includes(title);
-
-        const locationMatch =
-          !location ||
-          job.location
-            .toLowerCase()
-            .includes(location);
-
-        return (
-          titleMatch &&
-          locationMatch
-        );
-
-      }
-    );
-
-
-  renderJobResults(results);
-
-};
-
-
-/* =========================
-   RENDER JOB RESULTS
-========================= */
-
-function renderJobResults(
-  results
-){
-
-  const box =
     document.getElementById(
       "jobResults"
     );
 
-  if(!box)return;
+
+  if(!results)return;
 
 
-  if(!results.length){
+  if(!title && !location){
 
-    box.innerHTML = `
+    results.innerHTML =
+      `
       <div class="card">
         <div class="empty">
-          No matching jobs found.
+          Enter a job title or location
+          to search.
         </div>
       </div>
-    `;
-
-    return;
-
-  }
-
-
-  box.innerHTML =
-    results.map(
-      function(job){
-
-        const saved =
-          jobs.some(
-            function(item){
-
-              return item.id ===
-                job.id;
-
-            }
-          );
-
-
-        return `
-          <div
-            class="card"
-            style="margin-bottom:15px"
-          >
-
-            <div
-              style="
-              display:flex;
-              justify-content:space-between;
-              gap:15px;
-              align-items:flex-start;
-              "
-            >
-
-              <div>
-
-                <h3>
-                  ${escapeHTML(
-                    job.title
-                  )}
-                </h3>
-
-                <p
-                  class="muted"
-                  style="margin-top:6px"
-                >
-                  ${escapeHTML(
-                    job.company
-                  )}
-                  ·
-                  ${escapeHTML(
-                    job.location
-                  )}
-                </p>
-
-              </div>
-
-              <span
-                class="badge badge-blue"
-              >
-                Job
-              </span>
-
-            </div>
-
-
-            <div
-              class="actions"
-            >
-
-              <button
-                class="btn btn-blue"
-                onclick="
-                  saveJob(
-                    ${job.id}
-                  )
-                "
-              >
-                ${
-                  saved
-                    ? "Saved"
-                    : "Save Job"
-                }
-              </button>
-
-
-              <button
-                class="btn btn-light"
-                onclick="
-                  applyToJob(
-                    ${job.id}
-                  )
-                "
-              >
-                Apply
-              </button>
-
-            </div>
-
-          </div>
-        `;
-
-      }
-    )
-    .join("");
-
-}
-
-
-/* =========================
-   SAVE JOB
-========================= */
-
-window.saveJob =
-function(id){
-
-  const source =
-    defaultJobs.find(
-      function(job){
-
-        return job.id === id;
-
-      }
-    );
-
-
-  if(!source){
-
-    toast(
-      "Job not found"
-    );
-
-    return;
-
-  }
-
-
-  const exists =
-    jobs.some(
-      function(job){
-
-        return job.id === id;
-
-      }
-    );
-
-
-  if(exists){
-
-    toast(
-      "Job already saved"
-    );
-
-    return;
-
-  }
-
-
-  jobs.push({
-
-    id:
-      source.id,
-
-    company:
-      source.company,
-
-    title:
-      source.title,
-
-    location:
-      source.location,
-
-    status:
-      "saved",
-
-    createdAt:
-      new Date()
-        .toISOString()
-
-  });
-
-
-  saveJobs();
-
-  updateDashboard();
-
-  renderApplications();
-
-  renderPipeline();
-
-  renderAnalytics();
-
-  renderJobResults(
-    defaultJobs
-  );
-
-  toast(
-    "Job saved"
-  );
-
-};
-
-
-/* =========================
-   APPLY TO JOB
-========================= */
-
-window.applyToJob =
-function(id){
-
-  const source =
-    defaultJobs.find(
-      function(job){
-
-        return job.id === id;
-
-      }
-    );
-
-
-  if(!source){
-
-    toast(
-      "Job not found"
-    );
+      `;
 
     return;
 
@@ -2430,77 +3050,110 @@ function(id){
 
 
   const existing =
-    jobs.find(
+    jobs.filter(
       function(job){
 
-        return job.id === id;
+        if(
+          job.type ===
+          "application"
+        ){
+
+          return false;
+
+        }
+
+        const text =
+          (
+            job.title +
+            " " +
+            job.company +
+            " " +
+            job.location
+          )
+          .toLowerCase();
+
+
+        return (
+          (!title ||
+            text.includes(title)) &&
+          (!location ||
+            text.includes(location))
+        );
 
       }
     );
 
 
-  if(existing){
+  if(existing.length){
 
-    existing.status =
-      "applied";
+    renderJobCards(
+      existing
+    );
 
-    existing.updatedAt =
-      new Date()
-        .toISOString();
-
-  }else{
-
-    jobs.push({
-
-      id:
-        source.id,
-
-      company:
-        source.company,
-
-      title:
-        source.title,
-
-      location:
-        source.location,
-
-      status:
-        "applied",
-
-      createdAt:
-        new Date()
-          .toISOString()
-
-    });
+    return;
 
   }
 
 
+  const demoJobs = [
+
+    {
+      id:Date.now()+1,
+      type:"job",
+      company:"TechNova",
+      title:title
+        ? title
+        : "Software Engineer",
+      location:location
+        ? location
+        : "Hyderabad",
+      status:"Saved"
+    },
+
+    {
+      id:Date.now()+2,
+      type:"job",
+      company:"Growth Labs",
+      title:title
+        ? title
+        : "Product Analyst",
+      location:location
+        ? location
+        : "Bengaluru",
+      status:"Saved"
+    },
+
+    {
+      id:Date.now()+3,
+      type:"job",
+      company:"Nova Systems",
+      title:title
+        ? title
+        : "Frontend Developer",
+      location:location
+        ? location
+        : "Remote",
+      status:"Saved"
+    }
+
+  ];
+
+
+  jobs =
+    jobs.concat(
+      demoJobs
+    );
+
+
   saveJobs();
 
+
+  renderJobCards(
+    demoJobs
+  );
+
+
   updateDashboard();
-
-  renderApplications();
-
-  renderPipeline();
-
-  renderAnalytics();
-
-  toast(
-    "Application added"
-  );
-
-
-  setTimeout(
-    function(){
-
-      showPage(
-        "applications"
-      );
-
-    },
-    300
-  );
 
 };
 
@@ -2522,87 +3175,1644 @@ function(){
       "jobLocation"
     );
 
-
   if(title){
-
     title.value = "";
-
   }
 
   if(location){
-
     location.value = "";
+  }
+
+
+  const results =
+    document.getElementById(
+      "jobResults"
+    );
+
+  if(results){
+
+    results.innerHTML = "";
+
+  }
+
+};
+
+
+/* =========================
+   JOB CARDS
+========================= */
+
+function renderJobs(){
+
+  const results =
+    document.getElementById(
+      "jobResults"
+    );
+
+  if(!results)return;
+
+
+  const list =
+    jobs.filter(
+      function(job){
+
+        return job.type !==
+          "application";
+
+      }
+    );
+
+
+  if(!list.length){
+
+    results.innerHTML =
+      `
+      <div class="card">
+        <div class="empty">
+          Search for jobs to see
+          opportunities here.
+        </div>
+      </div>
+      `;
+
+    return;
 
   }
 
 
-  renderJobResults(
-    defaultJobs
+  renderJobCards(
+    list
+  );
+
+}
+
+
+function renderJobCards(
+  list
+){
+
+  const results =
+    document.getElementById(
+      "jobResults"
+    );
+
+  if(!results)return;
+
+
+  results.innerHTML =
+    list.map(
+      function(job){
+
+        return `
+        <div class="card"
+             style="margin-bottom:14px">
+
+          <div style="
+            display:flex;
+            justify-content:space-between;
+            gap:15px;
+            align-items:flex-start;
+            flex-wrap:wrap;
+          ">
+
+            <div>
+
+              <h3>
+                ${escapeHTML(job.title)}
+              </h3>
+
+              <p class="muted"
+                 style="margin-top:6px">
+
+                ${escapeHTML(job.company)}
+                ·
+                ${escapeHTML(job.location)}
+
+              </p>
+
+            </div>
+
+            ${statusBadge(
+              job.status || "Saved"
+            )}
+
+          </div>
+
+
+          <div class="actions">
+
+            <button
+              class="btn btn-blue"
+              onclick="applyToJob(${job.id})"
+            >
+              Apply
+            </button>
+
+            <button
+              class="btn btn-light"
+              onclick="saveJob(${job.id})"
+            >
+              Save
+            </button>
+
+          </div>
+
+        </div>
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* =========================
+   SAVE JOB
+========================= */
+
+window.saveJob =
+function(id){
+
+  const job =
+    jobs.find(
+      function(item){
+        return item.id === id;
+      }
+    );
+
+  if(!job)return;
+
+
+  job.status =
+    "Saved";
+
+
+  saveJobs();
+
+  renderJobs();
+
+  toast(
+    "Job saved successfully."
+  );
+
+  updateDashboard();
+
+};
+
+
+/* =========================
+   APPLY TO JOB
+========================= */
+
+window.applyToJob =
+function(id){
+
+  const job =
+    jobs.find(
+      function(item){
+        return item.id === id;
+      }
+    );
+
+  if(!job)return;
+
+
+  job.type =
+    "application";
+
+  job.status =
+    "applied";
+
+  job.appliedAt =
+    new Date()
+      .toISOString();
+
+
+  saveJobs();
+
+  updateDashboard();
+
+  renderApplications();
+
+  toast(
+    "Application added."
   );
 
 };
 
 
 /* =========================
-   INITIAL JOB DISPLAY
+   APPLICATION LIST
 ========================= */
 
-function initializeJobs(){
+function renderApplications(){
 
-  renderJobResults(
-    defaultJobs
+  const list =
+    document.getElementById(
+      "applicationsList"
+    );
+
+  if(!list)return;
+
+
+  const applications =
+    jobs.filter(
+      function(job){
+
+        return job.type ===
+          "application";
+
+      }
+    );
+
+
+  if(!applications.length){
+
+    list.innerHTML =
+      `
+      <tr>
+        <td colspan="4">
+          <div class="empty">
+            No applications yet.
+          </div>
+        </td>
+      </tr>
+      `;
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    applications.map(
+      function(job){
+
+        return `
+        <tr>
+
+          <td>
+            ${escapeHTML(job.company)}
+          </td>
+
+          <td>
+            ${escapeHTML(job.title)}
+          </td>
+
+          <td>
+
+            <select
+              onchange="changeApplicationStatus(
+                ${job.id},
+                this.value
+              )"
+            >
+
+              ${applicationOptions(
+                job.status
+              )}
+
+            </select>
+
+          </td>
+
+          <td>
+
+            <button
+              class="btn btn-light"
+              onclick="deleteApplication(${job.id})"
+            >
+              Delete
+            </button>
+
+          </td>
+
+        </tr>
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* =========================
+   APPLICATION OPTIONS
+========================= */
+
+function applicationOptions(
+  selected
+){
+
+  const options = [
+
+    ["applied","Applied"],
+    ["screening","Screening"],
+    ["interview","Interview"],
+    ["final","Final Round"],
+    ["offer","Offer"],
+    ["rejected","Rejected"]
+
+  ];
+
+
+  return options.map(
+    function(option){
+
+      return `
+      <option
+        value="${option[0]}"
+        ${selected === option[0]
+          ? "selected"
+          : ""}
+      >
+        ${option[1]}
+      </option>
+      `;
+
+    }
+  ).join("");
+
+}
+
+
+/* =========================
+   STATUS BADGE
+========================= */
+
+function statusBadge(
+  status
+){
+
+  const map = {
+
+    Saved:
+      ["badge-blue","Saved"],
+
+    saved:
+      ["badge-blue","Saved"],
+
+    applied:
+      ["badge-blue","Applied"],
+
+    screening:
+      ["badge-orange","Screening"],
+
+    interview:
+      ["badge-green","Interview"],
+
+    final:
+      ["badge-orange","Final Round"],
+
+    offer:
+      ["badge-green","Offer"],
+
+    rejected:
+      ["badge-red","Rejected"]
+
+  };
+
+
+  const item =
+    map[status] ||
+    ["badge-blue",status];
+
+
+  return `
+    <span class="badge ${item[0]}">
+      ${escapeHTML(item[1])}
+    </span>
+  `;
+
+}
+
+
+/* =========================
+   CHANGE STATUS
+========================= */
+
+window.changeApplicationStatus =
+function(
+  id,
+  status
+){
+
+  const job =
+    jobs.find(
+      function(item){
+        return item.id === id;
+      }
+    );
+
+  if(!job)return;
+
+
+  job.status =
+    status;
+
+
+  saveJobs();
+
+  renderApplications();
+
+  renderPipeline();
+
+  renderAnalytics();
+
+  updateDashboard();
+
+  toast(
+    "Application status updated."
+  );
+
+};
+
+
+/* =========================
+   DELETE APPLICATION
+========================= */
+
+window.deleteApplication =
+function(id){
+
+  if(
+    !confirm(
+      "Delete this application?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  jobs =
+    jobs.filter(
+      function(job){
+
+        return job.id !== id;
+
+      }
+    );
+
+
+  saveJobs();
+
+  renderApplications();
+
+  renderPipeline();
+
+  renderAnalytics();
+
+  updateDashboard();
+
+  toast(
+    "Application deleted."
+  );
+
+};
+
+
+/* =========================
+   ADD APPLICATION
+========================= */
+
+window.openAddApplication =
+function(){
+
+  const company =
+    prompt(
+      "Company name:"
+    );
+
+  if(!company)return;
+
+
+  const title =
+    prompt(
+      "Job title:"
+    );
+
+  if(!title)return;
+
+
+  const location =
+    prompt(
+      "Location:"
+    ) ||
+    "Not specified";
+
+
+  jobs.push({
+
+    id:
+      Date.now(),
+
+    type:
+      "application",
+
+    company:
+      company.trim(),
+
+    title:
+      title.trim(),
+
+    location:
+      location.trim(),
+
+    status:
+      "applied",
+
+    createdAt:
+      new Date()
+        .toISOString(),
+
+    appliedAt:
+      new Date()
+        .toISOString()
+
+  });
+
+
+  saveJobs();
+
+  renderApplications();
+
+  updateDashboard();
+
+  toast(
+    "Application added."
+  );
+
+};
+
+
+/* =========================
+   PIPELINE
+========================= */
+
+function renderPipeline(){
+
+  const board =
+    document.getElementById(
+      "pipelineBoard"
+    );
+
+  if(!board)return;
+
+
+  const stages = [
+
+    ["applied","Applied"],
+    ["screening","Screening"],
+    ["interview","Interview"],
+    ["final","Final Round"],
+    ["offer","Offer"],
+    ["rejected","Rejected"]
+
+  ];
+
+
+  const applications =
+    jobs.filter(
+      function(job){
+
+        return job.type ===
+          "application";
+
+      }
+    );
+
+
+  board.innerHTML =
+    stages.map(
+      function(stage){
+
+        const items =
+          applications.filter(
+            function(job){
+
+              return job.status ===
+                stage[0];
+
+            }
+          );
+
+
+        return `
+        <div class="card">
+
+          <h3>
+            ${stage[1]}
+            <span
+              style="
+              color:#64748b;
+              font-size:13px;
+              "
+            >
+              (${items.length})
+            </span>
+          </h3>
+
+          <div style="
+            margin-top:15px;
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+          ">
+
+            ${
+              items.length
+              ? items.map(
+                  function(job){
+
+                    return `
+                    <div style="
+                      padding:12px;
+                      border:1px solid #e5e7eb;
+                      border-radius:10px;
+                    ">
+
+                      <strong>
+                        ${escapeHTML(
+                          job.company
+                        )}
+                      </strong>
+
+                      <div
+                        class="muted"
+                        style="margin-top:4px"
+                      >
+                        ${escapeHTML(
+                          job.title
+                        )}
+                      </div>
+
+                    </div>
+                    `;
+
+                  }
+                ).join("")
+              : `
+                <div class="empty">
+                  No applications
+                </div>
+              `
+            }
+
+          </div>
+
+        </div>
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* =========================
+   ANALYTICS
+========================= */
+
+function renderAnalytics(){
+
+  const applications =
+    jobs.filter(
+      function(job){
+
+        return job.type ===
+          "application";
+
+      }
+    );
+
+
+  const interviews =
+    applications.filter(
+      function(job){
+
+        return [
+          "interview",
+          "final",
+          "offer"
+        ].includes(
+          job.status
+        );
+
+      }
+    );
+
+
+  const offers =
+    applications.filter(
+      function(job){
+
+        return job.status ===
+          "offer";
+
+      }
+    );
+
+
+  const rate =
+    applications.length
+      ? Math.round(
+          interviews.length /
+          applications.length *
+          100
+        )
+      : 0;
+
+
+  setText(
+    "analyticsTotal",
+    applications.length
+  );
+
+  setText(
+    "analyticsInterviews",
+    interviews.length
+  );
+
+  setText(
+    "analyticsOffers",
+    offers.length
+  );
+
+  setText(
+    "analyticsInterviewRate",
+    rate + "%"
   );
 
 }
 
 
 /* =========================
-   JOB FILTER EVENTS
+   RESUME
 ========================= */
 
-function setupJobSearch(){
+window.generateResume =
+function(){
+
+  const name =
+    document.getElementById(
+      "resumeName"
+    )?.value.trim() || "Your Name";
+
 
   const title =
     document.getElementById(
-      "jobSearch"
-    );
+      "resumeTitle"
+    )?.value.trim() ||
+    "Professional";
 
-  const location =
+
+  const summary =
     document.getElementById(
-      "jobLocation"
+      "resumeSummary"
+    )?.value.trim() ||
+    "Professional summary";
+
+
+  const skills =
+    document.getElementById(
+      "resumeSkills"
+    )?.value.trim() ||
+    "Add your skills";
+
+
+  profile.resume = {
+
+    name,
+    title,
+    summary,
+    skills
+
+  };
+
+
+  saveProfileData();
+
+
+  const preview =
+    document.getElementById(
+      "resumePreview"
     );
 
 
-  if(title){
+  if(preview){
 
-    title.addEventListener(
-      "input",
-      searchJobs
-    );
+    preview.innerHTML =
+      `
+      <div style="
+        max-width:760px;
+        margin:auto;
+        line-height:1.7;
+      ">
+
+        <h1>
+          ${escapeHTML(name)}
+        </h1>
+
+        <p
+          style="
+          color:#2563eb;
+          font-weight:700;
+          margin-top:5px;
+          "
+        >
+          ${escapeHTML(title)}
+        </p>
+
+        <hr
+          style="
+          margin:18px 0;
+          border:0;
+          border-top:1px solid #e5e7eb;
+          "
+        >
+
+        <h3>Professional Summary</h3>
+
+        <p style="margin-top:7px">
+          ${escapeHTML(summary)}
+        </p>
+
+        <h3 style="margin-top:20px">
+          Skills
+        </h3>
+
+        <p style="margin-top:7px">
+          ${escapeHTML(skills)}
+        </p>
+
+      </div>
+      `;
 
   }
 
 
-  if(location){
+  toast(
+    "Resume generated."
+  );
 
-    location.addEventListener(
-      "input",
-      searchJobs
+};
+
+
+/* =========================
+   INTERVIEW
+========================= */
+
+const interviewQuestions = [
+
+  "Tell me about yourself.",
+
+  "Why do you want to work for our company?",
+
+  "What are your strongest skills?",
+
+  "Tell me about a difficult problem you solved.",
+
+  "Where do you see yourself in five years?",
+
+  "Why should we hire you?",
+
+  "What is your biggest professional achievement?",
+
+  "How do you handle pressure and deadlines?"
+
+];
+
+
+let interviewIndex = 0;
+
+
+window.nextInterviewQuestion =
+function(){
+
+  interviewIndex++;
+
+  if(
+    interviewIndex >=
+    interviewQuestions.length
+  ){
+
+    interviewIndex = 0;
+
+  }
+
+
+  const question =
+    document.getElementById(
+      "interviewQuestion"
     );
+
+
+  if(question){
+
+    question.textContent =
+      interviewQuestions[
+        interviewIndex
+      ];
+
+  }
+
+};
+
+
+/* =========================
+   PROFILE
+========================= */
+
+window.saveProfile =
+function(){
+
+  const name =
+    document.getElementById(
+      "profileName"
+    )?.value.trim() || "";
+
+
+  const email =
+    document.getElementById(
+      "profileEmail"
+    )?.value.trim() || "";
+
+
+  profile.name =
+    name;
+
+  profile.email =
+    email;
+
+
+  saveProfileData();
+
+  updateUserName();
+
+  toast(
+    "Profile saved successfully."
+  );
+
+};
+
+
+function updateUserName(){
+
+  const name =
+    profile.name ||
+    "Job Seeker";
+
+
+  setText(
+    "topUser",
+    name
+  );
+
+
+  const profileName =
+    document.getElementById(
+      "profileName"
+    );
+
+
+  if(
+    profileName &&
+    !profileName.value
+  ){
+
+    profileName.value =
+      profile.name || "";
+
+  }
+
+
+  const profileEmail =
+    document.getElementById(
+      "profileEmail"
+    );
+
+
+  if(
+    profileEmail &&
+    !profileEmail.value
+  ){
+
+    profileEmail.value =
+      profile.email || "";
 
   }
 
 }
-  }
 
-  if(location){
 
-    location.addEventListener(
-      "input",
-      searchJobs
+/* =========================
+   PREMIUM PAYMENT
+========================= */
+
+window.openPayment =
+function(){
+
+  if(isPremium()){
+
+    toast(
+      "Premium is already active."
     );
 
+    return;
+
   }
+
+
+  const confirmed =
+    confirm(
+      "Upgrade to JobFlow Premium?"
+    );
+
+
+  if(!confirmed)return;
+
+
+  /*
+    DEMO PAYMENT STATE
+
+    Replace this section later
+    with a real payment gateway.
+  */
+
+
+  localStorage.setItem(
+    SUBSCRIPTION_KEY,
+    "premium"
+  );
+
+
+  updateAccessBanner();
+
+  toast(
+    "Premium activated."
+  );
+
+};
+
+
+/* =========================
+   ACCESS BANNER
+========================= */
+
+function updateAccessBanner(){
+
+  const banner =
+    document.getElementById(
+      "sidebar"
+    ).classList.remove("open");
+  }
+
+  if(page === "jobs"){
+    renderJobs();
+  }
+
+  if(page === "applications"){
+    renderApplications();
+  }
+
+  if(page === "pipeline"){
+    renderPipeline();
+  }
+
+  if(page === "analytics"){
+    renderAnalytics();
+  }
+
+  if(page === "resume"){
+    loadResume();
+  }
+
+  if(page === "profile"){
+    loadProfileForm();
+  }
+
+};
+
+
+/* =========================
+   MOBILE SIDEBAR
+========================= */
+
+window.toggleSidebar = function(){
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+};
+
+
+/* =========================
+   ADD APPLICATION
+========================= */
+
+window.openAddApplication = function(){
+
+  const company = prompt("Company name:");
+  if(!company) return;
+
+  const title = prompt("Job title:");
+  if(!title) return;
+
+  const location =
+    prompt("Location:") || "Not specified";
+
+  const job = {
+    id: Date.now(),
+    company: company.trim(),
+    title: title.trim(),
+    location: location.trim(),
+    status: "Applied",
+    createdAt: new Date().toISOString()
+  };
+
+  jobs.push(job);
+
+  saveJobs();
+
+  renderAll();
+
+  toast("Application added successfully.");
+
+};
+
+
+/* =========================
+   UPDATE APPLICATION
+========================= */
+
+window.updateApplicationStatus =
+function(id,status){
+
+  const job =
+    jobs.find(function(item){
+      return String(item.id) === String(id);
+    });
+
+  if(!job) return;
+
+  job.status = status;
+
+  saveJobs();
+
+  renderAll();
+
+  toast("Application status updated.");
+
+};
+
+
+/* =========================
+   DELETE APPLICATION
+========================= */
+
+window.deleteApplication =
+function(id){
+
+  if(!confirm("Delete this application?")){
+    return;
+  }
+
+  jobs =
+    jobs.filter(function(item){
+      return String(item.id) !== String(id);
+    });
+
+  saveJobs();
+
+  renderAll();
+
+  toast("Application deleted.");
+
+};
+
+
+/* =========================
+   JOB SEARCH
+========================= */
+
+window.searchJobs = function(){
+
+  const title =
+    document
+      .getElementById("jobSearch")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const location =
+    document
+      .getElementById("jobLocation")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const results =
+    document.getElementById("jobResults");
+
+  if(!results) return;
+
+  if(!title && !location){
+
+    results.innerHTML = `
+      <div class="card">
+        <div class="empty">
+          Enter a job title or location to search.
+        </div>
+      </div>
+    `;
+
+    return;
+  }
+
+  const demoJobs = [
+    {
+      company:"TechNova",
+      title:"Software Engineer",
+      location:"Hyderabad"
+    },
+    {
+      company:"GrowthLabs",
+      title:"Frontend Developer",
+      location:"Bengaluru"
+    },
+    {
+      company:"CloudCore",
+      title:"Backend Developer",
+      location:"Pune"
+    },
+    {
+      company:"AI Systems",
+      title:"AI Engineer",
+      location:"Hyderabad"
+    },
+    {
+      company:"DigitalWorks",
+      title:"Product Designer",
+      location:"Remote"
+    },
+    {
+      company:"FinTech Labs",
+      title:"Full Stack Developer",
+      location:"Mumbai"
+    }
+  ];
+
+  const filtered =
+    demoJobs.filter(function(job){
+
+      const matchesTitle =
+        !title ||
+        job.title
+          .toLowerCase()
+          .includes(title);
+
+      const matchesLocation =
+        !location ||
+        job.location
+          .toLowerCase()
+          .includes(location);
+
+      return (
+        matchesTitle &&
+        matchesLocation
+      );
+
+    });
+
+  if(!filtered.length){
+
+    results.innerHTML = `
+      <div class="card">
+        <div class="empty">
+          No matching jobs found.
+        </div>
+      </div>
+    `;
+
+    return;
+  }
+
+  results.innerHTML = `
+    <div class="card">
+
+      <h3 class="section-title">
+        Job Opportunities
+      </h3>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Role</th>
+              <th>Location</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${filtered.map(function(job){
+
+              return `
+                <tr>
+
+                  <td>
+                    <strong>
+                      ${escapeHTML(job.company)}
+                    </strong>
+                  </td>
+
+                  <td>
+                    ${escapeHTML(job.title)}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(job.location)}
+                  </td>
+
+                  <td>
+
+                    <button
+                      class="btn btn-blue"
+                      onclick="saveFoundJob(
+                        '${escapeAttribute(job.company)}',
+                        '${escapeAttribute(job.title)}',
+                        '${escapeAttribute(job.location)}'
+                      )"
+                    >
+                      Save
+                    </button>
+
+                  </td>
+
+                </tr>
+              `;
+
+            }).join("")}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  `;
+
+};
+
+
+window.clearJobSearch = function(){
+
+  document.getElementById("jobSearch").value = "";
+  document.getElementById("jobLocation").value = "";
+
+  document.getElementById("jobResults").innerHTML = "";
+
+};
+
+
+window.saveFoundJob =
+function(company,title,location){
+
+  const exists =
+    jobs.some(function(item){
+
+      return (
+        item.company === company &&
+        item.title === title
+      );
+
+    });
+
+  if(exists){
+
+    toast("Job already saved.");
+
+    return;
+
+  }
+
+  jobs.push({
+
+    id:Date.now(),
+
+    company:company,
+
+    title:title,
+
+    location:location,
+
+    status:"Saved",
+
+    createdAt:
+      new Date().toISOString()
+
+  });
+
+  saveJobs();
+
+  renderAll();
+
+  toast("Job saved successfully.");
+
+};
+
+
+/* =========================
+   RENDER JOBS
+========================= */
+
+function renderJobs(){
+
+  const results =
+    document.getElementById(
+      "jobResults"
+    );
+
+  if(!results)return;
+
+  if(!jobs.length){
+
+    results.innerHTML = `
+      <div class="card">
+        <div class="empty">
+          Search for jobs and save opportunities here.
+        </div>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  results.innerHTML = `
+    <div class="card">
+
+      <h3 class="section-title">
+        Saved Jobs
+      </h3>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Role</th>
+              <th>Location</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${jobs.map(function(job){
+
+              return `
+                <tr>
+
+                  <td>
+                    <strong>
+                      ${escapeHTML(job.company)}
+                    </strong>
+                  </td>
+
+                  <td>
+                    ${escapeHTML(job.title)}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(job.location)}
+                  </td>
+
+                  <td>
+                    ${statusBadge(job.status)}
+                  </td>
+
+                </tr>
+              `;
+
+            }).join("")}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================
+   APPLICATION LIST
+========================= */
+
+function renderApplications(){
+
+  const list =
+    document.getElementById(
+      "applicationsList"
+    );
+
+  if(!list)return;
+
+  if(!jobs.length){
+
+    list.innerHTML = `
+      <tr>
+        <td colspan="4">
+          <div class="empty">
+            No applications yet.
+          </div>
+        </td>
+      </tr>
+    `;
+
+    return;
+
+  }
+
+  list.innerHTML =
+    jobs.map(function(job){
+
+      return `
+        <tr>
+
+          <td>
+            <strong>
+              ${escapeHTML(job.company)}
+            </strong>
+          </td>
+
+          <td>
+            ${escapeHTML(job.title)}
+          </td>
+
+          <td>
+
+            <select
+              onchange="updateApplicationStatus(
+                '${job.id}',
+                this.value
+              )"
+            >
+
+              ${[
+                "Saved",
+                "Applied",
+                "Screening",
+                "Interview",
+                "Final Round",
+                "Offer",
+                "Rejected"
+              ].map(function(status){
+
+                return `
+                  <option
+                    value="${status}"
+                    ${job.status === status ? "selected" : ""}
+                  >
+                    ${status}
+                  </option>
+                `;
+
+              }).join("")}
+
+            </select>
+
+          </td>
+
+          <td>
+
+            <button
+              class="btn btn-light"
+              onclick="deleteApplication('${job.id}')"
+            >
+              Delete
+            </button>
+
+          </td>
+
+        </tr>
+      `;
+
+    }).join("");
 
 }
 
@@ -2620,200 +4830,95 @@ function renderPipeline(){
 
   if(!board)return;
 
-
-  const columns = [
-
-    {
-      status:"saved",
-      title:"Saved Jobs"
-    },
-
-    {
-      status:"applied",
-      title:"Applied"
-    },
-
-    {
-      status:"screening",
-      title:"Screening"
-    },
-
-    {
-      status:"interview",
-      title:"Interview"
-    },
-
-    {
-      status:"offer",
-      title:"Offers"
-    },
-
-    {
-      status:"rejected",
-      title:"Rejected"
-    }
-
+  const stages = [
+    "Saved",
+    "Applied",
+    "Screening",
+    "Interview",
+    "Final Round",
+    "Offer",
+    "Rejected"
   ];
-
 
   board.innerHTML =
-    columns.map(
-      function(column){
+    stages.map(function(stage){
 
-        const list =
-          jobs.filter(
-            function(job){
+      const items =
+        jobs.filter(function(job){
 
-              return (
-                job.status ===
-                column.status
-              );
+          return job.status === stage;
 
-            }
-          );
+        });
 
+      return `
+        <div class="card">
 
-        return `
-          <div class="card">
+          <h3>
+            ${stage}
+          </h3>
 
-            <h3>
-              ${column.title}
-              <span
-                class="badge badge-blue"
-              >
-                ${list.length}
-              </span>
-            </h3>
+          <div
+            style="
+              margin-top:15px;
+              display:flex;
+              flex-direction:column;
+              gap:10px;
+            "
+          >
 
-            <div
-              style="margin-top:15px"
-            >
+            ${
+              items.length
 
-              ${
-                list.length
-                  ? list.map(
-                      function(job){
+              ? items.map(function(job){
 
-                        return `
-                          <div
-                            style="
-                            padding:13px;
-                            background:#f8fafc;
-                            border:1px solid #e2e8f0;
-                            border-radius:10px;
-                            margin-bottom:10px;
-                            "
-                          >
+                  return `
+                    <div
+                      style="
+                        padding:12px;
+                        border:1px solid #e5e7eb;
+                        border-radius:10px;
+                        background:#f8fafc;
+                      "
+                    >
 
-                            <strong>
-                              ${escapeHTML(
-                                job.title
-                              )}
-                            </strong>
+                      <strong>
+                        ${escapeHTML(job.company)}
+                      </strong>
 
-                            <div
-                              class="muted"
-                              style="margin-top:5px"
-                            >
-                              ${escapeHTML(
-                                job.company
-                              )}
-                            </div>
+                      <div
+                        style="
+                          color:#64748b;
+                          font-size:13px;
+                          margin-top:4px;
+                        "
+                      >
+                        ${escapeHTML(job.title)}
+                      </div>
 
-                            <select
-                              style="
-                              width:100%;
-                              margin-top:9px;
-                              padding:8px;
-                              border:1px solid #cbd5e1;
-                              border-radius:7px;
-                              "
-                              onchange="
-                                updateApplicationStatus(
-                                  ${job.id},
-                                  this.value
-                                )
-                              "
-                            >
-
-                              ${statusOptions(
-                                job.status
-                              )}
-
-                            </select>
-
-                          </div>
-                        `;
-
-                      }
-                    ).join("")
-                  : `
-                    <div class="empty">
-                      No items
                     </div>
-                  `
-              }
+                  `;
 
-            </div>
+                }).join("")
+
+              : `
+                <div
+                  style="
+                    color:#94a3b8;
+                    font-size:13px;
+                    padding:10px 0;
+                  "
+                >
+                  No applications
+                </div>
+              `
+            }
 
           </div>
-        `;
 
-      }
-    )
-    .join("");
+        </div>
+      `;
 
-}
-
-
-/* =========================
-   PIPELINE COUNTS
-========================= */
-
-function updatePipelineCounts(){
-
-  const statuses = [
-    "saved",
-    "applied",
-    "screening",
-    "interview",
-    "offer",
-    "rejected"
-  ];
-
-
-  statuses.forEach(
-    function(status){
-
-      const count =
-        jobs.filter(
-          function(job){
-
-            return (
-              job.status ===
-              status
-            );
-
-          }
-        ).length;
-
-
-      const element =
-        document.getElementById(
-          "pipeline-" +
-          status
-        );
-
-
-      if(element){
-
-        element.textContent =
-          count;
-
-      }
-
-    }
-  );
+    }).join("");
 
 }
 
@@ -2827,273 +4932,112 @@ function renderAnalytics(){
   const total =
     jobs.length;
 
-  const applied =
-    jobs.filter(
-      function(job){
-
-        return (
-          job.status ===
-          "applied" ||
-          job.status ===
-          "screening" ||
-          job.status ===
-          "interview" ||
-          job.status ===
-          "offer"
-        );
-
-      }
-    ).length;
-
   const interviews =
-    jobs.filter(
-      function(job){
+    jobs.filter(function(job){
 
-        return (
-          job.status ===
-          "interview"
-        );
+      return [
+        "Interview",
+        "Final Round"
+      ].includes(job.status);
 
-      }
-    ).length;
+    }).length;
 
   const offers =
-    jobs.filter(
-      function(job){
+    jobs.filter(function(job){
 
-        return (
-          job.status ===
-          "offer"
-        );
+      return job.status === "Offer";
 
-      }
-    ).length;
+    }).length;
 
-
-  const rejected =
-    jobs.filter(
-      function(job){
-
-        return (
-          job.status ===
-          "rejected"
-        );
-
-      }
-    ).length;
-
-
-  const interviewRate =
-    applied > 0
-      ? (
-          interviews /
-          applied
-        ) * 100
+  const rate =
+    total
+      ? Math.round(
+          (
+            interviews /
+            total
+          ) * 100
+        )
       : 0;
 
+  document.getElementById(
+    "analyticsTotal"
+  ).textContent =
+    total;
 
-  setText(
-    "analyticsTotal",
-    total
-  );
+  document.getElementById(
+    "analyticsInterviews"
+  ).textContent =
+    interviews;
 
-  setText(
-    "analyticsInterviews",
-    interviews
-  );
+  document.getElementById(
+    "analyticsOffers"
+  ).textContent =
+    offers;
 
-  setText(
-    "analyticsOffers",
-    offers
-  );
-
-  setText(
-    "analyticsInterviewRate",
-    interviewRate.toFixed(1) +
-    "%"
-  );
-
-
-  const analyticsBox =
-    document.getElementById(
-      "analytics"
-    );
-
-  if(!analyticsBox)return;
-
-
-  let summary =
-    analyticsBox.querySelector(
-      ".analytics-summary"
-    );
-
-
-  if(!summary){
-
-    summary =
-      document.createElement(
-        "div"
-      );
-
-    summary.className =
-      "card analytics-summary";
-
-    summary.style.marginTop =
-      "18px";
-
-    analyticsBox.appendChild(
-      summary
-    );
-
-  }
-
-
-  summary.innerHTML = `
-
-    <h3>
-      Application Overview
-    </h3>
-
-    <div
-      class="grid"
-      style="margin-top:15px"
-    >
-
-      <div class="card">
-
-        <div class="muted">
-          Applied
-        </div>
-
-        <div class="stat blue">
-          ${applied}
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="muted">
-          Interviews
-        </div>
-
-        <div class="stat green">
-          ${interviews}
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="muted">
-          Offers
-        </div>
-
-        <div class="stat blue">
-          ${offers}
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="muted">
-          Rejected
-        </div>
-
-        <div class="stat orange">
-          ${rejected}
-        </div>
-
-      </div>
-
-    </div>
-
-  `;
+  document.getElementById(
+    "analyticsInterviewRate"
+  ).textContent =
+    rate + "%";
 
 }
 
 
 /* =========================
-   DASHBOARD REFRESH
+   DASHBOARD
 ========================= */
 
-function updateDashboard(){
+function renderDashboard(){
 
-  const saved =
-    jobs.filter(
-      function(job){
+  const totalJobs =
+    jobs.filter(function(job){
 
-        return (
-          job.status ===
-          "saved"
-        );
+      return job.status === "Saved";
 
-      }
-    ).length;
+    }).length;
 
+  const totalApplications =
+    jobs.filter(function(job){
 
-  const applications =
-    jobs.filter(
-      function(job){
+      return job.status !== "Saved";
 
-        return (
-          job.status !==
-          "saved"
-        );
-
-      }
-    ).length;
-
+    }).length;
 
   const interviews =
-    jobs.filter(
-      function(job){
+    jobs.filter(function(job){
 
-        return (
-          job.status ===
-          "interview"
-        );
+      return [
+        "Interview",
+        "Final Round"
+      ].includes(job.status);
 
-      }
-    ).length;
-
+    }).length;
 
   const offers =
-    jobs.filter(
-      function(job){
+    jobs.filter(function(job){
 
-        return (
-          job.status ===
-          "offer"
-        );
+      return job.status === "Offer";
 
-      }
-    ).length;
+    }).length;
 
+  document.getElementById(
+    "totalJobs"
+  ).textContent =
+    totalJobs;
 
-  setText(
-    "totalJobs",
-    saved
-  );
+  document.getElementById(
+    "totalApplications"
+  ).textContent =
+    totalApplications;
 
-  setText(
-    "totalApplications",
-    applications
-  );
+  document.getElementById(
+    "totalInterviews"
+  ).textContent =
+    interviews;
 
-  setText(
-    "totalInterviews",
-    interviews
-  );
-
-  setText(
-    "totalOffers",
-    offers
-  );
+  document.getElementById(
+    "totalOffers"
+  ).textContent =
+    offers;
 
 
   const recent =
@@ -3103,15 +5047,7 @@ function updateDashboard(){
 
   if(!recent)return;
 
-
-  const recentJobs =
-    jobs
-      .slice()
-      .reverse()
-      .slice(0,5);
-
-
-  if(!recentJobs.length){
+  if(!jobs.length){
 
     recent.innerHTML = `
       <tr>
@@ -3127,759 +5063,265 @@ function updateDashboard(){
 
   }
 
+  const recentJobs =
+    jobs.slice(-5).reverse();
 
   recent.innerHTML =
-    recentJobs.map(
-      function(job){
+    recentJobs.map(function(job){
 
-        return `
-          <tr>
+      return `
+        <tr>
 
-            <td>
-              ${escapeHTML(
-                job.company
-              )}
-            </td>
+          <td>
+            ${escapeHTML(job.company)}
+          </td>
 
-            <td>
-              ${escapeHTML(
-                job.title
-              )}
-            </td>
+          <td>
+            ${escapeHTML(job.title)}
+          </td>
 
-            <td>
-              <span
-                class="badge badge-blue"
-              >
-                ${escapeHTML(
-                  job.status
-                )}
-              </span>
-            </td>
+          <td>
+            ${statusBadge(job.status)}
+          </td>
 
-          </tr>
-        `;
+        </tr>
+      `;
 
-      }
-    ).join("");
+    }).join("");
 
 }
 
 
 /* =========================
-   UI SYNC
+   STATUS BADGE
 ========================= */
 
-function syncJobFlowUI(){
+function statusBadge(status){
 
-  updateDashboard();
+  const map = {
 
-  renderApplications();
+    Saved:"badge-gray",
 
-  renderPipeline();
+    Applied:"badge-blue",
 
-  updatePipelineCounts();
+    Screening:"badge-purple",
 
-  renderAnalytics();
+    Interview:"badge-orange",
+
+    "Final Round":"badge-orange",
+
+    Offer:"badge-green",
+
+    Rejected:"badge-red"
+
+  };
+
+  const cls =
+    map[status] ||
+    "badge-gray";
+
+  return `
+    <span class="badge ${cls}">
+      ${escapeHTML(status)}
+    </span>
+  `;
 
 }
 
 
 /* =========================
-   REFRESH FILTERED JOBS
+   RESUME
 ========================= */
 
-function refreshJobSearch(){
-
-  searchJobs();
-
-}
-
-
-/* =========================
-   INITIAL JOB DATA
-========================= */
-
-function initializeJobData(){
-
-  if(!Array.isArray(jobs)){
-
-    jobs = [];
-
-    saveJobs();
-
-  }
-
-  initializeJobs();
-
-  syncJobFlowUI();
-
-}
-
-
-/* =========================
-   WINDOW EXPORTS
-========================= */
-
-window.renderPipeline =
-  renderPipeline;
-
-window.updatePipelineCounts =
-  updatePipelineCounts;
-
-window.renderAnalytics =
-  renderAnalytics;
-
-window.updateDashboard =
-  updateDashboard;
-
-window.syncJobFlowUI =
-  syncJobFlowUI;
-
-window.refreshJobSearch =
-  refreshJobSearch;
-
-window.setupJobSearch =
-  setupJobSearch;
-/* =========================
-   RESUME BUILDER
-========================= */
-
-const resumeData = {
-
-  name: "",
-  title: "",
-  email: "",
-  phone: "",
-  location: "",
-  summary: "",
-  skills: "",
-  experience: "",
-  education: ""
-
-};
-
-
-/* =========================
-   LOAD RESUME DATA
-========================= */
-
-function loadResumeData(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(
-        "jobflow_resume"
-      );
-
-    if(saved){
-
-      const parsed =
-        JSON.parse(saved);
-
-      Object.assign(
-        resumeData,
-        parsed
-      );
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Resume load error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================
-   SAVE RESUME DATA
-========================= */
-
-function saveResumeData(){
-
-  try{
-
-    localStorage.setItem(
-      "jobflow_resume",
-      JSON.stringify(
-        resumeData
-      )
-    );
-
-  }catch(error){
-
-    console.error(
-      "Resume save error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================
-   GET RESUME FIELD
-========================= */
-
-function resumeField(id){
-
-  const element =
-    document.getElementById(
-      id
-    );
-
-  return element
-    ? element.value.trim()
-    : "";
-
-}
-
-
-/* =========================
-   COLLECT RESUME
-========================= */
-
-function collectResume(){
-
-  resumeData.name =
-    resumeField(
-      "resumeName"
-    );
-
-  resumeData.title =
-    resumeField(
-      "resumeTitle"
-    );
-
-  resumeData.summary =
-    resumeField(
-      "resumeSummary"
-    );
-
-  resumeData.skills =
-    resumeField(
-      "resumeSkills"
-    );
-
-  saveResumeData();
-
-}
-
-
-/* =========================
-   RESUME PREVIEW
-========================= */
-
-function generateResume(){
-
-  collectResume();
-
-  const preview =
-    document.getElementById(
-      "resumePreview"
-    );
-
-  if(!preview)return;
-
+window.generateResume =
+function(){
 
   const name =
-    resumeData.name ||
-    "Your Name";
+    document.getElementById(
+      "resumeName"
+    ).value.trim();
 
   const title =
-    resumeData.title ||
-    "Professional";
+    document.getElementById(
+      "resumeTitle"
+    ).value.trim();
 
   const summary =
-    resumeData.summary ||
-    "Professional summary not added yet.";
+    document.getElementById(
+      "resumeSummary"
+    ).value.trim();
 
   const skills =
-    resumeData.skills ||
-    "Add your professional skills.";
+    document.getElementById(
+      "resumeSkills"
+    ).value.trim();
 
+  if(!name){
 
-  preview.innerHTML = `
+    toast("Enter your name first.");
+
+    return;
+
+  }
+
+  const resume = {
+
+    name:name,
+
+    title:title,
+
+    summary:summary,
+
+    skills:skills
+
+  };
+
+  localStorage.setItem(
+    "jobflow_resume",
+    JSON.stringify(resume)
+  );
+
+  document.getElementById(
+    "resumePreview"
+  ).innerHTML = `
 
     <div
       style="
-      max-width:800px;
-      margin:auto;
-      background:white;
-      padding:35px;
-      border:1px solid #e5e7eb;
+        max-width:750px;
+        margin:auto;
+        padding:20px;
       "
     >
 
-      <h1
-        style="
-        font-size:32px;
-        color:#111827;
-        "
-      >
+      <h1>
         ${escapeHTML(name)}
       </h1>
 
-      <h3
+      <p
         style="
-        margin-top:7px;
-        color:#2563eb;
+          color:#2563eb;
+          font-weight:700;
+          margin-top:5px;
         "
       >
         ${escapeHTML(title)}
-      </h3>
-
+      </p>
 
       <hr
         style="
-        margin:22px 0;
-        border:0;
-        border-top:
-        1px solid #e5e7eb;
+          margin:18px 0;
+          border:0;
+          border-top:1px solid #e5e7eb;
         "
       >
 
-
-      <h4>
-        PROFESSIONAL SUMMARY
-      </h4>
+      <h3>Professional Summary</h3>
 
       <p
         style="
-        margin-top:8px;
-        line-height:1.7;
+          margin-top:8px;
+          line-height:1.7;
         "
       >
-        ${escapeHTML(summary)}
+        ${escapeHTML(summary || "Add your professional summary.")}
       </p>
 
-
-      <h4
-        style="
-        margin-top:24px;
-        "
-      >
-        SKILLS
-      </h4>
+      <h3 style="margin-top:20px">
+        Skills
+      </h3>
 
       <p
         style="
-        margin-top:8px;
-        line-height:1.7;
+          margin-top:8px;
+          line-height:1.7;
         "
       >
-        ${escapeHTML(skills)}
+        ${escapeHTML(skills || "Add your skills.")}
       </p>
-
-    </div>
-
-
-    <div
-      class="actions"
-    >
-
-      <button
-        class="btn btn-blue"
-        onclick="downloadResume()"
-      >
-        Download Resume
-      </button>
-
-      <button
-        class="btn btn-light"
-        onclick="printResume()"
-      >
-        Print
-      </button>
 
     </div>
 
   `;
 
+  toast("Resume generated.");
 
-  toast(
-    "Resume preview generated"
-  );
+};
 
-}
 
+function loadResume(){
 
-/* =========================
-   PRINT RESUME
-========================= */
+  try{
 
-function printResume(){
-
-  const preview =
-    document.getElementById(
-      "resumePreview"
-    );
-
-  if(!preview){
-
-    toast(
-      "Generate your resume first"
-    );
-
-    return;
-
-  }
-
-
-  const printWindow =
-    window.open(
-      "",
-      "_blank"
-    );
-
-  if(!printWindow){
-
-    toast(
-      "Allow pop-ups to print"
-    );
-
-    return;
-
-  }
-
-
-  printWindow.document.write(`
-
-    <!DOCTYPE html>
-
-    <html>
-
-    <head>
-
-      <title>
-        JobFlow Resume
-      </title>
-
-      <style>
-
-        body{
-          font-family:Arial;
-          padding:40px;
-          color:#111827;
-        }
-
-        @media print{
-          body{
-            padding:0;
-          }
-        }
-
-      </style>
-
-    </head>
-
-    <body>
-
-      ${preview.innerHTML}
-
-    </body>
-
-    </html>
-
-  `);
-
-
-  printWindow.document.close();
-
-  printWindow.focus();
-
-  setTimeout(
-    function(){
-
-      printWindow.print();
-
-    },
-    400
-  );
-
-}
-
-
-/* =========================
-   DOWNLOAD RESUME
-========================= */
-
-function downloadResume(){
-
-  collectResume();
-
-  const data =
-    resumeData;
-
-
-  const html = `
-
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-<meta charset="UTF-8">
-
-<title>
-${escapeHTML(
-  data.name ||
-  "JobFlow Resume"
-)}
-</title>
-
-<style>
-
-body{
-  font-family:Arial;
-  color:#111827;
-  margin:0;
-  padding:40px;
-  background:#f8fafc;
-}
-
-.resume{
-  max-width:800px;
-  margin:auto;
-  background:white;
-  padding:45px;
-}
-
-h1{
-  margin-bottom:6px;
-}
-
-.title{
-  color:#2563eb;
-  font-weight:bold;
-}
-
-section{
-  margin-top:25px;
-}
-
-h3{
-  border-bottom:
-    1px solid #ddd;
-  padding-bottom:6px;
-}
-
-p{
-  line-height:1.7;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="resume">
-
-<h1>
-${escapeHTML(
-  data.name ||
-  "Your Name"
-)}
-</h1>
-
-<div class="title">
-${escapeHTML(
-  data.title ||
-  "Professional"
-)}
-</div>
-
-<section>
-
-<h3>
-Summary
-</h3>
-
-<p>
-${escapeHTML(
-  data.summary
-)}
-</p>
-
-</section>
-
-<section>
-
-<h3>
-Skills
-</h3>
-
-<p>
-${escapeHTML(
-  data.skills
-)}
-</p>
-
-</section>
-
-</div>
-
-</body>
-
-</html>
-
-`;
-
-
-  const blob =
-    new Blob(
-      [html],
-      {
-        type:
-          "text/html"
-      }
-    );
-
-
-  const url =
-    URL.createObjectURL(
-      blob
-    );
-
-
-  const link =
-    document.createElement(
-      "a"
-    );
-
-  link.href =
-    url;
-
-  link.download =
-    "JobFlow-Resume.html";
-
-  document.body.appendChild(
-    link
-  );
-
-  link.click();
-
-  link.remove();
-
-
-  setTimeout(
-    function(){
-
-      URL.revokeObjectURL(
-        url
+    const data =
+      localStorage.getItem(
+        "jobflow_resume"
       );
 
-    },
-    1000
-  );
+    if(!data)return;
 
+    const resume =
+      JSON.parse(data);
 
-  toast(
-    "Resume downloaded"
-  );
+    document.getElementById(
+      "resumeName"
+    ).value =
+      resume.name || "";
+
+    document.getElementById(
+      "resumeTitle"
+    ).value =
+      resume.title || "";
+
+    document.getElementById(
+      "resumeSummary"
+    ).value =
+      resume.summary || "";
+
+    document.getElementById(
+      "resumeSkills"
+    ).value =
+      resume.skills || "";
+
+  }catch(error){
+
+    console.error(error);
+
+  }
 
 }
 
 
 /* =========================
-   COVER LETTER
-========================= */
-
-function openCoverLetterBuilder(){
-
-  showPage(
-    "resume"
-  );
-
-  toast(
-    "Cover letter tools are available from your resume workspace"
-  );
-
-}
-
-
-/* =========================
-   INTERVIEW QUESTIONS
+   INTERVIEW
 ========================= */
 
 const interviewQuestions = [
 
   "Tell me about yourself.",
 
-  "Why do you want to work for this company?",
+  "Why do you want this job?",
 
-  "What are your greatest strengths?",
+  "What are your biggest strengths?",
 
-  "What is one weakness you are improving?",
+  "What is one weakness you are working on?",
 
   "Why should we hire you?",
 
   "Tell me about a difficult problem you solved.",
 
-  "Describe a time you worked successfully in a team.",
-
-  "How do you handle tight deadlines?",
-
   "Where do you see yourself in five years?",
 
-  "Tell me about a project you are proud of.",
-
-  "How do you prioritize multiple tasks?",
-
-  "How do you handle criticism?",
-
-  "What motivates you?",
-
-  "What are your salary expectations?",
-
-  "Do you have any questions for us?"
+  "Tell me about a successful project you worked on."
 
 ];
 
-
-let interviewIndex =
-  0;
+let interviewIndex = 0;
 
 
-/* =========================
-   CURRENT QUESTION
-========================= */
-
-function renderInterviewQuestion(){
-
-  const element =
-    document.getElementById(
-      "interviewQuestion"
-    );
-
-  if(!element)return;
-
-
-  element.textContent =
-    interviewQuestions[
-      interviewIndex
-    ];
-
-}
-
-
-/* =========================
-   NEXT QUESTION
-========================= */
-
-function nextInterviewQuestion(){
+window.nextInterviewQuestion =
+function(){
 
   interviewIndex++;
-
 
   if(
     interviewIndex >=
@@ -3890,716 +5332,143 @@ function nextInterviewQuestion(){
 
   }
 
+  document.getElementById(
+    "interviewQuestion"
+  ).textContent =
+    interviewQuestions[
+      interviewIndex
+    ];
 
-  renderInterviewQuestion();
+};
 
-}
 
-
-/* =========================
-   PREVIOUS QUESTION
-========================= */
-
-function previousInterviewQuestion(){
-
-  interviewIndex--;
-
-
-  if(
-    interviewIndex < 0
-  ){
-
-    interviewIndex =
-      interviewQuestions.length -
-      1;
-
-  }
-
-
-  renderInterviewQuestion();
-
-}
-
-
-/* =========================
-   INTERVIEW ANSWER
-========================= */
-
-function saveInterviewAnswer(){
-
-  const answer =
-    prompt(
-      "Write your answer:"
-    );
-
-
-  if(!answer){
-
-    return;
-
-  }
-
-
-  const key =
-    "jobflow_interview_" +
-    interviewIndex;
-
-
-  try{
-
-    localStorage.setItem(
-      key,
-      answer
-    );
-
-    toast(
-      "Answer saved"
-    );
-
-  }catch(error){
-
-    toast(
-      "Could not save answer"
-    );
-
-  }
-
-}
-
-
-/* =========================
-   INTERVIEW SCORE
-========================= */
-
-function calculateInterviewScore(){
-
-  const answer =
-    prompt(
-      "Paste your interview answer for a basic self-review:"
-    );
-
-
-  if(!answer){
-
-    return;
-
-  }
-
-
-  let score = 0;
-
-
-  if(
-    answer.length >= 80
-  ){
-
-    score += 25;
-
-  }
-
-  if(
-    answer.length >= 180
-  ){
-
-    score += 25;
-
-  }
-
-  if(
-    /\b(example|result|experience|project)\b/i
-      .test(answer)
-  ){
-
-    score += 25;
-
-  }
-
-  if(
-    /\b(I|my|we)\b/i
-      .test(answer)
-  ){
-
-    score += 25;
-
-  }
-
-
-  alert(
-    "Basic self-review score: " +
-    score +
-    "/100"
-  );
-
-}
-
-
-/* =========================
-   INTERVIEW EXPORTS
-========================= */
-
-window.generateResume =
-  generateResume;
-
-window.downloadResume =
-  downloadResume;
-
-window.printResume =
-  printResume;
-
-window.openCoverLetterBuilder =
-  openCoverLetterBuilder;
-
-window.nextInterviewQuestion =
-  nextInterviewQuestion;
-
-window.previousInterviewQuestion =
-  previousInterviewQuestion;
-
-window.saveInterviewAnswer =
-  saveInterviewAnswer;
-
-window.calculateInterviewScore =
-  calculateInterviewScore;
 /* =========================
    PROFILE
 ========================= */
 
-function loadProfileData(){
+function loadProfileForm(){
 
-  try{
+  document.getElementById(
+    "profileName"
+  ).value =
+    profile.name || "";
 
-    const saved =
-      localStorage.getItem(
-        PROFILE_KEY
-      );
+  document.getElementById(
+    "profileEmail"
+  ).value =
+    profile.email || "";
 
-    if(saved){
-
-      profile =
-        JSON.parse(saved);
-
-    }
-
-  }catch(error){
-
-    profile = {};
-
-  }
-
-
-  const name =
-    document.getElementById(
-      "profileName"
-    );
-
-  const email =
-    document.getElementById(
-      "profileEmail"
-    );
-
-
-  if(name){
-
-    name.value =
-      profile.name || "";
-
-  }
-
-  if(email){
-
-    email.value =
-      profile.email || "";
-
-  }
-
-
-  updateUserName();
-
-}
-
-
-/* =========================
-   SAVE PROFILE
-========================= */
-
-function saveProfile(){
-
-  const name =
-    getValue(
-      "profileName"
-    );
-
-  const email =
-    getValue(
-      "profileEmail"
-    );
-
-
-  if(
-    email &&
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      .test(email)
-  ){
-
-    toast(
-      "Enter a valid email address"
-    );
-
-    return;
-
-  }
-
-
-  profile = {
-
-    name:
-      name || "Job Seeker",
-
-    email:
-      email
-
-  };
-
-
-  try{
-
-    localStorage.setItem(
-      PROFILE_KEY,
-      JSON.stringify(
-        profile
-      )
-    );
-
-  }catch(error){
-
-    toast(
-      "Could not save profile"
-    );
-
-    return;
-
-  }
-
-
-  updateUserName();
-
-  toast(
-    "Profile saved"
-  );
-
-}
-
-
-/* =========================
-   UPDATE USER NAME
-========================= */
-
-function updateUserName(){
-
-  const element =
-    document.getElementById(
-      "topUser"
-    );
-
-  if(!element)return;
-
-
-  element.textContent =
+  document.getElementById(
+    "topUser"
+  ).textContent =
     profile.name ||
     "Job Seeker";
 
 }
 
 
-/* =========================
-   SETTINGS
-========================= */
+window.saveProfile =
+function(){
 
-function loadSettings(){
+  profile = {
 
-  try{
+    name:
+      document
+        .getElementById("profileName")
+        .value
+        .trim(),
 
-    const saved =
-      localStorage.getItem(
-        "jobflow_settings"
-      );
-
-    if(saved){
-
-      return JSON.parse(
-        saved
-      );
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Settings error:",
-      error
-    );
-
-  }
-
-
-  return {
-
-    notifications:true,
-
-    compactMode:false
+    email:
+      document
+        .getElementById("profileEmail")
+        .value
+        .trim()
 
   };
 
-}
-
-
-let settings =
-  loadSettings();
-
-
-/* =========================
-   SAVE SETTINGS
-========================= */
-
-function saveSettings(){
-
-  try{
-
-    localStorage.setItem(
-      "jobflow_settings",
-      JSON.stringify(
-        settings
-      )
-    );
-
-  }catch(error){
-
-    console.error(
-      "Settings save error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================
-   TOGGLE NOTIFICATIONS
-========================= */
-
-function toggleNotifications(){
-
-  settings.notifications =
-    !settings.notifications;
-
-  saveSettings();
-
-  toast(
-    settings.notifications
-      ? "Notifications enabled"
-      : "Notifications disabled"
+  localStorage.setItem(
+    PROFILE_KEY,
+    JSON.stringify(profile)
   );
 
-}
+  document.getElementById(
+    "topUser"
+  ).textContent =
+    profile.name ||
+    "Job Seeker";
+
+  toast(
+    "Profile saved successfully."
+  );
+
+};
 
 
 /* =========================
-   CLEAR LOCAL DATA
+   SUBSCRIPTION
 ========================= */
 
-function clearAllData(){
+window.openPayment =
+function(){
+
+  const existing =
+    localStorage.getItem(
+      SUBSCRIPTION_KEY
+    );
+
+  if(existing === "premium"){
+
+    toast(
+      "Premium is already active."
+    );
+
+    return;
+
+  }
 
   const confirmed =
     confirm(
-      "This will remove your locally stored JobFlow data. Continue?"
+      "Continue to Premium checkout?"
     );
-
 
   if(!confirmed)return;
 
+  /*
+     Demo checkout flow.
 
-  const keys = [
+     IMPORTANT:
+     Real payments require a
+     payment provider/backend.
+     Never store card details
+     in localStorage.
+  */
 
-    JOBS_KEY,
+  const plan =
+    prompt(
+      "Enter plan: Monthly or Yearly"
+    );
 
-    PROFILE_KEY,
+  if(!plan)return;
 
+  localStorage.setItem(
     SUBSCRIPTION_KEY,
-
-    "jobflow_resume",
-
-    "jobflow_settings"
-
-  ];
-
-
-  keys.forEach(
-    function(key){
-
-      localStorage.removeItem(
-        key
-      );
-
-    }
+    "premium"
   );
 
-
-  jobs = [];
-
-  profile = {};
-
-  settings = {
-
-    notifications:true,
-
-    compactMode:false
-
-  };
-
-
-  updateUserName();
-
-  updateDashboard();
-
-  renderApplications();
-
-  renderPipeline();
-
-  renderAnalytics();
-
-  renderJobs();
-
+  updateAccessBanner();
 
   toast(
-    "Local JobFlow data cleared"
+    "Premium activated in demo mode."
   );
 
-}
-
-
-/* =========================
-   TRIAL SYSTEM
-========================= */
-
-const TRIAL_KEY =
-  "jobflow_trial_start";
-
-
-const TRIAL_DURATION =
-  48 * 60 * 60 * 1000;
-
-
-/* =========================
-   GET TRIAL START
-========================= */
-
-function getTrialStart(){
-
-  let start =
-    localStorage.getItem(
-      TRIAL_KEY
-    );
-
-
-  if(!start){
-
-    start =
-      Date.now();
-
-    localStorage.setItem(
-      TRIAL_KEY,
-      String(start)
-    );
-
-  }
-
-
-  return Number(start);
-
-}
-
-
-/* =========================
-   TRIAL INFORMATION
-========================= */
-
-function getTrialInfo(){
-
-  const start =
-    getTrialStart();
-
-
-  const now =
-    Date.now();
-
-
-  const elapsed =
-    now - start;
-
-
-  const remaining =
-    Math.max(
-      0,
-      TRIAL_DURATION -
-      elapsed
-    );
-
-
-  return {
-
-    start:start,
-
-    remaining:remaining,
-
-    active:
-      remaining > 0
-
-  };
-
-}
-
-
-/* =========================
-   TRIAL TIME FORMAT
-========================= */
-
-function formatTrialTime(
-  milliseconds
-){
-
-  const totalSeconds =
-    Math.floor(
-      milliseconds /
-      1000
-    );
-
-
-  const hours =
-    Math.floor(
-      totalSeconds /
-      3600
-    );
-
-
-  const minutes =
-    Math.floor(
-      (totalSeconds %
-        3600) /
-      60
-    );
-
-
-  const seconds =
-    totalSeconds %
-    60;
-
-
-  return (
-    String(hours)
-      .padStart(2,"0") +
-    ":" +
-    String(minutes)
-      .padStart(2,"0") +
-    ":" +
-    String(seconds)
-      .padStart(2,"0")
-  );
-
-}
-
-
-/* =========================
-   PREMIUM STATUS
-========================= */
-
-function isPremium(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(
-        SUBSCRIPTION_KEY
-      );
-
-
-    if(!saved){
-
-      return false;
-
-    }
-
-
-    const subscription =
-      JSON.parse(
-        saved
-      );
-
-
-    return (
-      subscription &&
-      subscription.active ===
-      true
-    );
-
-  }catch(error){
-
-    return false;
-
-  }
-
-}
-
-
-/* =========================
-   ACCESS STATUS
-========================= */
-
-function getAccessStatus(){
-
-  const premium =
-    isPremium();
-
-
-  if(premium){
-
-    return {
-
-      premium:true,
-
-      trial:false,
-
-      limited:false
-
-    };
-
-  }
-
-
-  const trial =
-    getTrialInfo();
-
-
-  return {
-
-    premium:false,
-
-    trial:
-      trial.active,
-
-    limited:
-      !trial.active
-
-  };
-
-}
+};
 
 
 /* =========================
    ACCESS BANNER
 ========================= */
 
-function renderAccessBanner(){
+function updateAccessBanner(){
 
   const banner =
     document.getElementById(
@@ -4608,3012 +5477,237 @@ function renderAccessBanner(){
 
   if(!banner)return;
 
-
-  const access =
-    getAccessStatus();
-
-
-  if(access.premium){
-
-    banner.innerHTML = `
-      <strong>
-        ⭐ Premium Active
-      </strong>
-
-      <div
-        class="muted"
-        style="margin-top:6px"
-      >
-        Your premium career tools
-        are unlocked.
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  const trial =
-    getTrialInfo();
-
-
-  if(access.trial){
-
-    banner.innerHTML = `
-      <strong>
-        ⏱️ 48-hour trial active
-      </strong>
-
-      <div
-        class="muted"
-        style="margin-top:6px"
-      >
-        Time remaining:
-        <strong>
-          ${formatTrialTime(
-            trial.remaining
-          )}
-        </strong>
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  banner.innerHTML = `
-    <strong>
-      Trial ended
-    </strong>
-
-    <div
-      class="muted"
-      style="margin-top:6px"
-    >
-      Basic features remain available.
-      Upgrade to access premium tools.
-    </div>
-
-    <div class="actions">
-
-      <button
-        class="btn btn-blue"
-        onclick="
-          showPage('subscription')
-        "
-      >
-        View Premium
-      </button>
-
-    </div>
-  `;
-
-}
-
-
-/* =========================
-   ACCESS CHECK
-========================= */
-
-function requirePremium(
-  callback
-){
-
-  if(isPremium()){
-
-    if(
-      typeof callback ===
-      "function"
-    ){
-
-      callback();
-
-    }
-
-    return true;
-
-  }
-
-
-  const trial =
-    getTrialInfo();
-
-
-  if(trial.active){
-
-    if(
-      typeof callback ===
-      "function"
-    ){
-
-      callback();
-
-    }
-
-    return true;
-
-  }
-
-
-  toast(
-    "This feature requires Premium."
-  );
-
-
-  showPage(
-    "subscription"
-  );
-
-
-  return false;
-
-}
-
-
-/* =========================
-   TRIAL TIMER
-========================= */
-
-let trialTimer = null;
-
-
-function startTrialTimer(){
-
-  if(trialTimer){
-
-    clearInterval(
-      trialTimer
-    );
-
-  }
-
-
-  trialTimer =
-    setInterval(
-      function(){
-
-        renderAccessBanner();
-
-      },
-      1000
-    );
-
-}
-
-
-/* =========================
-   PROFILE EXPORTS
-========================= */
-
-window.saveProfile =
-  saveProfile;
-
-window.clearAllData =
-  clearAllData;
-
-window.toggleNotifications =
-  toggleNotifications;
-
-window.isPremium =
-  isPremium;
-
-window.getAccessStatus =
-  getAccessStatus;
-
-window.requirePremium =
-  requirePremium;
-
-window.renderAccessBanner =
-  renderAccessBanner;
-/* =========================
-   SUBSCRIPTION + UPI
-========================= */
-
-const PREMIUM_PRICE = 499;
-
-const MERCHANT_UPI =
-  "8374506945@fam";
-
-const MERCHANT_NAME =
-  "JobFlow";
-
-const PAYMENT_KEY =
-  "jobflow_payment";
-
-
-/* =========================
-   SUBSCRIPTION DATA
-========================= */
-
-function getSubscription(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(
-        SUBSCRIPTION_KEY
-      );
-
-    if(saved){
-
-      return JSON.parse(
-        saved
-      );
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Subscription load error:",
-      error
-    );
-
-  }
-
-
-  return {
-
-    active:false,
-
-    plan:"free",
-
-    paymentId:"",
-
-    activatedAt:""
-
-  };
-
-}
-
-
-let subscription =
-  getSubscription();
-
-
-/* =========================
-   SAVE SUBSCRIPTION
-========================= */
-
-function saveSubscription(){
-
-  try{
-
-    localStorage.setItem(
-      SUBSCRIPTION_KEY,
-      JSON.stringify(
-        subscription
-      )
-    );
-
-  }catch(error){
-
-    console.error(
-      "Subscription save error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================
-   PAYMENT DATA
-========================= */
-
-function getPaymentData(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(
-        PAYMENT_KEY
-      );
-
-    if(saved){
-
-      return JSON.parse(
-        saved
-      );
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Payment data error:",
-      error
-    );
-
-  }
-
-
-  return {
-
-    pending:false,
-
-    amount:0,
-
-    transactionId:"",
-
-    createdAt:""
-
-  };
-
-}
-
-
-let paymentData =
-  getPaymentData();
-
-
-/* =========================
-   SAVE PAYMENT DATA
-========================= */
-
-function savePaymentData(){
-
-  try{
-
-    localStorage.setItem(
-      PAYMENT_KEY,
-      JSON.stringify(
-        paymentData
-      )
-    );
-
-  }catch(error){
-
-    console.error(
-      "Payment save error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================
-   OPEN UPI PAYMENT
-========================= */
-
-function openPayment(){
-
-  const amount =
-    PREMIUM_PRICE;
-
-
-  const transaction =
-    "JF" +
-    Date.now();
-
-
-  paymentData = {
-
-    pending:true,
-
-    amount:amount,
-
-    transactionId:
-      transaction,
-
-    createdAt:
-      new Date()
-        .toISOString()
-
-  };
-
-
-  savePaymentData();
-
-
-  const upiUrl =
-    "upi://pay" +
-    "?pa=" +
-    encodeURIComponent(
-      MERCHANT_UPI
-    ) +
-    "&pn=" +
-    encodeURIComponent(
-      MERCHANT_NAME
-    ) +
-    "&am=" +
-    encodeURIComponent(
-      amount.toFixed(2)
-    ) +
-    "&cu=INR" +
-    "&tn=" +
-    encodeURIComponent(
-      "JobFlow Premium " +
-      transaction
-    );
-
-
-  const link =
-    document.createElement(
-      "a"
-    );
-
-
-  link.href =
-    upiUrl;
-
-  link.style.display =
-    "none";
-
-
-  document.body.appendChild(
-    link
-  );
-
-
-  link.click();
-
-
-  setTimeout(
-    function(){
-
-      link.remove();
-
-    },
-    1000
-  );
-
-
-  showPaymentPending();
-
-}
-
-
-/* =========================
-   PAYMENT PENDING UI
-========================= */
-
-function showPaymentPending(){
-
-  const box =
-    document.getElementById(
-      "paymentStatus"
-    );
-
-
-  if(box){
-
-    box.innerHTML = `
-
-      <div
-        class="card"
-        style="margin-top:15px"
-      >
-
-        <strong>
-          Payment started
-        </strong>
-
-        <p
-          class="muted"
-          style="margin-top:7px"
-        >
-          Complete the ₹${PREMIUM_PRICE}
-          payment in your UPI app.
-        </p>
-
-        <p
-          class="muted"
-          style="margin-top:7px"
-        >
-          UPI ID:
-          <strong>
-            ${MERCHANT_UPI}
-          </strong>
-        </p>
-
-        <p
-          class="muted"
-          style="margin-top:7px"
-        >
-          Reference:
-          ${escapeHTML(
-            paymentData.transactionId
-          )}
-        </p>
-
-        <div
-          class="actions"
-        >
-
-          <button
-            class="btn btn-light"
-            onclick="
-              checkPaymentStatus()
-            "
-          >
-            I've Paid
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  toast(
-    "Complete the payment in your UPI app."
-  );
-
-}
-
-
-/* =========================
-   PAYMENT STATUS
-========================= */
-
-function checkPaymentStatus(){
-
-  if(
-    !paymentData.pending
-  ){
-
-    toast(
-      "No pending payment found."
-    );
-
-    return;
-
-  }
-
-
-  /*
-   IMPORTANT:
-
-   Opening UPI does NOT prove that
-   money was actually received.
-
-   Premium must not be activated
-   from a client-side button alone.
-  */
-
-
-  const message =
-    "Payment verification is required " +
-    "before Premium can be activated.\n\n" +
-    "Reference: " +
-    paymentData.transactionId;
-
-
-  alert(message);
-
-}
-
-
-/* =========================
-   PAYMENT CALLBACK HANDLER
-========================= */
-
-function activatePremium(
-  verifiedPaymentId
-){
-
-  if(
-    !verifiedPaymentId
-  ){
-
-    toast(
-      "Valid payment verification required."
-    );
-
-    return false;
-
-  }
-
-
-  subscription = {
-
-    active:true,
-
-    plan:"premium",
-
-    paymentId:
-      String(
-        verifiedPaymentId
-      ),
-
-    activatedAt:
-      new Date()
-        .toISOString()
-
-  };
-
-
-  paymentData.pending =
-    false;
-
-
-  saveSubscription();
-
-  savePaymentData();
-
-  renderAccessBanner();
-
-  renderSubscription();
-
-  toast(
-    "Premium activated successfully."
-  );
-
-
-  return true;
-
-}
-
-
-/* =========================
-   SUBSCRIPTION UI
-========================= */
-
-function renderSubscription(){
-
-  const box =
-    document.getElementById(
-      "subscriptionContent"
-    );
-
-
-  if(!box)return;
-
-
   const premium =
-    isPremium();
-
+    localStorage.getItem(
+      SUBSCRIPTION_KEY
+    ) === "premium";
 
   if(premium){
 
-    box.innerHTML = `
-
-      <div class="card">
-
-        <h2>
-          ⭐ Premium Active
-        </h2>
-
-        <p
-          class="muted"
-          style="margin-top:8px"
-        >
-          Your JobFlow Premium plan
-          is active.
-        </p>
-
-        <div
-          class="grid"
-          style="margin-top:20px"
-        >
-
-          <div class="card">
-
-            <strong>
-              Advanced Job Tracking
-            </strong>
-
-            <p class="muted">
-              Manage your complete
-              application pipeline.
-            </p>
-
-          </div>
-
-
-          <div class="card">
-
-            <strong>
-              Resume Tools
-            </strong>
-
-            <p class="muted">
-              Build and export
-              professional resumes.
-            </p>
-
-          </div>
-
-
-          <div class="card">
-
-            <strong>
-              Interview Practice
-            </strong>
-
-            <p class="muted">
-              Practice common
-              interview questions.
-            </p>
-
-          </div>
-
-
-          <div class="card">
-
-            <strong>
-              Career Analytics
-            </strong>
-
-            <p class="muted">
-              Review your
-              application progress.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  box.innerHTML = `
-
-    <div class="card">
-
-      <h2>
-        JobFlow Premium
-      </h2>
-
-      <p
-        class="muted"
-        style="margin-top:8px"
-      >
-        Unlock advanced career
-        management tools.
-      </p>
-
+    banner.innerHTML = `
+      <strong>
+        ✓ Premium Active
+      </strong>
 
       <div
         style="
-        font-size:32px;
-        font-weight:800;
-        margin-top:20px;
+          margin-top:6px;
+          color:#64748b;
+          font-size:14px;
         "
       >
-        ₹${PREMIUM_PRICE}
-        <span
-          style="
-          font-size:15px;
-          font-weight:400;
-          "
-        >
-          / plan
-        </span>
-      </div>
-
-
-      <div
-        class="card"
-        style="margin-top:20px"
-      >
-
-        <strong>
-          Premium includes
-        </strong>
-
-        <ul
-          style="
-          margin-top:12px;
-          padding-left:20px;
-          line-height:2;
-          "
-        >
-
-          <li>
-            Advanced application tracking
-          </li>
-
-          <li>
-            Resume builder
-          </li>
-
-          <li>
-            Cover letter tools
-          </li>
-
-          <li>
-            Interview preparation
-          </li>
-
-          <li>
-            Career analytics
-          </li>
-
-          <li>
-            Export tools
-          </li>
-
-          <li>
-            Priority career workspace
-          </li>
-
-        </ul>
-
-      </div>
-
-
-      <div
-        class="card"
-        style="margin-top:15px"
-      >
-
-        <strong>
-          Pay with UPI
-        </strong>
-
-        <p
-          class="muted"
-          style="margin-top:7px"
-        >
-          UPI ID:
-          <strong>
-            ${MERCHANT_UPI}
-          </strong>
-        </p>
-
-
-        <button
-          class="btn btn-blue"
-          style="margin-top:15px"
-          onclick="openPayment()"
-        >
-          Pay ₹${PREMIUM_PRICE}
-        </button>
-
-
-        <div
-          id="paymentStatus"
-        ></div>
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  if(
-    paymentData.pending
-  ){
-
-    showPaymentPending();
-
-  }
-
-}
-
-
-/* =========================
-   PAYMENT RESET
-========================= */
-
-function resetPendingPayment(){
-
-  paymentData = {
-
-    pending:false,
-
-    amount:0,
-
-    transactionId:"",
-
-    createdAt:""
-
-  };
-
-
-  savePaymentData();
-
-  renderSubscription();
-
-  toast(
-    "Pending payment cleared."
-  );
-
-}
-
-
-/* =========================
-   PREMIUM FEATURE GUARD
-========================= */
-
-function premiumFeature(
-  featureName,
-  callback
-){
-
-  const access =
-    getAccessStatus();
-
-
-  if(
-    access.premium ||
-    access.trial
-  ){
-
-    if(
-      typeof callback ===
-      "function"
-    ){
-
-      callback();
-
-    }
-
-    return true;
-
-  }
-
-
-  toast(
-    featureName +
-    " requires Premium."
-  );
-
-
-  showPage(
-    "subscription"
-  );
-
-
-  return false;
-
-}
-
-
-/* =========================
-   SUBSCRIPTION EXPORTS
-========================= */
-
-window.openPayment =
-  openPayment;
-
-window.checkPaymentStatus =
-  checkPaymentStatus;
-
-window.activatePremium =
-  activatePremium;
-
-window.renderSubscription =
-  renderSubscription;
-
-window.resetPendingPayment =
-  resetPendingPayment;
-
-window.premiumFeature =
-  premiumFeature;
-/* =========================
-   CAREER TOOLS
-========================= */
-
-function openCareerTool(tool){
-
-  if(
-    !premiumFeature(
-      tool,
-      function(){}
-    )
-  ){
-
-    return;
-
-  }
-
-
-  if(tool === "Resume Builder"){
-
-    showPage("resume");
-
-    return;
-
-  }
-
-
-  if(tool === "Interview Practice"){
-
-    showPage("interview");
-
-    return;
-
-  }
-
-
-  if(tool === "Analytics"){
-
-    showPage("analytics");
-
-    return;
-
-  }
-
-
-  if(tool === "Cover Letter"){
-
-    openCoverLetterBuilder();
-
-    return;
-
-  }
-
-}
-
-
-/* =========================
-   COVER LETTER DATA
-========================= */
-
-const coverLetterData = {
-
-  name:"",
-  company:"",
-  role:"",
-  skills:"",
-  experience:"",
-  message:""
-
-};
-
-
-/* =========================
-   COVER LETTER GENERATOR
-========================= */
-
-function generateCoverLetter(){
-
-  if(
-    !premiumFeature(
-      "Cover Letter Builder",
-      function(){}
-    )
-  ){
-
-    return;
-
-  }
-
-
-  const name =
-    getValue(
-      "coverName"
-    ) ||
-    profile.name ||
-    "Your Name";
-
-
-  const company =
-    getValue(
-      "coverCompany"
-    ) ||
-    "Hiring Company";
-
-
-  const role =
-    getValue(
-      "coverRole"
-    ) ||
-    "the position";
-
-
-  const skills =
-    getValue(
-      "coverSkills"
-    ) ||
-    "my skills and experience";
-
-
-  const message =
-    getValue(
-      "coverMessage"
-    );
-
-
-  const output =
-    document.getElementById(
-      "coverLetterOutput"
-    );
-
-
-  if(!output)return;
-
-
-  output.value =
-
-`Dear Hiring Manager,
-
-I am writing to express my interest in the ${role} position at ${company}.
-
-I believe my background and ${skills} would allow me to contribute effectively to your team.
-
-${message || "I am highly motivated to learn, contribute, and grow while delivering meaningful results."}
-
-I would appreciate the opportunity to discuss how my experience and skills can support your organization.
-
-Thank you for considering my application.
-
-Sincerely,
-${name}`;
-
-
-  toast(
-    "Cover letter generated"
-  );
-
-}
-
-
-/* =========================
-   COPY COVER LETTER
-========================= */
-
-function copyCoverLetter(){
-
-  const output =
-    document.getElementById(
-      "coverLetterOutput"
-    );
-
-
-  if(!output){
-
-    toast(
-      "Generate a cover letter first."
-    );
-
-    return;
-
-  }
-
-
-  const text =
-    output.value.trim();
-
-
-  if(!text){
-
-    toast(
-      "Generate a cover letter first."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    navigator.clipboard &&
-    navigator.clipboard.writeText
-  ){
-
-    navigator.clipboard
-      .writeText(text)
-      .then(
-        function(){
-
-          toast(
-            "Cover letter copied"
-          );
-
-        }
-      )
-      .catch(
-        function(){
-
-          fallbackCopy(text);
-
-        }
-      );
-
-  }else{
-
-    fallbackCopy(text);
-
-  }
-
-}
-
-
-/* =========================
-   FALLBACK COPY
-========================= */
-
-function fallbackCopy(text){
-
-  const area =
-    document.createElement(
-      "textarea"
-    );
-
-
-  area.value =
-    text;
-
-
-  area.style.position =
-    "fixed";
-
-  area.style.opacity =
-    "0";
-
-
-  document.body.appendChild(
-    area
-  );
-
-
-  area.select();
-
-
-  try{
-
-    document.execCommand(
-      "copy"
-    );
-
-    toast(
-      "Cover letter copied"
-    );
-
-  }catch(error){
-
-    toast(
-      "Copy failed. Select the text manually."
-    );
-
-  }
-
-
-  area.remove();
-
-}
-
-
-/* =========================
-   JOB DETAILS
-========================= */
-
-function openJobDetails(id){
-
-  const job =
-    jobs.find(
-      function(item){
-
-        return item.id === id;
-
-      }
-    );
-
-
-  if(!job){
-
-    toast(
-      "Job not found"
-    );
-
-    return;
-
-  }
-
-
-  const modal =
-    document.getElementById(
-      "jobDetailsModal"
-    );
-
-
-  const content =
-    document.getElementById(
-      "jobDetailsContent"
-    );
-
-
-  if(!modal || !content){
-
-    toast(
-      "Job details are unavailable."
-    );
-
-    return;
-
-  }
-
-
-  content.innerHTML = `
-
-    <div>
-
-      <h2>
-        ${escapeHTML(
-          job.title
-        )}
-      </h2>
-
-      <p
-        class="muted"
-        style="margin-top:6px"
-      >
-        ${escapeHTML(
-          job.company
-        )}
-      </p>
-
-
-      <div
-        class="card"
-        style="margin-top:18px"
-      >
-
-        <p>
-          <strong>
-            Location:
-          </strong>
-
-          ${escapeHTML(
-            job.location ||
-            "Not specified"
-          )}
-        </p>
-
-
-        <p
-          style="margin-top:10px"
-        >
-
-          <strong>
-            Status:
-          </strong>
-
-          ${escapeHTML(
-            job.status
-          )}
-
-        </p>
-
-
-        <p
-          style="margin-top:10px"
-        >
-
-          <strong>
-            Added:
-          </strong>
-
-          ${job.createdAt
-            ? new Date(
-                job.createdAt
-              ).toLocaleDateString()
-            : "Unknown"}
-
-        </p>
-
-      </div>
-
-
-      <div
-        class="actions"
-      >
-
-        <button
-          class="btn btn-blue"
-          onclick="
-            applyToJob(${job.id});
-            closeJobDetails();
-          "
-        >
-          Apply
-        </button>
-
-
-        <button
-          class="btn btn-light"
-          onclick="
-            closeJobDetails()
-          "
-        >
-          Close
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  modal.classList.add(
-    "show"
-  );
-
-}
-
-
-/* =========================
-   CLOSE JOB DETAILS
-========================= */
-
-function closeJobDetails(){
-
-  const modal =
-    document.getElementById(
-      "jobDetailsModal"
-    );
-
-
-  if(modal){
-
-    modal.classList.remove(
-      "show"
-    );
-
-  }
-
-}
-
-
-/* =========================
-   FOLLOW-UP DATA
-========================= */
-
-const FOLLOWUP_KEY =
-  "jobflow_followups";
-
-
-function getFollowUps(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(
-        FOLLOWUP_KEY
-      );
-
-
-    if(saved){
-
-      return JSON.parse(
-        saved
-      );
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "Follow-up load error:",
-      error
-    );
-
-  }
-
-
-  return [];
-
-}
-
-
-let followUps =
-  getFollowUps();
-
-
-/* =========================
-   SAVE FOLLOW-UPS
-========================= */
-
-function saveFollowUps(){
-
-  try{
-
-    localStorage.setItem(
-      FOLLOWUP_KEY,
-      JSON.stringify(
-        followUps
-      )
-    );
-
-  }catch(error){
-
-    console.error(
-      "Follow-up save error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================
-   ADD FOLLOW-UP
-========================= */
-
-function addFollowUp(){
-
-  const title =
-    prompt(
-      "Follow-up title:"
-    );
-
-
-  if(!title)return;
-
-
-  const date =
-    prompt(
-      "Follow-up date (YYYY-MM-DD):"
-    );
-
-
-  if(!date)return;
-
-
-  followUps.push({
-
-    id:
-      Date.now(),
-
-    title:
-      title.trim(),
-
-    date:
-      date,
-
-    completed:false
-
-  });
-
-
-  saveFollowUps();
-
-  renderFollowUps();
-
-  toast(
-    "Follow-up added"
-  );
-
-}
-
-
-/* =========================
-   COMPLETE FOLLOW-UP
-========================= */
-
-function completeFollowUp(id){
-
-  const item =
-    followUps.find(
-      function(followUp){
-
-        return (
-          followUp.id === id
-        );
-
-      }
-    );
-
-
-  if(!item)return;
-
-
-  item.completed =
-    !item.completed;
-
-
-  saveFollowUps();
-
-  renderFollowUps();
-
-}
-
-
-/* =========================
-   DELETE FOLLOW-UP
-========================= */
-
-function deleteFollowUp(id){
-
-  followUps =
-    followUps.filter(
-      function(item){
-
-        return (
-          item.id !== id
-        );
-
-      }
-    );
-
-
-  saveFollowUps();
-
-  renderFollowUps();
-
-  toast(
-    "Follow-up deleted"
-  );
-
-}
-
-
-/* =========================
-   RENDER FOLLOW-UPS
-========================= */
-
-function renderFollowUps(){
-
-  const box =
-    document.getElementById(
-      "followUps"
-    );
-
-
-  if(!box)return;
-
-
-  if(!followUps.length){
-
-    box.innerHTML = `
-      <div class="empty">
-        No upcoming follow-ups.
+        Advanced JobFlow features are available.
       </div>
     `;
 
-    return;
+  }else{
+
+    banner.innerHTML = `
+      <strong>
+        JobFlow Free Plan
+      </strong>
+
+      <div
+        style="
+          margin-top:6px;
+          color:#64748b;
+          font-size:14px;
+        "
+      >
+        Upgrade when you need advanced career tools.
+      </div>
+    `;
 
   }
 
-
-  const sorted =
-    followUps
-      .slice()
-      .sort(
-        function(a,b){
-
-          return (
-            new Date(a.date) -
-            new Date(b.date)
-          );
-
-        }
-      );
-
-
-  box.innerHTML =
-    sorted.map(
-      function(item){
-
-        return `
-
-          <div
-            class="card"
-            style="
-            margin-bottom:10px;
-            "
-          >
-
-            <div
-              style="
-              display:flex;
-              justify-content:space-between;
-              gap:10px;
-              "
-            >
-
-              <div>
-
-                <strong
-                  style="
-                  ${
-                    item.completed
-                      ? "text-decoration:line-through;"
-                      : ""
-                  }
-                  "
-                >
-                  ${escapeHTML(
-                    item.title
-                  )}
-                </strong>
-
-                <div
-                  class="muted"
-                  style="margin-top:5px"
-                >
-                  ${escapeHTML(
-                    item.date
-                  )}
-                </div>
-
-              </div>
-
-
-              <div
-                class="actions"
-              >
-
-                <button
-                  class="btn btn-light"
-                  onclick="
-                    completeFollowUp(
-                      ${item.id}
-                    )
-                  "
-                >
-                  ${
-                    item.completed
-                      ? "Undo"
-                      : "Done"
-                  }
-                </button>
-
-
-                <button
-                  class="btn btn-light"
-                  onclick="
-                    deleteFollowUp(
-                      ${item.id}
-                    )
-                  "
-                >
-                  Delete
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        `;
-
-      }
-    )
-    .join("");
-
 }
 
 
 /* =========================
-   CAREER TOOL EXPORTS
+   CLEAR DATA
 ========================= */
 
-window.openCareerTool =
-  openCareerTool;
+window.clearAllData =
+function(){
 
-window.generateCoverLetter =
-  generateCoverLetter;
-
-window.copyCoverLetter =
-  copyCoverLetter;
-
-window.openJobDetails =
-  openJobDetails;
-
-window.closeJobDetails =
-  closeJobDetails;
-
-window.addFollowUp =
-  addFollowUp;
-
-window.completeFollowUp =
-  completeFollowUp;
-
-window.deleteFollowUp =
-  deleteFollowUp;
-
-window.renderFollowUps =
-  renderFollowUps;
-/* =========================
-   EXPORT + IMPORT
-========================= */
-
-function exportApplications(){
-
-  const data = {
-
-    jobs: jobs,
-
-    profile: profile,
-
-    resume: resumeData,
-
-    followUps: followUps,
-
-    settings: settings,
-
-    exportedAt:
-      new Date().toISOString()
-
-  };
-
-
-  const json =
-    JSON.stringify(
-      data,
-      null,
-      2
+  const confirmed =
+    confirm(
+      "This will remove your JobFlow local data. Continue?"
     );
 
+  if(!confirmed)return;
 
-  const blob =
-    new Blob(
-      [json],
-      {
-        type:
-          "application/json"
-      }
-    );
-
-
-  const url =
-    URL.createObjectURL(
-      blob
-    );
-
-
-  const link =
-    document.createElement(
-      "a"
-    );
-
-
-  link.href =
-    url;
-
-  link.download =
-    "jobflow-backup.json";
-
-
-  document.body.appendChild(
-    link
+  localStorage.removeItem(
+    JOBS_KEY
   );
 
-  link.click();
-
-  link.remove();
-
-
-  setTimeout(
-    function(){
-
-      URL.revokeObjectURL(
-        url
-      );
-
-    },
-    1000
+  localStorage.removeItem(
+    PROFILE_KEY
   );
 
-
-  toast(
-    "JobFlow backup exported"
+  localStorage.removeItem(
+    "jobflow_resume"
   );
 
-}
-
-
-/* =========================
-   IMPORT DATA
-========================= */
-
-function importJobFlowData(
-  file
-){
-
-  if(!file){
-
-    return;
-
-  }
-
-
-  const reader =
-    new FileReader();
-
-
-  reader.onload =
-    function(event){
-
-      try{
-
-        const data =
-          JSON.parse(
-            event.target.result
-          );
-
-
-        if(
-          Array.isArray(
-            data.jobs
-          )
-        ){
-
-          jobs =
-            data.jobs;
-
-          saveJobs();
-
-        }
-
-
-        if(
-          data.profile &&
-          typeof data.profile ===
-          "object"
-        ){
-
-          profile =
-            data.profile;
-
-          localStorage.setItem(
-            PROFILE_KEY,
-            JSON.stringify(
-              profile
-            )
-          );
-
-        }
-
-
-        if(
-          data.resume &&
-          typeof data.resume ===
-          "object"
-        ){
-
-          Object.assign(
-            resumeData,
-            data.resume
-          );
-
-          saveResumeData();
-
-        }
-
-
-        if(
-          Array.isArray(
-            data.followUps
-          )
-        ){
-
-          followUps =
-            data.followUps;
-
-          saveFollowUps();
-
-        }
-
-
-        if(
-          data.settings &&
-          typeof data.settings ===
-          "object"
-        ){
-
-          settings =
-            data.settings;
-
-          saveSettings();
-
-        }
-
-
-        updateUserName();
-
-        updateDashboard();
-
-        renderApplications();
-
-        renderPipeline();
-
-        updatePipelineCounts();
-
-        renderAnalytics();
-
-        renderFollowUps();
-
-        renderAccessBanner();
-
-
-        toast(
-          "Backup imported successfully"
-        );
-
-      }catch(error){
-
-        console.error(
-          "Import error:",
-          error
-        );
-
-        toast(
-          "Invalid JobFlow backup file"
-        );
-
-      }
-
-    };
-
-
-  reader.readAsText(
-    file
+  localStorage.removeItem(
+    SUBSCRIPTION_KEY
   );
 
-}
+  jobs = [];
 
+  profile = {};
 
-/* =========================
-   IMPORT FILE PICKER
-========================= */
+  renderAll();
 
-function chooseImportFile(){
+loadProfileForm();
 
-  const input =
-    document.createElement(
-      "input"
-    );
+updateAccessBanner();
 
+toast(
+  "Local JobFlow data cleared."
+);
 
-  input.type =
-    "file";
-
-  input.accept =
-    ".json,application/json";
-
-
-  input.onchange =
-    function(){
-
-      if(
-        input.files &&
-        input.files[0]
-      ){
-
-        importJobFlowData(
-          input.files[0]
-        );
-
-      }
-
-    };
-
-
-  input.click();
-
-}
+};
 
 
 /* =========================
    REFRESH JOBFLOW
 ========================= */
 
-function refreshJobFlow(){
-
-  try{
-
-    jobs =
-      loadJobs();
-
-  }catch(error){
-
-    console.error(
-      "Jobs refresh error:",
-      error
-    );
-
-    jobs = [];
-
-  }
-
-
-  loadProfileData();
-
-  loadResumeData();
-
-  followUps =
-    getFollowUps();
-
-  settings =
-    loadSettings();
-
-  subscription =
-    getSubscription();
-
-  paymentData =
-    getPaymentData();
-
-
-  updateUserName();
-
-  updateDashboard();
-
-  renderApplications();
-
-  renderPipeline();
-
-  updatePipelineCounts();
-
-  renderAnalytics();
-
-  renderFollowUps();
-
-  renderAccessBanner();
-
-  renderSubscription();
-
-
-  toast(
-    "JobFlow refreshed"
-  );
-
-}
-
-
-/* =========================
-   GLOBAL SYNC
-========================= */
-
-function syncJobFlowUI(){
-
-  updateDashboard();
-
-  renderApplications();
-
-  renderPipeline();
-
-  updatePipelineCounts();
-
-  renderAnalytics();
-
-  renderFollowUps();
-
-  renderAccessBanner();
-
-  renderSubscription();
-
-}
-
-
-/* =========================
-   SHOW PAGE
-========================= */
-
-function showPage(
-  pageId,
-  button
-){
-
-  const pages =
-    document.querySelectorAll(
-      ".page"
-    );
-
-
-  pages.forEach(
-    function(page){
-
-      page.classList.remove(
-        "active"
-      );
-
-    }
-  );
-
-
-  const target =
-    document.getElementById(
-      pageId
-    );
-
-
-  if(target){
-
-    target.classList.add(
-      "active"
-    );
-
-  }
-
-
-  const buttons =
-    document.querySelectorAll(
-      ".nav button"
-    );
-
-
-  buttons.forEach(
-    function(item){
-
-      item.classList.remove(
-        "active"
-      );
-
-    }
-  );
-
-
-  if(button){
-
-    button.classList.add(
-      "active"
-    );
-
-  }else{
-
-    buttons.forEach(
-      function(item){
-
-        const onclick =
-          item.getAttribute(
-            "onclick"
-          ) || "";
-
-
-        if(
-          onclick.includes(
-            "'" +
-            pageId +
-            "'"
-          )
-        ){
-
-          item.classList.add(
-            "active"
-          );
-
-        }
-
-      }
-    );
-
-  }
-
-
-  if(pageId === "jobs"){
-
-    initializeJobs();
-
-    setupJobSearch();
-
-  }
-
-
-  if(
-    pageId ===
-    "applications"
-  ){
-
-    renderApplications();
-
-  }
-
-
-  if(
-    pageId === "pipeline"
-  ){
-
-    renderPipeline();
-
-  }
-
-
-  if(
-    pageId === "analytics"
-  ){
-
-    renderAnalytics();
-
-  }
-
-
-  if(
-    pageId === "resume"
-  ){
-
-    loadResumeData();
-
-  }
-
-
-  if(
-    pageId === "interview"
-  ){
-
-    renderInterviewQuestion();
-
-  }
-
-
-  if(
-    pageId ===
-    "subscription"
-  ){
-
-    renderSubscription();
-
-  }
-
-
-  if(
-    pageId === "profile"
-  ){
-
-    loadProfileData();
-
-  }
-
-
-  if(
-    pageId === "settings"
-  ){
-
-    renderSettings();
-
-  }
-
-}
-
-
-/* =========================
-   SETTINGS UI
-========================= */
-
-function renderSettings(){
-
-  const box =
-    document.getElementById(
-      "settingsContent"
-    );
-
-
-  if(!box)return;
-
-
-  box.innerHTML = `
-
-    <div class="card">
-
-      <h3>
-        Preferences
-      </h3>
-
-
-      <div
-        style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        gap:15px;
-        margin-top:18px;
-        "
-      >
-
-        <div>
-
-          <strong>
-            Notifications
-          </strong>
-
-          <div
-            class="muted"
-            style="margin-top:4px"
-          >
-            Enable JobFlow reminders.
-          </div>
-
-        </div>
-
-
-        <button
-          class="btn ${
-            settings.notifications
-              ? "btn-blue"
-              : "btn-light"
-          }"
-          onclick="
-            toggleNotifications();
-            renderSettings();
-          "
-        >
-          ${
-            settings.notifications
-              ? "Enabled"
-              : "Disabled"
-          }
-        </button>
-
-      </div>
-
-
-      <div
-        class="actions"
-        style="margin-top:25px"
-      >
-
-        <button
-          class="btn btn-light"
-          onclick="
-            exportApplications()
-          "
-        >
-          Export Backup
-        </button>
-
-
-        <button
-          class="btn btn-light"
-          onclick="
-            chooseImportFile()
-          "
-        >
-          Import Backup
-        </button>
-
-
-        <button
-          class="btn btn-light"
-          onclick="
-            clearAllData()
-          "
-        >
-          Clear Local Data
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================
-   GLOBAL FUNCTIONS
-========================= */
-
-window.showPage =
-  showPage;
-
 window.refreshJobFlow =
-  refreshJobFlow;
+function(){
 
-window.syncJobFlowUI =
-  syncJobFlowUI;
+  jobs = loadJobs();
 
-window.exportApplications =
-  exportApplications;
+  profile = loadProfile();
 
-window.chooseImportFile =
-  chooseImportFile;
+  renderAll();
 
-window.importJobFlowData =
-  importJobFlowData;
+  loadProfileForm();
 
-window.renderSettings =
-  renderSettings;
-
-
-/* =========================
-   INITIALIZATION
-========================= */
-
-function initializeJobFlow(){
-
-  loadResumeData();
-
-  loadProfileData();
-
-  jobs =
-    loadJobs();
-
-  followUps =
-    getFollowUps();
-
-  settings =
-    loadSettings();
-
-  subscription =
-    getSubscription();
-
-  paymentData =
-    getPaymentData();
-
-
-  initializeJobData();
-
-  renderInterviewQuestion();
-
-  renderFollowUps();
-
-  renderSettings();
-
-  renderSubscription();
-
-  renderAccessBanner();
-
-  startTrialTimer();
-
-}
-
-
-/* =========================
-   DOM READY
-========================= */
-
-if(
-  document.readyState ===
-  "loading"
-){
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    initializeJobFlow
-  );
-
-}else{
-
-  initializeJobFlow();
-
-}
-/* =========================
-   FINAL INTEGRATION
-========================= */
-
-function safeCall(
-  callback
-){
-
-  try{
-
-    if(
-      typeof callback ===
-      "function"
-    ){
-
-      return callback();
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "JobFlow error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================
-   SAFE TEXT UPDATE
-========================= */
-
-function setText(
-  id,
-  value
-){
-
-  const element =
-    document.getElementById(
-      id
-    );
-
-
-  if(element){
-
-    element.textContent =
-      value ?? "";
-
-  }
-
-}
-
-
-/* =========================
-   SAFE VALUE
-========================= */
-
-function getValue(
-  id
-){
-
-  const element =
-    document.getElementById(
-      id
-    );
-
-
-  return element
-    ? element.value.trim()
-    : "";
-
-}
-
-
-/* =========================
-   JOB STATUS
-========================= */
-
-function setJobStatus(
-  id,
-  status
-){
-
-  const job =
-    jobs.find(
-      function(item){
-
-        return item.id === id;
-
-      }
-    );
-
-
-  if(!job){
-
-    toast(
-      "Job not found"
-    );
-
-    return;
-
-  }
-
-
-  job.status =
-    status;
-
-
-  job.updatedAt =
-    new Date()
-      .toISOString();
-
-
-  saveJobs();
-
-  syncJobFlowUI();
+  updateAccessBanner();
 
   toast(
-    "Job status updated"
+    "JobFlow refreshed."
+  );
+
+};
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value){
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
   );
 
 }
 
 
+function escapeAttribute(value){
+
+  return escapeHTML(value)
+    .replace(
+      /`/g,
+      "&#096;"
+    );
+
+}
+
+
 /* =========================
-   SEARCH FILTER
+   RENDER ALL
 ========================= */
 
-function filterJobs(){
+function renderAll(){
 
-  const search =
-    getValue(
-      "jobSearch"
-    ).toLowerCase();
+  renderDashboard();
 
+  renderJobs();
 
-  const location =
-    getValue(
-      "jobLocation"
-    ).toLowerCase();
+  renderApplications();
 
+  renderPipeline();
 
-  const results =
-    defaultJobs.filter(
-      function(job){
+  renderAnalytics();
 
-        const title =
-          job.title
-            .toLowerCase();
-
-        const company =
-          job.company
-            .toLowerCase();
-
-        const jobLocation =
-          job.location
-            .toLowerCase();
+}
 
 
-        return (
+/* =========================
+   INITIALIZE
+========================= */
 
-          (
-            !search ||
-            title.includes(
-              search
-            ) ||
-            company.includes(
-              search
-            )
-          )
+function initialize(){
 
-          &&
+  renderAll();
 
-          (
-            !location ||
-            jobLocation.includes(
-              location
-            )
-          )
+  loadResume();
 
+  loadProfileForm();
+
+  updateAccessBanner();
+
+
+  document
+    .querySelectorAll(
+      ".nav button"
+    )
+    .forEach(
+      function(button){
+
+        button.addEventListener(
+          "click",
+          function(){
+
+            if(
+              window.innerWidth <=
+              900
+            ){
+
+              document
+                .getElementById(
+                  "sidebar"
+                )
+                .classList.remove(
+                  "open"
+                );
+
+            }
+
+          }
         );
 
       }
     );
 
 
-  renderJobResults(
-    results
+  console.log(
+    "JobFlow loaded successfully."
   );
-
-}
-
-
-/* =========================
-   KEYBOARD SEARCH
-========================= */
-
-function setupKeyboardSearch(){
-
-  document.addEventListener(
-    "keydown",
-    function(event){
-
-      if(
-        event.key !==
-        "Enter"
-      ){
-
-        return;
-
-      }
-
-
-      const active =
-        document.activeElement;
-
-
-      if(
-        active &&
-        (
-          active.id ===
-          "jobSearch" ||
-
-          active.id ===
-          "jobLocation"
-        )
-      ){
-
-        searchJobs();
-
-      }
-
-    }
-  );
-
-}
-
-
-/* =========================
-   CLOSE MODALS
-========================= */
-
-document.addEventListener(
-  "click",
-  function(event){
-
-    const modal =
-      event.target.closest(
-        ".modal"
-      );
-
-
-    if(
-      modal &&
-      event.target ===
-      modal
-    ){
-
-      modal.classList.remove(
-        "show"
-      );
-
-    }
-
-  }
-);
-
-
-/* =========================
-   ESCAPE KEY
-========================= */
-
-document.addEventListener(
-  "keydown",
-  function(event){
-
-    if(
-      event.key !==
-      "Escape"
-    ){
-
-      return;
-
-    }
-
-
-    document
-      .querySelectorAll(
-        ".modal.show"
-      )
-      .forEach(
-        function(modal){
-
-          modal.classList.remove(
-            "show"
-          );
-
-        }
-      );
-
-  }
-);
-
-
-/* =========================
-   ONLINE / OFFLINE STATUS
-========================= */
-
-function updateConnectionStatus(){
-
-  const element =
-    document.getElementById(
-      "connectionStatus"
-    );
-
-
-  if(!element)return;
-
-
-  if(
-    navigator.onLine
-  ){
-
-    element.textContent =
-      "Online";
-
-    element.className =
-      "badge badge-green";
-
-  }else{
-
-    element.textContent =
-      "Offline";
-
-    element.className =
-      "badge badge-orange";
-
-  }
-
-}
-
-
-window.addEventListener(
-  "online",
-  updateConnectionStatus
-);
-
-
-window.addEventListener(
-  "offline",
-  updateConnectionStatus
-);
-
-
-/* =========================
-   AUTO SAVE
-========================= */
-
-let autoSaveTimer = null;
-
-
-function startAutoSave(){
-
-  if(autoSaveTimer){
-
-    clearInterval(
-      autoSaveTimer
-    );
-
-  }
-
-
-  autoSaveTimer =
-    setInterval(
-      function(){
-
-        try{
-
-          saveJobs();
-
-          saveProfile();
-
-          saveResumeData();
-
-          saveFollowUps();
-
-          saveSettings();
-
-        }catch(error){
-
-          console.error(
-            "Auto-save error:",
-            error
-          );
-
-        }
-
-      },
-      30000
-    );
-
-}
-
-
-/* =========================
-   GLOBAL EXPORTS
-========================= */
-
-window.setJobStatus =
-  setJobStatus;
-
-window.filterJobs =
-  filterJobs;
-
-window.setupKeyboardSearch =
-  setupKeyboardSearch;
-
-window.updateConnectionStatus =
-  updateConnectionStatus;
-
-
-/* =========================
-   FINAL STARTUP
-========================= */
-
-function finalStartup(){
-
-  setupKeyboardSearch();
-
-  updateConnectionStatus();
-
-  startAutoSave();
-
-  syncJobFlowUI();
-
-  renderSettings();
-
-  renderSubscription();
-
-  renderAccessBanner();
 
 }
 
@@ -7629,16 +5723,21 @@ if(
 
   document.addEventListener(
     "DOMContentLoaded",
-    finalStartup
+    initialize
   );
 
 }else{
 
-  finalStartup();
+  initialize();
 
 }
+
+})();
+
 </script>
 
 </body>
 </html>
+    
 
+  
