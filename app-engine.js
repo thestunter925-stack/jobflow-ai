@@ -1231,3 +1231,39 @@ if (
   AppEngine.start();
 
 }
+/* -----------------------------------------
+   LEGACY NAVIGATION BRIDGE
+   Connects index.html onclick buttons
+   to AppEngine navigation.
+   ----------------------------------------- */
+
+window.showPage = function(page, button) {
+
+  if (
+    window.AppEngine &&
+    typeof AppEngine.navigate === "function"
+  ) {
+
+    AppEngine.navigate(page);
+  }
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(function(item) {
+
+      item.classList.remove("active");
+
+    });
+
+  if (button) {
+
+    button.classList.add("active");
+
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+};
