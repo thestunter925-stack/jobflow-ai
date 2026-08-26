@@ -7,665 +7,591 @@
 <title>JobFlow AI</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f5f7fb;
-  color:#111827;
-}
-
-#accessGate{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  background:#2563eb;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-.gateCard{
-  width:100%;
-  max-width:420px;
-  background:#fff;
-  border-radius:20px;
-  padding:28px 22px;
-  text-align:center;
-  box-shadow:0 15px 40px rgba(0,0,0,.2);
-}
-
-.logo{
-  font-size:42px;
-  margin-bottom:10px;
-}
-
-.gateCard h1{
-  font-size:25px;
-  margin-bottom:8px;
-}
-
-.gateCard p{
-  color:#64748b;
-  font-size:14px;
-  line-height:1.5;
-  margin-bottom:20px;
-}
-
-.gateCard input{
-  width:100%;
-  padding:14px;
-  border:1px solid #d1d5db;
-  border-radius:10px;
-  font-size:16px;
-  outline:none;
-}
-
-.gateCard input:focus{
-  border-color:#2563eb;
-}
-
-.gateCard button{
-  width:100%;
-  margin-top:12px;
-  padding:14px;
-  border:0;
-  border-radius:10px;
-  background:#2563eb;
-  color:white;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.gateError{
-  color:#dc2626;
-  font-size:13px;
-  margin-top:10px;
-}
-
-#app{
-  display:none;
+font-family:Arial,Helvetica,sans-serif;
+background:#f5f7fb;
+color:#111827;
 }
 
 header{
-  background:#111827;
-  color:white;
-  padding:18px 20px;
+background:#111827;
+color:#fff;
+padding:20px;
 }
 
-header h1{
-  font-size:23px;
-}
-
-header p{
-  margin-top:5px;
-  color:#cbd5e1;
-  font-size:13px;
-}
+header h1{font-size:24px}
+header p{font-size:13px;color:#cbd5e1;margin-top:5px}
 
 main{
-  max-width:900px;
-  margin:auto;
-  padding:18px;
+max-width:900px;
+margin:auto;
+padding:18px;
 }
 
 .card{
-  background:white;
-  border:1px solid #e5e7eb;
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 4px 14px rgba(0,0,0,.05);
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:16px;
+padding:20px;
+margin-bottom:16px;
+box-shadow:0 4px 14px rgba(0,0,0,.05);
 }
 
 h2{
-  font-size:20px;
-  margin-bottom:8px;
+font-size:20px;
+margin-bottom:8px;
 }
 
 h3{
-  font-size:16px;
-  margin-bottom:5px;
+font-size:16px;
+margin-bottom:5px;
 }
 
 p{
-  line-height:1.5;
+line-height:1.5;
 }
 
 .muted{
-  color:#64748b;
-  font-size:13px;
+color:#64748b;
+font-size:13px;
 }
 
-.status{
-  background:#eff6ff;
-  color:#1d4ed8;
-  padding:13px;
-  border-radius:10px;
-  margin-top:12px;
-  font-size:14px;
+label{
+display:block;
+font-size:13px;
+font-weight:bold;
+margin:15px 0 7px;
 }
 
-.warning{
-  background:#fffbeb;
-  color:#a16207;
+input{
+width:100%;
+padding:13px;
+border:1px solid #d1d5db;
+border-radius:10px;
+font-size:16px;
+outline:none;
 }
 
-.feature{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  padding:15px;
-  margin-top:10px;
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-}
-
-.featureText{
-  flex:1;
-}
-
-.lock{
-  color:#b45309;
-  font-size:13px;
-  font-weight:bold;
-  white-space:nowrap;
-}
-
-.price{
-  font-size:32px;
-  font-weight:800;
-  margin:12px 0;
-}
-
-.upi{
-  background:#f8fafc;
-  border:1px dashed #94a3b8;
-  border-radius:12px;
-  padding:15px;
-  margin:15px 0;
-}
-
-.upi-id{
-  display:inline-block;
-  background:#e5e7eb;
-  padding:8px 10px;
-  border-radius:7px;
-  margin-top:8px;
-  font-weight:bold;
+input:focus{
+border-color:#2563eb;
 }
 
 button{
-  border:0;
-  border-radius:10px;
-  padding:13px 16px;
-  font-weight:bold;
-  cursor:pointer;
+border:0;
+border-radius:10px;
+padding:13px 16px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:active{
+transform:scale(.98);
 }
 
 .primary{
-  background:#2563eb;
-  color:white;
+background:#2563eb;
+color:#fff;
 }
 
 .dark{
-  background:#111827;
-  color:white;
+background:#111827;
+color:#fff;
 }
 
 .success{
-  background:#16a34a;
-  color:white;
+background:#16a34a;
+color:#fff;
 }
 
 .full{
-  width:100%;
+width:100%;
 }
 
 .small{
-  padding:8px 11px;
-  font-size:12px;
+padding:8px 11px;
+font-size:12px;
+}
+
+.error{
+color:#dc2626;
+font-size:13px;
+margin-top:9px;
+}
+
+.status{
+background:#eff6ff;
+color:#1d4ed8;
+padding:13px;
+border-radius:10px;
+margin-top:12px;
+font-size:14px;
+}
+
+.warning{
+background:#fffbeb;
+color:#a16207;
+}
+
+.feature{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+padding:15px;
+margin-top:10px;
+border:1px solid #e5e7eb;
+border-radius:12px;
+}
+
+.featureText{
+flex:1;
+}
+
+.lock{
+font-size:13px;
+font-weight:bold;
+white-space:nowrap;
+color:#b45309;
+}
+
+.price{
+font-size:32px;
+font-weight:800;
+margin:12px 0;
+}
+
+.upi{
+background:#f8fafc;
+border:1px dashed #94a3b8;
+border-radius:12px;
+padding:15px;
+margin:15px 0;
+}
+
+.upi-id{
+display:inline-block;
+background:#e5e7eb;
+padding:8px 10px;
+border-radius:7px;
+margin-top:8px;
+font-weight:bold;
 }
 
 .hidden{
-  display:none!important;
+display:none!important;
 }
 
 @media(max-width:600px){
-  main{
-    padding:10px;
-  }
-
-  .card{
-    padding:16px;
-  }
-
-  .feature{
-    align-items:flex-start;
-  }
+main{padding:10px}
+.card{padding:16px}
+.feature{align-items:flex-start}
 }
 </style>
 </head>
 
 <body>
 
-
-<!-- ==================================================
-     BLUE ACCESS SCREEN
-================================================== -->
-
-<div id="accessGate">
-
-  <div class="gateCard">
-
-    <div class="logo">
-      🚀
-    </div>
-
-    <h1>
-      JobFlow AI
-    </h1>
-
-    <p>
-      Enter your email address to access JobFlow AI.
-      Your first access includes a free 48-hour trial.
-    </p>
-
-    <input
-      id="accessEmail"
-      type="email"
-      placeholder="Enter your email address"
-      autocomplete="email"
-    >
-
-    <button
-      type="button"
-      onclick="requestJobFlowAccess()"
-    >
-      Continue
-    </button>
-
-    <div
-      id="accessError"
-      class="gateError"
-    ></div>
-
-  </div>
-
-</div>
-
-
-<!-- ==================================================
-     MAIN APPLICATION
-================================================== -->
-
-<div id="app">
-
 <header>
-
-  <h1>
-    🚀 JobFlow AI
-  </h1>
-
-  <p>
-    Your Career Command Center
-  </p>
-
+<h1>🚀 JobFlow AI</h1>
+<p>Your Career Command Center</p>
 </header>
-
 
 <main>
 
+<!-- =========================
+     TRIAL LOGIN
+========================= -->
 
-<!-- ACCOUNT -->
+<section class="card" id="trialSection">
 
-<section
-  class="card"
-  id="accountCard"
+<h2>Start your free 48-hour trial</h2>
+
+<p class="muted">
+Enter your email address to explore JobFlow AI.
+</p>
+
+<label for="email">
+Email address
+</label>
+
+<input
+id="email"
+type="email"
+placeholder="you@example.com"
+autocomplete="email"
 >
 
-  <h2>
-    Welcome to JobFlow AI
-  </h2>
+<button
+id="startTrialButton"
+type="button"
+class="primary full"
+style="margin-top:12px"
+>
+🚀 Start 48-Hour Free Trial
+</button>
 
-  <p
-    id="currentEmail"
-    class="muted"
-  ></p>
+<div
+id="trialError"
+class="error"
+></div>
 
-  <div
-    id="accessStatus"
-    class="status"
-  ></div>
-
-  <button
-    type="button"
-    class="dark small"
-    onclick="jobFlowSignOut()"
-    style="margin-top:12px"
-  >
-    Sign Out
-  </button>
+<p class="muted" style="margin-top:10px">
+Basic features are available during the trial.
+Premium membership is required for premium features.
+</p>
 
 </section>
 
 
-<!-- BASIC -->
+<!-- =========================
+     ACCOUNT
+========================= -->
+
+<section
+id="accountSection"
+class="card hidden"
+>
+
+<h2>
+👋 Welcome to JobFlow AI
+</h2>
+
+<p
+id="userEmail"
+class="muted"
+></p>
+
+<div
+id="trialMessage"
+class="status"
+></div>
+
+<button
+id="signOutButton"
+type="button"
+class="dark small"
+style="margin-top:12px"
+>
+Sign Out
+</button>
+
+</section>
+
+
+<!-- =========================
+     BASIC FEATURES
+========================= -->
 
 <section class="card">
 
-  <h2>
-    🆓 Basic Features
-  </h2>
+<h2>
+🆓 Basic Features
+</h2>
 
-  <p class="muted">
-    Basic career tools are available during your trial.
-  </p>
+<p class="muted">
+Basic career tools are available during the trial.
+</p>
 
 
-  <div class="feature">
+<div class="feature">
 
-    <div class="featureText">
+<div class="featureText">
 
-      <h3>
-        📋 Application Tracking
-      </h3>
+<h3>
+📋 Application Tracking
+</h3>
 
-      <p class="muted">
-        Track your job applications.
-      </p>
+<p class="muted">
+Track your job applications.
+</p>
 
-    </div>
+</div>
 
-    <span class="lock">
-      ✓ Basic
-    </span>
-
-  </div>
-
-
-  <div class="feature">
-
-    <div class="featureText">
-
-      <h3>
-        🏢 Company Tracking
-      </h3>
-
-      <p class="muted">
-        Organize companies you apply to.
-      </p>
-
-    </div>
-
-    <span class="lock">
-      ✓ Basic
-    </span>
-
-  </div>
-
-
-  <div class="feature">
-
-    <div class="featureText">
-
-      <h3>
-        📝 Job Notes
-      </h3>
-
-      <p class="muted">
-        Keep useful notes for applications.
-      </p>
-
-    </div>
-
-    <span class="lock">
-      ✓ Basic
-    </span>
-
-  </div>
-
-
-  <div class="feature">
-
-    <div class="featureText">
-
-      <h3>
-        📊 Basic Dashboard
-      </h3>
-
-      <p class="muted">
-        See your career activity.
-      </p>
-
-    </div>
-
-    <span class="lock">
-      ✓ Basic
-    </span>
-
-  </div>
-
-</section>
-
-
-<!-- PREMIUM -->
-
-<section class="card">
-
-  <h2>
-    💎 Premium Career Features
-  </h2>
-
-  <p class="muted">
-    Premium membership is required for these tools.
-  </p>
-
-
-  <div class="feature">
-
-    <div class="featureText">
-
-      <h3>
-        🤖 AI Cover Letter Builder
-      </h3>
-
-      <p class="muted">
-        Generate professional, job-specific cover letters.
-      </p>
-
-    </div>
-
-    <span class="lock">
-      🔒 Premium
-    </span>
-
-  </div>
-
-
-  <div class="feature">
-
-    <div class="featureText">
-
-      <h3>
-        📄 Resume Optimizer
-      </h3>
-
-      <p class="muted">
-        Improve your resume for job opportunities.
-      </p>
-
-    </div>
-
-    <span class="lock">
-      🔒 Premium
-    </span>
-
-  </div>
-
-
-  <div class="feature">
-
-    <div class="featureText">
-
-      <h3>
-        🎯 Interview Coach
-      </h3>
-
-      <p class="muted">
-        Practice interview questions.
-      </p>
-
-    </div>
-
-    <span class="lock">
-      🔒 Premium
-    </span>
-
-  </div>
-
-
-  <div class="feature">
-
-    <div class="featureText">
-
-      <h3>
-        📊 Career Insights
-      </h3>
-
-      <p class="muted">
-        Get deeper insights into your career progress.
-      </p>
-
-    </div>
-
-    <span class="lock">
-      🔒 Premium
-    </span>
-
-  </div>
-
-</section>
-
-
-<!-- PAYMENT -->
-
-<section class="card">
-
-  <h2>
-    Unlock Premium
-  </h2>
-
-  <p class="muted">
-    Continue using JobFlow AI Premium after your
-    48-hour trial.
-  </p>
-
-  <div class="price">
-    ₹499
-  </div>
-
-  <p class="muted">
-    Premium membership
-  </p>
-
-
-  <div class="upi">
-
-    <strong>
-      💳 Pay using UPI
-    </strong>
-
-    <p
-      class="muted"
-      style="margin-top:7px"
-    >
-      Pay ₹499 using the UPI ID below.
-    </p>
-
-    <code
-      id="upiId"
-      class="upi-id"
-    >
-      YOUR-UPI-ID@bank
-    </code>
-
-    <br>
-
-    <button
-      type="button"
-      class="dark small"
-      onclick="copyJobFlowUPI()"
-      style="margin-top:10px"
-    >
-      Copy UPI ID
-    </button>
-
-  </div>
-
-
-  <label
-    style="display:block;font-size:13px;font-weight:bold;margin:15px 0 7px"
-  >
-    Payment Reference / UTR
-  </label>
-
-  <input
-    id="paymentUTR"
-    type="text"
-    placeholder="Enter UTR / transaction reference"
-    style="width:100%;padding:13px;border:1px solid #d1d5db;border-radius:10px;font-size:16px"
-  >
-
-  <button
-    type="button"
-    class="success full"
-    onclick="submitJobFlowPayment()"
-    style="margin-top:12px"
-  >
-    ✅ Submit Payment Reference
-  </button>
-
-  <div
-    id="paymentMessage"
-    class="status hidden"
-  ></div>
-
-</section>
-
-
-</main>
+<span class="lock">
+✓ Basic
+</span>
 
 </div>
 
 
+<div class="feature">
+
+<div class="featureText">
+
+<h3>
+🏢 Company Tracking
+</h3>
+
+<p class="muted">
+Organize companies you apply to.
+</p>
+
+</div>
+
+<span class="lock">
+✓ Basic
+</span>
+
+</div>
+
+
+<div class="feature">
+
+<div class="featureText">
+
+<h3>
+📝 Job Notes
+</h3>
+
+<p class="muted">
+Keep useful notes for applications.
+</p>
+
+</div>
+
+<span class="lock">
+✓ Basic
+</span>
+
+</div>
+
+
+<div class="feature">
+
+<div class="featureText">
+
+<h3>
+📊 Basic Dashboard
+</h3>
+
+<p class="muted">
+See your career activity.
+</p>
+
+</div>
+
+<span class="lock">
+✓ Basic
+</span>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     PREMIUM FEATURES
+========================= -->
+
+<section class="card">
+
+<h2>
+💎 Premium Career Tools
+</h2>
+
+<p class="muted">
+Premium membership is required for these features.
+</p>
+
+
+<div class="feature">
+
+<div class="featureText">
+
+<h3>
+🤖 AI Cover Letter Builder
+</h3>
+
+<p class="muted">
+Generate professional, job-specific cover letters.
+</p>
+
+</div>
+
+<span class="lock">
+🔒 Premium
+</span>
+
+</div>
+
+
+<div class="feature">
+
+<div class="featureText">
+
+<h3>
+📄 Resume Optimizer
+</h3>
+
+<p class="muted">
+Improve your resume for specific job opportunities.
+</p>
+
+</div>
+
+<span class="lock">
+🔒 Premium
+</span>
+
+</div>
+
+
+<div class="feature">
+
+<div class="featureText">
+
+<h3>
+🎯 Interview Coach
+</h3>
+
+<p class="muted">
+Practice interview questions and prepare for interviews.
+</p>
+
+</div>
+
+<span class="lock">
+🔒 Premium
+</span>
+
+</div>
+
+
+<div class="feature">
+
+<div class="featureText">
+
+<h3>
+📊 Career Insights
+</h3>
+
+<p class="muted">
+Get deeper insights into your job-search progress.
+</p>
+
+</div>
+
+<span class="lock">
+🔒 Premium
+</span>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     PAYMENT
+========================= -->
+
+<section class="card">
+
+<h2>
+Unlock Premium
+</h2>
+
+<p class="muted">
+Continue using JobFlow AI Premium after your
+free 48-hour trial.
+</p>
+
+<div class="price">
+₹499
+</div>
+
+<p class="muted">
+Premium membership
+</p>
+
+
+<div class="upi">
+
+<strong>
+💳 Pay using UPI
+</strong>
+
+<p class="muted" style="margin-top:7px">
+Pay ₹499 using the UPI ID below.
+</p>
+
+<code
+id="upiId"
+class="upi-id"
+>
+YOUR-UPI-ID@bank
+</code>
+
+<br>
+
+<button
+id="copyUpiButton"
+type="button"
+class="dark small"
+style="margin-top:10px"
+>
+Copy UPI ID
+</button>
+
+</div>
+
+
+<label for="paymentUTR">
+Payment Reference / UTR
+</label>
+
+<input
+id="paymentUTR"
+type="text"
+placeholder="Enter UTR / transaction reference"
+>
+
+
+<button
+id="submitPaymentButton"
+type="button"
+class="success full"
+style="margin-top:12px"
+>
+✅ Submit Payment Reference
+</button>
+
+
+<div
+id="paymentMessage"
+class="status hidden"
+></div>
+
+</section>
+
+</main>
+
+
+<!-- ==================================================
+     ONLY ONE JAVASCRIPT BLOCK
+================================================== -->
+
 <script>
-
-/* ==================================================
-   JOBFLOW AI ACCESS SYSTEM
-================================================== */
-
 (function(){
 
 "use strict";
 
 
-/* ==================================================
-   SETTINGS
-================================================== */
+/* =========================
+   CONFIGURATION
+========================= */
+
+var STORAGE_KEY =
+"jobflow_ai_account_v1";
+
+var TRIAL_DURATION =
+48 * 60 * 60 * 1000;
 
 
 /*
- * THIS IS THE OWNER EMAIL.
- *
- * This email gets unlimited access.
+ * OWNER EMAIL
  */
 
 var OWNER_EMAIL =
@@ -673,57 +599,68 @@ var OWNER_EMAIL =
 
 
 /*
- * 48 HOURS
- */
-
-var TRIAL_DURATION =
-48 * 60 * 60 * 1000;
-
-
-/*
- * Change this before publishing.
+ * CHANGE THIS TO YOUR REAL UPI ID
  */
 
 var UPI_ID =
 "YOUR-UPI-ID@bank";
 
 
-/*
- * Browser storage.
- */
+/* =========================
+   ELEMENTS
+========================= */
 
-var STORAGE_KEY =
-"jobflow_ai_access_v1";
+var emailInput =
+document.getElementById("email");
+
+var startButton =
+document.getElementById("startTrialButton");
+
+var trialError =
+document.getElementById("trialError");
+
+var trialSection =
+document.getElementById("trialSection");
+
+var accountSection =
+document.getElementById("accountSection");
+
+var userEmail =
+document.getElementById("userEmail");
+
+var trialMessage =
+document.getElementById("trialMessage");
+
+var signOutButton =
+document.getElementById("signOutButton");
+
+var upiElement =
+document.getElementById("upiId");
+
+var copyUpiButton =
+document.getElementById("copyUpiButton");
+
+var paymentUTR =
+document.getElementById("paymentUTR");
+
+var submitPaymentButton =
+document.getElementById("submitPaymentButton");
+
+var paymentMessage =
+document.getElementById("paymentMessage");
 
 
-/* ==================================================
-   EMAIL NORMALIZATION
-================================================== */
+/* =========================
+   UPI DISPLAY
+========================= */
 
-function normalizeEmail(email){
-
-return String(email || "")
-.trim()
-.toLowerCase();
-
-}
+upiElement.textContent =
+UPI_ID;
 
 
-/* ==================================================
-   VALID EMAIL
-================================================== */
-
-function validEmail(email){
-
-return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-.test(email);
-
-}
-
-
-/* ==================================================
-   GET ACCOUNT
-================================================== */
+/* =========================
+   STORAGE
+========================= */
 
 function getAccount(){
 
@@ -735,9 +672,7 @@ STORAGE_KEY
 );
 
 if(!saved){
-
 return null;
-
 }
 
 return JSON.parse(saved);
@@ -751,10 +686,6 @@ return null;
 }
 
 
-/* ==================================================
-   SAVE ACCOUNT
-================================================== */
-
 function saveAccount(account){
 
 localStorage.setItem(
@@ -765,22 +696,34 @@ JSON.stringify(account)
 }
 
 
-/* ==================================================
-   TRIAL ACTIVE
-================================================== */
+/* =========================
+   EMAIL
+========================= */
+
+function validEmail(value){
+
+return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+.test(value);
+
+}
+
+
+/* =========================
+   TRIAL
+========================= */
 
 function trialActive(account){
 
 if(!account){
-
 return false;
-
 }
 
 if(account.owner === true){
-
 return true;
+}
 
+if(account.paid === true){
+return true;
 }
 
 return Date.now() <
@@ -789,20 +732,18 @@ Number(account.trialEnds);
 }
 
 
-/* ==================================================
-   TIME LEFT
-================================================== */
+/* =========================
+   TIME
+========================= */
 
-function timeLeft(end){
+function getTimeLeft(end){
 
 var remaining =
 Number(end) -
 Date.now();
 
 if(remaining <= 0){
-
 return "Trial expired";
-
 }
 
 var totalMinutes =
@@ -835,40 +776,130 @@ minutes +
 }
 
 
-/* ==================================================
-   REQUEST ACCESS
-   ONE ACCESS BUTTON HANDLER
-================================================== */
+/* =========================
+   UPDATE SCREEN
+========================= */
 
-window.requestJobFlowAccess =
+function updateScreen(){
+
+var account =
+getAccount();
+
+
+if(!account){
+
+trialSection
+.classList
+.remove("hidden");
+
+accountSection
+.classList
+.add("hidden");
+
+return;
+
+}
+
+
+trialSection
+.classList
+.add("hidden");
+
+accountSection
+.classList
+.remove("hidden");
+
+
+userEmail.textContent =
+"Email: " +
+account.email;
+
+
+/* OWNER */
+
+if(account.owner === true){
+
+trialMessage.className =
+"status";
+
+trialMessage.textContent =
+"👑 Owner access active — unlimited JobFlow AI access.";
+
+return;
+
+}
+
+
+/* PAID */
+
+if(account.paid === true){
+
+trialMessage.className =
+"status";
+
+trialMessage.textContent =
+"💎 Premium membership active.";
+
+return;
+
+}
+
+
+/* TRIAL */
+
+if(
+Date.now() <
+Number(account.trialEnds)
+){
+
+trialMessage.className =
+"status";
+
+trialMessage.textContent =
+"🎉 Your free 48-hour trial is active. " +
+getTimeLeft(account.trialEnds) +
+". Basic features are available. Premium membership is required.";
+
+return;
+
+}
+
+
+/* EXPIRED */
+
+trialMessage.className =
+"status warning";
+
+trialMessage.textContent =
+"⏰ Your 48-hour free trial has ended. ₹499 Premium membership is required.";
+
+}
+
+
+/* =========================
+   START TRIAL BUTTON
+========================= */
+
+startButton.addEventListener(
+"click",
 function(){
 
-var input =
-document.getElementById(
-"accessEmail"
-);
-
-var error =
-document.getElementById(
-"accessError"
-);
-
-
-error.textContent = "";
+trialError.textContent =
+"";
 
 
 var email =
-normalizeEmail(
-input.value
-);
+emailInput.value
+.trim()
+.toLowerCase();
 
 
 if(!validEmail(email)){
 
-error.textContent =
+trialError.textContent =
 "Please enter a valid email address.";
 
-input.focus();
+emailInput.focus();
 
 return;
 
@@ -876,47 +907,7 @@ return;
 
 
 /*
- * OWNER ACCESS
- *
- * mdnawaz6052@gmail.com
- *
- * Unlimited access.
- */
-
-if(email === OWNER_EMAIL){
-
-var ownerAccount = {
-
-email:
-OWNER_EMAIL,
-
-owner:
-true,
-
-paid:
-true,
-
-trialStarted:
-Date.now(),
-
-trialEnds:
-0
-
-};
-
-saveAccount(
-ownerAccount
-);
-
-openJobFlow();
-
-return;
-
-}
-
-
-/*
- * EXISTING USER
+ * EXISTING ACCOUNT
  */
 
 var existing =
@@ -926,24 +917,61 @@ getAccount();
 if(existing){
 
 if(
-normalizeEmail(existing.email) ===
-email
+existing.email === email
 ){
 
-openJobFlow();
+updateScreen();
 
 return;
 
 }
 
+
+trialError.textContent =
+"A trial already exists on this browser.";
+
+return;
+
 }
 
 
 /*
- * NEW USER
- *
- * Everyone except owner gets
- * exactly one 48-hour trial.
+ * OWNER
+ */
+
+if(email === OWNER_EMAIL){
+
+var ownerAccount = {
+
+email:OWNER_EMAIL,
+
+owner:true,
+
+paid:true,
+
+trialStarted:Date.now(),
+
+trialEnds:0,
+
+paymentReference:"",
+
+paymentPending:false
+
+};
+
+saveAccount(
+ownerAccount
+);
+
+updateScreen();
+
+return;
+
+}
+
+
+/*
+ * NORMAL USER
  */
 
 var now =
@@ -952,30 +980,22 @@ Date.now();
 
 var account = {
 
-email:
-email,
+email:email,
 
-owner:
-false,
+owner:false,
 
-paid:
-false,
+paid:false,
 
-trialStarted:
-now,
+trialStarted:now,
 
 trialEnds:
-now +
-TRIAL_DURATION,
+now + TRIAL_DURATION,
 
-paymentReference:
-"",
+paymentReference:"",
 
-paymentPending:
-false,
+paymentPending:false,
 
-paymentSubmittedAt:
-null
+paymentSubmittedAt:null
 
 };
 
@@ -985,202 +1005,58 @@ account
 );
 
 
-openJobFlow();
-
-};
-
-
-/* ==================================================
-   OPEN APP
-================================================== */
-
-function openJobFlow(){
-
-document.getElementById(
-"accessGate"
-)
-.style
-.display =
-"none";
+emailInput.value =
+"";
 
 
-document.getElementById(
-"app"
-)
-.style
-.display =
-"block";
-
-
-updateJobFlow();
+updateScreen();
 
 }
-
-
-/* ==================================================
-   UPDATE APP
-================================================== */
-
-function updateJobFlow(){
-
-var account =
-getAccount();
-
-
-if(!account){
-
-document.getElementById(
-"accessGate"
-)
-.style
-.display =
-"flex";
-
-document.getElementById(
-"app"
-)
-.style
-.display =
-"none";
-
-return;
-
-}
-
-
-var email =
-document.getElementById(
-"currentEmail"
-);
-
-var status =
-document.getElementById(
-"accessStatus"
 );
 
 
-email.textContent =
-"Email: " +
-account.email;
-
-
-/*
- * OWNER
- */
-
-if(account.owner === true){
-
-status.className =
-"status";
-
-status.textContent =
-"👑 Owner access active — unlimited JobFlow AI access.";
-
-return;
-
-}
-
-
-/*
- * PAID ACCOUNT
- *
- * This flag should only be set by
- * real server-side payment verification.
- */
-
-if(account.paid === true){
-
-status.className =
-"status";
-
-status.textContent =
-"💎 Premium membership active.";
-
-return;
-
-}
-
-
-/*
- * TRIAL
- */
-
-if(trialActive(account)){
-
-status.className =
-"status";
-
-status.textContent =
-"🎉 Your free 48-hour trial is active — " +
-timeLeft(account.trialEnds) +
-". Premium membership is required after the trial.";
-
-return;
-
-}
-
-
-/*
- * EXPIRED
- */
-
-status.className =
-"status warning";
-
-status.textContent =
-"⏰ Your 48-hour free trial has ended. ₹499 Premium membership is required.";
-
-}
-
-
-/* ==================================================
+/* =========================
    SIGN OUT
-================================================== */
+========================= */
 
-window.jobFlowSignOut =
+signOutButton.addEventListener(
+"click",
 function(){
 
 localStorage.removeItem(
 STORAGE_KEY
 );
 
-document.getElementById(
-"app"
-)
-.style
-.display =
-"none";
-
-
-document.getElementById(
-"accessGate"
-)
-.style
-.display =
-"flex";
-
-
-document.getElementById(
-"accessEmail"
-)
-.value =
+emailInput.value =
 "";
 
-
-document.getElementById(
-"accessError"
-)
-.textContent =
+trialError.textContent =
 "";
 
-};
+paymentUTR.value =
+"";
+
+paymentMessage.classList
+.add("hidden");
+
+accountSection.classList
+.add("hidden");
+
+trialSection.classList
+.remove("hidden");
+
+emailInput.focus();
+
+}
+);
 
 
-/* ==================================================
+/* =========================
    COPY UPI
-================================================== */
+========================= */
 
-window.copyJobFlowUPI =
+copyUpiButton.addEventListener(
+"click",
 function(){
 
 if(
@@ -1192,16 +1068,24 @@ navigator.clipboard
 .writeText(UPI_ID)
 .then(function(){
 
-alert(
-"UPI ID copied: " +
-UPI_ID
+copyUpiButton.textContent =
+"Copied ✓";
+
+setTimeout(
+function(){
+
+copyUpiButton.textContent =
+"Copy UPI ID";
+
+},
+1500
 );
 
 })
 .catch(function(){
 
-alert(
-"UPI ID: " +
+window.prompt(
+"Copy your UPI ID:",
 UPI_ID
 );
 
@@ -1209,51 +1093,42 @@ UPI_ID
 
 }else{
 
-alert(
-"UPI ID: " +
+window.prompt(
+"Copy your UPI ID:",
 UPI_ID
 );
 
 }
 
-};
+}
+);
 
 
-/* ==================================================
-   PAYMENT REFERENCE
-================================================== */
+/* =========================
+   PAYMENT SUBMISSION
+========================= */
 
-window.submitJobFlowPayment =
+submitPaymentButton.addEventListener(
+"click",
 function(){
 
 var account =
 getAccount();
 
 
-var input =
-document.getElementById(
-"paymentUTR"
-);
-
-
-var message =
-document.getElementById(
-"paymentMessage"
-);
-
-
 var utr =
-input.value.trim();
+paymentUTR.value
+.trim();
 
 
-message.classList
+paymentMessage.classList
 .remove("hidden");
 
 
 if(!account){
 
-message.textContent =
-"Please enter your email address first.";
+paymentMessage.textContent =
+"Please start your free trial first.";
 
 return;
 
@@ -1262,10 +1137,10 @@ return;
 
 if(!utr){
 
-message.textContent =
+paymentMessage.textContent =
 "Please enter your payment reference / UTR.";
 
-input.focus();
+paymentUTR.focus();
 
 return;
 
@@ -1273,9 +1148,10 @@ return;
 
 
 /*
- * Save payment reference.
+ * Save reference only.
  *
- * DO NOT unlock premium here.
+ * NEVER unlock Premium from
+ * the UTR entered by the user.
  */
 
 account.paymentReference =
@@ -1296,60 +1172,32 @@ account
 );
 
 
-message.textContent =
+paymentMessage.textContent =
 "✅ Payment reference submitted. Your ₹499 payment is pending verification.";
 
-};
-
-
-/* ==================================================
-   INITIAL LOAD
-================================================== */
-
-var savedAccount =
-getAccount();
-
-
-if(savedAccount){
-
-openJobFlow();
-
-}else{
-
-document.getElementById(
-"accessGate"
-)
-.style
-.display =
-"flex";
-
-document.getElementById(
-"app"
-)
-.style
-.display =
-"none";
-
 }
+);
 
 
-/* ==================================================
-   TIMER
-================================================== */
+/* =========================
+   INITIAL SCREEN
+========================= */
+
+updateScreen();
+
+
+/* =========================
+   COUNTDOWN
+========================= */
 
 setInterval(
 function(){
 
-if(getAccount()){
-
-updateJobFlow();
-
-}
+updateScreen();
 
 },
 60000
 );
-
 
 })();
 </script>
