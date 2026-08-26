@@ -2469,5 +2469,224 @@ document.addEventListener(
 
 })();
 </script>
+<!-- =========================
+     JOBFLOW 48-HOUR TRIAL GATE
+========================= -->
+
+<script>
+
+(function(){
+
+  const TRIAL_HOURS = 48;
+  const PASSWORD = "12345";
+
+  function getTrialStart(){
+
+    return localStorage.getItem(
+      "jobflow_trial_start"
+    );
+
+  }
+
+
+  function startTrial(){
+
+    localStorage.setItem(
+      "jobflow_trial_start",
+      Date.now().toString()
+    );
+
+  }
+
+
+  function trialStillActive(){
+
+    const saved =
+      getTrialStart();
+
+    if(!saved){
+      return false;
+    }
+
+    const elapsed =
+      Date.now() - Number(saved);
+
+    const duration =
+      TRIAL_HOURS *
+      60 *
+      60 *
+      1000;
+
+    return elapsed < duration;
+
+  }
+
+
+  function showGate(){
+
+    const gate =
+      document.getElementById(
+        "trialGate"
+      );
+
+    const app =
+      document.querySelector(
+        ".app"
+      );
+
+    if(gate){
+      gate.style.display = "flex";
+    }
+
+    if(app){
+      app.style.display = "none";
+    }
+
+  }
+
+
+  function showApp(){
+
+    const gate =
+      document.getElementById(
+        "trialGate"
+      );
+
+    const app =
+      document.querySelector(
+        ".app"
+      );
+
+    if(gate){
+      gate.style.display = "none";
+    }
+
+    if(app){
+      app.style.display = "block";
+    }
+
+  }
+
+
+  window.verifyAccess = function(){
+
+    const input =
+      document.getElementById(
+        "gateInput"
+      );
+
+    const message =
+      document.getElementById(
+        "gateMessage"
+      );
+
+
+    if(!input){
+      return;
+    }
+
+
+    if(input.value.trim() !== PASSWORD){
+
+      if(message){
+
+        message.textContent =
+          "❌ Incorrect password. Enter 12345.";
+
+      }
+
+      input.focus();
+
+      return;
+
+    }
+
+
+    if(!getTrialStart()){
+
+      startTrial();
+
+    }
+
+
+    showApp();
+
+  };
+
+
+  function initializeTrialGate(){
+
+    const premium =
+      localStorage.getItem(
+        "jobflow_premium"
+      ) === "true";
+
+
+    if(premium){
+
+      showApp();
+
+      return;
+
+    }
+
+
+    if(!getTrialStart()){
+
+      showGate();
+
+      return;
+
+    }
+
+
+    if(trialStillActive()){
+
+      showApp();
+
+      return;
+
+    }
+
+
+    showGate();
+
+
+    const message =
+      document.getElementById(
+        "gateMessage"
+      );
+
+
+    if(message){
+
+      message.innerHTML =
+        "⏰ Your 48-hour free trial has expired." +
+        "<br><strong>Upgrade to Premium to continue.</strong>";
+
+    }
+
+  }
+
+
+  if(
+    document.readyState ===
+    "loading"
+  ){
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      initializeTrialGate
+    );
+
+  }else{
+
+    initializeTrialGate();
+
+  }
+
+})();
+
+</script>
 </body>
 </html>
