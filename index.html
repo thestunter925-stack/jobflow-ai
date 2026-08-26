@@ -5,10 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#2563eb">
 <meta name="description" content="JobFlow AI Career Command Center">
-<title>JobFlow AI — Career Command Center</title>
+<title>JobFlow AI</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
   font-family:Arial,Helvetica,sans-serif;
@@ -16,8 +20,15 @@ body{
   color:#111827;
 }
 
-button,input{
+button,
+input,
+textarea,
+select{
   font:inherit;
+}
+
+button{
+  cursor:pointer;
 }
 
 header{
@@ -26,18 +37,22 @@ header{
   padding:18px 20px;
   position:sticky;
   top:0;
-  z-index:5;
+  z-index:10;
 }
 
-header h1{font-size:22px}
+header h1{
+  font-size:23px;
+}
+
 header p{
+  margin-top:5px;
   font-size:13px;
   color:#cbd5e1;
-  margin-top:4px;
 }
 
 main{
-  max-width:900px;
+  width:100%;
+  max-width:950px;
   margin:auto;
   padding:20px;
 }
@@ -47,8 +62,23 @@ main{
   border:1px solid #e5e7eb;
   border-radius:16px;
   padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 4px 14px #0000000a;
+  margin-bottom:18px;
+  box-shadow:0 5px 18px rgba(0,0,0,.05);
+}
+
+.hero{
+  text-align:center;
+  padding:28px 20px;
+}
+
+.hero h2{
+  font-size:27px;
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:#64748b;
+  line-height:1.5;
 }
 
 h2{
@@ -56,32 +86,62 @@ h2{
   margin-bottom:8px;
 }
 
-p{line-height:1.5}
+h3{
+  font-size:17px;
+  margin-bottom:6px;
+}
+
+p{
+  line-height:1.5;
+}
+
+.muted{
+  color:#64748b;
+  font-size:13px;
+}
 
 label{
   display:block;
-  font-weight:700;
+  margin:16px 0 7px;
   font-size:13px;
-  margin:14px 0 6px;
+  font-weight:700;
 }
 
-input{
+input,
+textarea,
+select{
   width:100%;
-  padding:13px;
   border:1px solid #d1d5db;
   border-radius:10px;
+  padding:13px;
+  outline:none;
+  background:#fff;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:#2563eb;
 }
 
 button{
   border:0;
   border-radius:10px;
-  padding:12px 16px;
+  padding:12px 17px;
   font-weight:700;
-  cursor:pointer;
 }
 
 .primary{
   background:#2563eb;
+  color:#fff;
+}
+
+.primary:hover{
+  background:#1d4ed8;
+}
+
+.dark{
+  background:#111827;
   color:#fff;
 }
 
@@ -90,73 +150,140 @@ button{
   color:#fff;
 }
 
-.dark{
-  background:#111827;
+.danger{
+  background:#dc2626;
   color:#fff;
 }
 
-.muted{
-  color:#64748b;
+.full{
+  width:100%;
+}
+
+.small{
+  padding:8px 11px;
+  font-size:12px;
+}
+
+.error{
+  color:#b91c1c;
   font-size:13px;
+  margin-top:9px;
 }
 
 .status{
-  margin-top:12px;
-  padding:12px;
-  border-radius:10px;
+  margin-top:14px;
+  padding:13px;
+  border-radius:11px;
   background:#eff6ff;
   color:#1d4ed8;
+  font-size:14px;
+  line-height:1.5;
 }
 
-.feature{
-  padding:14px;
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-  margin-top:10px;
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:center;
+.successStatus{
+  background:#f0fdf4;
+  color:#15803d;
 }
 
-.lock{
-  color:#b45309;
-  font-weight:700;
-  font-size:13px;
+.warningStatus{
+  background:#fffbeb;
+  color:#a16207;
 }
 
 .hidden{
   display:none!important;
 }
 
-.price{
-  font-size:28px;
-  font-weight:800;
-  margin:10px 0;
+.feature{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:15px;
+  margin-top:11px;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
 }
 
-.upi{
-  background:#f8fafc;
-  border:1px dashed #94a3b8;
-  padding:14px;
-  border-radius:12px;
+.featureText{
+  flex:1;
+}
+
+.lock{
+  white-space:nowrap;
+  font-size:13px;
+  font-weight:700;
+}
+
+.locked{
+  color:#b45309;
+}
+
+.unlocked{
+  color:#15803d;
+}
+
+.price{
+  font-size:32px;
+  font-weight:800;
   margin:12px 0;
 }
 
-code{
-  background:#e5e7eb;
-  padding:3px 6px;
-  border-radius:5px;
+.upiBox{
+  background:#f8fafc;
+  border:1px dashed #94a3b8;
+  border-radius:12px;
+  padding:15px;
+  margin:15px 0;
 }
 
-.smallbtn{
-  padding:8px 10px;
-  font-size:12px;
-}
-
-#error{
-  color:#b91c1c;
+.upiId{
+  display:inline-block;
   margin-top:8px;
+  background:#e5e7eb;
+  padding:7px 9px;
+  border-radius:7px;
+  font-weight:700;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.basicFeature{
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:15px;
+}
+
+.basicFeature strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+@media(max-width:650px){
+
+  main{
+    padding:12px;
+  }
+
+  .card{
+    padding:16px;
+  }
+
+  .hero h2{
+    font-size:23px;
+  }
+
+  .feature{
+    align-items:flex-start;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
@@ -170,14 +297,87 @@ code{
 
 <main>
 
-<section class="card" id="authCard">
-  <h2>Start your free 48-hour trial</h2>
+<!-- =========================
+     HERO
+========================= -->
 
-  <p class="muted">
-    Enter your email once. Your trial unlocks premium career tools for 48 hours.
+<section class="card hero">
+
+  <h2>Build Your Career Smarter</h2>
+
+  <p>
+    Start your free 48-hour trial to explore JobFlow AI.
   </p>
 
-  <label for="email">Email address</label>
+</section>
+
+
+<!-- =========================
+     BASIC FEATURES
+========================= -->
+
+<section class="card">
+
+  <h2>🆓 Basic Features</h2>
+
+  <p class="muted">
+    Basic career tools are available to everyone.
+  </p>
+
+  <div class="grid" style="margin-top:14px">
+
+    <div class="basicFeature">
+      <strong>📋 Application Tracking</strong>
+      <span class="muted">
+        Track your job applications.
+      </span>
+    </div>
+
+    <div class="basicFeature">
+      <strong>🏢 Company Tracking</strong>
+      <span class="muted">
+        Organize companies you apply to.
+      </span>
+    </div>
+
+    <div class="basicFeature">
+      <strong>📝 Job Notes</strong>
+      <span class="muted">
+        Keep useful notes for applications.
+      </span>
+    </div>
+
+    <div class="basicFeature">
+      <strong>📊 Basic Dashboard</strong>
+      <span class="muted">
+        See your career activity.
+      </span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     TRIAL LOGIN
+========================= -->
+
+<section
+  class="card"
+  id="authCard"
+>
+
+  <h2>Start Your Free 48-Hour Trial</h2>
+
+  <p class="muted">
+    Enter your email address to start your one-time
+    48-hour JobFlow AI trial.
+  </p>
+
+  <label for="email">
+    Email address
+  </label>
 
   <input
     id="email"
@@ -187,59 +387,83 @@ code{
   >
 
   <button
-    class="primary"
     id="trialBtn"
+    type="button"
+    class="primary full"
     style="margin-top:12px"
   >
-    🚀 Start 48-Hour Trial
+    🚀 Start 48-Hour Free Trial
   </button>
 
-  <div id="error"></div>
+  <div
+    id="error"
+    class="error"
+  ></div>
+
 </section>
 
 
-<section class="card hidden" id="accountCard">
+<!-- =========================
+     ACCOUNT
+========================= -->
 
-  <h2>Welcome to JobFlow AI</h2>
+<section
+  class="card hidden"
+  id="accountCard"
+>
 
-  <p id="accountEmail"></p>
+  <h2>👋 Welcome to JobFlow AI</h2>
+
+  <p
+    id="accountEmail"
+    class="muted"
+  ></p>
 
   <div
-    class="status"
     id="trialStatus"
+    class="status"
   ></div>
 
   <button
-    class="dark smallbtn"
     id="logoutBtn"
+    type="button"
+    class="dark small"
     style="margin-top:12px"
   >
-    Sign out
+    Sign Out
   </button>
 
 </section>
 
 
+<!-- =========================
+     PREMIUM FEATURES
+========================= -->
+
 <section class="card">
 
-  <h2>Premium Career Tools</h2>
+  <h2>💎 Premium Career Features</h2>
 
   <p class="muted">
-    Premium access is available during the 48-hour trial and after subscription payment.
+    Premium features unlock during your 48-hour trial.
+    After the trial, ₹499 Premium membership is required.
   </p>
 
 
   <div class="feature">
 
-    <div>
-      <b>🤖 AI Cover Letter Builder</b>
+    <div class="featureText">
+
+      <h3>🤖 AI Cover Letter Builder</h3>
+
       <p class="muted">
-        Create targeted cover letters.
+        Generate professional, job-specific cover letters.
       </p>
+
     </div>
 
     <span
-      class="lock"
+      class="lock locked"
       data-premium
     >
       🔒 Locked
@@ -250,15 +474,18 @@ code{
 
   <div class="feature">
 
-    <div>
-      <b>📄 Resume Optimizer</b>
+    <div class="featureText">
+
+      <h3>📄 Resume Optimizer</h3>
+
       <p class="muted">
-        Improve your resume for job applications.
+        Improve your resume for specific job opportunities.
       </p>
+
     </div>
 
     <span
-      class="lock"
+      class="lock locked"
       data-premium
     >
       🔒 Locked
@@ -269,15 +496,18 @@ code{
 
   <div class="feature">
 
-    <div>
-      <b>🎯 Interview Coach</b>
+    <div class="featureText">
+
+      <h3>🎯 Interview Coach</h3>
+
       <p class="muted">
-        Practice role-specific interview questions.
+        Practice interview questions and prepare for interviews.
       </p>
+
     </div>
 
     <span
-      class="lock"
+      class="lock locked"
       data-premium
     >
       🔒 Locked
@@ -288,15 +518,18 @@ code{
 
   <div class="feature">
 
-    <div>
-      <b>📊 Career Insights</b>
+    <div class="featureText">
+
+      <h3>📊 Career Insights</h3>
+
       <p class="muted">
-        Track applications and career progress.
+        Get deeper insights into your job-search progress.
       </p>
+
     </div>
 
     <span
-      class="lock"
+      class="lock locked"
       data-premium
     >
       🔒 Locked
@@ -307,37 +540,76 @@ code{
 </section>
 
 
-<section class="card" id="paymentCard">
+<!-- =========================
+     PREMIUM ACTIVE
+========================= -->
 
-  <h2>Unlock Premium</h2>
+<section
+  class="card hidden"
+  id="premiumCard"
+>
+
+  <h2>✨ Premium Features Unlocked</h2>
+
+  <p>
+    Your JobFlow AI premium tools are currently available.
+  </p>
+
+  <div class="status successStatus">
+    ✓ Premium access is active.
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PAYMENT
+========================= -->
+
+<section
+  class="card"
+  id="paymentCard"
+>
+
+  <h2>💎 JobFlow AI Premium</h2>
 
   <p class="muted">
-    After your trial ends, continue using JobFlow AI Premium.
+    Continue using premium career tools after your
+    free 48-hour trial.
   </p>
 
   <div class="price">
     ₹499
   </div>
 
+  <p class="muted">
+    Premium membership
+  </p>
 
-  <div class="upi">
 
-    <b>UPI payment</b>
+  <div class="upiBox">
 
-    <p class="muted">
-      Replace the placeholder below with your real UPI ID before publishing.
+    <strong>💳 Pay using UPI</strong>
+
+    <p class="muted" style="margin-top:7px">
+      Replace the UPI ID below with your actual
+      JobFlow AI payment UPI ID.
     </p>
 
-    <p style="margin-top:8px">
-      <code id="upiText">
+    <div>
+      <code
+        id="upiText"
+        class="upiId"
+      >
         YOUR-UPI-ID@bank
       </code>
-    </p>
+    </div>
 
     <button
-      class="dark smallbtn"
       id="copyUpi"
-      style="margin-top:10px"
+      type="button"
+      class="dark small"
+      style="margin-top:11px"
     >
       Copy UPI ID
     </button>
@@ -345,25 +617,20 @@ code{
   </div>
 
 
-  <p class="muted">
-    After completing payment, enter the payment reference/UTR below.
-    Real premium access should be granted only after server-side payment verification.
-  </p>
-
-
   <label for="utr">
-    Payment reference / UTR
+    Payment Reference / UTR
   </label>
 
   <input
     id="utr"
-    placeholder="Enter UTR / transaction reference"
+    type="text"
+    placeholder="Enter your UTR / transaction reference"
   >
 
-
   <button
-    class="success"
     id="activateBtn"
+    type="button"
+    class="success full"
     style="margin-top:12px"
   >
     ✅ Submit Payment Reference
@@ -378,20 +645,20 @@ code{
 </section>
 
 
-<section
-  class="card hidden"
-  id="premiumCard"
->
+<!-- =========================
+     PAYMENT INFORMATION
+========================= -->
 
-  <h2>✨ Premium Unlocked</h2>
+<section class="card">
 
-  <p>
-    You currently have premium access on this browser.
+  <h2>🔐 Payment Security</h2>
+
+  <p class="muted">
+    Your payment reference is collected for verification.
+    A real production payment system should verify the
+    ₹499 transaction on a secure server before granting
+    permanent premium access.
   </p>
-
-  <div class="status">
-    Premium features are unlocked.
-  </div>
 
 </section>
 
@@ -401,529 +668,708 @@ code{
 <script>
 (() => {
 
-"use strict";
+  "use strict";
 
 
-const STORAGE_KEY = "jobflow_ai_account_v1";
+  /* =========================
+     CONFIG
+  ========================= */
 
-const TRIAL_MS =
-  48 * 60 * 60 * 1000;
+  const STORAGE_KEY =
+    "jobflow_ai_account_v1";
 
-
-/*
-  REPLACE THIS WITH YOUR REAL UPI ID
-*/
-const UPI_ID =
-  "YOUR-UPI-ID@bank";
+  const TRIAL_DURATION =
+    48 * 60 * 60 * 1000;
 
 
-const $ = id =>
-  document.getElementById(id);
+  /*
+   * IMPORTANT:
+   * Replace this with your actual UPI ID.
+   */
+
+  const UPI_ID =
+    "YOUR-UPI-ID@bank";
 
 
-/* =========================
-   ACCOUNT
-========================= */
+  /* =========================
+     ELEMENTS
+  ========================= */
 
-function loadAccount(){
+  const emailInput =
+    document.getElementById("email");
 
-  try{
+  const trialBtn =
+    document.getElementById("trialBtn");
 
-    return JSON.parse(
-      localStorage.getItem(STORAGE_KEY)
-    ) || null;
+  const errorBox =
+    document.getElementById("error");
 
-  }catch(error){
+  const authCard =
+    document.getElementById("authCard");
 
-    return null;
+  const accountCard =
+    document.getElementById("accountCard");
 
-  }
+  const accountEmail =
+    document.getElementById("accountEmail");
 
-}
+  const trialStatus =
+    document.getElementById("trialStatus");
 
+  const premiumCard =
+    document.getElementById("premiumCard");
 
-function saveAccount(account){
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(account)
-  );
-
-}
-
-
-/* =========================
-   EMAIL
-========================= */
-
-function validEmail(email){
-
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    .test(email);
-
-}
-
-
-/* =========================
-   TRIAL
-========================= */
-
-function trialActive(account){
-
-  return !!account &&
-    Date.now() < account.trialEnds;
-
-}
-
-
-/* =========================
-   PREMIUM
-========================= */
-
-function premiumActive(account){
-
-  return !!account &&
-    (
-      trialActive(account) ||
-      account.paid === true
+  const premiumFeatures =
+    document.querySelectorAll(
+      "[data-premium]"
     );
 
-}
 
+  /* =========================
+     ACCOUNT STORAGE
+  ========================= */
 
-/* =========================
-   TIME
-========================= */
+  function getAccount(){
 
-function formatRemaining(ms){
+    try{
 
-  if(ms <= 0){
+      const data =
+        localStorage.getItem(
+          STORAGE_KEY
+        );
 
-    return "Trial expired";
-
-  }
-
-  const totalMinutes =
-    Math.ceil(ms / 60000);
-
-  const days =
-    Math.floor(totalMinutes / 1440);
-
-  const hours =
-    Math.floor(
-      (totalMinutes % 1440) / 60
-    );
-
-  const mins =
-    totalMinutes % 60;
-
-  return (
-    (days ? days + "d " : "") +
-    hours + "h " +
-    mins + "m remaining"
-  );
-
-}
-
-
-/* =========================
-   RENDER
-========================= */
-
-function render(){
-
-  const account =
-    loadAccount();
-
-  const active =
-    premiumActive(account);
-
-
-  $("upiText").textContent =
-    UPI_ID;
-
-
-  if(!account){
-
-    $("authCard")
-      .classList
-      .remove("hidden");
-
-    $("accountCard")
-      .classList
-      .add("hidden");
-
-    $("premiumCard")
-      .classList
-      .add("hidden");
-
-
-    document
-      .querySelectorAll("[data-premium]")
-      .forEach(el => {
-
-        el.textContent =
-          "🔒 Locked";
-
-        el.style.color =
-          "#b45309";
-
-      });
-
-    return;
-
-  }
-
-
-  $("authCard")
-    .classList
-    .add("hidden");
-
-
-  $("accountCard")
-    .classList
-    .remove("hidden");
-
-
-  $("accountEmail")
-    .textContent =
-    account.email;
-
-
-  if(account.paid){
-
-    $("trialStatus")
-      .textContent =
-      "💎 Premium active — payment verified.";
-
-  }
-
-  else if(trialActive(account)){
-
-    $("trialStatus")
-      .textContent =
-      "🎉 Free trial active — " +
-      formatRemaining(
-        account.trialEnds - Date.now()
-      );
-
-  }
-
-  else{
-
-    $("trialStatus")
-      .textContent =
-      "⏰ Your 48-hour trial has ended. Premium access requires ₹499 payment.";
-
-  }
-
-
-  document
-    .querySelectorAll("[data-premium]")
-    .forEach(el => {
-
-      if(active){
-
-        el.textContent =
-          "✓ Unlocked";
-
-        el.style.color =
-          "#15803d";
-
-      }else{
-
-        el.textContent =
-          "🔒 Locked";
-
-        el.style.color =
-          "#b45309";
-
+      if(!data){
+        return null;
       }
 
-    });
+      return JSON.parse(data);
+
+    }catch(error){
+
+      return null;
+
+    }
+
+  }
 
 
-  $("premiumCard")
-    .classList
-    .toggle(
-      "hidden",
-      !active
+  function saveAccount(account){
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(account)
     );
 
-}
+  }
 
 
-/* =========================
-   ONE TRIAL HANDLER
-========================= */
+  /* =========================
+     EMAIL VALIDATION
+  ========================= */
 
-$("trialBtn")
-.addEventListener(
-  "click",
-  () => {
+  function validEmail(email){
 
-    const email =
-      $("email")
-      .value
-      .trim()
-      .toLowerCase();
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      .test(email);
+
+  }
 
 
-    $("error")
-      .textContent = "";
+  /* =========================
+     TRIAL STATUS
+  ========================= */
+
+  function isTrialActive(account){
+
+    if(!account){
+      return false;
+    }
+
+    return (
+      Date.now() <
+      Number(account.trialEnds)
+    );
+
+  }
 
 
-    if(!validEmail(email)){
+  /* =========================
+     PREMIUM STATUS
+  ========================= */
 
-      $("error")
-        .textContent =
-        "Please enter a valid email address.";
+  function isPremiumActive(account){
+
+    if(!account){
+      return false;
+    }
+
+    return (
+      account.paid === true ||
+      isTrialActive(account)
+    );
+
+  }
+
+
+  /* =========================
+     COUNTDOWN
+  ========================= */
+
+  function getRemainingTime(milliseconds){
+
+    if(milliseconds <= 0){
+
+      return "Trial expired";
+
+    }
+
+
+    const totalMinutes =
+      Math.ceil(
+        milliseconds / 60000
+      );
+
+
+    const hours =
+      Math.floor(
+        totalMinutes / 60
+      );
+
+
+    const minutes =
+      totalMinutes % 60;
+
+
+    return (
+      hours +
+      "h " +
+      minutes +
+      "m remaining"
+    );
+
+  }
+
+
+  /* =========================
+     UPDATE PAGE
+  ========================= */
+
+  function updatePage(){
+
+    const account =
+      getAccount();
+
+
+    /*
+     * No account
+     */
+
+    if(!account){
+
+      authCard
+        .classList
+        .remove("hidden");
+
+      accountCard
+        .classList
+        .add("hidden");
+
+      premiumCard
+        .classList
+        .add("hidden");
+
+
+      premiumFeatures.forEach(
+        feature => {
+
+          feature.textContent =
+            "🔒 Locked";
+
+          feature.classList
+            .remove("unlocked");
+
+          feature.classList
+            .add("locked");
+
+        }
+      );
 
       return;
 
     }
 
 
-    const existing =
-      loadAccount();
+    /*
+     * Account exists
+     */
+
+    authCard
+      .classList
+      .add("hidden");
+
+
+    accountCard
+      .classList
+      .remove("hidden");
+
+
+    accountEmail.textContent =
+      "Email: " + account.email;
 
 
     /*
-      Existing account:
-      Do NOT create another trial.
-    */
+     * Paid account
+     */
 
-    if(existing){
+    if(account.paid === true){
 
-      if(existing.email === email){
+      trialStatus.textContent =
+        "💎 Premium membership is active.";
 
-        render();
+      trialStatus.className =
+        "status successStatus";
+
+    }
+
+
+    /*
+     * Active trial
+     */
+
+    else if(
+      isTrialActive(account)
+    ){
+
+      const remaining =
+        Number(account.trialEnds) -
+        Date.now();
+
+
+      trialStatus.textContent =
+        "🎉 Your free 48-hour trial is active. " +
+        getRemainingTime(
+          remaining
+        );
+
+
+      trialStatus.className =
+        "status";
+
+
+    }
+
+
+    /*
+     * Trial expired
+     */
+
+    else{
+
+      trialStatus.textContent =
+        "⏰ Your 48-hour trial has ended. " +
+        "₹499 Premium membership is required.";
+
+      trialStatus.className =
+        "status warningStatus";
+
+    }
+
+
+    /*
+     * Premium features
+     */
+
+    const premiumActive =
+      isPremiumActive(account);
+
+
+    premiumFeatures.forEach(
+      feature => {
+
+        if(premiumActive){
+
+          feature.textContent =
+            "✓ Unlocked";
+
+          feature.classList
+            .remove("locked");
+
+          feature.classList
+            .add("unlocked");
+
+        }else{
+
+          feature.textContent =
+            "🔒 Locked";
+
+          feature.classList
+            .remove("unlocked");
+
+          feature.classList
+            .add("locked");
+
+        }
+
+      }
+    );
+
+
+    /*
+     * Premium card
+     */
+
+    premiumCard.classList.toggle(
+      "hidden",
+      !premiumActive
+    );
+
+  }
+
+
+  /* =========================
+     START TRIAL
+     ONLY ONE HANDLER
+  ========================= */
+
+  trialBtn.onclick =
+    function(){
+
+      errorBox.textContent =
+        "";
+
+
+      const email =
+        emailInput.value
+          .trim()
+          .toLowerCase();
+
+
+      /*
+       * Validate email
+       */
+
+      if(!validEmail(email)){
+
+        errorBox.textContent =
+          "Please enter a valid email address.";
+
+        emailInput.focus();
 
         return;
 
       }
 
-      $("error")
-        .textContent =
-        "This browser already has a JobFlow AI trial account.";
 
-      return;
+      /*
+       * Existing account
+       */
 
-    }
-
-
-    /*
-      Create ONE 48-hour trial.
-    */
-
-    const now =
-      Date.now();
+      const existingAccount =
+        getAccount();
 
 
-    const account = {
+      if(existingAccount){
 
-      email: email,
+        /*
+         * Same email:
+         * show existing account.
+         */
 
-      trialStarted: now,
+        if(
+          existingAccount.email ===
+          email
+        ){
 
-      trialEnds:
-        now + TRIAL_MS,
+          updatePage();
 
-      paid: false,
+          return;
 
-      paymentReference: "",
+        }
 
-      paymentSubmittedAt: null,
 
-      paymentPending: false
+        /*
+         * Different email:
+         * do not create another trial.
+         */
+
+        errorBox.textContent =
+          "A JobFlow trial already exists on this browser.";
+
+        return;
+
+      }
+
+
+      /*
+       * Create trial
+       */
+
+      const startTime =
+        Date.now();
+
+
+      const account = {
+
+        email:
+          email,
+
+        trialStarted:
+          startTime,
+
+        trialEnds:
+          startTime +
+          TRIAL_DURATION,
+
+        paid:
+          false,
+
+        paymentReference:
+          "",
+
+        paymentPending:
+          false,
+
+        paymentSubmittedAt:
+          null
+
+      };
+
+
+      saveAccount(account);
+
+
+      /*
+       * Clear input
+       */
+
+      emailInput.value =
+        "";
+
+
+      /*
+       * Refresh page
+       */
+
+      updatePage();
 
     };
 
 
-    saveAccount(account);
+  /* =========================
+     SIGN OUT
+  ========================= */
 
-
-    $("email")
-      .value = "";
-
-
-    render();
-
-  }
-);
-
-
-/* =========================
-   SIGN OUT
-========================= */
-
-$("logoutBtn")
-.addEventListener(
-  "click",
-  () => {
-
-    localStorage.removeItem(
-      STORAGE_KEY
+  const logoutBtn =
+    document.getElementById(
+      "logoutBtn"
     );
 
-    render();
+
+  if(logoutBtn){
+
+    logoutBtn.onclick =
+      function(){
+
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+
+        updatePage();
+
+      };
 
   }
-);
 
 
-/* =========================
-   COPY UPI
-========================= */
+  /* =========================
+     UPI
+  ========================= */
 
-$("copyUpi")
-.addEventListener(
-  "click",
-  async () => {
-
-    try{
-
-      await navigator.clipboard
-        .writeText(UPI_ID);
+  const upiText =
+    document.getElementById(
+      "upiText"
+    );
 
 
-      $("copyUpi")
-        .textContent =
-        "Copied ✓";
+  const copyUpi =
+    document.getElementById(
+      "copyUpi"
+    );
 
 
-      setTimeout(
-        () => {
-
-          $("copyUpi")
-            .textContent =
-            "Copy UPI ID";
-
-        },
-        1500
-      );
+  upiText.textContent =
+    UPI_ID;
 
 
-    }catch(error){
+  if(copyUpi){
 
-      $("paymentMessage")
-        .classList
-        .remove("hidden");
+    copyUpi.onclick =
+      async function(){
 
+        try{
 
-      $("paymentMessage")
-        .textContent =
-        "Copy failed. Please copy the UPI ID manually.";
-
-    }
-
-  }
-);
+          await navigator
+            .clipboard
+            .writeText(
+              UPI_ID
+            );
 
 
-/* =========================
-   PAYMENT REFERENCE
-========================= */
-
-$("activateBtn")
-.addEventListener(
-  "click",
-  () => {
-
-    const account =
-      loadAccount();
+          copyUpi.textContent =
+            "Copied ✓";
 
 
-    const utr =
-      $("utr")
-      .value
-      .trim();
+          setTimeout(
+            function(){
+
+              copyUpi.textContent =
+                "Copy UPI ID";
+
+            },
+            1500
+          );
 
 
-    if(!account){
+        }catch(error){
 
-      $("paymentMessage")
-        .classList
-        .remove("hidden");
+          alert(
+            "Please copy the UPI ID manually: " +
+            UPI_ID
+          );
 
+        }
 
-      $("paymentMessage")
-        .textContent =
-        "Start your 48-hour trial first.";
-
-      return;
-
-    }
-
-
-    if(!utr){
-
-      $("paymentMessage")
-        .classList
-        .remove("hidden");
-
-
-      $("paymentMessage")
-        .textContent =
-        "Enter your payment reference / UTR.";
-
-      return;
-
-    }
-
-
-    /*
-      IMPORTANT:
-      This does NOT falsely mark payment as paid.
-
-      A real payment gateway/backend must verify
-      the ₹499 transaction before premium is granted.
-    */
-
-    account.paymentReference =
-      utr;
-
-    account.paymentSubmittedAt =
-      Date.now();
-
-    account.paymentPending =
-      true;
-
-
-    saveAccount(account);
-
-
-    $("paymentMessage")
-      .classList
-      .remove("hidden");
-
-
-    $("paymentMessage")
-      .textContent =
-      "Payment reference submitted. Premium will be activated after the ₹499 payment is verified.";
-
-    render();
+      };
 
   }
-);
 
 
-/* =========================
-   START
-========================= */
+  /* =========================
+     PAYMENT REFERENCE
+  ========================= */
 
-render();
+  const activateBtn =
+    document.getElementById(
+      "activateBtn"
+    );
 
 
-/*
-  Refresh trial status every 30 seconds.
-  This is NOT another trial handler.
-*/
+  const utrInput =
+    document.getElementById(
+      "utr"
+    );
 
-setInterval(
-  render,
-  30000
-);
+
+  const paymentMessage =
+    document.getElementById(
+      "paymentMessage"
+    );
+
+
+  if(activateBtn){
+
+    activateBtn.onclick =
+      function(){
+
+        const account =
+          getAccount();
+
+
+        const utr =
+          utrInput.value
+            .trim();
+
+
+        /*
+         * User must have an account.
+         */
+
+        if(!account){
+
+          paymentMessage.textContent =
+            "Please start your free 48-hour trial first.";
+
+          paymentMessage.classList
+            .remove("hidden");
+
+          return;
+
+        }
+
+
+        /*
+         * UTR required.
+         */
+
+        if(!utr){
+
+          paymentMessage.textContent =
+            "Please enter your payment reference / UTR.";
+
+          paymentMessage.classList
+            .remove("hidden");
+
+          return;
+
+        }
+
+
+        /*
+         * Store payment reference.
+         *
+         * IMPORTANT:
+         * Do not set paid=true here.
+         * Real payment verification must
+         * happen on a secure backend.
+         */
+
+        account.paymentReference =
+          utr;
+
+        account.paymentPending =
+          true;
+
+        account.paymentSubmittedAt =
+          Date.now();
+
+
+        saveAccount(
+          account
+        );
+
+
+        paymentMessage.textContent =
+          "✅ Payment reference submitted. " +
+          "Your ₹499 payment must be verified before Premium is activated.";
+
+        paymentMessage.classList
+          .remove("hidden");
+
+      };
+
+  }
+
+
+  /* =========================
+     INITIAL PAGE LOAD
+  ========================= */
+
+  updatePage();
+
+
+  /* =========================
+     REFRESH TRIAL TIMER
+  ========================= */
+
+  setInterval(
+    function(){
+
+      updatePage();
+
+    },
+    60000
+  );
+
 
 })();
 </script>
