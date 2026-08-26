@@ -1581,6 +1581,96 @@ if(
 
 }
 
+<script>
+
+function startJobFlow(){
+
+  const input = document.getElementById("trialEmail");
+
+  if(!input){
+    alert("Email field not found.");
+    return;
+  }
+
+  const email = input.value.trim();
+
+  if(!email){
+    alert("Please enter your email.");
+    input.focus();
+    return;
+  }
+
+  if(!email.includes("@")){
+    alert("Please enter a valid email.");
+    input.focus();
+    return;
+  }
+
+  localStorage.setItem(
+    "jobflow_email",
+    email
+  );
+
+  if(
+    !localStorage.getItem(
+      "jobflow_trial_start"
+    )
+  ){
+
+    localStorage.setItem(
+      "jobflow_trial_start",
+      Date.now().toString()
+    );
+
+  }
+
+  const gate =
+    document.getElementById(
+      "trialGate"
+    );
+
+  const app =
+    document.querySelector(
+      ".app"
+    );
+
+  if(gate){
+    gate.style.display = "none";
+  }
+
+  if(app){
+    app.style.display = "block";
+  }
+
+  if(
+    typeof showPage === "function"
+  ){
+    showPage("dashboard");
+  }
+
+  if(
+    typeof loadEverything === "function"
+  ){
+    loadEverything();
+  }
+
+  if(
+    typeof updateTrialLabel === "function"
+  ){
+    updateTrialLabel();
+  }
+
+  if(
+    typeof toast === "function"
+  ){
+    toast("✅ 48-hour trial started!");
+  }else{
+    alert("✅ 48-hour trial started!");
+  }
+
+}
+
+</script>
 </script>
 
 </body>
