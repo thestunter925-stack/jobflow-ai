@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<meta
-  name="theme-color"
-  content="#2563eb"
->
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#2563eb">
 <title>JobFlow AI - Real Jobs</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -32,31 +21,28 @@ body{
 
 header{
   background:#2563eb;
-  color:white;
-  padding:22px 16px;
-  position:sticky;
-  top:0;
-  z-index:10;
+  color:#fff;
+  padding:20px 15px;
 }
 
-.header-inner{
+.header{
   max-width:1100px;
   margin:auto;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  gap:15px;
+  justify-content:space-between;
+  gap:12px;
 }
 
 .logo{
-  font-size:22px;
+  font-size:23px;
   font-weight:800;
 }
 
-.subtitle{
+.sub{
+  font-size:13px;
   opacity:.9;
   margin-top:4px;
-  font-size:13px;
 }
 
 .container{
@@ -65,24 +51,29 @@ header{
   padding:20px 15px 50px;
 }
 
-.search-box{
-  background:white;
-  padding:18px;
+.card{
+  background:#fff;
   border-radius:16px;
+  padding:18px;
+  margin-bottom:18px;
   box-shadow:0 4px 18px rgba(0,0,0,.06);
-  margin-bottom:20px;
+}
+
+h2{
+  margin-bottom:7px;
+}
+
+.muted{
+  color:#64748b;
+  font-size:14px;
+  line-height:1.5;
 }
 
 .search-grid{
   display:grid;
   grid-template-columns:2fr 1fr 1fr;
   gap:10px;
-}
-
-input,
-select,
-button{
-  font:inherit;
+  margin-top:15px;
 }
 
 input,
@@ -91,6 +82,7 @@ select{
   padding:13px;
   border:1px solid #d1d5db;
   border-radius:9px;
+  font:inherit;
   outline:none;
 }
 
@@ -103,86 +95,82 @@ button{
   border:0;
   border-radius:9px;
   padding:12px 16px;
-  cursor:pointer;
+  font:inherit;
   font-weight:700;
+  cursor:pointer;
 }
 
 .primary{
   background:#2563eb;
-  color:white;
+  color:#fff;
 }
 
 .secondary{
-  background:#eef2ff;
-  color:#1e40af;
+  background:#eaf0ff;
+  color:#1d4ed8;
 }
 
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-
-.search-button{
-  margin-top:12px;
+.search-btn{
   width:100%;
+  margin-top:10px;
 }
 
 .status{
-  margin:15px 0;
+  display:none;
+  margin-top:12px;
   padding:12px;
   border-radius:9px;
   background:#eff6ff;
   color:#1d4ed8;
-  display:none;
+  font-size:14px;
 }
 
 .status.show{
   display:block;
 }
 
-.jobs{
+.job-list{
   display:grid;
   gap:14px;
 }
 
-.job-card{
-  background:white;
-  border-radius:16px;
-  padding:18px;
-  box-shadow:0 4px 18px rgba(0,0,0,.05);
+.job{
+  background:#fff;
   border:1px solid #e5e7eb;
+  border-radius:15px;
+  padding:17px;
 }
 
 .company{
   color:#2563eb;
   font-weight:700;
-  margin-bottom:7px;
+  margin-bottom:6px;
 }
 
-.job-title{
-  font-size:19px;
+.title{
+  font-size:18px;
   font-weight:800;
-  margin-bottom:9px;
+  margin-bottom:8px;
 }
 
-.meta{
+.location{
   color:#64748b;
   font-size:14px;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
-.badges{
+.tags{
   display:flex;
   flex-wrap:wrap;
-  gap:7px;
-  margin-bottom:14px;
+  gap:6px;
+  margin-bottom:13px;
 }
 
-.badge{
+.tag{
   background:#f1f5f9;
-  padding:5px 9px;
   border-radius:20px;
-  font-size:12px;
+  padding:5px 9px;
+  font-size:11px;
 }
 
 .actions{
@@ -192,122 +180,104 @@ button:disabled{
 }
 
 .empty{
-  background:white;
-  padding:30px;
-  border-radius:15px;
   text-align:center;
+  padding:35px 15px;
   color:#64748b;
 }
 
 .loading{
   text-align:center;
   padding:30px;
+  color:#64748b;
 }
 
-.small{
-  font-size:12px;
+.source{
+  font-size:11px;
   color:#64748b;
   margin-top:10px;
 }
 
 @media(max-width:700px){
+  .header{
+    flex-direction:column;
+    align-items:flex-start;
+  }
 
   .search-grid{
     grid-template-columns:1fr;
   }
 
-  .header-inner{
-    align-items:flex-start;
-    flex-direction:column;
+  .actions button{
+    width:100%;
   }
-
-  .job-title{
-    font-size:17px;
-  }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
 <header>
-
-  <div class="header-inner">
+  <div class="header">
 
     <div>
-
-      <div class="logo">
-        🚀 JobFlow AI
-      </div>
-
-      <div class="subtitle">
-        Real Job Search
-      </div>
-
+      <div class="logo">🚀 JobFlow AI</div>
+      <div class="sub">Real Job Search</div>
     </div>
 
     <button
       class="secondary"
       type="button"
-      onclick="goBack()"
+      id="backButton"
     >
-      ← JobFlow Dashboard
+      ← Dashboard
     </button>
 
   </div>
-
 </header>
 
 
 <main class="container">
 
-  <section class="search-box">
+  <section class="card">
 
-    <h2>
-      🔎 Search Real Jobs
-    </h2>
+    <h2>🔎 Search Real Jobs</h2>
 
-    <p class="small">
-      Search published jobs from participating company career boards.
+    <p class="muted">
+      Search currently published job listings from supported company
+      career boards and live remote-job sources.
     </p>
-
 
     <div class="search-grid">
 
       <input
         id="keyword"
         type="text"
-        placeholder="Job title, skill or keyword"
+        placeholder="Job title or skill e.g. Software Engineer"
+        autocomplete="off"
       >
 
       <input
         id="location"
         type="text"
-        placeholder="Location"
+        placeholder="Location e.g. India"
+        autocomplete="off"
       >
 
-      <select id="company">
-
-        <option value="all">
-          All Companies
-        </option>
-
+      <select id="source">
+        <option value="all">All Sources</option>
+        <option value="greenhouse">Company Career Boards</option>
+        <option value="remotive">Remote Jobs</option>
       </select>
 
     </div>
 
-
     <button
       id="searchButton"
-      class="primary search-button"
+      class="primary search-btn"
       type="button"
     >
       🔎 Search Jobs
     </button>
-
 
     <div
       id="status"
@@ -317,11 +287,33 @@ button:disabled{
   </section>
 
 
+  <section class="card">
+
+    <h2>🏢 Companies & Live Sources</h2>
+
+    <p class="muted">
+      JobFlow checks supported public career-board feeds and displays
+      the original application link.
+    </p>
+
+    <div
+      id="companyList"
+      style="
+        display:flex;
+        flex-wrap:wrap;
+        gap:7px;
+        margin-top:12px;
+      "
+    ></div>
+
+  </section>
+
+
   <section>
 
     <div
       id="jobs"
-      class="jobs"
+      class="job-list"
     ></div>
 
   </section>
@@ -330,146 +322,178 @@ button:disabled{
 
 
 <script>
-
 "use strict";
 
 
 /*
 ==================================================
-JOBFLOW REAL JOBS
+JOBFLOW AI REAL JOB SEARCH
 ==================================================
 
-Greenhouse provides public GET endpoints for
-published job-board data.
+Greenhouse:
+Public GET job-board data does not require
+authentication.
 
-No Greenhouse authentication is required for
-public GET job-board endpoints.
+Remotive:
+Public remote-job API.
+
+The page NEVER invents a job.
+Every displayed job comes from a fetched source.
 
 ==================================================
 */
 
 
-const COMPANIES = [
+const GREENHOUSE_COMPANIES = [
 
   {
     name:"Airbnb",
-    board:"airbnb"
-  },
-
-  {
-    name:"Canva",
-    board:"canva"
-  },
-
-  {
-    name:"Datadog",
-    board:"datadog"
-  },
-
-  {
-    name:"Dropbox",
-    board:"dropbox"
-  },
-
-  {
-    name:"Figma",
-    board:"figma"
-  },
-
-  {
-    name:"GitLab",
-    board:"gitlab"
-  },
-
-  {
-    name:"HubSpot",
-    board:"hubspot"
-  },
-
-  {
-    name:"Okta",
-    board:"okta"
-  },
-
-  {
-    name:"Pinterest",
-    board:"pinterest"
-  },
-
-  {
-    name:"Reddit",
-    board:"reddit"
-  },
-
-  {
-    name:"Shopify",
-    board:"shopify"
+    token:"airbnb"
   },
 
   {
     name:"Stripe",
-    board:"stripe"
+    token:"stripe"
+  },
+
+  {
+    name:"Cloudflare",
+    token:"cloudflare"
+  },
+
+  {
+    name:"Reddit",
+    token:"reddit"
+  },
+
+  {
+    name:"Datadog",
+    token:"datadog"
+  },
+
+  {
+    name:"Dropbox",
+    token:"dropbox"
+  },
+
+  {
+    name:"Figma",
+    token:"figma"
+  },
+
+  {
+    name:"GitLab",
+    token:"gitlab"
+  },
+
+  {
+    name:"HubSpot",
+    token:"hubspot"
+  },
+
+  {
+    name:"Okta",
+    token:"okta"
+  },
+
+  {
+    name:"Pinterest",
+    token:"pinterest"
+  },
+
+  {
+    name:"Shopify",
+    token:"shopify"
   },
 
   {
     name:"Twilio",
-    board:"twilio"
+    token:"twilio"
   },
 
   {
     name:"Uber",
-    board:"uber"
-  },
-
-  {
-    name:"Coinbase",
-    board:"coinbase"
+    token:"uber"
   }
 
 ];
 
 
-const keywordInput =
+const keyword =
   document.getElementById("keyword");
 
 const locationInput =
   document.getElementById("location");
 
-const companySelect =
-  document.getElementById("company");
+const source =
+  document.getElementById("source");
 
 const searchButton =
   document.getElementById("searchButton");
 
-const jobsContainer =
+const jobs =
   document.getElementById("jobs");
 
-const statusBox =
+const status =
   document.getElementById("status");
+
+const companyList =
+  document.getElementById("companyList");
 
 
 /*
 ==================================================
-POPULATE COMPANIES
+SHOW COMPANY NAMES
 ==================================================
 */
 
-COMPANIES.forEach(function(company){
+GREENHOUSE_COMPANIES.forEach(
+  function(company){
 
-  const option =
-    document.createElement("option");
+    const span =
+      document.createElement("span");
 
-  option.value =
-    company.board;
+    span.className =
+      "tag";
 
-  option.textContent =
-    company.name;
+    span.textContent =
+      company.name;
 
-  companySelect.appendChild(
-    option
+    companyList.appendChild(
+      span
+    );
+
+  }
+);
+
+
+/*
+==================================================
+STATUS
+==================================================
+*/
+
+function showStatus(
+  text
+){
+
+  status.textContent =
+    text;
+
+  status.classList.add(
+    "show"
   );
 
-});
+}
+
+
+function hideStatus(){
+
+  status.classList.remove(
+    "show"
+  );
+
+}
 
 
 /*
@@ -478,7 +502,9 @@ ESCAPE HTML
 ==================================================
 */
 
-function escapeHTML(value){
+function escapeHTML(
+  value
+){
 
   return String(value || "")
     .replace(/&/g,"&amp;")
@@ -492,53 +518,40 @@ function escapeHTML(value){
 
 /*
 ==================================================
-SET STATUS
+GREENHOUSE
 ==================================================
 */
 
-function setStatus(
-  text,
-  show=true
-){
-
-  statusBox.textContent =
-    text;
-
-  statusBox.classList.toggle(
-    "show",
-    show
-  );
-
-}
-
-
-/*
-==================================================
-GET JOBS FROM ONE COMPANY
-==================================================
-*/
-
-async function getCompanyJobs(
+async function fetchGreenhouseCompany(
   company
 ){
 
-  const url =
+  const endpoint =
     "https://boards-api.greenhouse.io/v1/boards/" +
     encodeURIComponent(
-      company.board
+      company.token
     ) +
-    "/jobs";
+    "/jobs?content=true";
 
 
   try{
 
     const response =
-      await fetch(url);
+      await fetch(
+        endpoint,
+        {
+          method:"GET",
+          cache:"no-store"
+        }
+      );
 
 
     if(!response.ok){
 
-      return [];
+      throw new Error(
+        "HTTP " +
+        response.status
+      );
 
     }
 
@@ -547,49 +560,172 @@ async function getCompanyJobs(
       await response.json();
 
 
-    const jobs =
-      Array.isArray(data.jobs)
-        ? data.jobs
-        : [];
+    if(
+      !data ||
+      !Array.isArray(
+        data.jobs
+      )
+    ){
+
+      return [];
+
+    }
 
 
-    return jobs.map(function(job){
+    return data.jobs.map(
+      function(job){
 
-      return {
+        return {
 
-        id:
-          job.id,
+          id:
+            "gh-" +
+            company.token +
+            "-" +
+            job.id,
 
-        title:
-          job.title || "Untitled position",
+          title:
+            job.title ||
+            "Job opportunity",
 
-        company:
-          company.name,
+          company:
+            company.name,
 
-        location:
-          job.location &&
-          job.location.name
-            ? job.location.name
-            : "Location not specified",
+          location:
+            job.location &&
+            job.location.name
+              ? job.location.name
+              : "Location not specified",
 
-        updated:
-          job.updated_at || "",
+          date:
+            job.updated_at ||
+            "",
 
-        url:
-          job.absolute_url || "",
+          url:
+            job.absolute_url ||
+            "",
 
-        source:
-          "Greenhouse"
+          source:
+            "Official company career board",
 
-      };
+          type:
+            "Company job"
 
-    });
+        };
+
+      }
+    );
+
 
   }catch(error){
 
     console.warn(
-      company.name +
-      " could not be loaded.",
+      "Could not load " +
+      company.name,
+      error
+    );
+
+    return [];
+
+  }
+
+}
+
+
+/*
+==================================================
+REMOTIVE
+==================================================
+*/
+
+async function fetchRemotive(){
+
+  const url =
+    "https://remotive.com/api/remote-jobs?limit=100";
+
+
+  try{
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+          cache:"no-store"
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "Remotive HTTP " +
+        response.status
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      !data ||
+      !Array.isArray(
+        data.jobs
+      )
+    ){
+
+      return [];
+
+    }
+
+
+    return data.jobs.map(
+      function(job){
+
+        return {
+
+          id:
+            "remotive-" +
+            job.id,
+
+          title:
+            job.title ||
+            "Remote job",
+
+          company:
+            job.company_name ||
+            "Company",
+
+          location:
+            job.candidate_required_location ||
+            "Remote",
+
+          date:
+            job.publication_date ||
+            "",
+
+          url:
+            job.url ||
+            "",
+
+          source:
+            "Remotive",
+
+          type:
+            "Remote job"
+
+        };
+
+      }
+    );
+
+
+  }catch(error){
+
+    console.warn(
+      "Remotive unavailable",
       error
     );
 
@@ -608,142 +744,204 @@ SEARCH
 
 async function searchJobs(){
 
-  const keyword =
-    keywordInput.value
+  const term =
+    keyword.value
       .trim()
       .toLowerCase();
 
-  const location =
+  const place =
     locationInput.value
       .trim()
       .toLowerCase();
 
-  const selectedCompany =
-    companySelect.value;
+  const selectedSource =
+    source.value;
 
 
-  jobsContainer.innerHTML =
-    '<div class="loading">🔎 Searching real company job boards...</div>';
+  jobs.innerHTML =
+    '<div class="loading">🔎 Searching real job sources...</div>';
 
-  setStatus(
-    "Searching published job listings..."
+  showStatus(
+    "Connecting to live job feeds..."
   );
 
 
-  let companies =
-    COMPANIES;
+  let allJobs = [];
 
+
+  /*
+  ----------------------------------------------
+  COMPANY CAREER BOARDS
+  ----------------------------------------------
+  */
 
   if(
-    selectedCompany !== "all"
+    selectedSource === "all" ||
+    selectedSource === "greenhouse"
   ){
 
-    companies =
-      COMPANIES.filter(
-        function(company){
+    const companyResults =
+      await Promise.all(
+        GREENHOUSE_COMPANIES.map(
+          fetchGreenhouseCompany
+        )
+      );
 
-          return company.board ===
-            selectedCompany;
 
-        }
+    companyResults.forEach(
+      function(list){
+
+        allJobs =
+          allJobs.concat(
+            list
+          );
+
+      }
+    );
+
+  }
+
+
+  /*
+  ----------------------------------------------
+  REMOTIVE
+  ----------------------------------------------
+  */
+
+  if(
+    selectedSource === "all" ||
+    selectedSource === "remotive"
+  ){
+
+    const remoteJobs =
+      await fetchRemotive();
+
+
+    allJobs =
+      allJobs.concat(
+        remoteJobs
       );
 
   }
 
 
   /*
-   * Fetch company boards in parallel.
-   */
+  ----------------------------------------------
+  FILTER
+  ----------------------------------------------
+  */
 
-  const results =
-    await Promise.all(
-      companies.map(
-        getCompanyJobs
-      )
+  let filtered =
+    allJobs.filter(
+      function(job){
+
+        const text =
+          (
+            job.title +
+            " " +
+            job.company +
+            " " +
+            job.location
+          ).toLowerCase();
+
+
+        const keywordMatch =
+          !term ||
+          text.includes(
+            term
+          );
+
+
+        const locationMatch =
+          !place ||
+          job.location
+            .toLowerCase()
+            .includes(
+              place
+            );
+
+
+        return (
+          keywordMatch &&
+          locationMatch
+        );
+
+      }
     );
 
 
-  let jobs =
-    results.flat();
-
-
   /*
-   * Keyword filtering.
-   */
+  ----------------------------------------------
+  REMOVE DUPLICATES
+  ----------------------------------------------
+  */
 
-  if(keyword){
+  const seen =
+    new Set();
 
-    jobs =
-      jobs.filter(
-        function(job){
 
-          const text =
-            (
-              job.title +
-              " " +
-              job.company +
-              " " +
-              job.location
-            ).toLowerCase();
+  filtered =
+    filtered.filter(
+      function(job){
 
-          return text.includes(
-            keyword
-          );
+        const key =
+          job.company +
+          "|" +
+          job.title +
+          "|" +
+          job.location;
+
+
+        if(
+          seen.has(key)
+        ){
+
+          return false;
 
         }
-      );
-
-  }
 
 
-  /*
-   * Location filtering.
-   */
+        seen.add(key);
 
-  if(location){
+        return true;
 
-    jobs =
-      jobs.filter(
-        function(job){
-
-          return job.location
-            .toLowerCase()
-            .includes(
-              location
-            );
-
-        }
-      );
-
-  }
+      }
+    );
 
 
   /*
-   * Newest first.
-   */
+  ----------------------------------------------
+  SORT
+  ----------------------------------------------
+  */
 
-  jobs.sort(
+  filtered.sort(
     function(a,b){
 
-      return new Date(
-        b.updated
-      ) -
-      new Date(
-        a.updated
-      );
+      const first =
+        Date.parse(
+          a.date
+        ) || 0;
+
+      const second =
+        Date.parse(
+          b.date
+        ) || 0;
+
+      return second - first;
 
     }
   );
 
 
   renderJobs(
-    jobs
+    filtered
   );
 
 
-  setStatus(
-    jobs.length +
-    " real published job(s) found."
+  showStatus(
+    filtered.length +
+    " real job listing(s) found."
   );
 
 }
@@ -751,31 +949,35 @@ async function searchJobs(){
 
 /*
 ==================================================
-RENDER JOBS
+RENDER
 ==================================================
 */
 
 function renderJobs(
-  jobs
+  list
 ){
 
-  jobsContainer.innerHTML =
+  jobs.innerHTML =
     "";
 
 
-  if(!jobs.length){
+  if(!list.length){
 
-    jobsContainer.innerHTML =
+    jobs.innerHTML =
 
       `
-      <div class="empty">
+      <div class="card empty">
 
         <h3>
           No matching jobs found
         </h3>
 
         <p style="margin-top:8px">
-          Try a broader keyword or location.
+          Try:
+          "software engineer",
+          "developer",
+          "marketing",
+          or leave the keyword blank.
         </p>
 
       </div>
@@ -786,7 +988,7 @@ function renderJobs(
   }
 
 
-  jobs.forEach(
+  list.forEach(
     function(job){
 
       const card =
@@ -794,17 +996,16 @@ function renderJobs(
           "article"
         );
 
+      card.className =
+        "job";
 
-      const updated =
-        job.updated
+
+      const date =
+        job.date
           ? new Date(
-              job.updated
+              job.date
             ).toLocaleDateString()
           : "Not specified";
-
-
-      card.className =
-        "job-card";
 
 
       card.innerHTML =
@@ -813,39 +1014,45 @@ function renderJobs(
         <div class="company">
 
           🏢
-          ${escapeHTML(job.company)}
+          ${escapeHTML(
+            job.company
+          )}
 
         </div>
 
 
-        <div class="job-title">
+        <div class="title">
 
-          ${escapeHTML(job.title)}
+          ${escapeHTML(
+            job.title
+          )}
 
         </div>
 
 
-        <div class="meta">
+        <div class="location">
 
           📍
-          ${escapeHTML(job.location)}
-
-          <br>
-
-          🗓 Updated:
-          ${escapeHTML(updated)}
+          ${escapeHTML(
+            job.location
+          )}
 
         </div>
 
 
-        <div class="badges">
+        <div class="tags">
 
-          <span class="badge">
-            Real published listing
+          <span class="tag">
+            ${escapeHTML(
+              job.type
+            )}
           </span>
 
-          <span class="badge">
-            Official application
+          <span class="tag">
+            Published/updated:
+            ${escapeHTML(
+              date
+            )}
           </span>
 
         </div>
@@ -854,28 +1061,43 @@ function renderJobs(
         <div class="actions">
 
           <button
-            class="primary"
             type="button"
-            onclick="applyJob('${encodeURIComponent(job.url)}')"
+            class="primary"
+            data-apply="${encodeURIComponent(
+              job.url
+            )}"
           >
-            Apply on Company Website →
+            Apply on Original Listing →
           </button>
 
 
           <button
-            class="secondary"
             type="button"
-            onclick="saveJob(${JSON.stringify(job).replace(/"/g,'&quot;')})"
+            class="secondary"
+            data-save="${encodeURIComponent(
+              JSON.stringify(
+                job
+              )
+            )}"
           >
             ⭐ Save Job
           </button>
 
         </div>
 
+
+        <div class="source">
+
+          Source:
+          ${escapeHTML(
+            job.source
+          )}
+
+        </div>
         `;
 
 
-      jobsContainer.appendChild(
+      jobs.appendChild(
         card
       );
 
@@ -887,77 +1109,45 @@ function renderJobs(
 
 /*
 ==================================================
-APPLY
+RESULT BUTTONS
 ==================================================
 */
 
-function applyJob(
-  encodedUrl
-){
+jobs.addEventListener(
+  "click",
+  function(event){
 
-  const url =
-    decodeURIComponent(
-      encodedUrl
-    );
-
-
-  if(!url){
-
-    alert(
-      "The company has not provided an application link."
-    );
-
-    return;
-
-  }
-
-
-  window.open(
-    url,
-    "_blank",
-    "noopener,noreferrer"
-  );
-
-}
-
-
-/*
-==================================================
-SAVE JOB
-==================================================
-*/
-
-function saveJob(
-  job
-){
-
-  try{
-
-    const saved =
-      JSON.parse(
-        localStorage.getItem(
-          "jobflow_saved_jobs"
-        ) || "[]"
+    const apply =
+      event.target.closest(
+        "[data-apply]"
       );
 
 
-    const exists =
-      saved.some(
-        function(item){
+    if(apply){
 
-          return item.id ===
-            job.id &&
-            item.company ===
-            job.company;
-
-        }
-      );
+      const url =
+        decodeURIComponent(
+          apply.getAttribute(
+            "data-apply"
+          )
+        );
 
 
-    if(exists){
+      if(!url){
 
-      alert(
-        "This job is already saved."
+        alert(
+          "No application link is available."
+        );
+
+        return;
+
+      }
+
+
+      window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
       );
 
       return;
@@ -965,66 +1155,76 @@ function saveJob(
     }
 
 
-    saved.push(
-      job
-    );
+    const save =
+      event.target.closest(
+        "[data-save]"
+      );
 
 
-    localStorage.setItem(
-      "jobflow_saved_jobs",
-      JSON.stringify(
-        saved
-      )
-    );
+    if(save){
+
+      try{
+
+        const job =
+          JSON.parse(
+            decodeURIComponent(
+              save.getAttribute(
+                "data-save"
+              )
+            )
+          );
 
 
-    alert(
-      "⭐ Job saved to JobFlow AI."
-    );
+        let saved =
+          JSON.parse(
+            localStorage.getItem(
+              "jobflow_saved_jobs"
+            ) || "[]"
+          );
 
 
-  }catch(error){
+        if(
+          saved.some(
+            function(item){
 
-    alert(
-      "Unable to save this job."
-    );
+              return item.id ===
+                job.id;
 
-  }
+            }
+          )
+        ){
 
-}
+          save.textContent =
+            "✓ Already Saved";
 
+          return;
 
-/*
-==================================================
-ENTER KEY
-==================================================
-*/
-
-keywordInput.addEventListener(
-  "keydown",
-  function(event){
-
-    if(event.key === "Enter"){
-
-      event.preventDefault();
-
-      searchJobs();
-
-    }
-
-  }
-);
+        }
 
 
-locationInput.addEventListener(
-  "keydown",
-  function(event){
+        saved.push(
+          job
+        );
 
-    if(event.key === "Enter"){
 
-      event.preventDefault();
+        localStorage.setItem(
+          "jobflow_saved_jobs",
+          JSON.stringify(
+            saved
+          )
+        );
 
-      searchJobs();
+
+        save.textContent =
+          "✓ Saved";
+
+      }catch(error){
+
+        alert(
+          "Unable to save this job."
+        );
+
+      }
 
     }
 
@@ -1046,16 +1246,67 @@ searchButton.addEventListener(
 
 /*
 ==================================================
-BACK TO JOBFLOW
+ENTER KEY
 ==================================================
 */
 
-function goBack(){
+keyword.addEventListener(
+  "keydown",
+  function(event){
 
-  window.location.href =
-    "JobFlow_AI_index.html";
+    if(
+      event.key ===
+      "Enter"
+    ){
 
-}
+      event.preventDefault();
+
+      searchJobs();
+
+    }
+
+  }
+);
+
+
+locationInput.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key ===
+      "Enter"
+    ){
+
+      event.preventDefault();
+
+      searchJobs();
+
+    }
+
+  }
+);
+
+
+/*
+==================================================
+BACK
+==================================================
+*/
+
+document
+  .getElementById(
+    "backButton"
+  )
+  .addEventListener(
+    "click",
+    function(){
+
+      window.location.href =
+        "JobFlow_AI_index.html";
+
+    }
+  );
 
 
 /*
