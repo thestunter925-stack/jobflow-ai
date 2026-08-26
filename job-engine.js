@@ -1,1020 +1,1087 @@
 /* =========================================
-   JOBFLOW AI — JOB INTELLIGENCE ENGINE
-   ========================================= */
+   JOBFLOW JOB ENGINE
+   India + International Job Search
+========================================= */
 
-const JobEngine = {
+"use strict";
 
-  /* -----------------------------------------
-     COMMON TECHNOLOGY & CAREER SKILLS
-     ----------------------------------------- */
+const JobFlowJobs = {
 
-  skillDictionary: [
+  maxResults: 50,
 
-    "javascript",
-    "typescript",
-    "html",
-    "css",
-    "react",
-    "angular",
-    "vue",
-    "node.js",
-    "node",
-    "express",
-    "next.js",
-    "python",
-    "java",
-    "c++",
-    "c#",
-    "php",
-    "ruby",
-    "go",
-    "rust",
+  jobs: [],
 
-    "sql",
-    "mysql",
-    "postgresql",
-    "mongodb",
-    "redis",
-    "firebase",
-
-    "aws",
-    "azure",
-    "google cloud",
-    "gcp",
-    "docker",
-    "kubernetes",
-    "linux",
-    "git",
-    "github",
-    "gitlab",
-
-    "rest api",
-    "rest",
-    "graphql",
-    "api",
-    "microservices",
-
-    "machine learning",
-    "artificial intelligence",
-    "ai",
-    "data science",
-    "data analysis",
-    "tensorflow",
-    "pytorch",
-
-    "figma",
-    "ui design",
-    "ux design",
-
-    "sales",
-    "marketing",
-    "seo",
-    "content marketing",
-    "digital marketing",
-    "lead generation",
-
-    "communication",
-    "leadership",
-    "teamwork",
-    "problem solving",
-    "project management",
-    "time management"
-
-  ],
+  filters: {
+    keyword: "",
+    location: "",
+    type: "all",
+    workMode: "all"
+  },
 
 
-  /* -----------------------------------------
-     STOP WORDS
-     ----------------------------------------- */
+  /* =====================================
+     SEARCH
+  ===================================== */
 
-  stopWords: [
+  async search(options = {}) {
 
-    "about",
-    "after",
-    "again",
-    "also",
-    "because",
-    "being",
-    "between",
-    "could",
-    "doing",
-    "during",
-    "from",
-    "have",
-    "having",
-    "into",
-    "more",
-    "most",
-    "other",
-    "should",
-    "their",
-    "there",
-    "these",
-    "they",
-    "this",
-    "those",
-    "through",
-    "under",
-    "using",
-    "very",
-    "what",
-    "when",
-    "where",
-    "which",
-    "while",
-    "with",
-    "would",
-    "your",
-    "you",
+    this.filters = {
+      keyword:
+        options.keyword || "",
 
-    "company",
-    "role",
-    "position",
-    "candidate",
-    "team",
-    "work",
-    "working",
-    "experience",
-    "years",
-    "year",
-    "job",
-    "responsibilities",
-    "required",
-    "requirements",
-    "preferred"
+      location:
+        options.location || "",
 
-  ],
+      type:
+        options.type || "all",
+
+      workMode:
+        options.workMode || "all"
+    };
 
 
-  normalize(text) {
+    this.showLoading();
 
-    return String(text || "")
-      .toLowerCase()
-      .replace(
-        /[^\w\s.+#-]/g,
-        " "
-      )
-      .replace(
-        /\s+/g,
-        " "
-      )
-      .trim();
+
+    try {
+
+      const jobs =
+        await this.loadJobs();
+
+
+      const filtered =
+        this.filterJobs(
+          jobs
+        );
+
+
+      this.jobs =
+        filtered
+          .slice(
+            0,
+            this.maxResults
+          );
+
+
+      this.render(
+        this.jobs
+      );
+
+
+      return this.jobs;
+
+
+    } catch(error) {
+
+      console.error(
+        "JobFlow job search:",
+        error
+      );
+
+
+      this.showError();
+
+      return [];
+
+    }
 
   },
 
 
-  words(text) {
+  /* =====================================
+     LOAD JOBS
+  ===================================== */
 
-    return this.normalize(
-      text
-    )
-      .split(/\s+/)
-      .filter(Boolean);
+  async loadJobs() {
 
-  },
+    /*
+      Demo/initial sources.
 
+      Replace/add approved APIs and
+      company career feeds here.
+    */
 
-  unique(items) {
+    const sources = [
 
-    return [
-      ...new Set(
-        items
-      )
+      this.loadGreenhouseJobs()
+
     ];
 
-  },
 
-
-  /* -----------------------------------------
-     EXTRACT SKILLS
-     ----------------------------------------- */
-
-  detectSkills(text) {
-
-    const value =
-      this.normalize(
-        text
+    const results =
+      await Promise.allSettled(
+        sources
       );
 
-    const found = [];
+
+    let jobs = [];
 
 
-    this.skillDictionary
-      .forEach(
-        skill => {
+    results.forEach(
+      result => {
 
-          if (
-            value.includes(
-              skill.toLowerCase()
-            )
-          ) {
+        if(
+          result.status ===
+          "fulfilled"
+        ) {
 
-            found.push(
-              skill
+          jobs =
+            jobs.concat(
+              result.value || []
             );
 
-          }
-
         }
-      );
-
-
-    return this.unique(
-      found
-    );
-
-  },
-
-
-  /* -----------------------------------------
-     EXTRACT IMPORTANT WORDS
-     ----------------------------------------- */
-
-  extractKeywords(
-    text,
-    limit = 30
-  ) {
-
-    const words =
-      this.words(
-        text
-      );
-
-
-    const frequency = {};
-
-
-    words.forEach(
-      word => {
-
-        if (
-          word.length < 4
-        ) {
-
-          return;
-
-        }
-
-
-        if (
-          this.stopWords
-            .includes(word)
-        ) {
-
-          return;
-
-        }
-
-
-        frequency[word] =
-          (
-            frequency[word] ||
-            0
-          ) + 1;
 
       }
     );
 
 
-    return Object.keys(
-      frequency
-    )
-      .sort(
-        (a,b) =>
-          frequency[b] -
-          frequency[a]
-      )
-      .slice(
-        0,
-        limit
-      );
+    return this.removeDuplicates(
+      jobs
+    );
 
   },
 
 
-  /* -----------------------------------------
-     EXPERIENCE DETECTION
-     ----------------------------------------- */
+  /* =====================================
+     GREENHOUSE
+  ===================================== */
 
-  detectExperience(
-    text
-  ) {
+  async loadGreenhouseJobs() {
 
-    const value =
-      this.normalize(
-        text
-      );
+    /*
+      Public Greenhouse boards.
+
+      Add companies here whose public
+      job boards you want to aggregate.
+    */
+
+    const boards = [
+
+      {
+        company: "Example Company",
+        token: "example"
+      }
+
+    ];
 
 
-    const matches =
-      value.match(
-        /(\d+)\+?\s*(?:years?|yrs?)/g
-      ) || [];
+    const all = [];
 
 
-    const numbers =
-      matches
-        .map(
-          item => {
+    for(
+      const board of boards
+    ) {
 
-            const match =
-              item.match(
-                /\d+/
+      try {
+
+        const response =
+          await fetch(
+            "https://boards-api.greenhouse.io/v1/boards/" +
+            encodeURIComponent(
+              board.token
+            ) +
+            "/jobs?content=true"
+          );
+
+
+        if(!response.ok)
+          continue;
+
+
+        const data =
+          await response.json();
+
+
+        (data.jobs || [])
+          .forEach(
+            job => {
+
+              all.push(
+                this.normalizeGreenhouseJob(
+                  job,
+                  board.company
+                )
               );
 
-            return match
-              ? Number(
-                  match[0]
-                )
-              : 0;
+            }
+          );
 
-          }
+
+      } catch(error) {
+
+        console.warn(
+          "Greenhouse source failed:",
+          board.company
         );
+
+      }
+
+    }
+
+
+    return all;
+
+  },
+
+
+  /* =====================================
+     NORMALIZE GREENHOUSE JOB
+  ===================================== */
+
+  normalizeGreenhouseJob(
+    job,
+    fallbackCompany
+  ) {
+
+    const location =
+      job.location?.name ||
+      "India / International";
 
 
     return {
 
-      mentioned:
-        matches.length > 0,
+      id:
+        "gh_" +
+        job.id,
 
-      years:
-        numbers.length
-          ? Math.max(
-              ...numbers
-            )
-          : 0
+      title:
+        job.title ||
+        "Job",
+
+      company:
+        fallbackCompany ||
+        "Company",
+
+      location:
+        location,
+
+      description:
+        job.content ||
+        "",
+
+      type:
+        "Full-time",
+
+      workMode:
+        this.detectWorkMode(
+          job.content ||
+          ""
+        ),
+
+      source:
+        "Greenhouse",
+
+      applyUrl:
+        job.absolute_url ||
+        "#",
+
+      official:
+        true,
+
+      postedAt:
+        job.updated_at ||
+        "",
+
+      skills:
+        this.extractSkills(
+          job.content ||
+          ""
+        )
 
     };
 
   },
 
 
-  /* -----------------------------------------
-     JOB LEVEL DETECTION
-     ----------------------------------------- */
+  /* =====================================
+     FILTER
+  ===================================== */
 
-  detectLevel(
-    text
+  filterJobs(
+    jobs
   ) {
 
-    const value =
-      this.normalize(
-        text
-      );
+    const keyword =
+      this.filters.keyword
+        .toLowerCase()
+        .trim();
 
 
-    if (
-      /chief|cto|ceo|vp|vice president/
-        .test(value)
-    ) {
-
-      return "Executive";
-
-    }
+    const location =
+      this.filters.location
+        .toLowerCase()
+        .trim();
 
 
-    if (
-      /director|head of|principal/
-        .test(value)
-    ) {
+    return jobs.filter(
+      job => {
 
-      return "Director";
+        const searchable = (
 
-    }
+          job.title +
+          " " +
+          job.company +
+          " " +
+          job.location +
+          " " +
+          job.description +
+          " " +
+          job.skills.join(" ")
 
-
-    if (
-      /senior|sr\.|lead/
-        .test(value)
-    ) {
-
-      return "Senior";
-
-    }
+        ).toLowerCase();
 
 
-    if (
-      /junior|jr\.|entry level|fresher|graduate/
-        .test(value)
-    ) {
-
-      return "Entry";
-
-    }
+        const keywordMatch =
+          !keyword ||
+          searchable.includes(
+            keyword
+          );
 
 
-    if (
-      /manager/
-        .test(value)
-    ) {
-
-      return "Manager";
-
-    }
+        const locationMatch =
+          !location ||
+          location === "all" ||
+          searchable.includes(
+            location
+          );
 
 
-    return "Mid";
+        const typeMatch =
+          this.filters.type ===
+          "all" ||
+          job.type
+            .toLowerCase()
+            .includes(
+              this.filters.type
+            );
+
+
+        const modeMatch =
+          this.filters.workMode ===
+          "all" ||
+          job.workMode
+            .toLowerCase()
+            .includes(
+              this.filters.workMode
+            );
+
+
+        return (
+          keywordMatch &&
+          locationMatch &&
+          typeMatch &&
+          modeMatch
+        );
+
+      }
+    );
 
   },
 
 
-  /* -----------------------------------------
-     JOB TYPE
-     ----------------------------------------- */
+  /* =====================================
+     REMOVE DUPLICATES
+  ===================================== */
 
-  detectWorkType(
+  removeDuplicates(
+    jobs
+  ) {
+
+    const map =
+      new Map();
+
+
+    jobs.forEach(
+      job => {
+
+        const key =
+          (
+            job.company +
+            "|" +
+            job.title +
+            "|" +
+            job.location
+          )
+          .toLowerCase();
+
+
+        if(
+          !map.has(key)
+        ) {
+
+          map.set(
+            key,
+            job
+          );
+
+        }
+
+      }
+    );
+
+
+    return Array.from(
+      map.values()
+    );
+
+  },
+
+
+  /* =====================================
+     DETECT WORK MODE
+  ===================================== */
+
+  detectWorkMode(
     text
   ) {
 
     const value =
-      this.normalize(
-        text
-      );
+      text.toLowerCase();
 
 
-    const remote =
-      /remote|work from home|wfh/
-        .test(value);
-
-
-    const hybrid =
-      /hybrid/
-        .test(value);
-
-
-    const onsite =
-      /on site|onsite|office/
-        .test(value);
-
-
-    if (
-      remote &&
-      hybrid
+    if(
+      value.includes(
+        "remote"
+      )
     ) {
-
-      return "Remote / Hybrid";
-
-    }
-
-
-    if (remote) {
 
       return "Remote";
 
     }
 
 
-    if (hybrid) {
+    if(
+      value.includes(
+        "hybrid"
+      )
+    ) {
 
       return "Hybrid";
 
     }
 
 
-    if (onsite) {
-
-      return "On-site";
-
-    }
-
-
-    return "Not specified";
+    return "On-site";
 
   },
 
 
-  /* -----------------------------------------
-     JOB ANALYSIS
-     ----------------------------------------- */
+  /* =====================================
+     EXTRACT SKILLS
+  ===================================== */
 
-  analyze(
-    description
-  ) {
-
-    const text =
-      String(
-        description || ""
-      );
-
-
-    const skills =
-      this.detectSkills(
-        text
-      );
-
-
-    const keywords =
-      this.extractKeywords(
-        text
-      );
-
-
-    const experience =
-      this.detectExperience(
-        text
-      );
-
-
-    const level =
-      this.detectLevel(
-        text
-      );
-
-
-    const workType =
-      this.detectWorkType(
-        text
-      );
-
-
-    const responsibilities =
-      this.extractResponsibilities(
-        text
-      );
-
-
-    return {
-
-      text:
-        text,
-
-      skills:
-        skills,
-
-      keywords:
-        keywords,
-
-      experience:
-        experience,
-
-      level:
-        level,
-
-      workType:
-        workType,
-
-      responsibilities:
-        responsibilities,
-
-      skillCount:
-        skills.length,
-
-      keywordCount:
-        keywords.length,
-
-      analyzedAt:
-        new Date()
-          .toISOString()
-
-    };
-
-  },
-
-
-  /* -----------------------------------------
-     RESPONSIBILITY EXTRACTION
-     ----------------------------------------- */
-
-  extractResponsibilities(
+  extractSkills(
     text
   ) {
 
-    const lines =
-      String(
-        text || ""
-      )
-        .split(
-          /\n+/
-        )
-        .map(
-          line =>
-            line
-              .replace(
-                /^[-•*]\s*/,
-                ""
-              )
-              .trim()
-        )
-        .filter(Boolean);
+    const skills = [
 
-
-    const triggerWords = [
-
-      "develop",
-      "build",
-      "create",
-      "design",
-      "manage",
-      "lead",
-      "maintain",
-      "implement",
-      "analyze",
-      "support",
-      "collaborate",
-      "deliver",
-      "test",
-      "optimize",
-      "monitor"
+      "JavaScript",
+      "Python",
+      "Java",
+      "C++",
+      "C#",
+      "React",
+      "Node.js",
+      "SQL",
+      "AWS",
+      "Azure",
+      "Machine Learning",
+      "AI",
+      "Data Science",
+      "Mechanical Engineering",
+      "CAD",
+      "AutoCAD",
+      "SolidWorks",
+      "Marketing",
+      "Sales"
 
     ];
 
 
-    return lines
-      .filter(
-        line => {
-
-          const value =
-            line.toLowerCase();
-
-          return triggerWords
-            .some(
-              word =>
-                value.includes(
-                  word
-                )
-            );
-
-        }
-      )
-      .slice(
-        0,
-        20
-      );
-
-  },
-
-
-  /* -----------------------------------------
-     RESUME MATCHING
-     ----------------------------------------- */
-
-  matchResume(
-    resume,
-    job
-  ) {
-
-    const resumeText = [
-
-      resume.name,
-      resume.title,
-      resume.summary,
-      resume.skills,
-      resume.experience,
-      resume.education,
-      resume.projects,
-      resume.certifications
-
-    ]
-      .join(" ");
-
-
-    const resumeSkills =
-      this.detectSkills(
-        resumeText
-      );
-
-
-    const jobSkills =
-      job.skills ||
-      this.detectSkills(
-        job.text
-      );
-
-
-    const matched =
-      jobSkills.filter(
-        skill =>
-          resumeSkills.includes(
-            skill
-          )
-      );
-
-
-    const missing =
-      jobSkills.filter(
-        skill =>
-          !resumeSkills.includes(
-            skill
-          )
-      );
-
-
-    const skillScore =
-      jobSkills.length
-        ? Math.round(
-            matched.length /
-            jobSkills.length *
-            100
-          )
-        : 0;
-
-
-    const keywordMatches =
-      (
-        job.keywords ||
-        []
-      ).filter(
-        keyword =>
-          this.normalize(
-            resumeText
-          ).includes(
-            keyword
-          )
-      );
-
-
-    const keywordScore =
-      job.keywords &&
-      job.keywords.length
-        ? Math.round(
-            keywordMatches.length /
-            job.keywords.length *
-            100
-          )
-        : 0;
-
-
-    const finalScore =
-      Math.round(
-        skillScore * 0.65 +
-        keywordScore * 0.35
-      );
-
-
-    return {
-
-      score:
-        finalScore,
-
-      skillScore:
-        skillScore,
-
-      keywordScore:
-        keywordScore,
-
-      matchedSkills:
-        matched,
-
-      missingSkills:
-        missing,
-
-      matchedKeywords:
-        keywordMatches
-
-    };
-
-  },
-
-
-  /* -----------------------------------------
-     JOB QUALITY SCORE
-     ----------------------------------------- */
-
-  qualityScore(
-    job
-  ) {
-
-    let score = 0;
-
-
-    if (
-      job.skills &&
-      job.skills.length >= 3
-    ) {
-
-      score += 25;
-
-    } else if (
-      job.skills &&
-      job.skills.length
-    ) {
-
-      score += 15;
-
-    }
-
-
-    if (
-      job.experience &&
-      job.experience.mentioned
-    ) {
-
-      score += 20;
-
-    }
-
-
-    if (
-      job.responsibilities &&
-      job.responsibilities.length >= 3
-    ) {
-
-      score += 25;
-
-    } else if (
-      job.responsibilities &&
-      job.responsibilities.length
-    ) {
-
-      score += 15;
-
-    }
-
-
-    if (
-      job.workType !==
-      "Not specified"
-    ) {
-
-      score += 10;
-
-    }
-
-
-    if (
-      job.keywords &&
-      job.keywords.length >= 10
-    ) {
-
-      score += 20;
-
-    }
-
-
-    return Math.min(
-      score,
-      100
+    const value =
+      text.toLowerCase();
+
+
+    return skills.filter(
+      skill =>
+        value.includes(
+          skill.toLowerCase()
+        )
     );
 
   },
 
 
-  /* -----------------------------------------
-     RECOMMENDATIONS
-     ----------------------------------------- */
+  /* =====================================
+     RENDER
+  ===================================== */
 
-  recommendations(
-    match
+  render(
+    jobs
   ) {
 
-    const suggestions = [];
-
-
-    if (
-      match.score >= 85
-    ) {
-
-      suggestions.push(
-        "Excellent match. Prioritize this application."
+    const box =
+      document.getElementById(
+        "jobResults"
       );
 
-    } else if (
-      match.score >= 70
-    ) {
 
-      suggestions.push(
-        "Strong match. Tailor your resume before applying."
+    if(!box)
+      return;
+
+
+    if(!jobs.length) {
+
+      box.innerHTML = `
+        <div class="card">
+          <div class="empty">
+            <h3>No matching jobs found</h3>
+            <p>
+              Try another skill,
+              location or job type.
+            </p>
+          </div>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    box.innerHTML = `
+
+      <div
+        style="
+          display:grid;
+          gap:14px;
+        "
+      >
+
+        ${jobs.map(
+          job =>
+            this.jobCard(
+              job
+            )
+        ).join("")}
+
+      </div>
+
+    `;
+
+  },
+
+
+  /* =====================================
+     JOB CARD
+  ===================================== */
+
+  jobCard(
+    job
+  ) {
+
+    return `
+
+      <article
+        class="card"
+        style="
+          border-left:4px solid #2563eb;
+        "
+      >
+
+        <div
+          style="
+            display:flex;
+            justify-content:space-between;
+            gap:12px;
+            flex-wrap:wrap;
+          "
+        >
+
+          <div>
+
+            <h3>
+              ${this.escape(
+                job.title
+              )}
+            </h3>
+
+            <div
+              class="muted"
+              style="
+                margin-top:6px;
+              "
+            >
+              🏢
+              ${this.escape(
+                job.company
+              )}
+            </div>
+
+          </div>
+
+
+          <span
+            class="badge badge-blue"
+          >
+            ${this.escape(
+              job.workMode
+            )}
+          </span>
+
+        </div>
+
+
+        <div
+          style="
+            margin-top:12px;
+            line-height:1.8;
+          "
+        >
+
+          📍
+          ${this.escape(
+            job.location
+          )}
+
+          <br>
+
+          💼
+          ${this.escape(
+            job.type
+          )}
+
+        </div>
+
+
+        ${
+          job.skills.length
+          ?
+          `
+          <div
+            style="
+              display:flex;
+              flex-wrap:wrap;
+              gap:6px;
+              margin-top:12px;
+            "
+          >
+
+            ${job.skills
+              .slice(0,6)
+              .map(
+                skill =>
+                  `
+                  <span
+                    class="badge"
+                  >
+                    ${this.escape(
+                      skill
+                    )}
+                  </span>
+                  `
+              )
+              .join("")}
+
+          </div>
+          `
+          :
+          ""
+        }
+
+
+        <div
+          class="actions"
+        >
+
+          <a
+            href="${this.escape(
+              job.applyUrl
+            )}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-blue"
+            style="
+              text-decoration:none;
+            "
+          >
+            View & Apply
+          </a>
+
+
+          <button
+            class="btn btn-light"
+            onclick='JobFlowJobs.saveJob(
+              ${JSON.stringify(
+                job
+              ).replace(
+                /'/g,
+                "&#39;"
+              )}
+            )'
+          >
+            ☆ Save Job
+          </button>
+
+
+          <button
+            class="btn btn-light"
+            onclick='JobFlowJobs.matchResume(
+              ${JSON.stringify(
+                job
+              ).replace(
+                /'/g,
+                "&#39;"
+              )}
+            )'
+          >
+            ⭐ Match Resume
+          </button>
+
+        </div>
+
+
+        <div
+          style="
+            margin-top:10px;
+            font-size:11px;
+            color:#94a3b8;
+          "
+        >
+          Source:
+          ${this.escape(
+            job.source
+          )}
+          · Official application link
+        </div>
+
+      </article>
+
+    `;
+
+  },
+
+
+  /* =====================================
+     SAVE JOB
+  ===================================== */
+
+  saveJob(
+    job
+  ) {
+
+    const key =
+      "jobflow_saved_jobs";
+
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem(
+          key
+        ) ||
+        "[]"
       );
 
-    } else if (
-      match.score >= 50
+
+    const exists =
+      saved.some(
+        item =>
+          item.id ===
+          job.id
+      );
+
+
+    if(exists) {
+
+      this.toast(
+        "Job already saved."
+      );
+
+      return;
+
+    }
+
+
+    saved.unshift(
+      {
+        ...job,
+        savedAt:
+          new Date()
+            .toISOString()
+      }
+    );
+
+
+    localStorage.setItem(
+      key,
+      JSON.stringify(
+        saved
+      )
+    );
+
+
+    this.toast(
+      "Job saved."
+    );
+
+  },
+
+
+  /* =====================================
+     RESUME MATCH
+  ===================================== */
+
+  matchResume(
+    job
+  ) {
+
+    const resume =
+      JSON.parse(
+        localStorage.getItem(
+          "jobflow_resume"
+        ) ||
+        "{}"
+      );
+
+
+    const resumeText =
+      JSON.stringify(
+        resume
+      ).toLowerCase();
+
+
+    const skills =
+      job.skills || [];
+
+
+    let matched = 0;
+
+
+    skills.forEach(
+      skill => {
+
+        if(
+          resumeText.includes(
+            skill.toLowerCase()
+          )
+        ) {
+
+          matched++;
+
+        }
+
+      }
+    );
+
+
+    const score =
+      skills.length
+      ?
+        Math.round(
+          (
+            matched /
+            skills.length
+          ) *
+          100
+        )
+      :
+        0;
+
+
+    this.toast(
+      "Resume match: " +
+      score +
+      "%"
+    );
+
+
+    return score;
+
+  },
+
+
+  /* =====================================
+     LOADING
+  ===================================== */
+
+  showLoading() {
+
+    const box =
+      document.getElementById(
+        "jobResults"
+      );
+
+
+    if(!box)
+      return;
+
+
+    box.innerHTML = `
+
+      <div class="card">
+
+        <div
+          class="empty"
+        >
+          🔎 Finding matching jobs...
+        </div>
+
+      </div>
+
+    `;
+
+  },
+
+
+  /* =====================================
+     ERROR
+  ===================================== */
+
+  showError() {
+
+    const box =
+      document.getElementById(
+        "jobResults"
+      );
+
+
+    if(!box)
+      return;
+
+
+    box.innerHTML = `
+
+      <div class="card">
+
+        <div
+          class="empty"
+        >
+
+          ⚠️ Job sources are
+          temporarily unavailable.
+
+          <br><br>
+
+          Please try again.
+
+        </div>
+
+      </div>
+
+    `;
+
+  },
+
+
+  /* =====================================
+     TOAST
+  ===================================== */
+
+  toast(
+    message
+  ) {
+
+    if(
+      typeof window.toast ===
+      "function"
     ) {
 
-      suggestions.push(
-        "Moderate match. Improve alignment with the job requirements."
+      window.toast(
+        message
       );
 
     } else {
 
-      suggestions.push(
-        "Low match. Consider whether this role fits your current skills."
+      alert(
+        message
       );
 
     }
-
-
-    if (
-      match.missingSkills.length
-    ) {
-
-      suggestions.push(
-        "Review the missing skills and add only skills you genuinely have."
-      );
-
-    }
-
-
-    if (
-      match.keywordScore < 60
-    ) {
-
-      suggestions.push(
-        "Use relevant terminology from the job description where it accurately reflects your experience."
-      );
-
-    }
-
-
-    return suggestions;
 
   },
 
 
-  /* -----------------------------------------
-     FULL MATCH REPORT
-     ----------------------------------------- */
+  /* =====================================
+     ESCAPE
+  ===================================== */
 
-  createMatchReport(
-    resume,
-    description
+  escape(
+    value
   ) {
 
-    const job =
-      this.analyze(
-        description
+    return String(
+      value || ""
+    )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
       );
-
-
-    const match =
-      this.matchResume(
-        resume,
-        job
-      );
-
-
-    return {
-
-      job:
-        job,
-
-      match:
-        match,
-
-      quality:
-        this.qualityScore(
-          job
-        ),
-
-      recommendations:
-        this.recommendations(
-          match
-        ),
-
-      createdAt:
-        new Date()
-          .toISOString()
-
-    };
-
-  },
-
-
-  /* -----------------------------------------
-     QUICK JOB SUMMARY
-     ----------------------------------------- */
-
-  summary(
-    description
-  ) {
-
-    const job =
-      this.analyze(
-        description
-      );
-
-
-    return {
-
-      skills:
-        job.skills,
-
-      experience:
-        job.experience,
-
-      level:
-        job.level,
-
-      workType:
-        job.workType,
-
-      responsibilities:
-        job.responsibilities,
-
-      keywords:
-        job.keywords,
-
-      quality:
-        this.qualityScore(
-          job
-        )
-
-    };
 
   }
 
 };
 
 
+/* =========================================
+   CONNECT TO EXISTING SEARCH BUTTON
+========================================= */
+
+window.searchJobs =
+function() {
+
+  const keyword =
+    document.getElementById(
+      "jobSearch"
+    )?.value || "";
+
+
+  const location =
+    document.getElementById(
+      "jobLocation"
+    )?.value || "";
+
+
+  JobFlowJobs.search({
+
+    keyword:
+      keyword,
+
+    location:
+      location,
+
+    type:
+      "all",
+
+    workMode:
+      "all"
+
+  });
+
+};
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
 console.log(
-  "JobFlow Job Intelligence Engine loaded."
+  "JobFlow Job Engine loaded."
 );
