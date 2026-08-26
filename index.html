@@ -4474,6 +4474,104 @@ document.addEventListener(
 
   }
 );
+function syncResumeToCoverLetter(){
+
+  const name =
+    document.getElementById("resumeName")?.value ||
+    document.getElementById("name")?.value ||
+    "";
+
+  const skills =
+    document.getElementById("resumeSkills")?.value ||
+    document.getElementById("skills")?.value ||
+    "";
+
+  const experience =
+    document.getElementById("resumeExperience")?.value ||
+    document.getElementById("experience")?.value ||
+    "";
+
+  const education =
+    document.getElementById("resumeEducation")?.value ||
+    document.getElementById("education")?.value ||
+    "";
+
+  if(name){
+
+    localStorage.setItem(
+      "jobflow_name",
+      name.trim()
+    );
+
+  }
+
+  localStorage.setItem(
+    "jobflow_resume_skills",
+    skills.trim()
+  );
+
+  localStorage.setItem(
+    "jobflow_resume_experience",
+    experience.trim()
+  );
+
+  localStorage.setItem(
+    "jobflow_resume_education",
+    education.trim()
+  );
+
+  const nameInput =
+    document.getElementById("clName");
+
+  const skillsInput =
+    document.getElementById("clSkills");
+
+  if(nameInput)
+    nameInput.value = name;
+
+  if(skillsInput)
+    skillsInput.value = skills;
+
+}
+function loadResumeDataIntoCoverLetter(){
+
+  const name =
+    localStorage.getItem(
+      "jobflow_name"
+    ) || "";
+
+  const skills =
+    localStorage.getItem(
+      "jobflow_resume_skills"
+    ) || "";
+
+  const nameInput =
+    document.getElementById(
+      "clName"
+    );
+
+  const skillsInput =
+    document.getElementById(
+      "clSkills"
+    );
+
+  if(nameInput && !nameInput.value){
+
+    nameInput.value =
+      name;
+
+  }
+
+  if(skillsInput && !skillsInput.value){
+
+    skillsInput.value =
+      skills;
+
+  }
+
+}
+
+
 
 </script>
 
