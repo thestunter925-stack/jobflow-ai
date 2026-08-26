@@ -1728,195 +1728,431 @@ behavior:"smooth"
 
 }
 
-
 /* =========================
    JOB SEARCH
 ========================= */
 
 function searchJobs(){
 
-const query=
-document
-.getElementById("jobQuery")
-.value
-.trim() ||
-"Software Developer";
+  const query =
+    document.getElementById("jobQuery")
+      ?.value.trim() || "Software Developer";
 
-const location=
-document
-.getElementById("jobLocation")
-.value
-.trim() ||
-"India";
+  const location =
+    document.getElementById("jobLocation")
+      ?.value.trim() || "India";
 
-const q=
-encodeURIComponent(query);
+  const q = encodeURIComponent(query);
+  const loc = encodeURIComponent(location);
 
-const loc=
-encodeURIComponent(location);
+  const results =
+    document.getElementById("jobResults");
 
+  if(!results){
+    showToast("Job results area not found.");
+    return;
+  }
 
-document
-.getElementById("jobResults")
-.innerHTML=`
+  /*
+    JobFlow uses live external job-search
+    pages instead of fake job listings.
+    This keeps the results current.
+  */
 
-<div class="job">
+  const sources = [
 
-<div class="jobTop">
+    {
+      name: "LinkedIn Jobs",
+      icon: "💼",
+      description:
+        "Current jobs from companies and recruiters.",
+      url:
+        "https://www.linkedin.com/jobs/search/?keywords=" +
+        q +
+        "&location=" +
+        loc
+    },
 
-<div>
+    {
+      name: "Indeed India",
+      icon: "🌐",
+      description:
+        "Search current job vacancies across India.",
+      url:
+        "https://in.indeed.com/jobs?q=" +
+        q +
+        "&l=" +
+        loc
+    },
 
-<h3>
-LinkedIn Jobs
-</h3>
+    {
+      name: "Naukri",
+      icon: "🔎",
+      description:
+        "Search jobs from employers across India.",
+      url:
+        "https://www.naukri.com/" +
+        query
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g,"-") +
+        "-jobs"
+    },
 
-<p>
-Search ${escapeHTML(query)}
-jobs in ${escapeHTML(location)}.
-</p>
+    {
+      name: "Foundit",
+      icon: "🎯",
+      description:
+        "Search current opportunities across India.",
+      url:
+        "https://www.foundit.in/srp/results?query=" +
+        q +
+        "&locations=" +
+        loc
+    },
 
-</div>
+    {
+      name: "Google Jobs",
+      icon: "🔍",
+      description:
+        "Find job listings indexed from multiple websites.",
+      url:
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(
+          query + " jobs " + location
+        )
+    }
 
-<span class="badge">
-External
-</span>
+  ];
 
-</div>
+  results.innerHTML = `
 
+    <div class="card">
 
-<div class="actions">
+      <h3>
+        🔥 Live Job Search
+      </h3>
 
-<a
-class="btn primary"
-target="_blank"
-rel="noopener"
-href="https://www.linkedin.com/jobs/search/?keywords=${q}&location=${loc}">
-Open LinkedIn Jobs
-</a>
+      <p class="muted">
+        Searching for
+        <strong>
+          ${escapeHTML(query)}
+        </strong>
+        in
+        <strong>
+          ${escapeHTML(location)}
+        </strong>
+      </p>
 
-<button
-class="btn secondary"
-onclick="saveJobSource(
-'LinkedIn Jobs',
-'${escapeHTML(query)}',
-'https://www.linkedin.com/jobs/search/?keywords=${q}&location=${loc}'
-)">
-⭐ Save Search
-</button>
+      <p
+        class="muted"
+        style="margin-top:8px"
+      >
+        JobFlow does not create fake vacancies.
+        Use the verified job platforms below
+        to view their current listings.
+      </p>
 
-</div>
-
-</div>
-
-
-<div class="job">
-
-<div class="jobTop">
-
-<div>
-
-<h3>
-Indeed
-</h3>
-
-<p>
-Search matching jobs on Indeed.
-</p>
-
-</div>
-
-<span class="badge">
-External
-</span>
-
-</div>
-
-
-<div class="actions">
-
-<a
-class="btn primary"
-target="_blank"
-rel="noopener"
-href="https://in.indeed.com/jobs?q=${q}&l=${loc}">
-Open Indeed
-</a>
-
-</div>
-
-</div>
-
-
-<div class="job">
-
-<div class="jobTop">
-
-<div>
-
-<h3>
-Naukri
-</h3>
-
-<p>
-Search current opportunities on Naukri.
-</p>
-
-</div>
-
-<span class="badge">
-External
-</span>
-
-</div>
-
-
-<div class="actions">
-
-<a
-class="btn primary"
-target="_blank"
-rel="noopener"
-href="https://www.naukri.com/${q.replace(/%20/g,"-")}-jobs">Open Naukri</a>
-</div>
-</div>
-
-<div class="job">
-  <div class="jobTop">
-    <div>
-      <h3>Google Jobs</h3>
-      <p>Find additional public job listings.</p>
     </div>
-    <span class="badge">Search</span>
-  </div>
 
-  <div class="actions">
-    <a
-      class="btn primary"
-      target="_blank"
-      rel="noopener"
-      href="https://www.google.com/search?q=${q}%20jobs%20${l}"
-    >
-      Search Google
-    </a>
-  </div>
-</div>
-`;
 
-showToast("Job sources loaded.");
+    ${sources.map(function(source){
+
+      return `
+
+        <div class="job">
+
+          <div class="jobTop">
+
+            <div>
+
+              <h3>
+                ${source.icon}
+                ${escapeHTML(source.name)}
+              </h3>
+
+              <p>
+                ${escapeHTML(
+                  source.description
+                )}
+              </p>
+
+            </div>
+
+            <span class="badge">
+              LIVE SEARCH
+            </span>
+
+          </div>
+
+
+          <div class="actions">
+
+            <a
+              class="btn primary"
+              href="${source.url}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Current Jobs →
+            </a>
+
+            <button
+              type="button"
+              class="btn secondary"
+              onclick="saveJobSearch(
+                '${escapeHTML(source.name)}',
+                '${escapeHTML(query)}',
+                '${escapeHTML(location)}',
+                '${source.url}'
+              )"
+            >
+              ⭐ Save Search
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("")}
+
+  `;
+
+  showToast(
+    "Live job-search sources loaded."
+  );
 }
 
-function saveJob(title, company, url) {
 
-  let saved = JSON.parse(
-    localStorage.getItem("jobflow_saved_jobs") || "[]"
+/* =========================
+   JOB SOURCES
+========================= */
+
+function showJobSources(){
+
+  const results =
+    document.getElementById(
+      "jobResults"
+    );
+
+  if(!results) return;
+
+  results.innerHTML = `
+
+    <div class="card">
+
+      <h3>
+        🌐 JobFlow Job Sources
+      </h3>
+
+      <p class="muted">
+        JobFlow connects your search
+        with major job platforms.
+      </p>
+
+    </div>
+
+    <div class="job">
+
+      <h3>💼 LinkedIn Jobs</h3>
+
+      <p>
+        Professional jobs,
+        recruiters and company listings.
+      </p>
+
+      <div class="actions">
+
+        <a
+          class="btn primary"
+          href="https://www.linkedin.com/jobs/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open LinkedIn Jobs
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="job">
+
+      <h3>🔎 Naukri</h3>
+
+      <p>
+        One of India's major job-search platforms.
+      </p>
+
+      <div class="actions">
+
+        <a
+          class="btn primary"
+          href="https://www.naukri.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open Naukri
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="job">
+
+      <h3>🌐 Indeed India</h3>
+
+      <p>
+        Search jobs and company opportunities.
+      </p>
+
+      <div class="actions">
+
+        <a
+          class="btn primary"
+          href="https://in.indeed.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open Indeed
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="job">
+
+      <h3>🎯 Foundit</h3>
+
+      <p>
+        Search employment opportunities
+        across India.
+      </p>
+
+      <div class="actions">
+
+        <a
+          class="btn primary"
+          href="https://www.foundit.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open Foundit
+        </a>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   SAVE JOB SEARCH
+========================= */
+
+function saveJobSearch(
+  source,
+  query,
+  location,
+  url
+){
+
+  let searches =
+    JSON.parse(
+      localStorage.getItem(
+        "jobflow_saved_searches"
+      ) || "[]"
+    );
+
+  const exists =
+    searches.some(function(item){
+
+      return (
+        item.source === source &&
+        item.query === query &&
+        item.location === location
+      );
+
+    });
+
+  if(exists){
+
+    showToast(
+      "This search is already saved."
+    );
+
+    return;
+  }
+
+  searches.unshift({
+
+    id: Date.now(),
+
+    source: source,
+
+    query: query,
+
+    location: location,
+
+    url: url,
+
+    date:
+      new Date()
+        .toLocaleDateString()
+
+  });
+
+  localStorage.setItem(
+    "jobflow_saved_searches",
+    JSON.stringify(searches)
   );
 
+  showToast(
+    "Job search saved."
+  );
+}
+
+
+/* =========================
+   SAVE JOB
+========================= */
+
+function saveJob(
+  title,
+  company,
+  url
+){
+
+  let saved =
+    JSON.parse(
+      localStorage.getItem(
+        "jobflow_saved_jobs"
+      ) || "[]"
+    );
+
   saved.unshift({
+
     id: Date.now(),
+
     title: title,
+
     company: company,
+
     url: url,
-    date: new Date().toLocaleDateString()
+
+    date:
+      new Date()
+        .toLocaleDateString()
+
   });
 
   localStorage.setItem(
@@ -1925,92 +2161,150 @@ function saveJob(title, company, url) {
   );
 
   renderSavedJobs();
+
   updateDashboard();
 
-  showToast("Job saved successfully.");
+  showToast(
+    "Job saved successfully."
+  );
 }
 
-function renderSavedJobs() {
+
+/* =========================
+   SAVED JOBS
+========================= */
+
+function renderSavedJobs(){
 
   const container =
-    document.getElementById("savedJobs");
+    document.getElementById(
+      "savedJobs"
+    );
 
-  if (!container) return;
+  if(!container) return;
 
-  const saved = JSON.parse(
-    localStorage.getItem("jobflow_saved_jobs") || "[]"
-  );
+  const saved =
+    JSON.parse(
+      localStorage.getItem(
+        "jobflow_saved_jobs"
+      ) || "[]"
+    );
 
-  if (saved.length === 0) {
+  if(saved.length === 0){
 
     container.innerHTML = `
+
       <div class="empty">
-        ⭐<br><br>
+
+        ⭐
+
+        <br><br>
+
         No saved jobs yet.
+
+        <br><br>
+
+        Search for jobs and
+        save opportunities here.
+
       </div>
+
     `;
 
     return;
   }
 
-  container.innerHTML = saved.map(job => `
+  container.innerHTML =
+    saved.map(function(job){
 
-    <div class="job">
+      return `
 
-      <div class="jobTop">
+        <div class="job">
 
-        <div>
-          <h3>${escapeHTML(job.title)}</h3>
+          <div class="jobTop">
 
-          <p>
-            ${escapeHTML(job.company)}
-          </p>
+            <div>
 
-          <p>
-            Saved on ${escapeHTML(job.date)}
-          </p>
+              <h3>
+                ${escapeHTML(
+                  job.title
+                )}
+              </h3>
+
+              <p>
+                ${escapeHTML(
+                  job.company
+                )}
+              </p>
+
+              <p class="muted">
+                Saved on
+                ${escapeHTML(
+                  job.date
+                )}
+              </p>
+
+            </div>
+
+            <span class="badge">
+              SAVED
+            </span>
+
+          </div>
+
+
+          <div class="actions">
+
+            <a
+              class="btn primary"
+              href="${escapeHTML(
+                job.url
+              )}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open Job →
+            </a>
+
+            <button
+              type="button"
+              class="btn danger"
+              onclick="deleteSavedJob(
+                ${job.id}
+              )"
+            >
+              Delete
+            </button>
+
+          </div>
+
         </div>
 
-        <span class="badge">
-          Saved
-        </span>
+      `;
 
-      </div>
-
-      <div class="actions">
-
-        <a
-          class="btn primary"
-          href="${escapeHTML(job.url)}"
-          target="_blank"
-          rel="noopener"
-        >
-          Open Job
-        </a>
-
-        <button
-          class="btn danger"
-          onclick="deleteSavedJob(${job.id})"
-        >
-          Delete
-        </button>
-
-      </div>
-
-    </div>
-
-  `).join("");
+    }).join("");
 }
 
-function deleteSavedJob(id) {
 
-  let saved = JSON.parse(
-    localStorage.getItem("jobflow_saved_jobs") || "[]"
-  );
+/* =========================
+   DELETE SAVED JOB
+========================= */
 
-  saved = saved.filter(
-    job => job.id !== id
-  );
+function deleteSavedJob(id){
+
+  let saved =
+    JSON.parse(
+      localStorage.getItem(
+        "jobflow_saved_jobs"
+      ) || "[]"
+    );
+
+  saved =
+    saved.filter(function(job){
+
+      return job.id !== id;
+
+    });
 
   localStorage.setItem(
     "jobflow_saved_jobs",
@@ -2018,11 +2312,103 @@ function deleteSavedJob(id) {
   );
 
   renderSavedJobs();
+
   updateDashboard();
 
-  showToast("Saved job deleted.");
+  showToast(
+    "Saved job deleted."
+  );
 }
 
+
+/* =========================
+   OPEN JOB APPLICATION
+========================= */
+
+function applyForJob(
+  title,
+  company,
+  url
+){
+
+  const companyInput =
+    document.getElementById(
+      "applicationCompany"
+    );
+
+  const roleInput =
+    document.getElementById(
+      "applicationRole"
+    );
+
+  const urlInput =
+    document.getElementById(
+      "applicationUrl"
+    );
+
+  if(companyInput){
+
+    companyInput.value =
+      company || "";
+
+  }
+
+  if(roleInput){
+
+    roleInput.value =
+      title || "";
+
+  }
+
+  if(urlInput){
+
+    urlInput.value =
+      url || "";
+
+  }
+
+  if(
+    typeof showPage ===
+    "function"
+  ){
+
+    showPage(
+      "applications"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   OPEN APPLICATION PAGE
+========================= */
+
+function openApplicationForm(){
+
+  if(
+    typeof showPage ===
+    "function"
+  ){
+
+    showPage(
+      "applications"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   END JOB SEARCH SECTION
+========================= */
+
+
+/* =========================
+   APPLICATIONS
+========================= */
 
 /* =========================
    APPLICATIONS
