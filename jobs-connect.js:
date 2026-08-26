@@ -1,0 +1,691 @@
+/* =========================================
+   JOBFLOW — FRONTEND JOB CONNECTOR
+========================================= */
+
+"use strict";
+
+window.JobFlowSearch = {
+
+  page: 1,
+  limit: 50,
+  lastSearch: null,
+
+  async search() {
+
+    const keyword =
+      document.getElementById("jobSearch")?.value.trim() || "";
+
+    const location =
+      document.getElementById("jobLocation")?.value.trim() || "";
+
+    if (!keyword && !location) {
+
+      if (typeof window.toast === "function") {
+        window.toast("Enter a job title, skill or location.");
+      } else {
+        alert("Enter a job title, skill or location.");
+      }
+
+      return;
+    }
+
+    this.page = 1;
+
+    this.lastSearch = {
+      keyword,
+      location
+    };
+
+    this.showLoading();
+
+    try {
+
+      const params = new URLSearchParams({
+        keyword,
+        location,
+        page: this.page,
+        limit: this.limit
+      });
+
+      /*
+       * Your backend endpoint.
+       *
+       * Example:
+       * /api/jobs?keyword=software&location=Hyderabad
+       */
+
+      const response =
+        await fetch(
+          "/api/jobs?" + params.toString()
+        );
+
+      if (!response.ok) {
+        throw new Error(
+          "Job server returned " +
+          response.status
+        );
+      }
+
+      const data =
+        await response.json();
+
+      this.render(
+        data.jobs || [],
+        data.total || 0
+      );
+
+    } catch (error) {
+
+      console.error(
+        "JobFlow search error:",
+        error
+      );
+
+      this.showError();
+
+    }
+
+  },
+
+
+  showLoading() {
+
+    const box =
+      document.getElementById(
+        "jobResults"
+      );
+
+    if (!box) return;
+
+    box.innerHTML = `
+      <div class="card">
+        <div class="empty">
+          🔎 Searching real job sources...
+        </div>
+      </div>
+    `;
+
+  },
+
+
+  render(
+    jobs,
+    total
+  ) {
+
+    const box =
+      document.getElementById(
+        "jobResults"
+      );
+
+    if (!box) return;
+
+    if (!jobs.length) {
+
+      box.innerHTML = `
+        <div class="card">
+          <div class="empty">
+
+            <h3>No matching jobs found</h3>
+
+            <p style="margin-top:8px">
+              Try another skill,
+              job title or location.
+            </p>
+
+          </div>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    box.innerHTML = `
+
+      <div
+        class="card"
+        style="margin-bottom:15px"
+      >
+
+        <strong>
+          ${jobs.length}
+          jobs shown
+        </strong>
+
+        <span
+          class="muted"
+          style="margin-left:8px"
+        >
+          ${Number(total).toLocaleString()}
+          total matching results
+        </span>
+
+      </div>
+
+
+      <div
+        style="
+          display:grid;
+          gap:14px;
+        "
+      >
+
+        ${jobs
+          .map(
+            job =>
+              this.createCard(job)
+          )
+          .join("")
+        }
+
+      </div>
+
+    `;
+
+  },
+
+
+  createCard(job) {
+
+    const title =
+      this.escape(
+        job.title
+      );
+
+    const company =
+      this.escape(
+        job.company
+      );
+
+    const location =
+      this.escape(
+        job.location ||
+        "Location not specified"
+      );
+
+    const description =
+      this.escape(
+        job.description ||
+        ""
+      );
+
+    const url =
+      this.safeUrl(
+        job.url
+      );
+
+
+    return `
+
+      <article
+        class="card"
+        style="
+          border-left:4px solid #2563eb;
+        "
+      >
+
+        <h3>
+          ${title}
+        </h3>
+
+
+        <div
+          class="muted"
+          style="margin-top:7px"
+        >
+          🏢 ${company}
+        </div>
+
+
+        <div
+          style="
+            margin-top:8px;
+            line-height:1.8;
+          "
+        >
+
+          📍 ${location}
+
+          ${
+            job.type
+              ? `<br>💼 ${this.escape(job.type)}`
+              : ""
+          }
+
+          ${
+            job.salary
+              ? `<br>💰 ${this.escape(job.salary)}`
+              : ""
+          }
+
+        </div>
+
+
+        ${
+          description
+            ? `
+              <p
+                style="
+                  margin-top:10px;
+                  color:#475569;
+                  line-height:1.6;
+                "
+              >
+                ${description.substring(0,500)}
+                ${description.length > 500 ? "..." : ""}
+              </p>
+            `
+            : ""
+        }
+
+
+        <div class="actions">
+
+          ${
+            url
+              ? `
+                <a
+                  href="${url}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-blue"
+                  style="text-decoration:none"
+                >
+                  View & Apply
+                </a>
+              `
+              : ""
+          }
+
+
+          <button
+            class="btn btn-light"
+            onclick='JobFlowSearch.save(${JSON.stringify(job)})'
+          >
+            ☆ Save
+          </button>
+
+
+          <button
+            class="btn btn-light"
+            onclick='JobFlowSearch.match(${JSON.stringify(job)})'
+          >
+            ⭐ Match Resume
+          </button>
+
+        </div>
+
+
+        <div
+          style="
+            margin-top:10px;
+            font-size:11px;
+            color:#94a3b8;
+          "
+        >
+          Source:
+          ${this.escape(job.source || "JobFlow")}
+        </div>
+
+      </article>
+
+    `;
+
+  },
+
+
+  save(job) {
+
+    const key =
+      "jobflow_saved_jobs";
+
+    let saved = [];
+
+    try {
+
+      saved =
+        JSON.parse(
+          localStorage.getItem(key) ||
+          "[]"
+        );
+
+    } catch {
+
+      saved = [];
+
+    }
+
+
+    if (
+      saved.some(
+        item =>
+          String(item.id) ===
+          String(job.id)
+      )
+    ) {
+
+      this.notify(
+        "Job already saved."
+      );
+
+      return;
+    }
+
+
+    saved.unshift({
+      ...job,
+      savedAt:
+        new Date().toISOString()
+    });
+
+
+    localStorage.setItem(
+      key,
+      JSON.stringify(saved)
+    );
+
+
+    this.notify(
+      "Job saved successfully."
+    );
+
+  },
+
+
+  match(job) {
+
+    let resume = {};
+
+    try {
+
+      resume =
+        JSON.parse(
+          localStorage.getItem(
+            "jobflow_resume"
+          ) ||
+          "{}"
+        );
+
+    } catch {
+
+      resume = {};
+
+    }
+
+
+    const resumeText =
+      JSON.stringify(
+        resume
+      ).toLowerCase();
+
+
+    const text =
+      (
+        job.title +
+        " " +
+        job.description
+      ).toLowerCase();
+
+
+    const words =
+      text
+        .match(
+          /\b[a-z][a-z0-9+#.-]{2,}\b/gi
+        ) || [];
+
+
+    const unique =
+      [...new Set(words)];
+
+
+    let matches = 0;
+
+
+    unique.forEach(
+      word => {
+
+        if (
+          resumeText.includes(
+            word.toLowerCase()
+          )
+        ) {
+
+          matches++;
+
+        }
+
+      }
+    );
+
+
+    const score =
+      unique.length
+        ? Math.min(
+            100,
+            Math.round(
+              (
+                matches /
+                Math.min(
+                  unique.length,
+                  40
+                )
+              ) *
+              100
+            )
+          )
+        : 0;
+
+
+    this.notify(
+      "Estimated resume match: " +
+      score +
+      "%"
+    );
+
+
+    return score;
+
+  },
+
+
+  nextPage() {
+
+    if (!this.lastSearch) {
+      return;
+    }
+
+    this.page++;
+
+    this.searchPage();
+
+  },
+
+
+  async searchPage() {
+
+    const keyword =
+      this.lastSearch.keyword;
+
+    const location =
+      this.lastSearch.location;
+
+
+    this.showLoading();
+
+
+    try {
+
+      const params =
+        new URLSearchParams({
+
+          keyword,
+
+          location,
+
+          page:
+            this.page,
+
+          limit:
+            this.limit
+
+        });
+
+
+      const response =
+        await fetch(
+          "/api/jobs?" +
+          params.toString()
+        );
+
+
+      if (!response.ok) {
+        throw new Error(
+          "Unable to load jobs."
+        );
+      }
+
+
+      const data =
+        await response.json();
+
+
+      this.render(
+        data.jobs || [],
+        data.total || 0
+      );
+
+
+    } catch(error) {
+
+      console.error(error);
+
+      this.showError();
+
+    }
+
+  },
+
+
+  showError() {
+
+    const box =
+      document.getElementById(
+        "jobResults"
+      );
+
+    if (!box) return;
+
+    box.innerHTML = `
+
+      <div class="card">
+
+        <div class="empty">
+
+          ⚠️ Job search is temporarily
+          unavailable.
+
+          <br><br>
+
+          Please try again.
+
+        </div>
+
+      </div>
+
+    `;
+
+  },
+
+
+  notify(message) {
+
+    if (
+      typeof window.toast ===
+      "function"
+    ) {
+
+      window.toast(message);
+
+    } else {
+
+      alert(message);
+
+    }
+
+  },
+
+
+  safeUrl(url) {
+
+    try {
+
+      const parsed =
+        new URL(
+          url
+        );
+
+      if (
+        parsed.protocol === "https:" ||
+        parsed.protocol === "http:"
+      ) {
+
+        return this.escape(
+          parsed.href
+        );
+
+      }
+
+    } catch {}
+
+    return "";
+
+  },
+
+
+  escape(value) {
+
+    return String(
+      value || ""
+    )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+  }
+
+};
+
+
+/* =========================================
+   CONNECT EXISTING SEARCH BUTTON
+========================================= */
+
+window.searchJobs =
+function() {
+
+  JobFlowSearch.search();
+
+};
+
+
+console.log(
+  "JobFlow frontend job connector ready."
+);
