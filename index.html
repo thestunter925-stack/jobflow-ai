@@ -429,7 +429,7 @@ textarea{
 <body>
 
 /* =========================
-   TRIAL GATE
+   TRIAL GATE - VERIFY ACCESS
 ========================= */
 
 function verifyAccess(){
@@ -446,27 +446,39 @@ function verifyAccess(){
   const app =
     document.querySelector(".app");
 
+
   if(!input){
+
+    alert("Password field not found.");
+
     return;
+
   }
 
-  const password =
+
+  const enteredPassword =
     input.value.trim();
 
-  if(password !== "12345"){
+
+  if(enteredPassword !== "12345"){
 
     if(message){
 
       message.textContent =
-        "❌ Incorrect password. Please enter 12345.";
+        "❌ Incorrect password. Enter 12345.";
 
     }
 
     input.focus();
 
     return;
+
   }
 
+
+  /* =========================
+     ACCESS GRANTED
+  ========================= */
 
   localStorage.setItem(
     "jobflow_access_granted",
@@ -498,7 +510,6 @@ function verifyAccess(){
   }
 
 }
-
 
 /* =========================
    RESTORE ACCESS
