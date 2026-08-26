@@ -429,95 +429,64 @@ textarea{
 <body>
 
 /* =========================
-   TRIAL GATE - VERIFY ACCESS
+   JOBFLOW 48-HOUR TRIAL GATE
 ========================= */
 
-function verifyAccess(){
+(function(){
 
-  const input =
-    document.getElementById("gateInput");
+  const TRIAL_HOURS = 48;
+  const PASSWORD = "12345";
 
-  const message =
-    document.getElementById("gateMessage");
+  function getTrialStart(){
 
-  const gate =
-    document.getElementById("trialGate");
-
-  const app =
-    document.querySelector(".app");
-
-
-  if(!input){
-
-    alert("Password field not found.");
-
-    return;
+    return localStorage.getItem(
+      "jobflow_trial_start"
+    );
 
   }
 
 
-  const enteredPassword =
-    input.value.trim();
+  function startTrial(){
+
+    const now =
+      Date.now();
+
+    localStorage.setItem(
+      "jobflow_trial_start",
+      String(now)
+    );
+
+    return now;
+
+  }
 
 
-  if(enteredPassword !== "12345"){
+  function trialStillActive(){
 
-    if(message){
+    const saved =
+      getTrialStart();
 
-      message.textContent =
-        "❌ Incorrect password. Enter 12345.";
+    if(!saved){
+
+      return false;
 
     }
 
-    input.focus();
+    const elapsed =
+      Date.now() - Number(saved);
 
-    return;
+    const duration =
+      TRIAL_HOURS *
+      60 *
+      60 *
+      1000;
 
-  }
-
-
-  /* =========================
-     ACCESS GRANTED
-  ========================= */
-
-  localStorage.setItem(
-    "jobflow_access_granted",
-    "true"
-  );
-
-
-  if(message){
-
-    message.textContent =
-      "✅ Access granted!";
+    return elapsed < duration;
 
   }
 
 
-  if(gate){
-
-    gate.style.display =
-      "none";
-
-  }
-
-
-  if(app){
-
-    app.style.display =
-      "block";
-
-  }
-
-}
-
-/* =========================
-   RESTORE ACCESS
-========================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function(){
+  function showGate(){
 
     const gate =
       document.getElementById(
@@ -529,42 +498,214 @@ document.addEventListener(
         ".app"
       );
 
-    const access =
-      localStorage.getItem(
-        "jobflow_access_granted"
-      );
+
+    if(gate){
+
+      gate.style.display =
+        "flex";
+
+    }
 
 
-    if(access === "true"){
+    if(app){
 
-      if(gate){
-
-        gate.style.display =
-          "none";
-
-      }
-
-      if(app){
-
-        app.style.display =
-          "block";
-
-      }
-
-    }else{
-
-      if(app){
-
-        app.style.display =
-          "none";
-
-      }
+      app.style.display =
+        "none";
 
     }
 
   }
-);
 
+
+  function showApp(){
+
+    const gate =
+      document.getElementById(
+        "trialGate"
+      );
+
+    const app =
+      document.querySelector(
+        ".app"
+      );
+
+
+    if(gate){
+
+      gate.style.display =
+        "none";
+
+    }
+
+
+    if(app){
+
+      app.style.display =
+        "block";
+
+    }
+
+  }
+
+
+  window.verifyAccess =
+    function(){
+
+      const input =
+        document.getElementById(
+          "gateInput"
+        );
+
+      const message =
+        document.getElementById(
+          "gateMessage"
+        );
+
+
+      if(!input){
+
+        alert(
+          "Password field not found."
+        );
+
+        return;
+
+      }
+
+
+      if(
+        input.value.trim() !==
+        PASSWORD
+      ){
+
+        if(message){
+
+          message.textContent =
+            "❌ Incorrect password. Enter 12345.";
+
+        }
+
+        input.focus();
+
+        return;
+
+      }
+
+
+      /*
+       * First successful access
+       * starts the 48-hour trial.
+       */
+
+      if(!getTrialStart()){
+
+        startTrial();
+
+      }
+
+
+      if(message){
+
+        message.textContent =
+          "✅ Access granted!";
+
+      }
+
+
+      showApp();
+
+    };
+
+
+  function initializeTrialGate(){
+
+    /*
+     * Premium users bypass trial.
+     */
+
+    const premium =
+      localStorage.getItem(
+        "jobflow_premium"
+      ) === "true";
+
+
+    if(premium){
+
+      showApp();
+
+      return;
+
+    }
+
+
+    /*
+     * If no trial exists,
+     * ALWAYS show password gate.
+     */
+
+    if(!getTrialStart()){
+
+      showGate();
+
+      return;
+
+    }
+
+
+    /*
+     * Existing user with active
+     * 48-hour trial.
+     */
+
+    if(trialStillActive()){
+
+      showApp();
+
+      return;
+
+    }
+
+
+    /*
+     * Trial expired.
+     */
+
+    showGate();
+
+
+    const message =
+      document.getElementById(
+        "gateMessage"
+      );
+
+    if(message){
+
+      message.innerHTML =
+        "⏰ Your 48-hour free trial has expired.<br>" +
+        "<strong>Upgrade to Premium to continue.</strong>";
+
+    }
+
+  }
+
+
+  if(
+    document.readyState ===
+    "loading"
+  ){
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      initializeTrialGate
+    );
+
+  }else{
+
+    initializeTrialGate();
+
+  }
+
+})();
 
 <!-- =========================
      SIDEBAR
