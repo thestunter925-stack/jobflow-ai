@@ -1,0 +1,416 @@
+/* =========================================================
+   JOBFLOW AI - ENHANCEMENT CSS
+   File: jobflow-enhancements.css
+   ========================================================= */
+
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  transition:
+    background .25s ease,
+    color .25s ease;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+  min-height:44px;
+  border:0;
+  border-radius:10px;
+  padding:10px 16px;
+  cursor:pointer;
+  font-weight:700;
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease,
+    opacity .15s ease;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:
+    0 5px 15px rgba(0,0,0,.10);
+}
+
+.btn:active{
+  transform:scale(.97);
+}
+
+.btn.primary{
+  background:#2563eb;
+  color:#fff;
+}
+
+.btn.secondary{
+  background:#eef2ff;
+  color:#1e40af;
+}
+
+.btn.danger{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+  border-radius:16px;
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.card:hover{
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.07);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  margin-bottom:20px;
+}
+
+.hero h2{
+  letter-spacing:-.3px;
+}
+
+.hero p{
+  line-height:1.6;
+}
+
+
+/* =========================
+   JOB CARDS
+========================= */
+
+.job{
+  position:relative;
+  margin-top:14px;
+  padding:18px;
+  border-radius:15px;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.job:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+}
+
+.jobTop{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:flex-start;
+}
+
+.job h3{
+  margin:0 0 7px;
+}
+
+.job p{
+  line-height:1.5;
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  white-space:nowrap;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#eff6ff;
+  color:#1d4ed8;
+  font-size:12px;
+  font-weight:800;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:16px;
+}
+
+.actions a{
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+input,
+textarea,
+select{
+  width:100%;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  padding:12px;
+  background:#fff;
+  color:#111827;
+  outline:none;
+  transition:
+    border .15s ease,
+    box-shadow .15s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:#2563eb;
+  box-shadow:
+    0 0 0 3px rgba(37,99,235,.12);
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+label{
+  display:block;
+  margin:14px 0 7px;
+  font-weight:700;
+}
+
+
+/* =========================
+   EMPTY STATES
+========================= */
+
+.empty{
+  text-align:center;
+  padding:35px 18px;
+  color:#6b7280;
+  line-height:1.6;
+}
+
+
+/* =========================
+   PREMIUM
+========================= */
+
+#premium .card,
+#payment .card{
+  overflow:hidden;
+}
+
+#premium .btn.primary,
+#payment .btn.primary{
+  box-shadow:
+    0 8px 20px rgba(37,99,235,.20);
+}
+
+
+/* =========================
+   TRIAL INDICATOR
+========================= */
+
+[data-jobflow-trial]{
+  display:inline-flex;
+  align-items:center;
+  padding:7px 11px;
+  border-radius:999px;
+  background:#fef3c7;
+  color:#92400e;
+  font-size:12px;
+  font-weight:800;
+}
+
+
+/* =========================
+   ANALYTICS
+========================= */
+
+#analytics .card{
+  min-height:130px;
+}
+
+#analyticsApplications,
+#analyticsInterviews,
+#analyticsOffers,
+#analyticsRejected{
+  font-variant-numeric:tabular-nums;
+}
+
+
+/* =========================
+   PIPELINE
+========================= */
+
+#pipelineBoard{
+  align-items:start;
+}
+
+#pipelineBoard .card{
+  min-height:160px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  .grid2{
+    grid-template-columns:1fr !important;
+  }
+
+  .jobTop{
+    flex-direction:column;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .actions .btn,
+  .actions a{
+    width:100%;
+  }
+
+  .hero h2{
+    font-size:24px;
+  }
+
+  .card{
+    border-radius:14px;
+  }
+
+}
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.jobflow-dark{
+  background:#0f172a !important;
+  color:#e5e7eb !important;
+}
+
+body.jobflow-dark .card,
+body.jobflow-dark .job{
+  background:#111827 !important;
+  color:#e5e7eb !important;
+  border-color:#374151 !important;
+}
+
+body.jobflow-dark input,
+body.jobflow-dark textarea,
+body.jobflow-dark select{
+  background:#1f2937 !important;
+  color:#f9fafb !important;
+  border-color:#4b5563 !important;
+}
+
+body.jobflow-dark .btn.secondary{
+  background:#1e3a8a;
+  color:#dbeafe;
+}
+
+body.jobflow-dark .empty,
+body.jobflow-dark .muted{
+  color:#9ca3af !important;
+}
+
+body.jobflow-dark .badge{
+  background:#1e3a8a;
+  color:#dbeafe;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+#jobflowEnhancementToast{
+  animation:
+    jobflowToastIn .2s ease;
+}
+
+@keyframes jobflowToastIn{
+
+  from{
+    opacity:0;
+    transform:
+      translate(-50%,10px);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      translate(-50%,0);
+  }
+
+}
+
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+button,
+a,
+input,
+textarea,
+select{
+  -webkit-tap-highlight-color:
+    transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible{
+  outline:
+    3px solid rgba(37,99,235,.35);
+  outline-offset:2px;
+}
+
+
+/* =========================
+   END
+========================= */
