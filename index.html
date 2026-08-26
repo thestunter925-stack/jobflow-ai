@@ -2153,5 +2153,180 @@ document.addEventListener(
 
 </script>
 <script src="jobflow-enhancements.js"></script>
+<script>
+/* =========================
+   JOBFLOW ACCESS BUTTON
+========================= */
+
+(function(){
+
+  function startAccessSystem(){
+
+    const button =
+      document.getElementById(
+        "continueAccessButton"
+      );
+
+    const input =
+      document.getElementById(
+        "gateInput"
+      );
+
+    const message =
+      document.getElementById(
+        "gateMessage"
+      );
+
+    const gate =
+      document.getElementById(
+        "trialGate"
+      );
+
+    const app =
+      document.querySelector(
+        ".app"
+      );
+
+
+    if(!button || !input){
+
+      console.error(
+        "JobFlow access elements not found."
+      );
+
+      return;
+
+    }
+
+
+    button.addEventListener(
+      "click",
+      function(){
+
+        const password =
+          input.value.trim();
+
+
+        if(password !== "12345"){
+
+          if(message){
+
+            message.textContent =
+              "❌ Incorrect password. Enter 12345.";
+
+          }
+
+          input.focus();
+
+          return;
+
+        }
+
+
+        localStorage.setItem(
+          "jobflow_access_granted",
+          "true"
+        );
+
+
+        if(message){
+
+          message.textContent =
+            "✅ Access granted!";
+
+        }
+
+
+        if(gate){
+
+          gate.style.display =
+            "none";
+
+        }
+
+
+        if(app){
+
+          app.style.display =
+            "";
+
+        }
+
+      }
+    );
+
+
+    input.addEventListener(
+      "keydown",
+      function(event){
+
+        if(event.key === "Enter"){
+
+          event.preventDefault();
+
+          button.click();
+
+        }
+
+      }
+    );
+
+
+    /*
+     * Restore previous access.
+     */
+
+    if(
+      localStorage.getItem(
+        "jobflow_access_granted"
+      ) === "true"
+    ){
+
+      if(gate){
+
+        gate.style.display =
+          "none";
+
+      }
+
+      if(app){
+
+        app.style.display =
+          "";
+
+      }
+
+    }else{
+
+      if(app){
+
+        app.style.display =
+          "none";
+
+      }
+
+    }
+
+  }
+
+
+  if(
+    document.readyState ===
+    "loading"
+  ){
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      startAccessSystem
+    );
+
+  }else{
+
+    startAccessSystem();
+
+  }
+
+})();
+</script>
 </body>
 </html>
