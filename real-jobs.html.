@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+  name="theme-color"
+  content="#2563eb"
+>
+
+<title>JobFlow AI - Real Jobs</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fb;
+  color:#111827;
+}
+
+header{
+  background:#2563eb;
+  color:white;
+  padding:22px 16px;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+}
+
+.subtitle{
+  opacity:.9;
+  margin-top:4px;
+  font-size:13px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px 15px 50px;
+}
+
+.search-box{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 4px 18px rgba(0,0,0,.06);
+  margin-bottom:20px;
+}
+
+.search-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:10px;
+}
+
+input,
+select,
+button{
+  font:inherit;
+}
+
+input,
+select{
+  width:100%;
+  padding:13px;
+  border:1px solid #d1d5db;
+  border-radius:9px;
+  outline:none;
+}
+
+input:focus,
+select:focus{
+  border-color:#2563eb;
+}
+
+button{
+  border:0;
+  border-radius:9px;
+  padding:12px 16px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.primary{
+  background:#2563eb;
+  color:white;
+}
+
+.secondary{
+  background:#eef2ff;
+  color:#1e40af;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.search-button{
+  margin-top:12px;
+  width:100%;
+}
+
+.status{
+  margin:15px 0;
+  padding:12px;
+  border-radius:9px;
+  background:#eff6ff;
+  color:#1d4ed8;
+  display:none;
+}
+
+.status.show{
+  display:block;
+}
+
+.jobs{
+  display:grid;
+  gap:14px;
+}
+
+.job-card{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 4px 18px rgba(0,0,0,.05);
+  border:1px solid #e5e7eb;
+}
+
+.company{
+  color:#2563eb;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.job-title{
+  font-size:19px;
+  font-weight:800;
+  margin-bottom:9px;
+}
+
+.meta{
+  color:#64748b;
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:14px;
+}
+
+.badge{
+  background:#f1f5f9;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.empty{
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+  color:#64748b;
+}
+
+.loading{
+  text-align:center;
+  padding:30px;
+}
+
+.small{
+  font-size:12px;
+  color:#64748b;
+  margin-top:10px;
+}
+
+@media(max-width:700px){
+
+  .search-grid{
+    grid-template-columns:1fr;
+  }
+
+  .header-inner{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .job-title{
+    font-size:17px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <div class="header-inner">
+
+    <div>
+
+      <div class="logo">
+        🚀 JobFlow AI
+      </div>
+
+      <div class="subtitle">
+        Real Job Search
+      </div>
+
+    </div>
+
+    <button
+      class="secondary"
+      type="button"
+      onclick="goBack()"
+    >
+      ← JobFlow Dashboard
+    </button>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <section class="search-box">
+
+    <h2>
+      🔎 Search Real Jobs
+    </h2>
+
+    <p class="small">
+      Search published jobs from participating company career boards.
+    </p>
+
+
+    <div class="search-grid">
+
+      <input
+        id="keyword"
+        type="text"
+        placeholder="Job title, skill or keyword"
+      >
+
+      <input
+        id="location"
+        type="text"
+        placeholder="Location"
+      >
+
+      <select id="company">
+
+        <option value="all">
+          All Companies
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <button
+      id="searchButton"
+      class="primary search-button"
+      type="button"
+    >
+      🔎 Search Jobs
+    </button>
+
+
+    <div
+      id="status"
+      class="status"
+    ></div>
+
+  </section>
+
+
+  <section>
+
+    <div
+      id="jobs"
+      class="jobs"
+    ></div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+"use strict";
+
+
+/*
+==================================================
+JOBFLOW REAL JOBS
+==================================================
+
+Greenhouse provides public GET endpoints for
+published job-board data.
+
+No Greenhouse authentication is required for
+public GET job-board endpoints.
+
+==================================================
+*/
+
+
+const COMPANIES = [
+
+  {
+    name:"Airbnb",
+    board:"airbnb"
+  },
+
+  {
+    name:"Canva",
+    board:"canva"
+  },
+
+  {
+    name:"Datadog",
+    board:"datadog"
+  },
+
+  {
+    name:"Dropbox",
+    board:"dropbox"
+  },
+
+  {
+    name:"Figma",
+    board:"figma"
+  },
+
+  {
+    name:"GitLab",
+    board:"gitlab"
+  },
+
+  {
+    name:"HubSpot",
+    board:"hubspot"
+  },
+
+  {
+    name:"Okta",
+    board:"okta"
+  },
+
+  {
+    name:"Pinterest",
+    board:"pinterest"
+  },
+
+  {
+    name:"Reddit",
+    board:"reddit"
+  },
+
+  {
+    name:"Shopify",
+    board:"shopify"
+  },
+
+  {
+    name:"Stripe",
+    board:"stripe"
+  },
+
+  {
+    name:"Twilio",
+    board:"twilio"
+  },
+
+  {
+    name:"Uber",
+    board:"uber"
+  },
+
+  {
+    name:"Coinbase",
+    board:"coinbase"
+  }
+
+];
+
+
+const keywordInput =
+  document.getElementById("keyword");
+
+const locationInput =
+  document.getElementById("location");
+
+const companySelect =
+  document.getElementById("company");
+
+const searchButton =
+  document.getElementById("searchButton");
+
+const jobsContainer =
+  document.getElementById("jobs");
+
+const statusBox =
+  document.getElementById("status");
+
+
+/*
+==================================================
+POPULATE COMPANIES
+==================================================
+*/
+
+COMPANIES.forEach(function(company){
+
+  const option =
+    document.createElement("option");
+
+  option.value =
+    company.board;
+
+  option.textContent =
+    company.name;
+
+  companySelect.appendChild(
+    option
+  );
+
+});
+
+
+/*
+==================================================
+ESCAPE HTML
+==================================================
+*/
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/*
+==================================================
+SET STATUS
+==================================================
+*/
+
+function setStatus(
+  text,
+  show=true
+){
+
+  statusBox.textContent =
+    text;
+
+  statusBox.classList.toggle(
+    "show",
+    show
+  );
+
+}
+
+
+/*
+==================================================
+GET JOBS FROM ONE COMPANY
+==================================================
+*/
+
+async function getCompanyJobs(
+  company
+){
+
+  const url =
+    "https://boards-api.greenhouse.io/v1/boards/" +
+    encodeURIComponent(
+      company.board
+    ) +
+    "/jobs";
+
+
+  try{
+
+    const response =
+      await fetch(url);
+
+
+    if(!response.ok){
+
+      return [];
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    const jobs =
+      Array.isArray(data.jobs)
+        ? data.jobs
+        : [];
+
+
+    return jobs.map(function(job){
+
+      return {
+
+        id:
+          job.id,
+
+        title:
+          job.title || "Untitled position",
+
+        company:
+          company.name,
+
+        location:
+          job.location &&
+          job.location.name
+            ? job.location.name
+            : "Location not specified",
+
+        updated:
+          job.updated_at || "",
+
+        url:
+          job.absolute_url || "",
+
+        source:
+          "Greenhouse"
+
+      };
+
+    });
+
+  }catch(error){
+
+    console.warn(
+      company.name +
+      " could not be loaded.",
+      error
+    );
+
+    return [];
+
+  }
+
+}
+
+
+/*
+==================================================
+SEARCH
+==================================================
+*/
+
+async function searchJobs(){
+
+  const keyword =
+    keywordInput.value
+      .trim()
+      .toLowerCase();
+
+  const location =
+    locationInput.value
+      .trim()
+      .toLowerCase();
+
+  const selectedCompany =
+    companySelect.value;
+
+
+  jobsContainer.innerHTML =
+    '<div class="loading">🔎 Searching real company job boards...</div>';
+
+  setStatus(
+    "Searching published job listings..."
+  );
+
+
+  let companies =
+    COMPANIES;
+
+
+  if(
+    selectedCompany !== "all"
+  ){
+
+    companies =
+      COMPANIES.filter(
+        function(company){
+
+          return company.board ===
+            selectedCompany;
+
+        }
+      );
+
+  }
+
+
+  /*
+   * Fetch company boards in parallel.
+   */
+
+  const results =
+    await Promise.all(
+      companies.map(
+        getCompanyJobs
+      )
+    );
+
+
+  let jobs =
+    results.flat();
+
+
+  /*
+   * Keyword filtering.
+   */
+
+  if(keyword){
+
+    jobs =
+      jobs.filter(
+        function(job){
+
+          const text =
+            (
+              job.title +
+              " " +
+              job.company +
+              " " +
+              job.location
+            ).toLowerCase();
+
+          return text.includes(
+            keyword
+          );
+
+        }
+      );
+
+  }
+
+
+  /*
+   * Location filtering.
+   */
+
+  if(location){
+
+    jobs =
+      jobs.filter(
+        function(job){
+
+          return job.location
+            .toLowerCase()
+            .includes(
+              location
+            );
+
+        }
+      );
+
+  }
+
+
+  /*
+   * Newest first.
+   */
+
+  jobs.sort(
+    function(a,b){
+
+      return new Date(
+        b.updated
+      ) -
+      new Date(
+        a.updated
+      );
+
+    }
+  );
+
+
+  renderJobs(
+    jobs
+  );
+
+
+  setStatus(
+    jobs.length +
+    " real published job(s) found."
+  );
+
+}
+
+
+/*
+==================================================
+RENDER JOBS
+==================================================
+*/
+
+function renderJobs(
+  jobs
+){
+
+  jobsContainer.innerHTML =
+    "";
+
+
+  if(!jobs.length){
+
+    jobsContainer.innerHTML =
+
+      `
+      <div class="empty">
+
+        <h3>
+          No matching jobs found
+        </h3>
+
+        <p style="margin-top:8px">
+          Try a broader keyword or location.
+        </p>
+
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  jobs.forEach(
+    function(job){
+
+      const card =
+        document.createElement(
+          "article"
+        );
+
+
+      const updated =
+        job.updated
+          ? new Date(
+              job.updated
+            ).toLocaleDateString()
+          : "Not specified";
+
+
+      card.className =
+        "job-card";
+
+
+      card.innerHTML =
+
+        `
+        <div class="company">
+
+          🏢
+          ${escapeHTML(job.company)}
+
+        </div>
+
+
+        <div class="job-title">
+
+          ${escapeHTML(job.title)}
+
+        </div>
+
+
+        <div class="meta">
+
+          📍
+          ${escapeHTML(job.location)}
+
+          <br>
+
+          🗓 Updated:
+          ${escapeHTML(updated)}
+
+        </div>
+
+
+        <div class="badges">
+
+          <span class="badge">
+            Real published listing
+          </span>
+
+          <span class="badge">
+            Official application
+          </span>
+
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            class="primary"
+            type="button"
+            onclick="applyJob('${encodeURIComponent(job.url)}')"
+          >
+            Apply on Company Website →
+          </button>
+
+
+          <button
+            class="secondary"
+            type="button"
+            onclick="saveJob(${JSON.stringify(job).replace(/"/g,'&quot;')})"
+          >
+            ⭐ Save Job
+          </button>
+
+        </div>
+
+        `;
+
+
+      jobsContainer.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+/*
+==================================================
+APPLY
+==================================================
+*/
+
+function applyJob(
+  encodedUrl
+){
+
+  const url =
+    decodeURIComponent(
+      encodedUrl
+    );
+
+
+  if(!url){
+
+    alert(
+      "The company has not provided an application link."
+    );
+
+    return;
+
+  }
+
+
+  window.open(
+    url,
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+}
+
+
+/*
+==================================================
+SAVE JOB
+==================================================
+*/
+
+function saveJob(
+  job
+){
+
+  try{
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem(
+          "jobflow_saved_jobs"
+        ) || "[]"
+      );
+
+
+    const exists =
+      saved.some(
+        function(item){
+
+          return item.id ===
+            job.id &&
+            item.company ===
+            job.company;
+
+        }
+      );
+
+
+    if(exists){
+
+      alert(
+        "This job is already saved."
+      );
+
+      return;
+
+    }
+
+
+    saved.push(
+      job
+    );
+
+
+    localStorage.setItem(
+      "jobflow_saved_jobs",
+      JSON.stringify(
+        saved
+      )
+    );
+
+
+    alert(
+      "⭐ Job saved to JobFlow AI."
+    );
+
+
+  }catch(error){
+
+    alert(
+      "Unable to save this job."
+    );
+
+  }
+
+}
+
+
+/*
+==================================================
+ENTER KEY
+==================================================
+*/
+
+keywordInput.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Enter"){
+
+      event.preventDefault();
+
+      searchJobs();
+
+    }
+
+  }
+);
+
+
+locationInput.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Enter"){
+
+      event.preventDefault();
+
+      searchJobs();
+
+    }
+
+  }
+);
+
+
+/*
+==================================================
+SEARCH BUTTON
+==================================================
+*/
+
+searchButton.addEventListener(
+  "click",
+  searchJobs
+);
+
+
+/*
+==================================================
+BACK TO JOBFLOW
+==================================================
+*/
+
+function goBack(){
+
+  window.location.href =
+    "JobFlow_AI_index.html";
+
+}
+
+
+/*
+==================================================
+INITIAL SEARCH
+==================================================
+*/
+
+searchJobs();
+
+</script>
+
+</body>
+</html>
