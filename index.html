@@ -3,25 +3,22 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1.0"
->
-
-<meta
-  name="theme-color"
-  content="#2563eb"
->
+<meta name="theme-color" content="#2563eb">
 
 <meta
   name="description"
-  content="JobFlow AI - Smart Job Search and Career Management"
+  content="JobFlow AI Career Management"
 >
 
 <title>JobFlow AI</title>
 
 <style>
+
+/* =========================
+   RESET
+========================= */
 
 *{
   box-sizing:border-box;
@@ -29,25 +26,16 @@
   padding:0;
 }
 
-html{
-  scroll-behavior:smooth;
-}
-
 body{
-  font-family:
-    Inter,
-    Arial,
-    Helvetica,
-    sans-serif;
-  background:#f5f7fb;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f7fb;
   color:#111827;
-  min-height:100vh;
 }
 
 button,
 input,
-textarea,
-select{
+select,
+textarea{
   font:inherit;
 }
 
@@ -56,109 +44,124 @@ button{
 }
 
 a{
+  text-decoration:none;
   color:inherit;
 }
 
-.hidden{
-  display:none!important;
-}
 
-.muted{
-  color:#64748b;
-}
-
-.empty{
-  padding:30px;
-  text-align:center;
-  color:#64748b;
-}
+/* =========================
+   LAYOUT
+========================= */
 
 .app{
   min-height:100vh;
+  display:flex;
 }
 
+
+/* =========================
+   SIDEBAR
+========================= */
+
 .sidebar{
+  width:245px;
+  background:#111827;
+  color:#fff;
+  min-height:100vh;
   position:fixed;
   left:0;
   top:0;
   bottom:0;
-  width:245px;
-  background:#111827;
-  color:white;
-  padding:20px 14px;
-  z-index:100;
   overflow-y:auto;
+  z-index:20;
 }
 
-.brand{
-  font-size:23px;
+.logo{
+  padding:24px 20px;
+  font-size:24px;
   font-weight:800;
-  padding:8px 12px 22px;
+  border-bottom:1px solid #273244;
 }
 
-.brand span{
+.logo span{
   color:#60a5fa;
 }
 
+.member{
+  padding:16px 20px;
+  color:#9ca3af;
+  font-size:13px;
+  border-bottom:1px solid #273244;
+}
+
 .nav{
-  display:flex;
-  flex-direction:column;
-  gap:5px;
+  padding:12px;
 }
 
 .nav button{
+  width:100%;
   border:0;
   background:transparent;
-  color:#cbd5e1;
-  padding:12px;
-  border-radius:10px;
+  color:#d1d5db;
   text-align:left;
-  font-weight:600;
+  padding:12px 13px;
+  border-radius:9px;
+  margin-bottom:4px;
+  transition:.2s;
 }
 
 .nav button:hover,
 .nav button.active{
   background:#2563eb;
-  color:white;
+  color:#fff;
 }
+
+
+/* =========================
+   MAIN
+========================= */
 
 .main{
   margin-left:245px;
+  width:calc(100% - 245px);
   min-height:100vh;
 }
 
 .topbar{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(10px);
+  height:64px;
+  background:#fff;
   border-bottom:1px solid #e5e7eb;
-  padding:14px 24px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:15px;
+  padding:0 25px;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
 .topbar-title{
-  font-weight:800;
-}
-
-.user-badge{
-  background:#eff6ff;
-  color:#1d4ed8;
-  padding:8px 12px;
-  border-radius:999px;
-  font-size:13px;
   font-weight:700;
 }
 
+.mobile-menu{
+  display:none;
+  border:0;
+  background:#eef2ff;
+  padding:8px 11px;
+  border-radius:8px;
+}
+
 .content{
-  padding:24px;
-  max-width:1500px;
+  padding:25px;
+  max-width:1400px;
   margin:auto;
 }
+
+
+/* =========================
+   PAGE
+========================= */
 
 .page{
   display:none;
@@ -169,15 +172,14 @@ a{
 }
 
 .hero{
-  background:
-    linear-gradient(
-      135deg,
-      #1d4ed8,
-      #2563eb
-    );
-  color:white;
-  border-radius:18px;
+  background:linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+  color:#fff;
   padding:28px;
+  border-radius:16px;
   margin-bottom:20px;
 }
 
@@ -191,191 +193,133 @@ a{
   line-height:1.6;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:
-    repeat(4,minmax(0,1fr));
-  gap:16px;
-}
+
+/* =========================
+   CARDS
+========================= */
 
 .card{
-  background:white;
+  background:#fff;
   border:1px solid #e5e7eb;
-  border-radius:16px;
+  border-radius:14px;
   padding:20px;
-  box-shadow:
-    0 4px 18px
-    rgba(15,23,42,.05);
+  box-shadow:0 3px 12px rgba(15,23,42,.04);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:20px;
 }
 
 .stat-label{
-  color:#64748b;
-  font-size:13px;
-  font-weight:700;
+  color:#6b7280;
+  font-size:14px;
+  margin-bottom:10px;
 }
 
-.stat-number{
-  margin-top:8px;
+.stat-value{
   font-size:30px;
   font-weight:800;
 }
 
-.blue{
-  color:#2563eb;
-}
 
-.green{
-  color:#16a34a;
-}
+/* =========================
+   BUTTONS
+========================= */
 
-.orange{
-  color:#ea580c;
-}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-  gap:16px;
-}
-
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
-.field label{
-  font-size:13px;
-  font-weight:700;
-  color:#374151;
-}
-
-.field input,
-.field textarea,
-.field select,
-.toolbar input,
-.toolbar select{
-  width:100%;
+.btn{
   border:1px solid #d1d5db;
-  border-radius:10px;
-  padding:11px 12px;
-  background:white;
-  outline:none;
+  background:#fff;
+  color:#111827;
+  padding:10px 15px;
+  border-radius:8px;
+  font-weight:600;
 }
 
-.field input:focus,
-.field textarea:focus,
-.field select:focus,
-.toolbar input:focus,
-.toolbar select:focus{
+.btn:hover{
+  background:#f3f4f6;
+}
+
+.btn.primary{
+  background:#2563eb;
   border-color:#2563eb;
-  box-shadow:
-    0 0 0 3px
-    rgba(37,99,235,.1);
+  color:#fff;
 }
 
-textarea{
-  min-height:120px;
-  resize:vertical;
+.btn.primary:hover{
+  background:#1d4ed8;
+}
+
+.btn.danger{
+  background:#fee2e2;
+  border-color:#fecaca;
+  color:#991b1b;
 }
 
 .actions{
   display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:16px;
-}
-
-.btn{
-  border:0;
-  border-radius:10px;
-  padding:10px 15px;
-  font-weight:700;
-}
-
-.btn-blue{
-  background:#2563eb;
-  color:white;
-}
-
-.btn-dark{
-  background:#111827;
-  color:white;
-}
-
-.btn-light{
-  background:#f1f5f9;
-  color:#334155;
-}
-
-.btn-danger{
-  background:#dc2626;
-  color:white;
-}
-
-.btn:hover{
-  opacity:.9;
-}
-
-.job-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-  gap:16px;
-  margin-top:18px;
-}
-
-.job-card{
-  background:white;
-  border:1px solid #e5e7eb;
-  border-radius:16px;
-  padding:18px;
-}
-
-.job-card h3{
-  font-size:18px;
-  line-height:1.4;
-}
-
-.job-company{
-  margin-top:7px;
-  font-weight:700;
-}
-
-.job-meta{
-  display:flex;
-  flex-wrap:wrap;
   gap:8px;
-  margin-top:10px;
+  flex-wrap:wrap;
 }
 
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:999px;
-  background:#eff6ff;
-  color:#1d4ed8;
-  font-size:12px;
-  font-weight:700;
+
+/* =========================
+   FORMS
+========================= */
+
+.form-group{
+  margin-bottom:15px;
 }
 
-.job-description{
-  margin-top:12px;
-  color:#64748b;
-  line-height:1.6;
+.form-group label{
+  display:block;
+  margin-bottom:7px;
   font-size:14px;
+  font-weight:700;
+  color:#374151;
 }
 
-.job-source{
-  margin-top:12px;
-  font-size:11px;
-  color:#94a3b8;
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  padding:11px 12px;
+  background:#fff;
+  outline:none;
 }
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.1);
+}
+
+textarea{
+  resize:vertical;
+}
+
+
+/* =========================
+   TABLE
+========================= */
 
 .table-wrap{
   overflow-x:auto;
@@ -388,7 +332,7 @@ table{
 
 th,
 td{
-  padding:12px;
+  padding:13px 10px;
   border-bottom:1px solid #e5e7eb;
   text-align:left;
   white-space:nowrap;
@@ -396,22 +340,89 @@ td{
 
 th{
   font-size:12px;
-  color:#64748b;
+  color:#6b7280;
   text-transform:uppercase;
 }
 
+.status{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:700;
+  background:#eff6ff;
+  color:#1d4ed8;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+  text-align:center;
+  padding:40px 20px;
+  color:#6b7280;
+}
+
+.empty h3{
+  color:#374151;
+  margin-bottom:8px;
+}
+
+
+/* =========================
+   JOB CARDS
+========================= */
+
+.job-card{
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:18px;
+  margin-bottom:12px;
+}
+
+.job-card h3{
+  margin-bottom:6px;
+}
+
+.job-company{
+  color:#2563eb;
+  font-weight:700;
+}
+
+.job-meta{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  color:#6b7280;
+  font-size:13px;
+  margin:10px 0;
+}
+
+.job-description{
+  color:#4b5563;
+  line-height:1.6;
+  margin-bottom:14px;
+}
+
+
+/* =========================
+   PIPELINE
+========================= */
+
 .pipeline{
   display:grid;
-  grid-template-columns:
-    repeat(4,minmax(0,1fr));
-  gap:14px;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
 }
 
 .pipeline-column{
-  background:#eef2f7;
-  border-radius:14px;
-  padding:14px;
-  min-height:220px;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:12px;
+  min-height:250px;
 }
 
 .pipeline-column h3{
@@ -420,42 +431,72 @@ th{
 }
 
 .pipeline-item{
-  background:white;
-  border-radius:10px;
-  padding:12px;
-  margin-bottom:9px;
+  background:#fff;
   border:1px solid #e5e7eb;
+  border-radius:9px;
+  padding:12px;
+  margin-bottom:8px;
+  font-size:13px;
 }
 
-.toolbar{
+
+/* =========================
+   RESUME
+========================= */
+
+.resume-preview{
+  background:#fff;
+  border:1px solid #d1d5db;
+  min-height:500px;
+  padding:35px;
+  line-height:1.6;
+}
+
+.resume-name{
+  font-size:30px;
+  font-weight:800;
+  margin-bottom:5px;
+}
+
+.resume-section{
+  margin-top:22px;
+}
+
+.resume-section h3{
+  border-bottom:2px solid #111827;
+  padding-bottom:5px;
+  margin-bottom:8px;
+}
+
+
+/* =========================
+   COVER LETTER
+========================= */
+
+.letter{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:24px;
+}
+
+.letter-header{
   display:flex;
+  justify-content:space-between;
+  align-items:center;
   gap:10px;
-  margin-bottom:16px;
+  margin-bottom:18px;
 }
 
-.toolbar input{
-  flex:1;
+.letter-content{
+  line-height:1.9;
+  color:#374151;
 }
 
-.toast{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  background:#111827;
-  color:white;
-  padding:12px 16px;
-  border-radius:10px;
-  opacity:0;
-  transform:translateY(15px);
-  pointer-events:none;
-  transition:.25s;
-  z-index:999;
-}
 
-.toast.show{
-  opacity:1;
-  transform:translateY(0);
-}
+/* =========================
+   MODAL
+========================= */
 
 .modal{
   position:fixed;
@@ -465,7 +506,7 @@ th{
   align-items:center;
   justify-content:center;
   padding:20px;
-  z-index:500;
+  z-index:100;
 }
 
 .modal.show{
@@ -474,110 +515,151 @@ th{
 
 .modal-box{
   width:min(600px,100%);
+  background:#fff;
+  border-radius:15px;
+  padding:25px;
   max-height:90vh;
   overflow:auto;
-  background:white;
-  border-radius:18px;
-  padding:22px;
 }
 
 .modal-header{
   display:flex;
   justify-content:space-between;
-  gap:10px;
   align-items:center;
   margin-bottom:18px;
 }
 
 .close{
   border:0;
-  background:#f1f5f9;
+  background:#f3f4f6;
+  border-radius:8px;
   width:35px;
   height:35px;
-  border-radius:50%;
-  font-size:20px;
+  font-size:22px;
 }
 
-.pricing{
-  max-width:520px;
-  margin:auto;
-  text-align:center;
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#111827;
+  color:#fff;
+  padding:13px 18px;
+  border-radius:9px;
+  transform:translateY(100px);
+  opacity:0;
+  transition:.25s;
+  z-index:200;
 }
 
-.price{
-  font-size:42px;
-  font-weight:900;
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+
+/* =========================
+   PREMIUM
+========================= */
+
+.premium-card{
+  background:linear-gradient(
+    135deg,
+    #111827,
+    #1e3a8a
+  );
+  color:#fff;
+}
+
+.premium-list{
+  list-style:none;
   margin:18px 0;
 }
 
-.features{
-  text-align:left;
-  line-height:2;
-  margin:18px 0;
+.premium-list li{
+  padding:8px 0;
 }
 
-@media(max-width:900px){
 
-  .sidebar{
-    width:210px;
-  }
+/* =========================
+   RESPONSIVE
+========================= */
 
-  .main{
-    margin-left:210px;
-  }
+@media(max-width:1000px){
 
-  .grid{
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
+  .stats{
+    grid-template-columns:repeat(2,1fr);
   }
 
   .pipeline{
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
+    grid-template-columns:repeat(2,1fr);
   }
 
 }
 
-@media(max-width:700px){
+@media(max-width:750px){
 
   .sidebar{
-    position:relative;
-    width:100%;
-    height:auto;
-    padding:10px;
+    transform:translateX(-100%);
+    transition:.25s;
   }
 
-  .brand{
-    padding:8px 10px;
-  }
-
-  .nav{
-    display:grid;
-    grid-template-columns:
-      repeat(2,1fr);
+  .sidebar.open{
+    transform:translateX(0);
   }
 
   .main{
     margin-left:0;
+    width:100%;
+  }
+
+  .mobile-menu{
+    display:block;
   }
 
   .content{
-    padding:14px;
+    padding:15px;
   }
 
-  .topbar{
-    padding:12px 14px;
+  .grid{
+    grid-template-columns:1fr;
   }
 
-  .grid,
-  .form-grid,
-  .job-grid,
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
   .pipeline{
     grid-template-columns:1fr;
   }
 
-  .toolbar{
-    flex-direction:column;
+  .topbar{
+    padding:0 15px;
+  }
+
+}
+
+@media(max-width:450px){
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .hero{
+    padding:20px;
+  }
+
+  .card{
+    padding:15px;
+  }
+
+  .resume-preview{
+    padding:20px;
   }
 
 }
@@ -588,85 +670,157 @@ th{
 
 <body>
 
+
 <div class="app">
 
-  <aside class="sidebar">
 
-    <div class="brand">
-      Job<span>Flow</span>
-    </div>
+<!-- =========================
+     SIDEBAR
+========================= -->
 
-    <nav class="nav">
+<aside
+  id="sidebar"
+  class="sidebar"
+>
 
-      <button
-        class="active"
-        data-page="dashboard"
-      >
-        🏠 Dashboard
-      </button>
+  <div class="logo">
+    Job<span>Flow</span> AI
+  </div>
 
-      <button data-page="jobs">
-        💼 Jobs
-      </button>
+  <div class="member">
+    Free Member
+  </div>
 
-      <button data-page="saved">
-        ⭐ Saved Jobs
-      </button>
+  <nav class="nav">
 
-      <button data-page="applications">
-        📋 Applications
-      </button>
+    <button
+      data-page="dashboard"
+      class="active"
+      onclick="showPage('dashboard')"
+    >
+      🏠 Dashboard
+    </button>
 
-      <button data-page="pipeline">
-        🔄 Pipeline
-      </button>
+    <button
+      data-page="jobs"
+      onclick="showPage('jobs')"
+    >
+      💼 Jobs
+    </button>
 
-      <button data-page="analytics">
-        📊 Analytics
-      </button>
+    <button
+      data-page="savedJobs"
+      onclick="showPage('savedJobs')"
+    >
+      ⭐ Saved Jobs
+    </button>
 
-      <button data-page="resume">
-        📄 Resume
-      </button>
+    <button
+      data-page="applications"
+      onclick="showPage('applications')"
+    >
+      📋 Applications
+    </button>
 
-      <button data-page="interview">
-        🎤 Interview
-      </button>
+    <button
+      data-page="pipeline"
+      onclick="showPage('pipeline')"
+    >
+      🔄 Pipeline
+    </button>
 
-      <button data-page="subscription">
-        💳 Premium
-      </button>
+    <button
+      data-page="analytics"
+      onclick="showPage('analytics')"
+    >
+      📊 Analytics
+    </button>
 
-      <button data-page="profile">
-        👤 Profile
-      </button>
+    <button
+      data-page="resume"
+      onclick="showPage('resume')"
+    >
+      📄 Resume
+    </button>
 
-      <button data-page="settings">
-        ⚙️ Settings
-      </button>
+    <button
+      data-page="interview"
+      onclick="showPage('interview')"
+    >
+      🎤 Interview
+    </button>
 
-    </nav>
+    <button
+      data-page="coverLetter"
+      onclick="showPage('coverLetter')"
+    >
+      ✉️ Cover Letter
+    </button>
 
-  </aside>
+    <button
+      data-page="premium"
+      onclick="showPage('premium')"
+    >
+      💳 Premium
+    </button>
 
-  <main class="main">
+    <button
+      data-page="profile"
+      onclick="showPage('profile')"
+    >
+      👤 Profile
+    </button>
 
-    <header class="topbar">
+    <button
+      data-page="settings"
+      onclick="showPage('settings')"
+    >
+      ⚙️ Settings
+    </button>
 
-      <div class="topbar-title">
-        JobFlow AI
-      </div>
+  </nav>
 
-      <div
-        id="membershipBadge"
-        class="user-badge"
-      >
-        Free Member
-      </div>
+</aside>
 
-    </header>
 
-    <div class="content">
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+
+<header class="topbar">
+
+  <button
+    class="mobile-menu"
+    onclick="toggleSidebar()"
+  >
+    ☰
+  </button>
+
+  <div
+    id="pageTitle"
+    class="topbar-title"
+  >
+    Dashboard
+  </div>
+
+  <div>
+    <span
+      id="topMember"
+      class="status"
+    >
+      Free Member
+    </span>
+  </div>
+
+</header>
+
+
+<div class="content">
+
+
 <!-- =========================
      DASHBOARD
 ========================= -->
@@ -678,7 +832,9 @@ th{
 
   <div class="hero">
 
-    <h1>Welcome to JobFlow AI 👋</h1>
+    <h1>
+      Welcome to JobFlow AI 👋
+    </h1>
 
     <p>
       Your career command center for finding jobs,
@@ -689,86 +845,70 @@ th{
   </div>
 
 
-  <div class="grid">
+  <div class="stats">
 
-    <div class="card">
-
+    <div class="stat">
       <div class="stat-label">
         Saved Jobs
       </div>
-
       <div
         id="statSaved"
-        class="stat-number blue"
+        class="stat-value"
       >
         0
       </div>
-
     </div>
 
-
-    <div class="card">
-
+    <div class="stat">
       <div class="stat-label">
         Applications
       </div>
-
       <div
         id="statApplications"
-        class="stat-number blue"
+        class="stat-value"
       >
         0
       </div>
-
     </div>
 
-
-    <div class="card">
-
+    <div class="stat">
       <div class="stat-label">
         Interviews
       </div>
-
       <div
         id="statInterviews"
-        class="stat-number green"
+        class="stat-value"
       >
         0
       </div>
-
     </div>
 
-
-    <div class="card">
-
+    <div class="stat">
       <div class="stat-label">
         Offers
       </div>
-
       <div
         id="statOffers"
-        class="stat-number orange"
+        class="stat-value"
       >
         0
       </div>
-
     </div>
 
   </div>
 
 
-  <div
-    class="card"
-    style="margin-top:18px"
-  >
+  <div class="card">
 
     <h2>
       Career Command Center
     </h2>
 
     <p
-      class="muted"
-      style="margin-top:8px"
+      style="
+        color:#6b7280;
+        margin:8px 0 18px;
+      "
     >
       Find relevant opportunities and manage
       your complete job search from one place.
@@ -777,31 +917,38 @@ th{
     <div class="actions">
 
       <button
-        class="btn btn-blue"
+        class="btn primary"
         onclick="showPage('jobs')"
       >
         🔎 Find Jobs
       </button>
 
       <button
-        class="btn btn-light"
+        class="btn"
         onclick="showPage('applications')"
       >
         📋 Applications
       </button>
 
       <button
-        class="btn btn-light"
+        class="btn"
         onclick="showPage('resume')"
       >
         📄 Build Resume
       </button>
 
       <button
-        class="btn btn-light"
+        class="btn"
         onclick="showPage('interview')"
       >
         🎤 Practice Interview
+      </button>
+
+      <button
+        class="btn"
+        onclick="showPage('coverLetter')"
+      >
+        ✉️ Cover Letter
       </button>
 
     </div>
@@ -814,48 +961,14 @@ th{
     style="margin-top:18px"
   >
 
-    <h3>
+    <h2 style="margin-bottom:15px">
       Recent Applications
-    </h3>
+    </h2>
 
     <div
+      id="recentApplications"
       class="table-wrap"
-      style="margin-top:12px"
-    >
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th>Company</th>
-            <th>Role</th>
-            <th>Status</th>
-          </tr>
-
-        </thead>
-
-        <tbody
-          id="recentApplications"
-        >
-
-          <tr>
-
-            <td
-              colspan="3"
-              class="empty"
-            >
-              No applications yet.
-
-            </td>
-
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
+    ></div>
 
   </div>
 
@@ -863,7 +976,7 @@ th{
 
 
 <!-- =========================
-     JOB SEARCH
+     JOBS
 ========================= -->
 
 <section
@@ -874,99 +987,68 @@ th{
   <div class="hero">
 
     <h2>
-      Find Real Jobs
+      Find Jobs
     </h2>
 
     <p>
-      Search available job listings by role,
-      skill and location.
+      Search and save job opportunities
+      directly inside JobFlow.
     </p>
 
   </div>
 
 
-  <div class="card">
+  <div
+    class="card"
+    style="margin-bottom:18px"
+  >
 
-    <div class="form-grid">
+    <div class="grid">
 
-      <div class="field">
-
-        <label>
-          Job Title / Skill
+      <div>
+        <label
+          style="
+            display:block;
+            margin-bottom:6px;
+            font-weight:700;
+          "
+        >
+          Search
         </label>
 
         <input
           id="jobSearch"
-          type="search"
-          placeholder="Software Engineer, Mechanical Engineer..."
+          placeholder="Job title, skill or company"
+          oninput="renderJobs()"
         >
-
       </div>
 
-
-      <div class="field">
-
-        <label>
+      <div>
+        <label
+          style="
+            display:block;
+            margin-bottom:6px;
+            font-weight:700;
+          "
+        >
           Location
         </label>
 
         <input
           id="jobLocation"
-          type="search"
-          placeholder="Hyderabad, Delhi, Mumbai, Remote..."
+          placeholder="City or Remote"
+          oninput="renderJobs()"
         >
-
       </div>
 
     </div>
 
-
-    <div class="actions">
-
-      <button
-        id="searchJobsBtn"
-        class="btn btn-blue"
-      >
-        🔎 Search Jobs
-      </button>
-
-      <button
-        id="clearJobsBtn"
-        class="btn btn-light"
-      >
-        Clear
-      </button>
-
-    </div>
-
-    <p
-      id="jobSearchInfo"
-      class="muted"
-      style="margin-top:12px"
-    >
-      Search by job title, skill or location.
-    </p>
-
   </div>
 
 
   <div
-    id="jobResults"
-    class="job-grid"
+    id="jobsList"
   ></div>
-
-
-  <div
-    id="jobLoading"
-    class="card"
-    style="margin-top:18px;display:none"
-  >
-
-    <div class="empty">
-      🔎 Searching available jobs...
-    </div>
-
-  </div>
 
 </section>
 
@@ -976,30 +1058,30 @@ th{
 ========================= -->
 
 <section
-  id="saved"
+  id="savedJobs"
   class="page"
 >
 
   <div class="hero">
 
     <h2>
-      Saved Jobs ⭐
+      ⭐ Saved Jobs
     </h2>
 
     <p>
-      Keep interesting opportunities in one place
-      so you can apply later.
+      Keep your best opportunities
+      organized in one place.
     </p>
 
   </div>
 
-
   <div
     id="savedJobsList"
-    class="job-grid"
   ></div>
 
 </section>
+
+
 <!-- =========================
      APPLICATIONS
 ========================= -->
@@ -1012,193 +1094,55 @@ th{
   <div class="hero">
 
     <h2>
-      Applications
+      📋 Applications
     </h2>
 
     <p>
-      Track every job application and keep
-      your progress organized.
+      Track every application from
+      submission to offer.
     </p>
-
-  </div>
-
-
-  <div class="grid">
-
-    <div class="card">
-
-      <div class="stat-label">
-        Total
-      </div>
-
-      <div
-        id="appTotal"
-        class="stat-number blue"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="stat-label">
-        Applied
-      </div>
-
-      <div
-        id="appApplied"
-        class="stat-number blue"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="stat-label">
-        Interviews
-      </div>
-
-      <div
-        id="appInterviews"
-        class="stat-number green"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="stat-label">
-        Offers
-      </div>
-
-      <div
-        id="appOffers"
-        class="stat-number orange"
-      >
-        0
-      </div>
-
-    </div>
 
   </div>
 
 
   <div
     class="card"
-    style="margin-top:18px"
+    style="margin-bottom:18px"
   >
 
-    <div class="toolbar">
-
-      <input
-        id="applicationSearch"
-        type="search"
-        placeholder="Search company or role..."
-      >
-
-      <select
-        id="applicationFilter"
-      >
-
-        <option value="all">
-          All Status
-        </option>
-
-        <option value="Saved">
-          Saved
-        </option>
-
-        <option value="Applied">
-          Applied
-        </option>
-
-        <option value="Screening">
-          Screening
-        </option>
-
-        <option value="Interview">
-          Interview
-        </option>
-
-        <option value="Final Round">
-          Final Round
-        </option>
-
-        <option value="Offer">
-          Offer
-        </option>
-
-        <option value="Rejected">
-          Rejected
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="actions">
-
-      <button
-        id="addApplicationBtn"
-        class="btn btn-blue"
-      >
-        + Add Application
-      </button>
-
-    </div>
-
-
-    <div
-      class="table-wrap"
-      style="margin-top:18px"
+    <button
+      class="btn primary"
+      onclick="openApplicationForm()"
     >
+      + Add Application
+    </button>
 
-      <table>
+  </div>
 
-        <thead>
 
-          <tr>
+  <div
+    class="card table-wrap"
+  >
 
-            <th>
-              Company
-            </th>
+    <table>
 
-            <th>
-              Role
-            </th>
+      <thead>
 
-            <th>
-              Location
-            </th>
+        <tr>
+          <th>Company</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
 
-            <th>
-              Status
-            </th>
+      </thead>
 
-            <th>
-              Action
-            </th>
+      <tbody
+        id="applicationsTable"
+      ></tbody>
 
-          </tr>
-
-        </thead>
-
-        <tbody
-          id="applicationsList"
-        ></tbody>
-
-      </table>
-
-    </div>
+    </table>
 
   </div>
 
@@ -1217,12 +1161,12 @@ th{
   <div class="hero">
 
     <h2>
-      Application Pipeline
+      🔄 Application Pipeline
     </h2>
 
     <p>
-      Move applications through each stage
-      from application to offer.
+      See your entire job search
+      pipeline at a glance.
     </p>
 
   </div>
@@ -1237,153 +1181,6 @@ th{
 
 
 <!-- =========================
-     ADD APPLICATION MODAL
-========================= -->
-
-<div
-  id="applicationModal"
-  class="modal"
->
-
-  <div class="modal-box">
-
-    <div class="modal-header">
-
-      <div>
-
-        <h2>
-          Add Application
-        </h2>
-
-        <p
-          class="muted"
-          style="margin-top:5px"
-        >
-          Add a job you applied for.
-        </p>
-
-      </div>
-
-
-      <button
-        class="close"
-        id="closeApplicationModal"
-      >
-        ×
-      </button>
-
-    </div>
-
-
-    <div class="form-grid">
-
-      <div class="field">
-
-        <label>
-          Company
-        </label>
-
-        <input
-          id="appCompany"
-          placeholder="Microsoft"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          Role
-        </label>
-
-        <input
-          id="appRole"
-          placeholder="Software Engineer"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          Location
-        </label>
-
-        <input
-          id="appLocation"
-          placeholder="Hyderabad"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          Status
-        </label>
-
-        <select id="appStatus">
-
-          <option value="Saved">
-            Saved
-          </option>
-
-          <option value="Applied">
-            Applied
-          </option>
-
-          <option value="Screening">
-            Screening
-          </option>
-
-          <option value="Interview">
-            Interview
-          </option>
-
-          <option value="Final Round">
-            Final Round
-          </option>
-
-          <option value="Offer">
-            Offer
-          </option>
-
-          <option value="Rejected">
-            Rejected
-          </option>
-
-        </select>
-
-      </div>
-
-    </div>
-
-
-    <div class="actions">
-
-      <button
-        id="saveApplicationBtn"
-        class="btn btn-blue"
-      >
-        Save Application
-      </button>
-
-      <button
-        id="cancelApplicationBtn"
-        class="btn btn-light"
-      >
-        Cancel
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-<!-- =========================
      ANALYTICS
 ========================= -->
 
@@ -1395,28 +1192,28 @@ th{
   <div class="hero">
 
     <h2>
-      Career Analytics
+      📊 Career Analytics
     </h2>
 
     <p>
-      Understand your application activity,
-      interviews and offer progress.
+      Understand your job search performance
+      and improve your strategy.
     </p>
 
   </div>
 
 
-  <div class="grid">
+  <div class="stats">
 
-    <div class="card">
+    <div class="stat">
 
       <div class="stat-label">
         Applications
       </div>
 
       <div
-        id="analyticsTotal"
-        class="stat-number blue"
+        id="analyticsApplications"
+        class="stat-value"
       >
         0
       </div>
@@ -1424,7 +1221,7 @@ th{
     </div>
 
 
-    <div class="card">
+    <div class="stat">
 
       <div class="stat-label">
         Interviews
@@ -1432,7 +1229,7 @@ th{
 
       <div
         id="analyticsInterviews"
-        class="stat-number green"
+        class="stat-value"
       >
         0
       </div>
@@ -1440,7 +1237,7 @@ th{
     </div>
 
 
-    <div class="card">
+    <div class="stat">
 
       <div class="stat-label">
         Offers
@@ -1448,7 +1245,7 @@ th{
 
       <div
         id="analyticsOffers"
-        class="stat-number orange"
+        class="stat-value"
       >
         0
       </div>
@@ -1456,15 +1253,15 @@ th{
     </div>
 
 
-    <div class="card">
+    <div class="stat">
 
       <div class="stat-label">
-        Interview Rate
+        Success Rate
       </div>
 
       <div
-        id="analyticsInterviewRate"
-        class="stat-number blue"
+        id="analyticsRate"
+        class="stat-value"
       >
         0%
       </div>
@@ -1474,18 +1271,15 @@ th{
   </div>
 
 
-  <div
-    class="card"
-    style="margin-top:18px"
-  >
+  <div class="card">
 
     <h3>
       Application Breakdown
     </h3>
 
     <div
-      id="analyticsSummary"
-      style="margin-top:18px"
+      id="analyticsBreakdown"
+      style="margin-top:15px"
     ></div>
 
   </div>
@@ -1494,7 +1288,7 @@ th{
 
 
 <!-- =========================
-     RESUME BUILDER
+     RESUME
 ========================= -->
 
 <section
@@ -1505,155 +1299,12 @@ th{
   <div class="hero">
 
     <h2>
-      Resume Builder
+      📄 Resume Builder
     </h2>
 
     <p>
-      Build a professional resume using
-      your JobFlow profile.
-    </p>
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="form-grid">
-
-      <div class="field">
-
-        <label>
-          Full Name
-        </label>
-
-        <input
-          id="resumeName"
-          type="text"
-          placeholder="Your full name"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          Professional Title
-        </label>
-
-        <input
-          id="resumeTitle"
-          type="text"
-          placeholder="Software Engineer"
-        >
-
-      </div>
-
-
-      <div class="field full">
-
-        <label>
-          Professional Summary
-        </label>
-
-        <textarea
-          id="resumeSummary"
-          placeholder="Write your professional summary..."
-        ></textarea>
-
-      </div>
-
-
-      <div class="field full">
-
-        <label>
-          Skills
-        </label>
-
-        <input
-          id="resumeSkills"
-          type="text"
-          placeholder="JavaScript, Python, React, SQL..."
-        >
-
-      </div>
-
-
-      <div class="field full">
-
-        <label>
-          Experience
-        </label>
-
-        <textarea
-          id="resumeExperience"
-          placeholder="Describe your experience, projects and achievements..."
-        ></textarea>
-
-      </div>
-
-    </div>
-
-
-    <div class="actions">
-
-      <button
-        id="saveResumeBtn"
-        class="btn btn-blue"
-      >
-        Save Resume
-      </button>
-
-      <button
-        id="generateResumeBtn"
-        class="btn btn-dark"
-      >
-        Generate Preview
-      </button>
-
-      <button
-        id="downloadResumeBtn"
-        class="btn btn-light"
-      >
-        Download Resume
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div
-    id="resumePreview"
-    class="card"
-    style="margin-top:18px"
-  >
-
-    <div class="empty">
-      Your resume preview will appear here.
-    </div>
-
-  </div>
-
-</section>
-<!-- =========================
-     ANALYTICS
-========================= -->
-
-<section
-  id="analytics"
-  class="page"
->
-
-  <div class="hero">
-
-    <h2>
-      Career Analytics
-    </h2>
-
-    <p>
-      Understand your application activity,
-      interviews and offer progress.
+      Build and save a professional resume
+      directly inside JobFlow.
     </p>
 
   </div>
@@ -1661,369 +1312,580 @@ th{
 
   <div class="grid">
 
-    <div class="card">
-
-      <div class="stat-label">
-        Applications
-      </div>
-
-      <div
-        id="analyticsTotal"
-        class="stat-number blue"
-      >
-        0
-      </div>
-
-    </div>
-
 
     <div class="card">
 
-      <div class="stat-label">
-        Interviews
-      </div>
+      <h3 style="margin-bottom:15px">
+        Resume Information
+      </h3>
 
-      <div
-        id="analyticsInterviews"
-        class="stat-number green"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="stat-label">
-        Offers
-      </div>
-
-      <div
-        id="analyticsOffers"
-        class="stat-number orange"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="stat-label">
-        Interview Rate
-      </div>
-
-      <div
-        id="analyticsInterviewRate"
-        class="stat-number blue"
-      >
-        0%
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div
-    class="card"
-    style="margin-top:18px"
-  >
-
-    <h3>
-      Application Breakdown
-    </h3>
-
-    <div
-      id="analyticsSummary"
-      style="margin-top:18px"
-    ></div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     RESUME BUILDER
-========================= -->
-
-<section
-  id="resume"
-  class="page"
->
-
-  <div class="hero">
-
-    <h2>
-      Resume Builder
-    </h2>
-
-    <p>
-      Build a professional resume using
-      your JobFlow profile.
-    </p>
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="form-grid">
-
-      <div class="field">
-
-        <label>
-          Full Name
-        </label>
-
-        <input
-          id="resumeName"
-          type="text"
-          placeholder="Your full name"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          Professional Title
-        </label>
-
-        <input
-          id="resumeTitle"
-          type="text"
-          placeholder="Software Engineer"
-        >
-
-      </div>
-
-
-      <div class="field full">
-
-        <label>
-          Professional Summary
-        </label>
-
-        <textarea
-          id="resumeSummary"
-          placeholder="Write your professional summary..."
-        ></textarea>
-
-      </div>
-
-
-      <div class="field full">
-
-        <label>
-          Skills
-        </label>
-
-        <input
-          id="resumeSkills"
-          type="text"
-          placeholder="JavaScript, Python, React, SQL..."
-        >
-
-      </div>
-
-
-      <div class="field full">
-
-        <label>
-          Experience
-        </label>
-
-        <textarea
-          id="resumeExperience"
-          placeholder="Describe your experience, projects and achievements..."
-        ></textarea>
-
-      </div>
-
-    </div>
-
-
-    <div class="actions">
-
-      <button
-        id="saveResumeBtn"
-        class="btn btn-blue"
-      >
-        Save Resume
-      </button>
-
-      <button
-        id="generateResumeBtn"
-        class="btn btn-dark"
-      >
-        Generate Preview
-      </button>
-
-      <button
-        id="downloadResumeBtn"
-        class="btn btn-light"
-      >
-        Download Resume
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div
-    id="resumePreview"
-    class="card"
-    style="margin-top:18px"
-  >
-
-    <div class="empty">
-      Your resume preview will appear here.
-    </div>
-
-  </div>
-
-</section>
-<!-- =========================
-     COVER LETTER BUILDER
-========================= -->
-
-<section
-  id="coverLetter"
-  class="page"
->
-
-  <div class="hero">
-
-    <h2>AI Cover Letter Builder</h2>
-
-    <p>
-      Create a professional cover letter
-      tailored to any job in seconds.
-    </p>
-
-  </div>
-
-  <div class="grid">
-
-    <!-- FORM -->
-
-    <div class="card">
-
-      <h3>Cover Letter Details</h3>
 
       <div class="form-group">
 
-        <label>Job Title</label>
+        <label>
+          Full Name
+        </label>
 
         <input
-          id="clJobTitle"
+          id="resumeName"
+          placeholder="Your full name"
+          oninput="updateResumePreview()"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Email
+        </label>
+
+        <input
+          id="resumeEmail"
+          type="email"
+          placeholder="you@example.com"
+          oninput="updateResumePreview()"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Phone
+        </label>
+
+        <input
+          id="resumePhone"
+          placeholder="+91..."
+          oninput="updateResumePreview()"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Professional Summary
+        </label>
+
+        <textarea
+          id="resumeSummary"
+          rows="4"
+          placeholder="Write a short professional summary..."
+          oninput="updateResumePreview()"
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Skills
+        </label>
+
+        <textarea
+          id="resumeSkills"
+          rows="3"
+          placeholder="JavaScript, Python, Marketing..."
+          oninput="updateResumePreview()"
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Experience
+        </label>
+
+        <textarea
+          id="resumeExperience"
+          rows="5"
+          placeholder="Describe your experience..."
+          oninput="updateResumePreview()"
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Education
+        </label>
+
+        <textarea
+          id="resumeEducation"
+          rows="3"
+          placeholder="Degree, college, year..."
+          oninput="updateResumePreview()"
+        ></textarea>
+
+      </div>
+
+
+      <div class="actions">
+
+        <button
+          class="btn primary"
+          onclick="saveResume()"
+        >
+          💾 Save Resume
+        </button>
+
+        <button
+          class="btn"
+          onclick="downloadResume()"
+        >
+          📥 Download
+        </button>
+
+        <button
+          class="btn"
+          onclick="goToCoverLetter()"
+        >
+          ✉️ Cover Letter
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div
+      id="resumePreview"
+      class="card"
+    >
+
+      <div class="empty">
+        Your resume preview will appear here.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     INTERVIEW
+========================= -->
+
+<section
+  id="interview"
+  class="page"
+>
+
+  <div class="hero">
+
+    <h2>
+            🎤 Interview Preparation
+    </h2>
+
+    <p>
+      Practice interview questions, improve your answers,
+      and build confidence before your next interview.
+    </p>
+
+  </div>
+
+  <!-- INTERVIEW SETUP -->
+  <div class="card">
+
+    <div class="section-title">
+      <div>
+        <h3>Start Interview Practice</h3>
+        <p>Choose your role and interview difficulty.</p>
+      </div>
+    </div>
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label for="interviewRole">
+          Target Job Role
+        </label>
+
+        <input
+          id="interviewRole"
           type="text"
           placeholder="e.g. Software Developer"
         >
 
       </div>
 
-      <div class="form-group">
+      <div class="field">
 
-        <label>Company Name</label>
+        <label for="interviewLevel">
+          Difficulty
+        </label>
 
-        <input
-          id="clCompany"
-          type="text"
-          placeholder="e.g. Microsoft"
-        >
+        <select id="interviewLevel">
 
-      </div>
-
-      <div class="form-group">
-
-        <label>Your Name</label>
-
-        <input
-          id="clName"
-          type="text"
-          placeholder="Your full name"
-        >
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Your Skills</label>
-
-        <input
-          id="clSkills"
-          type="text"
-          placeholder="JavaScript, React, Python..."
-        >
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Job Description</label>
-
-        <textarea
-          id="clDescription"
-          rows="6"
-          placeholder="Paste the job description here..."
-        ></textarea>
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Writing Style</label>
-
-        <select id="clTone">
-
-          <option value="professional">
-            Professional
+          <option value="beginner">
+            Beginner
           </option>
 
-          <option value="confident">
-            Confident
+          <option value="intermediate" selected>
+            Intermediate
           </option>
 
-          <option value="friendly">
-            Friendly
-          </option>
-
-          <option value="concise">
-            Short & Concise
+          <option value="advanced">
+            Advanced
           </option>
 
         </select>
 
       </div>
 
+      <div class="field">
+
+        <label for="interviewType">
+          Interview Type
+        </label>
+
+        <select id="interviewType">
+
+          <option value="general">
+            General
+          </option>
+
+          <option value="technical">
+            Technical
+          </option>
+
+          <option value="hr">
+            HR
+          </option>
+
+          <option value="behavioral">
+            Behavioral
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+    <div class="button-row">
+
       <button
         class="btn primary"
-        onclick="generateCoverLetter()"
+        type="button"
+        onclick="startInterview()"
       >
-        ✨ Generate Cover Letter
+        🚀 Start Interview
+      </button>
+
+      <button
+        class="btn secondary"
+        type="button"
+        onclick="resetInterview()"
+      >
+        Reset
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- INTERVIEW AREA -->
+  <div
+    id="interviewArea"
+    class="card"
+    style="margin-top:18px;display:none"
+  >
+
+    <div class="interview-header">
+
+      <div>
+
+        <span class="small-label">
+          CURRENT QUESTION
+        </span>
+
+        <h3 id="questionNumber">
+          Question 1
+        </h3>
+
+      </div>
+
+      <div
+        id="interviewScore"
+        class="score-badge"
+      >
+        Score: 0
+      </div>
+
+    </div>
+
+
+    <div class="question-box">
+
+      <div class="question-icon">
+        🎤
+      </div>
+
+      <h2 id="interviewQuestion">
+        Tell me about yourself.
+      </h2>
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="interviewAnswer">
+        Your Answer
+      </label>
+
+      <textarea
+        id="interviewAnswer"
+        rows="7"
+        placeholder="Type your answer here..."
+      ></textarea>
+
+    </div>
+
+
+    <div class="button-row">
+
+      <button
+        class="btn primary"
+        type="button"
+        onclick="submitInterviewAnswer()"
+      >
+        Check Answer
+      </button>
+
+      <button
+        class="btn secondary"
+        type="button"
+        onclick="skipInterviewQuestion()"
+      >
+        Skip
       </button>
 
     </div>
 
 
-    <!-- PREVIEW -->
-
+    <!-- FEEDBACK -->
     <div
-      class="card"
-      id="coverLetterPreview"
+      id="interviewFeedback"
+      class="feedback-box"
+      style="display:none"
     >
 
-      <div class="empty">
+      <h3>
+        💡 AI Interview Feedback
+      </h3>
 
-        Your cover letter will
-        appear here.
+      <div id="feedbackContent"></div>
+
+    </div>
+
+
+    <!-- NEXT QUESTION -->
+    <div
+      id="nextQuestionBox"
+      style="display:none;margin-top:18px"
+    >
+
+      <button
+        class="btn primary"
+        type="button"
+        onclick="nextInterviewQuestion()"
+      >
+        Next Question →
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- INTERVIEW RESULTS -->
+  <div
+    id="interviewResults"
+    class="card"
+    style="margin-top:18px;display:none"
+  >
+
+    <div class="results-icon">
+      🎉
+    </div>
+
+    <h2>
+      Interview Complete
+    </h2>
+
+    <p>
+      Great work! Here is your interview performance.
+    </p>
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+
+        <span class="stat-label">
+          Score
+        </span>
+
+        <strong id="finalScore">
+          0%
+        </strong>
+
+      </div>
+
+      <div class="stat-card">
+
+        <span class="stat-label">
+          Questions
+        </span>
+
+        <strong id="totalQuestions">
+          0
+        </strong>
+
+      </div>
+
+      <div class="stat-card">
+
+        <span class="stat-label">
+          Answered
+        </span>
+
+        <strong id="answeredQuestions">
+          0
+        </strong>
+
+      </div>
+
+    </div>
+
+    <div class="button-row">
+
+      <button
+        class="btn primary"
+        type="button"
+        onclick="startInterview()"
+      >
+        🔄 Practice Again
+      </button>
+
+      <button
+        class="btn secondary"
+        type="button"
+        onclick="showPage('dashboard')"
+      >
+        🏠 Dashboard
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- INTERVIEW TIPS -->
+  <div
+    class="card"
+    style="margin-top:18px"
+  >
+
+    <div class="section-title">
+
+      <div>
+
+        <h3>
+          ⭐ Interview Tips
+        </h3>
+
+        <p>
+          Use these tips to improve your interview performance.
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="tips-grid">
+
+      <div class="tip-card">
+
+        <div class="tip-icon">
+          🎯
+        </div>
+
+        <h4>
+          Be Specific
+        </h4>
+
+        <p>
+          Give clear examples instead of generic answers.
+        </p>
+
+      </div>
+
+
+      <div class="tip-card">
+
+        <div class="tip-icon">
+          🧠
+        </div>
+
+        <h4>
+          Use STAR
+        </h4>
+
+        <p>
+          Structure behavioral answers using Situation,
+          Task, Action and Result.
+        </p>
+
+      </div>
+
+
+      <div class="tip-card">
+
+        <div class="tip-icon">
+          💬
+        </div>
+
+        <h4>
+          Keep It Clear
+        </h4>
+
+        <p>
+          Explain your ideas confidently and avoid unnecessary
+          information.
+        </p>
+
+      </div>
+
+
+      <div class="tip-card">
+
+        <div class="tip-icon">
+          🚀
+        </div>
+
+        <h4>
+          Show Impact
+        </h4>
+
+        <p>
+          Explain how your work created measurable results.
+        </p>
 
       </div>
 
@@ -2032,1362 +1894,431 @@ th{
   </div>
 
 </section>
-function generateCoverLetter(){
 
-  const name =
-    document.getElementById("clName").value.trim();
 
-  const job =
-    document.getElementById("clJobTitle").value.trim();
+<!-- =========================
+     PREMIUM
+========================= -->
 
-  const company =
-    document.getElementById("clCompany").value.trim();
+<section
+  id="premium"
+  class="page"
+>
 
-  const skills =
-    document.getElementById("clSkills").value.trim();
+  <div class="hero">
 
-  const description =
-    document.getElementById("clDescription").value.trim();
+    <h2>
+      💳 JobFlow Premium
+    </h2>
 
-  const tone =
-    document.getElementById("clTone").value;
+    <p>
+      Unlock advanced career tools and take your job search
+      to the next level.
+    </p>
 
-  if(!name || !job || !company){
+  </div>
 
-    alert(
-      "Please enter your name, job title and company."
-    );
 
-    return;
+  <div class="pricing-grid">
 
-  }
+    <div class="pricing-card">
 
-  let opening =
-    "I am excited to apply for the " +
-    job +
-    " position at " +
-    company +
-    ".";
+      <div class="plan-icon">
+        🆓
+      </div>
 
-  if(tone === "confident"){
-    opening =
-      "I am confident that my skills and experience make me a strong candidate for the " +
-      job +
-      " position at " +
-      company +
-      ".";
-  }
+      <h3>
+        Free
+      </h3>
 
-  if(tone === "friendly"){
-    opening =
-      "I would love the opportunity to join " +
-      company +
-      " as a " +
-      job +
-      ".";
-  }
+      <div class="price">
+        ₹0
+        <span>/month</span>
+      </div>
 
-  if(tone === "concise"){
-    opening =
-      "I am applying for the " +
-      job +
-      " position at " +
-      company +
-      ".";
-  }
+      <ul>
 
-  const letter = `
+        <li>✓ Job search</li>
 
-Dear Hiring Manager,
+        <li>✓ Save jobs</li>
 
-${opening}
+        <li>✓ Application tracking</li>
 
-My key skills include ${skills || "relevant technical and professional skills"}.
-I am motivated to contribute to your team, solve meaningful problems, and continue growing professionally.
+        <li>✓ Basic resume builder</li>
 
-${description
-? "After reviewing the job requirements, I believe my background and skills align well with the responsibilities of this role."
-: "I believe my skills, motivation, and willingness to learn would allow me to contribute positively to your team."
-}
+        <li>✓ Interview practice</li>
 
-Thank you for considering my application. I would welcome the opportunity to discuss how I can contribute to ${company}.
+      </ul>
 
-Sincerely,
+      <button
+        class="btn secondary"
+        type="button"
+      >
+        Current Plan
+      </button>
 
-${name}
+    </div>
 
-`;
 
-  document.getElementById(
-    "coverLetterPreview"
-  ).innerHTML = `
+    <div class="pricing-card featured">
 
-    <div class="letter">
+      <div class="popular">
+        MOST POPULAR
+      </div>
 
-      <div class="letter-header">
+      <div class="plan-icon">
+        🚀
+      </div>
 
-        <h3>Cover Letter</h3>
+      <h3>
+        Pro
+      </h3>
 
-        <button
-          class="btn"
-          onclick="copyCoverLetter()"
+      <div class="price">
+        ₹199
+        <span>/month</span>
+      </div>
+
+      <ul>
+
+        <li>✓ Everything in Free</li>
+
+        <li>✓ AI resume optimization</li>
+
+        <li>✓ Unlimited cover letters</li>
+
+        <li>✓ Advanced interview practice</li>
+
+        <li>✓ Career analytics</li>
+
+        <li>✓ Priority features</li>
+
+      </ul>
+
+      <button
+        class="btn primary"
+        type="button"
+        onclick="upgradePremium()"
+      >
+        Upgrade to Pro
+      </button>
+
+    </div>
+
+
+    <div class="pricing-card">
+
+      <div class="plan-icon">
+        💎
+      </div>
+
+      <h3>
+        Pro+
+      </h3>
+
+      <div class="price">
+        ₹499
+        <span>/month</span>
+      </div>
+
+      <ul>
+
+        <li>✓ Everything in Pro</li>
+
+        <li>✓ Unlimited AI tools</li>
+
+        <li>✓ Advanced career insights</li>
+
+        <li>✓ Application strategy</li>
+
+        <li>✓ Premium templates</li>
+
+      </ul>
+
+      <button
+        class="btn primary"
+        type="button"
+        onclick="upgradePremiumPlus()"
+      >
+        Choose Pro+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<section
+  id="profile"
+  class="page"
+>
+
+  <div class="hero">
+
+    <h2>
+      👤 My Profile
+    </h2>
+
+    <p>
+      Manage your career information.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="form-grid">
+
+      <div class="field">
+
+        <label for="profileName">
+          Full Name
+        </label>
+
+        <input
+          id="profileName"
+          type="text"
+          placeholder="Your full name"
         >
-          Copy
-        </button>
 
       </div>
 
-      <div
-        id="coverLetterText"
-        class="letter-content"
-      >
-        ${escapeHTML(letter).replace(/\n/g,"<br>")}
+
+      <div class="field">
+
+        <label for="profileEmail">
+          Email
+        </label>
+
+        <input
+          id="profileEmail"
+          type="email"
+          placeholder="you@example.com"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="profilePhone">
+          Phone
+        </label>
+
+        <input
+          id="profilePhone"
+          type="tel"
+          placeholder="+91"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="profileRole">
+          Target Role
+        </label>
+
+        <input
+          id="profileRole"
+          type="text"
+          placeholder="e.g. Software Engineer"
+        >
+
+      </div>
+
+
+      <div class="field full">
+
+        <label for="profileSkills">
+          Skills
+        </label>
+
+        <textarea
+          id="profileSkills"
+          rows="4"
+          placeholder="JavaScript, Python, React..."
+        ></textarea>
+
       </div>
 
     </div>
 
-  `;
 
-  localStorage.setItem(
-    "jobflow_cover_letter",
-    letter
-  );
+    <div class="button-row">
 
-}
-
-function copyCoverLetter(){
-
-  const text =
-    localStorage.getItem("jobflow_cover_letter");
-
-  if(!text){
-    alert("Generate a cover letter first.");
-    return;
-  }
-
-  if(navigator.clipboard){
-
-    navigator.clipboard.writeText(text)
-      .then(() => {
-        alert("Cover letter copied!");
-      })
-      .catch(() => {
-        alert("Unable to copy. Please select and copy the text.");
-      });
-
-  }else{
-
-    alert("Copy is not supported on this browser.");
-
-  }
-
-}
-
-
-function createCoverLetterFromJob(
-  title,
-  company,
-  description
-){
-
-  const jobTitle =
-    document.getElementById("clJobTitle");
-
-  const companyInput =
-    document.getElementById("clCompany");
-
-  const descriptionInput =
-    document.getElementById("clDescription");
-
-  if(jobTitle)
-    jobTitle.value = title || "";
-
-  if(companyInput)
-    companyInput.value = company || "";
-
-  if(descriptionInput)
-    descriptionInput.value =
-      description || "";
-
-  const name =
-    localStorage.getItem("jobflow_name");
-
-  const nameInput =
-    document.getElementById("clName");
-
-  if(nameInput && name)
-    nameInput.value = name;
-
-  if(typeof showPage === "function"){
-    showPage("coverLetter");
-  }
-
-}
-function downloadCoverLetter(){
-
-  const letter =
-    localStorage.getItem("jobflow_cover_letter");
-
-  if(!letter){
-    alert("Generate a cover letter first.");
-    return;
-  }
-
-  const blob = new Blob(
-    [letter],
-    { type: "text/plain;charset=utf-8" }
-  );
-
-  const url =
-    URL.createObjectURL(blob);
-
-  const a =
-    document.createElement("a");
-
-  a.href = url;
-  a.download = "JobFlow-Cover-Letter.txt";
-
-  document.body.appendChild(a);
-
-  a.click();
-
-  document.body.removeChild(a);
-
-  URL.revokeObjectURL(url);
-
-}
-function saveCoverLetter(){
-
-  const letter =
-    localStorage.getItem("jobflow_cover_letter");
-
-  if(!letter){
-    alert("Generate a cover letter first.");
-    return;
-  }
-
-  let saved =
-    JSON.parse(
-      localStorage.getItem("jobflow_saved_letters") || "[]"
-    );
-
-  saved.unshift({
-    id: Date.now(),
-    date: new Date().toLocaleDateString(),
-    letter: letter
-  });
-
-  localStorage.setItem(
-    "jobflow_saved_letters",
-    JSON.stringify(saved)
-  );
-
-  alert("Cover letter saved successfully!");
-
-}
-function loadSavedCoverLetters(){
-
-  const container =
-    document.getElementById("savedCoverLetters");
-
-  if(!container) return;
-
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-  if(saved.length === 0){
-
-    container.innerHTML = `
-      <div class="empty">
-        <div style="font-size:32px;margin-bottom:10px">
-          ✉️
-        </div>
-
-        <h3>No saved cover letters</h3>
-
-        <p>
-          Generate and save your first cover letter
-          to see it here.
-        </p>
-      </div>
-    `;
-
-    return;
-  }
-
-  container.innerHTML = saved.map(item => {
-
-    const preview =
-      item.letter
-        .replace(/\s+/g," ")
-        .trim()
-        .substring(0,180);
-
-    return `
-
-      <div
-        class="card"
-        style="
-          margin-bottom:14px;
-          border:1px solid #e5e7eb;
-        "
+      <button
+        class="btn primary"
+        type="button"
+        onclick="saveProfile()"
       >
-
-        <div
-          style="
-            display:flex;
-            justify-content:space-between;
-            align-items:flex-start;
-            gap:12px;
-            flex-wrap:wrap;
-          "
-        >
-
-          <div>
-
-            <h3 style="margin-bottom:6px">
-              Cover Letter
-            </h3>
-
-            <small
-              style="color:#6b7280"
-            >
-              Saved on ${escapeHTML(item.date)}
-            </small>
-
-          </div>
-
-          <div
-            style="
-              display:flex;
-              gap:8px;
-              flex-wrap:wrap;
-            "
-          >
-
-            <button
-              class="btn"
-              onclick="viewSavedCoverLetter(${item.id})"
-            >
-              View
-            </button>
-
-            <button
-              class="btn"
-              onclick="reuseCoverLetter(${item.id})"
-            >
-              Reuse
-            </button>
-
-            <button
-              class="btn"
-              onclick="deleteSavedCoverLetter(${item.id})"
-            >
-              Delete
-            </button>
-
-          </div>
-
-        </div>
-
-        <div
-          style="
-            margin-top:14px;
-            padding:14px;
-            background:#f8fafc;
-            border-radius:10px;
-            color:#475569;
-            line-height:1.6;
-          "
-        >
-          ${escapeHTML(preview)}...
-        </div>
-
-      </div>
-
-    `;
-
-  }).join("");
-
-}
-
-
-function viewSavedCoverLetter(id){
-
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-  const item =
-    saved.find(
-      letter => letter.id === id
-    );
-
-  if(!item){
-
-    alert(
-      "Cover letter could not be found."
-    );
-
-    return;
-  }
-
-  const preview =
-    document.getElementById(
-      "coverLetterPreview"
-    );
-
-  if(!preview) return;
-
-  preview.innerHTML = `
-
-    <div class="letter">
-
-      <div
-        style="
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          gap:10px;
-          flex-wrap:wrap;
-          margin-bottom:18px;
-        "
-      >
-
-        <h3>
-          Saved Cover Letter
-        </h3>
-
-        <div
-          style="
-            display:flex;
-            gap:8px;
-            flex-wrap:wrap;
-          "
-        >
-
-          <button
-            class="btn"
-            onclick="copySavedCoverLetter(${item.id})"
-          >
-            Copy
-          </button>
-
-          <button
-            class="btn primary"
-            onclick="reuseCoverLetter(${item.id})"
-          >
-            Edit
-          </button>
-
-        </div>
-
-      </div>
-
-      <div
-        class="letter-content"
-        style="
-          line-height:1.8;
-          white-space:normal;
-        "
-      >
-        ${escapeHTML(item.letter).replace(/\n/g,"<br>")}
-      </div>
+        💾 Save Profile
+      </button>
 
     </div>
 
-  `;
+  </div>
 
-}
+</section>
 
 
-function copySavedCoverLetter(id){
+<!-- =========================
+     SETTINGS
+========================= -->
 
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
+<section
+  id="settings"
+  class="page"
+>
 
-  const item =
-    saved.find(
-      letter => letter.id === id
-    );
+  <div class="hero">
 
-  if(!item) return;
+    <h2>
+      ⚙️ Settings
+    </h2>
 
-  if(!navigator.clipboard){
+    <p>
+      Customize your JobFlow experience.
+    </p>
 
-    alert(
-      "Copy is not supported on this browser."
-    );
+  </div>
 
-    return;
-  }
 
-  navigator.clipboard
-    .writeText(item.letter)
-    .then(() => {
+  <div class="card">
 
-      alert(
-        "Cover letter copied!"
-      );
+    <h3>
+      Application Preferences
+    </h3>
 
-    })
-    .catch(() => {
+    <div class="settings-list">
 
-      alert(
-        "Unable to copy the cover letter."
-      );
+      <label class="setting-item">
 
-    });
+        <div>
 
-}
+          <strong>
+            Job Notifications
+          </strong>
 
-
-function reuseCoverLetter(id){
-
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-  const item =
-    saved.find(
-      letter => letter.id === id
-    );
-
-  if(!item){
-
-    alert(
-      "Cover letter could not be found."
-    );
-
-    return;
-  }
-
-  const nameInput =
-    document.getElementById("clName");
-
-  const text =
-    item.letter || "";
-
-  if(nameInput){
-
-    const lines =
-      text
-        .split("\n")
-        .map(line => line.trim())
-        .filter(Boolean);
-
-    const possibleName =
-      lines.length > 0
-        ? lines[lines.length - 1]
-        : "";
-
-    if(possibleName)
-      nameInput.value =
-        possibleName;
-
-  }
-
-  const descriptionInput =
-    document.getElementById(
-      "clDescription"
-    );
-
-  if(descriptionInput){
-
-    descriptionInput.value = "";
-
-  }
-
-  localStorage.setItem(
-    "jobflow_cover_letter",
-    item.letter
-  );
-
-  if(typeof showPage === "function"){
-
-    showPage(
-      "coverLetter"
-    );
-
-  }
-
-  const preview =
-    document.getElementById(
-      "coverLetterPreview"
-    );
-
-  if(preview){
-
-    preview.innerHTML = `
-
-      <div class="letter">
-
-        <div
-          style="
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            gap:10px;
-            flex-wrap:wrap;
-          "
-        >
-
-          <h3>
-            Cover Letter
-          </h3>
-
-          <button
-            class="btn"
-            onclick="copyCoverLetter()"
-          >
-            Copy
-          </button>
-
-        </div>
-
-        <div
-          id="coverLetterText"
-          class="letter-content"
-          style="
-            margin-top:18px;
-            line-height:1.8;
-          "
-        >
-          ${escapeHTML(item.letter).replace(/\n/g,"<br>")}
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-}
-
-
-function deleteSavedCoverLetter(id){
-
-  const confirmed =
-    confirm(
-      "Delete this saved cover letter?"
-    );
-
-  if(!confirmed) return;
-
-  let saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-  saved =
-    saved.filter(
-      letter => letter.id !== id
-    );
-
-  localStorage.setItem(
-    "jobflow_saved_letters",
-    JSON.stringify(saved)
-  );
-
-  loadSavedCoverLetters();
-
-}
-
-
-function clearSavedCoverLetters(){
-
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-  if(saved.length === 0){
-
-    alert(
-      "There are no saved cover letters."
-    );
-
-    return;
-  }
-
-  const confirmed =
-    confirm(
-      "Delete all saved cover letters?"
-    );
-
-  if(!confirmed) return;
-
-  localStorage.removeItem(
-    "jobflow_saved_letters"
-  );
-
-  loadSavedCoverLetters();
-
-}
-
-
-function searchSavedCoverLetters(){
-
-  const input =
-    document.getElementById(
-      "savedLetterSearch"
-    );
-
-  const container =
-    document.getElementById(
-      "savedCoverLetters"
-    );
-
-  if(!input || !container)
-    return;
-
-  const query =
-    input.value
-      .toLowerCase()
-      .trim();
-
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-  const filtered =
-    saved.filter(item =>
-      item.letter
-        .toLowerCase()
-        .includes(query)
-    );
-
-  if(filtered.length === 0){
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <h3>
-          No matching letters
-        </h3>
-
-        <p>
-          Try another search term.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-  container.innerHTML =
-    filtered.map(item => {
-
-      const preview =
-        item.letter
-          .replace(/\s+/g," ")
-          .trim()
-          .substring(0,180);
-
-      return `
-
-        <div
-          class="card"
-          style="margin-bottom:14px"
-        >
-
-          <div
-            style="
-              display:flex;
-              justify-content:space-between;
-              gap:10px;
-              flex-wrap:wrap;
-            "
-          >
-
-            <div>
-
-              <h3>
-                Cover Letter
-              </h3>
-
-              <small
-                style="color:#6b7280"
-              >
-                ${escapeHTML(item.date)}
-              </small>
-
-            </div>
-
-            <div
-              style="
-                display:flex;
-                gap:8px;
-                flex-wrap:wrap;
-              "
-            >
-
-              <button
-                class="btn"
-                onclick="viewSavedCoverLetter(${item.id})"
-              >
-                View
-              </button>
-
-              <button
-                class="btn"
-                onclick="reuseCoverLetter(${item.id})"
-              >
-                Reuse
-              </button>
-
-              <button
-                class="btn"
-                onclick="deleteSavedCoverLetter(${item.id})"
-              >
-                Delete
-              </button>
-
-            </div>
-
-          </div>
-
-          <p
-            style="
-              margin-top:12px;
-              color:#475569;
-              line-height:1.6;
-            "
-          >
-            ${escapeHTML(preview)}...
+          <p>
+            Receive notifications about new opportunities.
           </p>
 
         </div>
 
-      `;
+        <input
+          id="settingNotifications"
+          type="checkbox"
+          checked
+        >
 
-    }).join("");
+      </label>
 
-}
-<!-- =========================
-     SAVED COVER LETTERS
-========================= -->
 
-<section
-  id="savedLetters"
-  class="page"
->
+      <label class="setting-item">
 
-  <div class="hero">
+        <div>
 
-    <h2>Saved Cover Letters</h2>
+          <strong>
+            Interview Reminders
+          </strong>
 
-    <p>
-      Manage, reuse and organize your
-      previously created cover letters.
+          <p>
+            Get reminders for upcoming interviews.
+          </p>
+
+        </div>
+
+        <input
+          id="settingInterview"
+          type="checkbox"
+          checked
+        >
+
+      </label>
+
+
+      <label class="setting-item">
+
+        <div>
+
+          <strong>
+            Auto Save
+          </strong>
+
+          <p>
+            Automatically save your career data.
+          </p>
+
+        </div>
+
+        <input
+          id="settingAutoSave"
+          type="checkbox"
+          checked
+        >
+
+      </label>
+
+    </div>
+
+
+    <div class="button-row">
+
+      <button
+        class="btn primary"
+        type="button"
+        onclick="saveSettings()"
+      >
+        Save Settings
+      </button>
+
+      <button
+        class="btn danger"
+        type="button"
+        onclick="clearJobFlowData()"
+      >
+        Clear Local Data
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="card"
+    style="margin-top:18px"
+  >
+
+    <h3>
+      About JobFlow AI
+    </h3>
+
+    <p style="margin-top:8px">
+      JobFlow AI is your personal career command center
+      for finding jobs, managing applications, building
+      resumes, writing cover letters and preparing for interviews.
+    </p>
+
+    <p
+      style="margin-top:10px"
+      class="muted"
+    >
+      Version 1.0
     </p>
 
   </div>
 
-
-  <div
-    class="card"
-    style="margin-bottom:18px"
-  >
-
-    <div
-      style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        gap:12px;
-        flex-wrap:wrap;
-      "
-    >
-
-      <div>
-
-        <h3>
-          Your Cover Letters
-        </h3>
-
-        <p
-          style="
-            color:#6b7280;
-            margin-top:5px;
-          "
-        >
-          Quickly find a letter and reuse it
-          for your next application.
-        </p>
-
-      </div>
-
-      <button
-        class="btn"
-        onclick="clearSavedCoverLetters()"
-      >
-        Clear All
-      </button>
-
-    </div>
-
-
-    <div
-      style="
-        display:flex;
-        gap:10px;
-        margin-top:18px;
-        flex-wrap:wrap;
-      "
-    >
-
-      <input
-        id="savedLetterSearch"
-        type="search"
-        placeholder="Search saved cover letters..."
-        oninput="searchSavedCoverLetters()"
-        style="
-          flex:1;
-          min-width:220px;
-        "
-      >
-
-      <button
-        class="btn primary"
-        onclick="showPage('coverLetter')"
-      >
-        + New Cover Letter
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div
-    id="savedCoverLetters"
-  >
-
-    <div class="empty">
-
-      <div
-        style="
-          font-size:36px;
-          margin-bottom:10px;
-        "
-      >
-        ✉️
-      </div>
-
-      <h3>
-        Loading saved letters...
-      </h3>
-
-      <p>
-        Your saved cover letters will
-        appear here.
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div
-    class="card"
-    style="
-      margin-top:18px;
-      background:linear-gradient(
-        135deg,
-        #eff6ff,
-        #f8fafc
-      );
-    "
-  >
-
-    <h3>
-      💡 Cover Letter Tips
-    </h3>
-
-    <div
-      style="
-        display:grid;
-        gap:12px;
-        margin-top:14px;
-      "
-    >
-
-      <div>
-
-        <strong>
-          Keep it relevant
-        </strong>
-
-        <p
-          style="
-            color:#64748b;
-            margin-top:4px;
-          "
-        >
-          Mention skills and experience that
-          match the specific job.
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <strong>
-          Be concise
-        </strong>
-
-        <p
-          style="
-            color:#64748b;
-            margin-top:4px;
-          "
-        >
-          A clear and focused cover letter is
-          easier for recruiters to read.
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <strong>
-          Personalize every application
-        </strong>
-
-        <p
-          style="
-            color:#64748b;
-            margin-top:4px;
-          "
-        >
-          Replace generic information with
-          details about the company and role.
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
 </section>
-function initializeCoverLetterSystem(){
-
-  loadSavedCoverLetters();
-
-}
-
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function(){
-
-    initializeCoverLetterSystem();
-
-  }
-);
-<!-- =========================
-     SAVED COVER LETTERS
-========================= -->
-
-<section
-  id="savedLetters"
-  class="page"
->
-
-  <div class="hero">
-
-    <h2>Saved Cover Letters</h2>
-
-    <p>
-      Manage, reuse and organize your
-      previously created cover letters.
-    </p>
-
-  </div>
-
-
-  <div
-    class="card"
-    style="margin-bottom:18px"
-  >
-
-    <div
-      style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        gap:12px;
-        flex-wrap:wrap;
-      "
-    >
-
-      <div>
-
-        <h3>
-          Your Cover Letters
-        </h3>
-
-        <p
-          style="
-            color:#6b7280;
-            margin-top:5px;
-          "
-        >
-          Quickly find a letter and reuse it
-          for your next application.
-        </p>
-
-      </div>
-
-      <button
-        class="btn"
-        onclick="clearSavedCoverLetters()"
-      >
-        Clear All
-      </button>
-
-    </div>
-
-
-    <div
-      style="
-        display:flex;
-        gap:10px;
-        margin-top:18px;
-        flex-wrap:wrap;
-      "
-    >
-
-      <input
-        id="savedLetterSearch"
-        type="search"
-        placeholder="Search saved cover letters..."
-        oninput="searchSavedCoverLetters()"
-        style="
-          flex:1;
-          min-width:220px;
-        "
-      >
-
-      <button
-        class="btn primary"
-        onclick="showPage('coverLetter')"
-      >
-        + New Cover Letter
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div
-    id="savedCoverLetters"
-  >
-
-    <div class="empty">
-
-      <div
-        style="
-          font-size:36px;
-          margin-bottom:10px;
-        "
-      >
-        ✉️
-      </div>
-
-      <h3>
-        Loading saved letters...
-      </h3>
-
-      <p>
-        Your saved cover letters will
-        appear here.
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div
-    class="card"
-    style="
-      margin-top:18px;
-      background:linear-gradient(
-        135deg,
-        #eff6ff,
-        #f8fafc
-      );
-    "
-  >
-
-    <h3>
-      💡 Cover Letter Tips
-    </h3>
-
-    <div
-      style="
-        display:grid;
-        gap:12px;
-        margin-top:14px;
-      "
-    >
-
-      <div>
-
-        <strong>
-          Keep it relevant
-        </strong>
-
-        <p
-          style="
-            color:#64748b;
-            margin-top:4px;
-          "
-        >
-          Mention skills and experience
-          that match the specific job.
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <strong>
-          Be concise
-        </strong>
-
-        <p
-          style="
-            color:#64748b;
-            margin-top:4px;
-          "
-        >
-          A clear and focused cover letter
-          is easier for recruiters to read.
-        </p>
-
-      </div>
-
-
-      <div>
-
-        <strong>
-          Personalize every application
-        </strong>
-
-        <p
-          style="
-            color:#64748b;
-            margin-top:4px;
-          "
-        >
-          Customize every letter for the
-          company and position.
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     APPLICATION SUCCESS MODAL
-========================= -->
-
-<div
-  id="applicationModal"
-  class="modal"
-  style="display:none"
->
-
-  <div class="modal-box">
-
-    <button
-      class="modal-close"
-      onclick="closeApplicationModal()"
-    >
-      ×
-    </button>
-
-    <div
-      style="
-        text-align:center;
-        padding:20px 10px;
-      "
-    >
-
-      <div
-        style="
-          font-size:48px;
-          margin-bottom:12px;
-        "
-      >
-        🎉
-      </div>
-
-      <h2>
-        Application Ready
-      </h2>
-
-      <p
-        style="
-          color:#6b7280;
-          margin-top:8px;
-          line-height:1.6;
-        "
-      >
-        Your resume and cover letter are
-        ready for your next application.
-      </p>
-
-      <button
-        class="btn primary"
-        style="margin-top:18px"
-        onclick="closeApplicationModal()"
-      >
-        Continue
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
 
 
 <!-- =========================
@@ -3399,968 +2330,930 @@ document.addEventListener(
   class="toast"
 >
   <span id="toastMessage">
-    Done
+    Saved successfully
   </span>
 </div>
 
 
+<!-- =========================
+     MAIN JAVASCRIPT
+========================= -->
+
 <script>
 
-/* =========================
-   COVER LETTER HELPERS
-========================= */
-
-function showCoverLetterToast(message){
-
-  const toast =
-    document.getElementById("toast");
-
-  const text =
-    document.getElementById("toastMessage");
-
-  if(!toast || !text){
-
-    alert(message);
-
-    return;
-
-  }
-
-  text.textContent = message;
-
-  toast.classList.add("show");
-
-  setTimeout(function(){
-
-    toast.classList.remove("show");
-
-  },2500);
-
-}
+"use strict";
 
 
 /* =========================
-   COPY COVER LETTER
+   INTERVIEW DATA
 ========================= */
 
-function copyCoverLetter(){
+const interviewQuestions = {
 
-  const text =
-    localStorage.getItem(
-      "jobflow_cover_letter"
-    );
+  general: [
 
-  if(!text){
+    "Tell me about yourself.",
 
-    alert(
-      "Generate a cover letter first."
-    );
+    "Why do you want to work for our company?",
 
-    return;
+    "What are your greatest strengths?",
 
-  }
+    "What is one weakness you are working on?",
 
-  if(
-    navigator.clipboard &&
-    window.isSecureContext
-  ){
+    "Where do you see yourself in five years?",
 
-    navigator.clipboard
-      .writeText(text)
-      .then(function(){
+    "Why should we hire you?",
 
-        showCoverLetterToast(
-          "Cover letter copied!"
-        );
+    "Tell me about a challenge you faced and how you solved it."
 
-      })
-      .catch(function(){
+  ],
 
-        alert(
-          "Unable to copy the cover letter."
-        );
+  technical: [
 
-      });
+    "Explain a technical project you have worked on.",
 
-  }else{
+    "How do you approach debugging a difficult problem?",
 
-    const area =
-      document.createElement("textarea");
+    "How do you keep your technical skills up to date?",
 
-    area.value = text;
+    "Explain a difficult technical concept in simple terms.",
 
-    document.body.appendChild(area);
+    "How do you handle a production issue?",
 
-    area.select();
+    "How do you decide which technology to use for a project?",
 
-    try{
+    "Describe a technical mistake you made and what you learned."
 
-      document.execCommand("copy");
+  ],
 
-      showCoverLetterToast(
-        "Cover letter copied!"
-      );
+  hr: [
 
-    }catch(error){
+    "Tell me about yourself.",
 
-      alert(
-        "Please select and copy the letter manually."
-      );
+    "Why are you looking for a new opportunity?",
 
-    }
+    "What motivates you at work?",
 
-    document.body.removeChild(area);
+    "How do you handle pressure?",
 
-  }
+    "How do you handle disagreement with a colleague?",
 
-}
+    "What are your career goals?",
+
+    "Why should we select you?"
+
+  ],
+
+  behavioral: [
+
+    "Tell me about a time you solved a difficult problem.",
+
+    "Tell me about a time you worked under pressure.",
+
+    "Describe a situation where you made a mistake.",
+
+    "Tell me about a time you demonstrated leadership.",
+
+    "Describe a conflict with a teammate and how you handled it.",
+
+    "Tell me about a time you had to learn something quickly.",
+
+    "Describe a time when you achieved an important result."
+
+  ]
+
+};
+
+
+let interviewState = {
+
+  questions: [],
+
+  current: 0,
+
+  score: 0,
+
+  answered: 0,
+
+  started: false
+
+};
 
 
 /* =========================
-   DOWNLOAD COVER LETTER
+   START INTERVIEW
 ========================= */
 
-function downloadCoverLetter(){
+function startInterview(){
 
-  const letter =
-    localStorage.getItem(
-      "jobflow_cover_letter"
-    );
+  const role =
+    document.getElementById("interviewRole")?.value.trim();
 
-  if(!letter){
+  const type =
+    document.getElementById("interviewType")?.value || "general";
 
-    alert(
-      "Generate a cover letter first."
-    );
+  if(!role){
 
-    return;
+    showToast("Please enter your target job role.");
 
-  }
-
-  const blob =
-    new Blob(
-      [letter],
-      {
-        type:
-          "text/plain;charset=utf-8"
-      }
-    );
-
-  const url =
-    URL.createObjectURL(blob);
-
-  const a =
-    document.createElement("a");
-
-  a.href = url;
-
-  a.download =
-    "JobFlow-Cover-Letter.txt";
-
-  document.body.appendChild(a);
-
-  a.click();
-
-  document.body.removeChild(a);
-
-  URL.revokeObjectURL(url);
-
-}
-
-
-/* =========================
-   SAVE COVER LETTER
-========================= */
-
-function saveCoverLetter(){
-
-  const letter =
-    localStorage.getItem(
-      "jobflow_cover_letter"
-    );
-
-  if(!letter){
-
-    alert(
-      "Generate a cover letter first."
-    );
-
-    return;
-
-  }
-
-  let saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-  saved.unshift({
-
-    id: Date.now(),
-
-    date:
-      new Date()
-        .toLocaleDateString(),
-
-    letter: letter
-
-  });
-
-  localStorage.setItem(
-    "jobflow_saved_letters",
-    JSON.stringify(saved)
-  );
-
-  showCoverLetterToast(
-    "Cover letter saved!"
-  );
-
-  loadSavedCoverLetters();
-
-}
-
-
-/* =========================
-   LOAD SAVED LETTERS
-========================= */
-
-function loadSavedCoverLetters(){
-
-  const container =
-    document.getElementById(
-      "savedCoverLetters"
-    );
-
-  if(!container) return;
-
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-  if(saved.length === 0){
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <div
-          style="
-            font-size:36px;
-            margin-bottom:10px;
-          "
-        >
-          ✉️
-        </div>
-
-        <h3>
-          No saved cover letters
-        </h3>
-
-        <p>
-          Generate and save your first
-          cover letter to see it here.
-        </p>
-
-      </div>
-
-    `;
+    document.getElementById("interviewRole")?.focus();
 
     return;
 
   }
 
 
-  container.innerHTML =
-    saved.map(function(item){
-
-      const preview =
-        item.letter
-          .replace(/\s+/g," ")
-          .trim()
-          .substring(0,180);
+  const questions =
+    interviewQuestions[type] ||
+    interviewQuestions.general;
 
 
-      return `
+  interviewState = {
 
-        <div
-          class="card"
-          style="margin-bottom:14px"
-        >
+    questions: [...questions],
 
-          <div
-            style="
-              display:flex;
-              justify-content:space-between;
-              align-items:flex-start;
-              gap:12px;
-              flex-wrap:wrap;
-            "
-          >
+    current: 0,
 
-            <div>
+    score: 0,
 
-              <h3>
-                Cover Letter
-              </h3>
+    answered: 0,
 
-              <small
-                style="color:#6b7280"
-              >
-                Saved on
-                ${escapeHTML(item.date)}
-              </small>
+    started: true
 
-            </div>
+  };
 
 
-            <div
-              style="
-                display:flex;
-                gap:8px;
-                flex-wrap:wrap;
-              "
-            >
+  document.getElementById("interviewArea").style.display =
+    "block";
 
-              <button
-                class="btn"
-                onclick="
-                  viewSavedCoverLetter(${item.id})
-                "
-              >
-                View
-              </button>
-
-              <button
-                class="btn"
-                onclick="
-                  reuseCoverLetter(${item.id})
-                "
-              >
-                Reuse
-              </button>
-
-              <button
-                class="btn"
-                onclick="
-                  deleteSavedCoverLetter(${item.id})
-                "
-              >
-                Delete
-              </button>
-
-            </div>
-
-          </div>
+  document.getElementById("interviewResults").style.display =
+    "none";
 
 
-          <div
-            style="
-              margin-top:14px;
-              padding:14px;
-              background:#f8fafc;
-              border-radius:10px;
-              color:#475569;
-              line-height:1.6;
-            "
-          >
-
-            ${escapeHTML(preview)}...
-
-          </div>
-
-        </div>
-
-      `;
-
-    }).join("");
-
-}
+  showInterviewQuestion();
 
 
-/* =========================
-   VIEW SAVED LETTER
-========================= */
-
-function viewSavedCoverLetter(id){
-
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-  const item =
-    saved.find(function(letter){
-
-      return letter.id === id;
-
+  document.getElementById("interviewArea")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
     });
 
+}
 
-  if(!item){
 
-    alert(
-      "Cover letter could not be found."
-    );
+/* =========================
+   SHOW QUESTION
+========================= */
+
+function showInterviewQuestion(){
+
+  if(!interviewState.started) return;
+
+
+  const question =
+    interviewState.questions[interviewState.current];
+
+
+  if(!question){
+
+    finishInterview();
 
     return;
 
   }
 
 
-  const preview =
-    document.getElementById(
-      "coverLetterPreview"
-    );
-
-  if(!preview) return;
+  const number =
+    interviewState.current + 1;
 
 
-  preview.innerHTML = `
-
-    <div class="letter">
-
-      <div
-        style="
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          gap:10px;
-          flex-wrap:wrap;
-          margin-bottom:18px;
-        "
-      >
-
-        <h3>
-          Saved Cover Letter
-        </h3>
-
-        <div
-          style="
-            display:flex;
-            gap:8px;
-            flex-wrap:wrap;
-          "
-        >
-
-          <button
-            class="btn"
-            onclick="
-              copySavedCoverLetter(${item.id})
-            "
-          >
-            Copy
-          </button>
-
-          <button
-            class="btn primary"
-            onclick="
-              reuseCoverLetter(${item.id})
-            "
-          >
-            Edit
-          </button>
-
-        </div>
-
-      </div>
+  document.getElementById("questionNumber")
+    .textContent =
+      "Question " +
+      number +
+      " of " +
+      interviewState.questions.length;
 
 
-      <div
-        class="letter-content"
-        style="
-          line-height:1.8;
-        "
-      >
+  document.getElementById("interviewQuestion")
+    .textContent =
+      question;
 
-        ${escapeHTML(item.letter)
-          .replace(/\n/g,"<br>")}
 
-      </div>
+  document.getElementById("interviewAnswer")
+    .value =
+      "";
 
-    </div>
 
-  `;
+  document.getElementById("interviewFeedback")
+    .style.display =
+      "none";
+
+
+  document.getElementById("nextQuestionBox")
+    .style.display =
+      "none";
+
+
+  document.getElementById("interviewScore")
+    .textContent =
+      "Score: " +
+      interviewState.score;
+
+
+  document.getElementById("interviewAnswer")
+    .focus();
 
 }
 
 
 /* =========================
-   COPY SAVED LETTER
+   CHECK ANSWER
 ========================= */
 
-function copySavedCoverLetter(id){
-
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-  const item =
-    saved.find(function(letter){
-
-      return letter.id === id;
-
-    });
-
-
-  if(!item) return;
-
-
-  if(
-    navigator.clipboard &&
-    window.isSecureContext
-  ){
-
-    navigator.clipboard
-      .writeText(item.letter)
-      .then(function(){
-
-        showCoverLetterToast(
-          "Cover letter copied!"
-        );
-
-      });
-
-  }else{
-
-    const area =
-      document.createElement("textarea");
-
-    area.value =
-      item.letter;
-
-    document.body.appendChild(area);
-
-    area.select();
-
-    document.execCommand("copy");
-
-    document.body.removeChild(area);
-
-    showCoverLetterToast(
-      "Cover letter copied!"
-    );
-
-  }
-
-}
-
-
-/* =========================
-   REUSE LETTER
-========================= */
-
-function reuseCoverLetter(id){
-
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-  const item =
-    saved.find(function(letter){
-
-      return letter.id === id;
-
-    });
-
-
-  if(!item){
-
-    alert(
-      "Cover letter could not be found."
-    );
-
-    return;
-
-  }
-
-
-  localStorage.setItem(
-    "jobflow_cover_letter",
-    item.letter
-  );
-
-
-  const preview =
-    document.getElementById(
-      "coverLetterPreview"
-    );
-
-
-  if(preview){
-
-    preview.innerHTML = `
-
-      <div class="letter">
-
-        <div
-          style="
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            gap:10px;
-            flex-wrap:wrap;
-          "
-        >
-
-          <h3>
-            Cover Letter
-          </h3>
-
-          <div
-            style="
-              display:flex;
-              gap:8px;
-            "
-          >
-
-            <button
-              class="btn"
-              onclick="copyCoverLetter()"
-            >
-              Copy
-            </button>
-
-            <button
-              class="btn primary"
-              onclick="downloadCoverLetter()"
-            >
-              Download
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div
-          id="coverLetterText"
-          class="letter-content"
-          style="
-            margin-top:18px;
-            line-height:1.8;
-          "
-        >
-
-          ${escapeHTML(item.letter)
-            .replace(/\n/g,"<br>")}
-
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  if(typeof showPage === "function"){
-
-    showPage(
-      "coverLetter"
-    );
-
-  }
-
-}
-
-
-/* =========================
-   DELETE SAVED LETTER
-========================= */
-
-function deleteSavedCoverLetter(id){
-
-  const confirmed =
-    confirm(
-      "Delete this saved cover letter?"
-    );
-
-  if(!confirmed) return;
-
-
-  let saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-
-  saved =
-    saved.filter(function(letter){
-
-      return letter.id !== id;
-
-    });
-
-
-  localStorage.setItem(
-    "jobflow_saved_letters",
-    JSON.stringify(saved)
-  );
-
-
-  loadSavedCoverLetters();
-
-
-  showCoverLetterToast(
-    "Cover letter deleted."
-  );
-
-}
-
-
-/* =========================
-   CLEAR ALL LETTERS
-========================= */
-
-function clearSavedCoverLetters(){
-
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
-
-
-  if(saved.length === 0){
-
-    alert(
-      "There are no saved cover letters."
-    );
-
-    return;
-
-  }
-
-
-  const confirmed =
-    confirm(
-      "Delete all saved cover letters?"
-    );
-
-
-  if(!confirmed) return;
-
-
-  localStorage.removeItem(
-    "jobflow_saved_letters"
-  );
-
-
-  loadSavedCoverLetters();
-
-
-  showCoverLetterToast(
-    "All saved letters cleared."
-  );
-
-}
-
-
-/* =========================
-   SEARCH LETTERS
-========================= */
-
-function searchSavedCoverLetters(){
-
-  const input =
-    document.getElementById(
-      "savedLetterSearch"
-    );
-
-  const container =
-    document.getElementById(
-      "savedCoverLetters"
-    );
-
-
-  if(!input || !container)
-    return;
-
-
-  const query =
-    input.value
-      .toLowerCase()
+function submitInterviewAnswer(){
+
+  const answer =
+    document.getElementById("interviewAnswer")
+      ?.value
       .trim();
 
 
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        "jobflow_saved_letters"
-      ) || "[]"
-    );
+  if(!answer){
 
-
-  const filtered =
-    saved.filter(function(item){
-
-      return item.letter
-        .toLowerCase()
-        .includes(query);
-
-    });
-
-
-  if(filtered.length === 0){
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <h3>
-          No matching letters
-        </h3>
-
-        <p>
-          Try another search term.
-        </p>
-
-      </div>
-
-    `;
+    showToast("Please enter an answer first.");
 
     return;
 
   }
 
 
-  container.innerHTML =
-    filtered.map(function(item){
-
-      const preview =
-        item.letter
-          .replace(/\s+/g," ")
-          .trim()
-          .substring(0,180);
+  const words =
+    answer.split(/\s+/).filter(Boolean);
 
 
-      return `
-
-        <div
-          class="card"
-          style="margin-bottom:14px"
-        >
-
-          <div
-            style="
-              display:flex;
-              justify-content:space-between;
-              gap:10px;
-              flex-wrap:wrap;
-            "
-          >
-
-            <div>
-
-              <h3>
-                Cover Letter
-              </h3>
-
-              <small
-                style="color:#6b7280"
-              >
-                ${escapeHTML(item.date)}
-              </small>
-
-            </div>
+  let score = 0;
 
 
-            <div
-              style="
-                display:flex;
-                gap:8px;
-                flex-wrap:wrap;
-              "
-            >
+  if(words.length >= 15){
 
-              <button
-                class="btn"
-                onclick="
-                  viewSavedCoverLetter(${item.id})
-                "
-              >
-                View
-              </button>
+    score += 1;
 
-              <button
-                class="btn"
-                onclick="
-                  reuseCoverLetter(${item.id})
-                "
-              >
-                Reuse
-              </button>
+  }
 
-              <button
-                class="btn"
-                onclick="
-                  deleteSavedCoverLetter(${item.id})
-                "
-              >
-                Delete
-              </button>
+  if(words.length >= 35){
 
-            </div>
+    score += 1;
 
-          </div>
+  }
+
+  if(words.length >= 60){
+
+    score += 1;
+
+  }
 
 
-          <p
-            style="
-              margin-top:12px;
-              color:#475569;
-              line-height:1.6;
-            "
-          >
+  const lower =
+    answer.toLowerCase();
 
-            ${escapeHTML(preview)}...
 
-          </p>
+  const usefulWords = [
 
-        </div>
+    "experience",
 
-      `;
+    "result",
 
-    }).join("");
+    "project",
+
+    "team",
+
+    "learn",
+
+    "problem",
+
+    "solution",
+
+    "improve",
+
+    "achieved",
+
+    "responsibility",
+
+    "skill"
+
+  ];
+
+
+  usefulWords.forEach(word => {
+
+    if(lower.includes(word)){
+
+      score += 1;
+
+    }
+
+  });
+
+
+  score =
+    Math.min(10, score);
+
+
+  interviewState.score += score;
+
+  interviewState.answered += 1;
+
+
+  let rating =
+    "Needs Improvement";
+
+
+  if(score >= 8){
+
+    rating = "Excellent";
+
+  }else if(score >= 6){
+
+    rating = "Strong";
+
+  }else if(score >= 4){
+
+    rating = "Good";
+
+  }
+
+
+  let advice =
+    "Try adding a specific example and measurable result.";
+
+
+  if(score >= 8){
+
+    advice =
+      "Excellent structure. Keep your answer concise and confident.";
+
+  }else if(score >= 6){
+
+    advice =
+      "Good answer. Add a specific result to make it stronger.";
+
+  }else if(score >= 4){
+
+    advice =
+      "Your answer has a good starting point. Add more detail and examples.";
+
+  }
+
+
+  const feedback =
+    document.getElementById("feedbackContent");
+
+
+  feedback.innerHTML = `
+
+    <div class="feedback-rating">
+      ${escapeHTML(rating)}
+    </div>
+
+    <p>
+      <strong>Question score:</strong>
+      ${score}/10
+    </p>
+
+    <p>
+      <strong>Feedback:</strong>
+      ${escapeHTML(advice)}
+    </p>
+
+    <p>
+      <strong>Tip:</strong>
+      For behavioral questions, try using the STAR method:
+      Situation, Task, Action and Result.
+    </p>
+
+  `;
+
+
+  document.getElementById("interviewFeedback")
+    .style.display =
+      "block";
+
+
+  document.getElementById("nextQuestionBox")
+    .style.display =
+      "block";
+
+
+  document.getElementById("interviewScore")
+    .textContent =
+      "Score: " +
+      interviewState.score;
+
+
+  localStorage.setItem(
+    "jobflow_interview_score",
+    String(interviewState.score)
+  );
 
 }
 
 
 /* =========================
-   JOB → COVER LETTER
+   NEXT QUESTION
+========================= */
+
+function nextInterviewQuestion(){
+
+  interviewState.current++;
+
+
+  if(
+    interviewState.current >=
+    interviewState.questions.length
+  ){
+
+    finishInterview();
+
+    return;
+
+  }
+
+
+  showInterviewQuestion();
+
+}
+
+
+/* =========================
+   SKIP QUESTION
+========================= */
+
+function skipInterviewQuestion(){
+
+  if(!interviewState.started) return;
+
+
+  interviewState.current++;
+
+
+  if(
+    interviewState.current >=
+    interviewState.questions.length
+  ){
+
+    finishInterview();
+
+    return;
+
+  }
+
+
+  showInterviewQuestion();
+
+}
+
+
+/* =========================
+   FINISH INTERVIEW
+========================= */
+
+function finishInterview(){
+
+  interviewState.started = false;
+
+
+  const total =
+    interviewState.questions.length;
+
+
+  const maximum =
+    total * 10;
+
+
+  const percentage =
+    maximum > 0
+      ? Math.round(
+          (interviewState.score / maximum) * 100
+        )
+      : 0;
+
+
+  document.getElementById("finalScore")
+    .textContent =
+      percentage + "%";
+
+
+  document.getElementById("totalQuestions")
+    .textContent =
+      total;
+
+
+  document.getElementById("answeredQuestions")
+    .textContent =
+      interviewState.answered;
+
+
+  document.getElementById("interviewResults")
+    .style.display = "block";
+
+
+  document.getElementById("interviewArea")
+    .style.display = "none";
+
+
+  const resultBox =
+    document.getElementById("interviewResults");
+
+
+  if (resultBox) {
+
+    resultBox.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }
+
+
+  localStorage.setItem(
+    "jobflow_last_interview",
+    JSON.stringify({
+      score: percentage,
+      questions: total,
+      answered: interviewState.answered,
+      date: new Date().toLocaleDateString()
+    })
+  );
+
+}
+
+
+/* =========================
+   RESET INTERVIEW
+========================= */
+
+function resetInterview() {
+
+  interviewState = {
+    questions: [],
+    current: 0,
+    score: 0,
+    answered: 0,
+    started: false
+  };
+
+
+  const area =
+    document.getElementById("interviewArea");
+
+  const results =
+    document.getElementById("interviewResults");
+
+
+  if (area) {
+    area.style.display = "none";
+  }
+
+
+  if (results) {
+    results.style.display = "none";
+  }
+
+
+  const answer =
+    document.getElementById("interviewAnswer");
+
+  if (answer) {
+    answer.value = "";
+  }
+
+
+  const feedback =
+    document.getElementById("interviewFeedback");
+
+  if (feedback) {
+    feedback.style.display = "none";
+  }
+
+
+  const next =
+    document.getElementById("nextQuestionBox");
+
+  if (next) {
+    next.style.display = "none";
+  }
+
+
+  showToast("Interview reset.");
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function saveProfile() {
+
+  const profile = {
+
+    name:
+      document.getElementById("profileName")?.value.trim() || "",
+
+    email:
+      document.getElementById("profileEmail")?.value.trim() || "",
+
+    phone:
+      document.getElementById("profilePhone")?.value.trim() || "",
+
+    role:
+      document.getElementById("profileRole")?.value.trim() || "",
+
+    skills:
+      document.getElementById("profileSkills")?.value.trim() || ""
+
+  };
+
+
+  localStorage.setItem(
+    "jobflow_profile",
+    JSON.stringify(profile)
+  );
+
+
+  if (profile.name) {
+
+    localStorage.setItem(
+      "jobflow_name",
+      profile.name
+    );
+
+  }
+
+
+  showToast(
+    "Profile saved successfully."
+  );
+}
+
+
+/* =========================
+   LOAD PROFILE
+========================= */
+
+function loadProfile() {
+
+  let profile = {};
+
+  try {
+
+    profile =
+      JSON.parse(
+        localStorage.getItem(
+          "jobflow_profile"
+        ) || "{}"
+      );
+
+  } catch (error) {
+
+    profile = {};
+
+  }
+
+
+  const fields = {
+
+    profileName:
+      profile.name || "",
+
+    profileEmail:
+      profile.email || "",
+
+    profilePhone:
+      profile.phone || "",
+
+    profileRole:
+      profile.role || "",
+
+    profileSkills:
+      profile.skills || ""
+
+  };
+
+
+  Object.keys(fields).forEach(function(id) {
+
+    const element =
+      document.getElementById(id);
+
+    if (element) {
+
+      element.value =
+        fields[id];
+
+    }
+
+  });
+
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+function saveSettings() {
+
+  const settings = {
+
+    notifications:
+      document.getElementById(
+        "settingNotifications"
+      )?.checked ?? true,
+
+    interview:
+      document.getElementById(
+        "settingInterview"
+      )?.checked ?? true,
+
+    autoSave:
+      document.getElementById(
+        "settingAutoSave"
+      )?.checked ?? true
+
+  };
+
+
+  localStorage.setItem(
+    "jobflow_settings",
+    JSON.stringify(settings)
+  );
+
+
+  showToast(
+    "Settings saved successfully."
+  );
+}
+
+
+/* =========================
+   LOAD SETTINGS
+========================= */
+
+function loadSettings() {
+
+  let settings = {};
+
+  try {
+
+    settings =
+      JSON.parse(
+        localStorage.getItem(
+          "jobflow_settings"
+        ) || "{}"
+      );
+
+  } catch (error) {
+
+    settings = {};
+
+  }
+
+
+  const notifications =
+    document.getElementById(
+      "settingNotifications"
+    );
+
+
+  const interview =
+    document.getElementById(
+      "settingInterview"
+    );
+
+
+  const autoSave =
+    document.getElementById(
+      "settingAutoSave"
+    );
+
+
+  if (
+    notifications &&
+    typeof settings.notifications ===
+    "boolean"
+  ) {
+
+    notifications.checked =
+      settings.notifications;
+
+  }
+
+
+  if (
+    interview &&
+    typeof settings.interview ===
+    "boolean"
+  ) {
+
+    interview.checked =
+      settings.interview;
+
+  }
+
+
+  if (
+    autoSave &&
+    typeof settings.autoSave ===
+    "boolean"
+  ) {
+
+    autoSave.checked =
+      settings.autoSave;
+
+  }
+
+}
+
+
+/* =========================
+   PREMIUM
+========================= */
+
+function upgradePremium() {
+
+  showToast(
+    "Premium checkout will be connected next."
+  );
+
+}
+
+
+function upgradePremiumPlus() {
+
+  showToast(
+    "Pro+ checkout will be connected next."
+  );
+
+}
+
+
+/* =========================
+   CLEAR DATA
+========================= */
+
+function clearJobFlowData() {
+
+  const confirmed =
+    confirm(
+      "This will remove your saved JobFlow data. Continue?"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  localStorage.clear();
+
+
+  showToast(
+    "JobFlow data cleared."
+  );
+
+
+  setTimeout(function() {
+
+    location.reload();
+
+  }, 800);
+
+}
+
+
+/* =========================
+   COVER LETTER
 ========================= */
 
 function createCoverLetterFromJob(
   title,
   company,
   description
-){
+) {
 
   const titleInput =
     document.getElementById(
       "clJobTitle"
     );
 
+
   const companyInput =
     document.getElementById(
       "clCompany"
     );
+
 
   const descriptionInput =
     document.getElementById(
@@ -4368,19 +3261,22 @@ function createCoverLetterFromJob(
     );
 
 
-  if(titleInput)
+  if (titleInput) {
     titleInput.value =
       title || "";
+  }
 
 
-  if(companyInput)
+  if (companyInput) {
     companyInput.value =
       company || "";
+  }
 
 
-  if(descriptionInput)
+  if (descriptionInput) {
     descriptionInput.value =
       description || "";
+  }
 
 
   const savedName =
@@ -4395,10 +3291,10 @@ function createCoverLetterFromJob(
     );
 
 
-  if(
+  if (
     nameInput &&
     savedName
-  ){
+  ) {
 
     nameInput.value =
       savedName;
@@ -4406,7 +3302,10 @@ function createCoverLetterFromJob(
   }
 
 
-  if(typeof showPage === "function"){
+  if (
+    typeof showPage ===
+    "function"
+  ) {
 
     showPage(
       "coverLetter"
@@ -4418,167 +3317,452 @@ function createCoverLetterFromJob(
 
 
 /* =========================
-   MODAL
+   SAFE HTML
 ========================= */
 
-function closeApplicationModal(){
+function escapeHTML(value) {
 
-  const modal =
-    document.getElementById(
-      "applicationModal"
-    );
-
-  if(modal){
-
-    modal.style.display =
-      "none";
-
-  }
-
-}
-
-
-function openApplicationModal(){
-
-  const modal =
-    document.getElementById(
-      "applicationModal"
-    );
-
-  if(modal){
-
-    modal.style.display =
-      "flex";
-
-  }
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
 }
 
 
 /* =========================
-   INITIALIZE
+   TOAST
 ========================= */
 
-function initializeCoverLetterSystem(){
+function showToast(message) {
 
-  loadSavedCoverLetters();
+  const toast =
+    document.getElementById(
+      "toast"
+    );
+
+
+  const messageBox =
+    document.getElementById(
+      "toastMessage"
+    );
+
+
+  if (!toast) {
+
+    alert(message);
+
+    return;
+
+  }
+
+
+  if (messageBox) {
+
+    messageBox.textContent =
+      message;
+
+  }
+
+
+  toast.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    window.jobflowToastTimer
+  );
+
+
+  window.jobflowToastTimer =
+    setTimeout(function() {
+
+      toast.classList.remove(
+        "show"
+      );
+
+    }, 2500);
 
 }
 
+
+/* =========================
+   LOAD EVERYTHING
+========================= */
 
 document.addEventListener(
   "DOMContentLoaded",
-  function(){
+  function() {
 
-    initializeCoverLetterSystem();
+    loadProfile();
+
+    loadSettings();
+
+
+    if (
+      typeof initializeCoverLetterSystem ===
+      "function"
+    ) {
+
+      initializeCoverLetterSystem();
+
+    }
+
+
+    const savedName =
+      localStorage.getItem(
+        "jobflow_name"
+      );
+
+
+    const coverLetterName =
+      document.getElementById(
+        "clName"
+      );
+
+
+    if (
+      coverLetterName &&
+      savedName &&
+      !coverLetterName.value
+    ) {
+
+      coverLetterName.value =
+        savedName;
+
+    }
 
   }
 );
-function syncResumeToCoverLetter(){
-
-  const name =
-    document.getElementById("resumeName")?.value ||
-    document.getElementById("name")?.value ||
-    "";
-
-  const skills =
-    document.getElementById("resumeSkills")?.value ||
-    document.getElementById("skills")?.value ||
-    "";
-
-  const experience =
-    document.getElementById("resumeExperience")?.value ||
-    document.getElementById("experience")?.value ||
-    "";
-
-  const education =
-    document.getElementById("resumeEducation")?.value ||
-    document.getElementById("education")?.value ||
-    "";
-
-  if(name){
-
-    localStorage.setItem(
-      "jobflow_name",
-      name.trim()
-    );
-
-  }
-
-  localStorage.setItem(
-    "jobflow_resume_skills",
-    skills.trim()
-  );
-
-  localStorage.setItem(
-    "jobflow_resume_experience",
-    experience.trim()
-  );
-
-  localStorage.setItem(
-    "jobflow_resume_education",
-    education.trim()
-  );
-
-  const nameInput =
-    document.getElementById("clName");
-
-  const skillsInput =
-    document.getElementById("clSkills");
-
-  if(nameInput)
-    nameInput.value = name;
-
-  if(skillsInput)
-    skillsInput.value = skills;
-
-}
-function loadResumeDataIntoCoverLetter(){
-
-  const name =
-    localStorage.getItem(
-      "jobflow_name"
-    ) || "";
-
-  const skills =
-    localStorage.getItem(
-      "jobflow_resume_skills"
-    ) || "";
-
-  const nameInput =
-    document.getElementById(
-      "clName"
-    );
-
-  const skillsInput =
-    document.getElementById(
-      "clSkills"
-    );
-
-  if(nameInput && !nameInput.value){
-
-    nameInput.value =
-      name;
-
-  }
-
-  if(skillsInput && !skillsInput.value){
-
-    skillsInput.value =
-      skills;
-
-  }
-
-}
-
-
 
 </script>
 
 
+<!-- =========================
+     FINAL STYLES
+========================= -->
+
+<style>
+
+.form-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+
+.field label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #dbe2ea;
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+}
+
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #2563eb;
+  box-shadow:
+    0 0 0 3px
+    rgba(37,99,235,.10);
+}
+
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+
+.btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 18px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+
+.btn.primary,
+.primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+
+.btn.secondary,
+.secondary {
+  background: #eef2f7;
+  color: #111827;
+}
+
+
+.btn.danger,
+.danger {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+
+.score-badge {
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 700;
+}
+
+
+.interview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+
+.question-box {
+  margin: 20px 0;
+  padding: 24px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+}
+
+
+.question-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+
+.feedback-box {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+
+.feedback-box p {
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+
+.feedback-rating {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+
+.stats-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+
+.stat-card {
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+
+.stat-label {
+  display: block;
+  color: #64748b;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+
+.stat-card strong {
+  font-size: 26px;
+}
+
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+
+.pricing-card {
+  position: relative;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+}
+
+
+.pricing-card.featured {
+  border: 2px solid #2563eb;
+}
+
+
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0;
+}
+
+
+.pricing-card li {
+  padding: 7px 0;
+}
+
+
+.price {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 14px 0;
+}
+
+
+.price span {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 400;
+}
+
+
+.settings-list {
+  margin-top: 18px;
+}
+
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+
+.setting-item input {
+  width: 20px;
+  height: 20px;
+}
+
+
+.setting-item p {
+  margin-top: 4px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 25px;
+  transform:
+    translate(-50%, 20px);
+  opacity: 0;
+  pointer-events: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: #111827;
+  color: #fff;
+  z-index: 99999;
+  transition: .25s ease;
+}
+
+
+.toast.show {
+  opacity: 1;
+  transform:
+    translate(-50%, 0);
+}
+
+
+@media (max-width: 800px) {
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .field.full {
+    grid-column: auto;
+  }
+
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 520px) {
+
+  .button-row {
+    flex-direction: column;
+  }
+
+
+  .button-row .btn {
+    width: 100%;
+  }
+
+
+  .interview-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+}
+
+</style>
+
+
 </body>
+
 </html>
-
-
-
-
