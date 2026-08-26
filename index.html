@@ -704,109 +704,311 @@ Your bookmarked job opportunities.
 </section>
 
 
-<!-- APPLICATIONS -->
+/* =========================
+   APPLICATIONS
+========================= */
 
-<section
-id="applications"
-class="page">
+function getApplications(){
 
-<div class="hero">
+  return JSON.parse(
+    localStorage.getItem(
+      "jobflow_applications"
+    ) || "[]"
+  );
 
-<h2>
-📋 Applications
-</h2>
-
-<p>
-Track your job applications.
-</p>
-
-</div>
+}
 
 
-<div class="card">
+function saveApplications(applications){
 
-<div class="grid2">
+  localStorage.setItem(
+    "jobflow_applications",
+    JSON.stringify(applications)
+  );
 
-<div>
-
-<label>
-Company
-</label>
-
-<input
-id="applicationCompany"
-placeholder="Company name">
-
-</div>
+}
 
 
-<div>
+/* =========================
+   ADD APPLICATION
+========================= */
 
-<label>
-Role
-</label>
+function addApplication(){
 
-<input
-id="applicationRole"
-placeholder="Job role">
+  const company =
+    document
+      .getElementById(
+        "applicationCompany"
+      )
+      .value
+      .trim();
 
-</div>
+  const role =
+    document
+      .getElementById(
+        "applicationRole"
+      )
+      .value
+      .trim();
 
-</div>
+  const status =
+    document
+      .getElementById(
+        "applicationStatus"
+      )
+      .value;
 
+  if(!company || !role){
 
-<label>
-Status
-</label>
+    showToast(
+      "Please enter company and role."
+    );
 
-<select id="applicationStatus">
+    return;
 
-<option>
-Applied
-</option>
-
-<option>
-Screening
-</option>
-
-<option>
-Interview
-</option>
-
-<option>
-Offer
-</option>
-
-<option>
-Rejected
-</option>
-
-</select>
+  }
 
 
-<div class="actions">
-
-<button
-class="btn primary"
-onclick="addApplication()">
-＋ Add Application
-</button>
-
-</div>
-
-</div>
+  const applications =
+    getApplications();
 
 
-<div class="card">
+  applications.unshift({
 
-<div id="applicationsList"></div>
+    id: Date.now(),
 
-</div>
+    company: company,
 
-</section>
+    role: role,
+
+    status: status,
+
+    date:
+      new Date()
+        .toLocaleDateString()
+
+  });
 
 
-<!-- PIPELINE -->
+  saveApplications(
+    applications
+  );
+
+
+  document
+    .getElementById(
+      "applicationCompany"
+    )
+    .value = "";
+
+  document
+    .getElementById(
+      "applicationRole"
+    )
+    .value = "";
+
+
+  document
+    .getElementById(
+      "applicationStatus"
+    )
+    .value = "Applied";
+
+
+  renderApplications();
+
+  updateDashboard();
+
+
+  if(
+    typeof renderPipeline ===
+    "function"
+  ){
+
+    renderPipeline();
+
+  }
+
+
+  showToast(
+    "Application added successfully."
+  );
+
+}
+
+
+/* =========================
+   RENDER APPLICATIONS
+========================= */
+
+function renderApplications(){
+
+  const container =
+    document.getElementById(
+      "applicationsList"
+    );
+
+  if(!container) return;
+
+
+  const applications =
+    getApplications();
+
+
+  if(applications.length === 0){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        📋
+
+        <br><br>
+
+        No applications yet.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    applications.map(
+      function(app){
+
+        return `
+
+          <div class="job">
+
+            <div class="jobTop">
+
+              <div>
+
+                <h3>
+                  ${escapeHTML(
+                    app.role
+                  )}
+                </h3>
+
+                <p>
+                  🏢
+                  ${escapeHTML(
+                    app.company
+                  )}
+                </p>
+
+                <p class="muted">
+                  Applied:
+                  ${escapeHTML(
+                    app.date
+                  )}
+                </p>
+
+              </div>
+
+
+              <span class="badge">
+
+                ${escapeHTML(
+                  app.status
+                )}
+
+              </span>
+
+            </div>
+
+
+            <div class="actions">
+
+              <button
+                type="button"
+                class="btn danger"
+                onclick="deleteApplication(
+                  ${app.id}
+                )"
+              >
+                🗑️ Delete
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* =========================
+   DELETE APPLICATION
+========================= */
+
+function deleteApplication(id){
+
+  const confirmed =
+    confirm(
+      "Delete this application?"
+    );
+
+  if(!confirmed) return;
+
+
+  let applications =
+    getApplications();
+
+
+  applications =
+    applications.filter(
+      function(app){
+
+        return app.id !== id;
+
+      }
+    );
+
+
+  saveApplications(
+    applications
+  );
+
+
+  renderApplications();
+
+  updateDashboard();
+
+
+  if(
+    typeof renderPipeline ===
+    "function"
+  ){
+
+    renderPipeline();
+
+  }
+
+
+  showToast(
+    "Application deleted."
+  );
+
+}
+
+
+/* =========================
+   END APPLICATIONS
+========================= */
+
+
+/* =========================
+   PIPELINE
+========================= */
 
 <section
 id="pipeline"
