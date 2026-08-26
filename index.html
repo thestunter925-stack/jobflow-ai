@@ -574,633 +574,871 @@ class="status hidden"
 ================================================== -->
 
 <script>
-(function(){
+(function () {
+  "use strict";
 
-"use strict";
+  /* =========================================
+     JOBFLOW AI - SINGLE CONTROL SYSTEM
+  ========================================= */
 
+  var STORAGE_KEY = "jobflow_ai_account_v1";
 
-/* =========================
-   CONFIGURATION
-========================= */
+  var OWNER_EMAIL = "mdnawaz6052@gmail.com";
 
-var STORAGE_KEY =
-"jobflow_ai_account_v1";
+  var TRIAL_DURATION = 48 * 60 * 60 * 1000;
 
-var TRIAL_DURATION =
-48 * 60 * 60 * 1000;
+  var UPI_ID = "YOUR-UPI-ID@bank";
 
 
-/*
- * OWNER EMAIL
- */
+  /* =========================================
+     HELPERS
+  ========================================= */
 
-var OWNER_EMAIL =
-"mdnawaz6052@gmail.com";
+  function $(id) {
+    return document.getElementById(id);
+  }
 
+  function getAccount() {
+    try {
+      var data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : null;
+    } catch (e) {
+      return null;
+    }
+  }
 
-/*
- * CHANGE THIS TO YOUR REAL UPI ID
- */
+  function saveAccount(account) {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(account)
+    );
+  }
 
-var UPI_ID =
-"YOUR-UPI-ID@bank";
+  function normalizeEmail(email) {
+    return String(email || "")
+      .trim()
+      .toLowerCase();
+  }
 
+  function validEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
 
-/* =========================
-   ELEMENTS
-========================= */
+  function trialActive(account) {
+    if (!account) return false;
 
-var emailInput =
-document.getElementById("email");
+    if (account.owner === true) return true;
 
-var startButton =
-document.getElementById("startTrialButton");
+    if (account.paid === true) return true;
 
-var trialError =
-document.getElementById("trialError");
+    return Date.now() < Number(account.trialEnds);
+  }
 
-var trialSection =
-document.getElementById("trialSection");
+  function timeLeft(endTime) {
 
-var accountSection =
-document.getElementById("accountSection");
+    var remaining =
+      Number(endTime) - Date.now();
 
-var userEmail =
-document.getElementById("userEmail");
+    if (remaining <= 0) {
+      return "Trial expired";
+    }
 
-var trialMessage =
-document.getElementById("trialMessage");
+    var totalMinutes =
+      Math.ceil(remaining / 60000);
 
-var signOutButton =
-document.getElementById("signOutButton");
+    var days =
+      Math.floor(totalMinutes / 1440);
 
-var upiElement =
-document.getElementById("upiId");
+    var hours =
+      Math.floor(
+        (totalMinutes % 1440) / 60
+      );
 
-var copyUpiButton =
-document.getElementById("copyUpiButton");
+    var minutes =
+      totalMinutes % 60;
 
-var paymentUTR =
-document.getElementById("paymentUTR");
+    return (
+      days +
+      "d " +
+      hours +
+      "h " +
+      minutes +
+      "m remaining"
+    );
+  }
 
-var submitPaymentButton =
-document.getElementById("submitPaymentButton");
 
-var paymentMessage =
-document.getElementById("paymentMessage");
+  /* =========================================
+     SHOW APPLICATION
+  ========================================= */
 
+  function openApp() {
 
-/* =========================
-   UPI DISPLAY
-========================= */
+    var gate = $("accessGate");
+    var app = $("app");
 
-upiElement.textContent =
-UPI_ID;
+    if (gate) {
+      gate.style.display = "none";
+    }
 
+    if (app) {
+      app.style.display = "block";
+    }
 
-/* =========================
-   STORAGE
-========================= */
+    updateAccountScreen();
+  }
 
-function getAccount(){
 
-try{
+  /* =========================================
+     SHOW LOGIN
+  ========================================= */
 
-var saved =
-localStorage.getItem(
-STORAGE_KEY
-);
+  function showGate() {
 
-if(!saved){
-return null;
-}
+    var gate = $("accessGate");
+    var app = $("app");
 
-return JSON.parse(saved);
+    if (gate) {
+      gate.style.display = "flex";
+    }
 
-}catch(error){
+    if (app) {
+      app.style.display = "none";
+    }
+  }
 
-return null;
 
-}
+  /* =========================================
+     UPDATE ACCOUNT
+  ========================================= */
 
-}
+  function updateAccountScreen() {
 
+    var account = getAccount();
 
-function saveAccount(account){
+    if (!account) {
+      showGate();
+      return;
+    }
 
-localStorage.setItem(
-STORAGE_KEY,
-JSON.stringify(account)
-);
+    var emailBox = $("currentEmail");
+    var statusBox = $("accessStatus");
 
-}
+    if (emailBox) {
+      emailBox.textContent =
+        "Email: " + account.email;
+    }
 
+    if (!statusBox) {
+      return;
+    }
 
-/* =========================
-   EMAIL
-========================= */
 
-function validEmail(value){
+    /* OWNER */
 
-return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-.test(value);
+    if (account.owner === true) {
 
-}
+      statusBox.className = "status";
 
+      statusBox.textContent =
+        "👑 Owner access active — unlimited JobFlow AI access.";
 
-/* =========================
-   TRIAL
-========================= */
+      return;
+    }
 
-function trialActive(account){
 
-if(!account){
-return false;
-}
+    /* PAID */
 
-if(account.owner === true){
-return true;
-}
+    if (account.paid === true) {
 
-if(account.paid === true){
-return true;
-}
+      statusBox.className = "status";
 
-return Date.now() <
-Number(account.trialEnds);
+      statusBox.textContent =
+        "💎 Premium membership active.";
 
-}
+      return;
+    }
 
 
-/* =========================
-   TIME
-========================= */
+    /* TRIAL */
 
-function getTimeLeft(end){
+    if (
+      Date.now() <
+      Number(account.trialEnds)
+    ) {
 
-var remaining =
-Number(end) -
-Date.now();
+      statusBox.className = "status";
 
-if(remaining <= 0){
-return "Trial expired";
-}
+      statusBox.textContent =
+        "🎉 Your free 48-hour trial is active — " +
+        timeLeft(account.trialEnds) +
+        ".";
 
-var totalMinutes =
-Math.ceil(
-remaining / 60000
-);
+      return;
+    }
 
-var days =
-Math.floor(
-totalMinutes / 1440
-);
 
-var hours =
-Math.floor(
-(totalMinutes % 1440) / 60
-);
+    /* EXPIRED */
 
-var minutes =
-totalMinutes % 60;
+    statusBox.className =
+      "status warning";
 
-return (
-days +
-"d " +
-hours +
-"h " +
-minutes +
-"m remaining"
-);
+    statusBox.textContent =
+      "⏰ Your 48-hour free trial has ended. ₹499 Premium membership is required.";
 
-}
+  }
 
 
-/* =========================
-   UPDATE SCREEN
-========================= */
+  /* =========================================
+     START TRIAL
+  ========================================= */
 
-function updateScreen(){
+  function startTrial() {
 
-var account =
-getAccount();
+    var emailInput = $("email");
+    var errorBox = $("trialError");
 
+    if (!emailInput) {
+      return;
+    }
 
-if(!account){
+    var email =
+      normalizeEmail(emailInput.value);
 
-trialSection
-.classList
-.remove("hidden");
+    if (errorBox) {
+      errorBox.textContent = "";
+    }
 
-accountSection
-.classList
-.add("hidden");
 
-return;
+    if (!validEmail(email)) {
 
-}
+      if (errorBox) {
+        errorBox.textContent =
+          "Please enter a valid email address.";
+      }
 
+      emailInput.focus();
 
-trialSection
-.classList
-.add("hidden");
+      return;
+    }
 
-accountSection
-.classList
-.remove("hidden");
 
+    /* OWNER */
 
-userEmail.textContent =
-"Email: " +
-account.email;
+    if (email === OWNER_EMAIL) {
 
+      saveAccount({
 
-/* OWNER */
+        email: OWNER_EMAIL,
 
-if(account.owner === true){
+        owner: true,
 
-trialMessage.className =
-"status";
+        paid: true,
 
-trialMessage.textContent =
-"👑 Owner access active — unlimited JobFlow AI access.";
+        trialStarted: Date.now(),
 
-return;
+        trialEnds: 0,
 
-}
+        paymentReference: "",
 
+        paymentPending: false
 
-/* PAID */
+      });
 
-if(account.paid === true){
+      emailInput.value = "";
 
-trialMessage.className =
-"status";
+      openApp();
 
-trialMessage.textContent =
-"💎 Premium membership active.";
+      return;
+    }
 
-return;
 
-}
+    /* EXISTING ACCOUNT */
 
+    var existing = getAccount();
 
-/* TRIAL */
+    if (existing) {
 
-if(
-Date.now() <
-Number(account.trialEnds)
-){
+      if (
+        normalizeEmail(existing.email) ===
+        email
+      ) {
 
-trialMessage.className =
-"status";
+        openApp();
 
-trialMessage.textContent =
-"🎉 Your free 48-hour trial is active. " +
-getTimeLeft(account.trialEnds) +
-". Basic features are available. Premium membership is required.";
+        return;
+      }
 
-return;
+      if (errorBox) {
+        errorBox.textContent =
+          "A JobFlow account already exists on this browser.";
+      }
 
-}
+      return;
+    }
 
 
-/* EXPIRED */
+    /* NEW 48-HOUR TRIAL */
 
-trialMessage.className =
-"status warning";
+    var now = Date.now();
 
-trialMessage.textContent =
-"⏰ Your 48-hour free trial has ended. ₹499 Premium membership is required.";
+    saveAccount({
 
-}
+      email: email,
 
+      owner: false,
 
-/* =========================
-   START TRIAL BUTTON
-========================= */
+      paid: false,
 
-startButton.addEventListener(
-"click",
-function(){
+      trialStarted: now,
 
-trialError.textContent =
-"";
+      trialEnds:
+        now + TRIAL_DURATION,
 
+      paymentReference: "",
 
-var email =
-emailInput.value
-.trim()
-.toLowerCase();
+      paymentPending: false,
 
+      paymentSubmittedAt: null
 
-if(!validEmail(email)){
+    });
 
-trialError.textContent =
-"Please enter a valid email address.";
+    emailInput.value = "";
 
-emailInput.focus();
+    openApp();
+  }
 
-return;
 
-}
+  /* =========================================
+     SIGN OUT
+  ========================================= */
 
+  function signOut() {
 
-/*
- * EXISTING ACCOUNT
- */
+    localStorage.removeItem(
+      STORAGE_KEY
+    );
 
-var existing =
-getAccount();
+    var emailInput = $("email");
 
+    var utr = $("paymentUTR");
 
-if(existing){
+    var paymentMessage =
+      $("paymentMessage");
 
-if(
-existing.email === email
-){
+    if (emailInput) {
+      emailInput.value = "";
+    }
 
-updateScreen();
+    if (utr) {
+      utr.value = "";
+    }
 
-return;
+    if (paymentMessage) {
+      paymentMessage.classList.add(
+        "hidden"
+      );
 
-}
+      paymentMessage.textContent = "";
+    }
 
+    showGate();
 
-trialError.textContent =
-"A trial already exists on this browser.";
+    setTimeout(function () {
 
-return;
+      var accessEmail =
+        $("accessEmail");
 
-}
+      if (accessEmail) {
+        accessEmail.value = "";
+        accessEmail.focus();
+      }
 
+    }, 100);
+  }
 
-/*
- * OWNER
- */
 
-if(email === OWNER_EMAIL){
+  /* =========================================
+     COPY UPI
+  ========================================= */
 
-var ownerAccount = {
+  function copyUPI() {
 
-email:OWNER_EMAIL,
+    var button =
+      $("copyUpiButton");
 
-owner:true,
+    var upi =
+      UPI_ID;
 
-paid:true,
 
-trialStarted:Date.now(),
+    function copied() {
 
-trialEnds:0,
+      if (!button) return;
 
-paymentReference:"",
+      var oldText =
+        button.textContent;
 
-paymentPending:false
+      button.textContent =
+        "Copied ✓";
 
-};
+      setTimeout(function () {
 
-saveAccount(
-ownerAccount
-);
+        button.textContent =
+          oldText;
 
-updateScreen();
+      }, 1500);
+    }
 
-return;
 
-}
+    if (
+      navigator.clipboard &&
+      navigator.clipboard.writeText
+    ) {
 
+      navigator.clipboard
+        .writeText(upi)
+        .then(copied)
+        .catch(function () {
 
-/*
- * NORMAL USER
- */
+          window.prompt(
+            "Copy your UPI ID:",
+            upi
+          );
 
-var now =
-Date.now();
+        });
 
+    } else {
 
-var account = {
+      window.prompt(
+        "Copy your UPI ID:",
+        upi
+      );
 
-email:email,
+    }
+  }
 
-owner:false,
 
-paid:false,
+  /* =========================================
+     SUBMIT PAYMENT REFERENCE
+  ========================================= */
 
-trialStarted:now,
+  function submitPayment() {
 
-trialEnds:
-now + TRIAL_DURATION,
+    var account =
+      getAccount();
 
-paymentReference:"",
+    var utrInput =
+      $("paymentUTR");
 
-paymentPending:false,
+    var message =
+      $("paymentMessage");
 
-paymentSubmittedAt:null
 
-};
+    if (!message) {
+      return;
+    }
 
 
-saveAccount(
-account
-);
+    message.classList.remove(
+      "hidden"
+    );
 
 
-emailInput.value =
-"";
+    if (!account) {
 
+      message.textContent =
+        "Please start your JobFlow AI trial first.";
 
-updateScreen();
+      return;
+    }
 
-}
-);
 
+    if (
+      account.owner === true
+    ) {
 
-/* =========================
-   SIGN OUT
-========================= */
+      message.textContent =
+        "👑 Owner account already has unlimited access.";
 
-signOutButton.addEventListener(
-"click",
-function(){
+      return;
+    }
 
-localStorage.removeItem(
-STORAGE_KEY
-);
 
-emailInput.value =
-"";
+    if (
+      account.paid === true
+    ) {
 
-trialError.textContent =
-"";
+      message.textContent =
+        "💎 Premium membership is already active.";
 
-paymentUTR.value =
-"";
+      return;
+    }
 
-paymentMessage.classList
-.add("hidden");
 
-accountSection.classList
-.add("hidden");
+    var utr =
+      utrInput ?
+      utrInput.value.trim() :
+      "";
 
-trialSection.classList
-.remove("hidden");
 
-emailInput.focus();
+    if (!utr) {
 
-}
-);
+      message.textContent =
+        "Please enter your payment reference / UTR.";
 
+      if (utrInput) {
+        utrInput.focus();
+      }
 
-/* =========================
-   COPY UPI
-========================= */
+      return;
+    }
 
-copyUpiButton.addEventListener(
-"click",
-function(){
 
-if(
-navigator.clipboard &&
-navigator.clipboard.writeText
-){
+    account.paymentReference =
+      utr;
 
-navigator.clipboard
-.writeText(UPI_ID)
-.then(function(){
+    account.paymentPending =
+      true;
 
-copyUpiButton.textContent =
-"Copied ✓";
+    account.paymentSubmittedAt =
+      Date.now();
 
-setTimeout(
-function(){
 
-copyUpiButton.textContent =
-"Copy UPI ID";
+    /*
+     * IMPORTANT:
+     * Entering a UTR does NOT automatically
+     * activate Premium.
+     *
+     * Your real payment verification server
+     * must set paid=true after verifying
+     * the ₹499 transaction.
+     */
 
-},
-1500
-);
+    account.paid = false;
 
-})
-.catch(function(){
 
-window.prompt(
-"Copy your UPI ID:",
-UPI_ID
-);
+    saveAccount(account);
 
-});
 
-}else{
+    message.textContent =
+      "✅ Payment reference submitted. Your ₹499 payment is pending verification.";
+  }
 
-window.prompt(
-"Copy your UPI ID:",
-UPI_ID
-);
 
-}
+  /* =========================================
+     ACCESS GATE BUTTON
+  ========================================= */
 
-}
-);
+  function requestAccess() {
 
+    var input =
+      $("accessEmail");
 
-/* =========================
-   PAYMENT SUBMISSION
-========================= */
+    var error =
+      $("accessError");
 
-submitPaymentButton.addEventListener(
-"click",
-function(){
+    if (!input) {
+      return;
+    }
 
-var account =
-getAccount();
+    var email =
+      normalizeEmail(input.value);
 
 
-var utr =
-paymentUTR.value
-.trim();
+    if (error) {
+      error.textContent = "";
+    }
 
 
-paymentMessage.classList
-.remove("hidden");
+    if (!validEmail(email)) {
 
+      if (error) {
+        error.textContent =
+          "Please enter a valid email address.";
+      }
 
-if(!account){
+      input.focus();
 
-paymentMessage.textContent =
-"Please start your free trial first.";
+      return;
+    }
 
-return;
 
-}
+    /* OWNER */
 
+    if (email === OWNER_EMAIL) {
 
-if(!utr){
+      saveAccount({
 
-paymentMessage.textContent =
-"Please enter your payment reference / UTR.";
+        email: OWNER_EMAIL,
 
-paymentUTR.focus();
+        owner: true,
 
-return;
+        paid: true,
 
-}
+        trialStarted: Date.now(),
 
+        trialEnds: 0,
 
-/*
- * Save reference only.
- *
- * NEVER unlock Premium from
- * the UTR entered by the user.
- */
+        paymentReference: "",
 
-account.paymentReference =
-utr;
+        paymentPending: false
 
-account.paymentPending =
-true;
+      });
 
-account.paymentSubmittedAt =
-Date.now();
+      input.value = "";
 
-account.paid =
-false;
+      openApp();
 
+      return;
+    }
 
-saveAccount(
-account
-);
 
+    /* EXISTING USER */
 
-paymentMessage.textContent =
-"✅ Payment reference submitted. Your ₹499 payment is pending verification.";
+    var existing =
+      getAccount();
 
-}
-);
 
+    if (existing) {
 
-/* =========================
-   INITIAL SCREEN
-========================= */
+      if (
+        normalizeEmail(existing.email) ===
+        email
+      ) {
 
-updateScreen();
+        input.value = "";
 
+        openApp();
 
-/* =========================
-   COUNTDOWN
-========================= */
+        return;
+      }
 
-setInterval(
-function(){
+      if (error) {
+        error.textContent =
+          "This browser already has another JobFlow account.";
+      }
 
-updateScreen();
+      return;
+    }
 
-},
-60000
-);
+
+    /* NEW USER */
+
+    var now =
+      Date.now();
+
+
+    saveAccount({
+
+      email: email,
+
+      owner: false,
+
+      paid: false,
+
+      trialStarted: now,
+
+      trialEnds:
+        now + TRIAL_DURATION,
+
+      paymentReference: "",
+
+      paymentPending: false,
+
+      paymentSubmittedAt: null
+
+    });
+
+
+    input.value = "";
+
+    openApp();
+  }
+
+
+  /* =========================================
+     EVENT DELEGATION
+     THIS MAKES BUTTONS ROBUST
+  ========================================= */
+
+  document.addEventListener(
+    "click",
+    function (event) {
+
+      var target =
+        event.target;
+
+
+      if (!target) {
+        return;
+      }
+
+
+      /* START TRIAL */
+
+      if (
+        target.id ===
+        "startTrialButton"
+      ) {
+
+        event.preventDefault();
+
+        startTrial();
+
+        return;
+      }
+
+
+      /* ACCESS */
+
+      if (
+        target.id ===
+        "accessButton"
+      ) {
+
+        event.preventDefault();
+
+        requestAccess();
+
+        return;
+      }
+
+
+      /* SIGN OUT */
+
+      if (
+        target.id ===
+        "signOutButton"
+      ) {
+
+        event.preventDefault();
+
+        signOut();
+
+        return;
+      }
+
+
+      /* COPY UPI */
+
+      if (
+        target.id ===
+        "copyUpiButton"
+      ) {
+
+        event.preventDefault();
+
+        copyUPI();
+
+        return;
+      }
+
+
+      /* PAYMENT */
+
+      if (
+        target.id ===
+        "submitPaymentButton"
+      ) {
+
+        event.preventDefault();
+
+        submitPayment();
+
+        return;
+      }
+
+    },
+    false
+  );
+
+
+  /* =========================================
+     ENTER KEY - TRIAL
+  ========================================= */
+
+  document.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        event.key !== "Enter"
+      ) {
+        return;
+      }
+
+
+      var active =
+        document.activeElement;
+
+
+      if (!active) {
+        return;
+      }
+
+
+      if (
+        active.id === "email"
+      ) {
+
+        event.preventDefault();
+
+        startTrial();
+
+      }
+
+
+      if (
+        active.id === "accessEmail"
+      ) {
+
+        event.preventDefault();
+
+        requestAccess();
+
+      }
+
+    },
+    false
+  );
+
+
+  /* =========================================
+     INITIALIZE
+  ========================================= */
+
+  var account =
+    getAccount();
+
+
+  if (account) {
+
+    openApp();
+
+  } else {
+
+    showGate();
+
+  }
+
+
+  /* =========================================
+     COUNTDOWN
+  ========================================= */
+
+  setInterval(
+    function () {
+
+      if (getAccount()) {
+        updateAccountScreen();
+      }
+
+    },
+    60000
+  );
+
 
 })();
 </script>
-
 </body>
 </html>
