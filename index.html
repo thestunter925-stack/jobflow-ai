@@ -3169,6 +3169,325 @@ setInterval(
 </div>
 
 </div>
+<!-- STEP 1: REAL JOB SEARCH
+     Paste this section inside your existing <body>.
+     It uses official company career-search URLs rather than fake vacancies.
+-->
+
+<section id="jobs" class="page" style="display:none;">
+  <div class="card">
+
+    <h2>🔎 Search Jobs</h2>
+    <p>Find opportunities from major companies and apply through their official career websites.</p>
+
+    <div style="display:grid;gap:10px;margin:18px 0;">
+      <input
+        id="jobSearchInput"
+        type="text"
+        placeholder="Search job title, skill or company..."
+        autocomplete="off"
+        style="padding:13px;border:1px solid #d1d5db;border-radius:10px;"
+      >
+
+      <select
+        id="jobLocation"
+        style="padding:13px;border:1px solid #d1d5db;border-radius:10px;"
+      >
+        <option value="">All locations</option>
+        <option value="India">India</option>
+        <option value="Bengaluru">Bengaluru</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Pune">Pune</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Gurugram">Gurugram</option>
+        <option value="Noida">Noida</option>
+      </select>
+
+      <button
+        id="searchJobsBtn"
+        type="button"
+        style="padding:13px;border:0;border-radius:10px;background:#2563eb;color:white;font-weight:700;cursor:pointer;"
+      >
+        🔎 Search Jobs
+      </button>
+    </div>
+
+    <div id="jobResults"></div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  const jobs = [
+    {
+      company: "Google",
+      title: "Software Engineering Jobs",
+      location: "India",
+      url: "https://www.google.com/about/careers/applications/jobs/results/"
+    },
+    {
+      company: "Microsoft",
+      title: "Technology & Software Jobs",
+      location: "India",
+      url: "https://jobs.careers.microsoft.com/global/en/search"
+    },
+    {
+      company: "Amazon",
+      title: "Software Development & Technology Jobs",
+      location: "India",
+      url: "https://www.amazon.jobs/en/search"
+    },
+    {
+      company: "Apple",
+      title: "Software & Technology Jobs",
+      location: "India",
+      url: "https://jobs.apple.com/en-in/search"
+    },
+    {
+      company: "Meta",
+      title: "Software Engineering Jobs",
+      location: "India",
+      url: "https://www.metacareers.com/jobs/"
+    },
+    {
+      company: "IBM",
+      title: "Technology & Software Jobs",
+      location: "India",
+      url: "https://www.ibm.com/careers/search"
+    },
+    {
+      company: "Accenture",
+      title: "Technology & Consulting Jobs",
+      location: "India",
+      url: "https://www.accenture.com/in-en/careers/jobsearch"
+    },
+    {
+      company: "Deloitte",
+      title: "Technology & Consulting Jobs",
+      location: "India",
+      url: "https://apply.deloitte.com/"
+    },
+    {
+      company: "Infosys",
+      title: "Technology Jobs",
+      location: "India",
+      url: "https://career.infosys.com/"
+    },
+    {
+      company: "TCS",
+      title: "IT & Technology Jobs",
+      location: "India",
+      url: "https://www.tcs.com/careers"
+    },
+    {
+      company: "Wipro",
+      title: "IT & Technology Jobs",
+      location: "India",
+      url: "https://careers.wipro.com/"
+    },
+    {
+      company: "Flipkart",
+      title: "Technology & Corporate Jobs",
+      location: "India",
+      url: "https://www.flipkartcareers.com/"
+    }
+  ];
+
+  function get(id) {
+    return document.getElementById(id);
+  }
+
+  function escapeHTML(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function renderJobs(list) {
+    const box = get("jobResults");
+
+    if (!box) return;
+
+    if (!list.length) {
+      box.innerHTML =
+        '<div style="padding:20px;text-align:center;">' +
+        'No matching companies found. Try another keyword.' +
+        '</div>';
+      return;
+    }
+
+    box.innerHTML = list.map(function (job) {
+      return `
+        <div style="
+          border:1px solid #e5e7eb;
+          border-radius:14px;
+          padding:16px;
+          margin:12px 0;
+          background:#fff;
+        ">
+
+          <div style="font-size:18px;font-weight:700;">
+            ${escapeHTML(job.title)}
+          </div>
+
+          <div style="margin-top:6px;color:#374151;">
+            🏢 ${escapeHTML(job.company)}
+          </div>
+
+          <div style="margin-top:4px;color:#6b7280;">
+            📍 ${escapeHTML(job.location)}
+          </div>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
+
+            <a
+              href="${job.url}"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="
+                display:inline-block;
+                padding:10px 14px;
+                background:#2563eb;
+                color:white;
+                text-decoration:none;
+                border-radius:9px;
+                font-weight:700;
+              "
+            >
+              Apply on Official Site ↗
+            </a>
+
+            <button
+              type="button"
+              class="saveJobBtn"
+              data-company="${escapeHTML(job.company)}"
+              data-title="${escapeHTML(job.title)}"
+              data-location="${escapeHTML(job.location)}"
+              data-url="${escapeHTML(job.url)}"
+              style="
+                padding:10px 14px;
+                border:1px solid #2563eb;
+                background:white;
+                color:#2563eb;
+                border-radius:9px;
+                font-weight:700;
+                cursor:pointer;
+              "
+            >
+              ⭐ Save Job
+            </button>
+
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    document.querySelectorAll(".saveJobBtn").forEach(function (button) {
+      button.addEventListener("click", function () {
+
+        const saved =
+          JSON.parse(
+            localStorage.getItem("jobflow_saved_jobs") || "[]"
+          );
+
+        const job = {
+          company: button.dataset.company,
+          title: button.dataset.title,
+          location: button.dataset.location,
+          url: button.dataset.url,
+          savedAt: new Date().toISOString()
+        };
+
+        const exists = saved.some(function (item) {
+          return (
+            item.company === job.company &&
+            item.title === job.title
+          );
+        });
+
+        if (!exists) {
+          saved.push(job);
+
+          localStorage.setItem(
+            "jobflow_saved_jobs",
+            JSON.stringify(saved)
+          );
+
+          button.textContent = "✓ Saved";
+        } else {
+          button.textContent = "✓ Already Saved";
+        }
+      });
+    });
+  }
+
+  function searchJobs() {
+    const input =
+      (get("jobSearchInput")?.value || "")
+        .trim()
+        .toLowerCase();
+
+    const location =
+      (get("jobLocation")?.value || "")
+        .toLowerCase();
+
+    const results = jobs.filter(function (job) {
+
+      const text = (
+        job.company + " " +
+        job.title + " " +
+        job.location
+      ).toLowerCase();
+
+      const matchesSearch =
+        !input || text.includes(input);
+
+      const matchesLocation =
+        !location ||
+        job.location.toLowerCase().includes(location) ||
+        location === "india";
+
+      return matchesSearch && matchesLocation;
+    });
+
+    renderJobs(results);
+  }
+
+  const searchButton = get("searchJobsBtn");
+
+  if (searchButton) {
+    searchButton.addEventListener(
+      "click",
+      searchJobs
+    );
+  }
+
+  const searchInput = get("jobSearchInput");
+
+  if (searchInput) {
+    searchInput.addEventListener(
+      "keydown",
+      function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          searchJobs();
+        }
+      }
+    );
+  }
+
+  renderJobs(jobs);
+
+})();
+</script>
 
 </body>
 </html>
