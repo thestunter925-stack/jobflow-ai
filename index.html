@@ -703,161 +703,106 @@ Your bookmarked job opportunities.
 
 </section>
 
+<!-- APPLICATIONS -->
 
-/* =========================
-   APPLICATIONS
-========================= */
+<section
+id="applications"
+class="page">
 
-function getApplications(){
+  <div class="hero">
 
-  return JSON.parse(
-    localStorage.getItem(
-      "jobflow_applications"
-    ) || "[]"
-  );
+    <h2>
+      📋 Applications
+    </h2>
 
-}
+    <p>
+      Track your job applications.
+    </p>
 
-
-function saveApplications(applications){
-
-  localStorage.setItem(
-    "jobflow_applications",
-    JSON.stringify(applications)
-  );
-
-}
+  </div>
 
 
-/* =========================
-   ADD APPLICATION
-========================= */
+  <div class="card">
 
-function addApplication(){
+    <div class="grid2">
 
-  const company =
-    document
-      .getElementById(
-        "applicationCompany"
-      )
-      .value
-      .trim();
+      <div>
 
-  const role =
-    document
-      .getElementById(
-        "applicationRole"
-      )
-      .value
-      .trim();
+        <label>
+          Company
+        </label>
 
-  const status =
-    document
-      .getElementById(
-        "applicationStatus"
-      )
-      .value;
+        <input
+          id="applicationCompany"
+          placeholder="Company name">
 
-  if(!company || !role){
-
-    showToast(
-      "Please enter company and role."
-    );
-
-    return;
-
-  }
+      </div>
 
 
-  const applications =
-    getApplications();
+      <div>
+
+        <label>
+          Role
+        </label>
+
+        <input
+          id="applicationRole"
+          placeholder="Job role">
+
+      </div>
+
+    </div>
 
 
-  applications.unshift({
+    <label>
+      Status
+    </label>
 
-    id: Date.now(),
+    <select
+      id="applicationStatus">
 
-    company: company,
+      <option value="Applied">
+        Applied
+      </option>
 
-    role: role,
+      <option value="Screening">
+        Screening
+      </option>
 
-    status: status,
+      <option value="Interview">
+        Interview
+      </option>
 
-    date:
-      new Date()
-        .toLocaleDateString()
+      <option value="Offer">
+        Offer
+      </option>
 
-  });
+      <option value="Rejected">
+        Rejected
+      </option>
 
-
-  saveApplications(
-    applications
-  );
-
-
-  document
-    .getElementById(
-      "applicationCompany"
-    )
-    .value = "";
-
-  document
-    .getElementById(
-      "applicationRole"
-    )
-    .value = "";
+    </select>
 
 
-  document
-    .getElementById(
-      "applicationStatus"
-    )
-    .value = "Applied";
+    <div class="actions">
+
+      <button
+        type="button"
+        class="btn primary"
+        onclick="addApplication()">
+
+        ＋ Add Application
+
+      </button>
+
+    </div>
+
+  </div>
 
 
-  renderApplications();
+  <div class="card">
 
-  updateDashboard();
-
-
-  if(
-    typeof renderPipeline ===
-    "function"
-  ){
-
-    renderPipeline();
-
-  }
-
-
-  showToast(
-    "Application added successfully."
-  );
-
-}
-
-
-/* =========================
-   RENDER APPLICATIONS
-========================= */
-
-function renderApplications(){
-
-  const container =
-    document.getElementById(
-      "applicationsList"
-    );
-
-  if(!container) return;
-
-
-  const applications =
-    getApplications();
-
-
-  if(applications.length === 0){
-
-    container.innerHTML = `
+    <div id="applicationsList">
 
       <div class="empty">
 
@@ -869,150 +814,19 @@ function renderApplications(){
 
       </div>
 
-    `;
+    </div>
 
-    return;
+  </div>
 
-  }
-
-
-  container.innerHTML =
-    applications.map(
-      function(app){
-
-        return `
-
-          <div class="job">
-
-            <div class="jobTop">
-
-              <div>
-
-                <h3>
-                  ${escapeHTML(
-                    app.role
-                  )}
-                </h3>
-
-                <p>
-                  🏢
-                  ${escapeHTML(
-                    app.company
-                  )}
-                </p>
-
-                <p class="muted">
-                  Applied:
-                  ${escapeHTML(
-                    app.date
-                  )}
-                </p>
-
-              </div>
+</section>
 
 
-              <span class="badge">
-
-                ${escapeHTML(
-                  app.status
-                )}
-
-              </span>
-
-            </div>
-
-
-            <div class="actions">
-
-              <button
-                type="button"
-                class="btn danger"
-                onclick="deleteApplication(
-                  ${app.id}
-                )"
-              >
-                🗑️ Delete
-              </button>
-
-            </div>
-
-          </div>
-
-        `;
-
-      }
-    ).join("");
-
-}
-
-
-/* =========================
-   DELETE APPLICATION
-========================= */
-
-function deleteApplication(id){
-
-  const confirmed =
-    confirm(
-      "Delete this application?"
-    );
-
-  if(!confirmed) return;
-
-
-  let applications =
-    getApplications();
-
-
-  applications =
-    applications.filter(
-      function(app){
-
-        return app.id !== id;
-
-      }
-    );
-
-
-  saveApplications(
-    applications
-  );
-
-
-  renderApplications();
-
-  updateDashboard();
-
-
-  if(
-    typeof renderPipeline ===
-    "function"
-  ){
-
-    renderPipeline();
-
-  }
-
-
-  showToast(
-    "Application deleted."
-  );
-
-}
-
-
-/* =========================
-   END APPLICATIONS
-========================= */
-
-
-/* =========================
-   PIPELINE
-========================= */
+<!-- PIPELINE -->
 
 <section
 id="pipeline"
 class="page">
+
 
 <div class="hero">
 
