@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#2563eb">
-<meta name="description" content="JobFlow AI - Career Command Center">
+<meta name="description" content="JobFlow AI Career Command Center">
 <title>JobFlow AI</title>
 
 <style>
@@ -16,11 +16,14 @@
 
 body{
   font-family:Arial,Helvetica,sans-serif;
-  background:#f4f7fb;
+  background:#f5f7fb;
   color:#111827;
 }
 
-button,input,textarea,select{
+button,
+input,
+select,
+textarea{
   font:inherit;
 }
 
@@ -32,14 +35,113 @@ button{
   display:none!important;
 }
 
-/* =========================
-   ACCESS SCREEN
-========================= */
+header{
+  background:#2563eb;
+  color:#fff;
+  padding:18px 15px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
 
-#accessGate{
-  position:fixed;
-  inset:0;
-  z-index:99999;
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.logo{
+  font-size:23px;
+  font-weight:800;
+}
+
+.tagline{
+  font-size:13px;
+  margin-top:4px;
+  opacity:.9;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px 15px 50px;
+}
+
+.card{
+  background:#fff;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 4px 18px rgba(0,0,0,.06);
+  border:1px solid #e5e7eb;
+}
+
+h1,h2,h3{
+  color:#111827;
+}
+
+h2{
+  margin-bottom:8px;
+}
+
+p{
+  line-height:1.5;
+}
+
+.muted{
+  color:#64748b;
+  font-size:14px;
+}
+
+.primary{
+  background:#2563eb;
+  color:#fff;
+  border:0;
+  border-radius:9px;
+  padding:12px 16px;
+  font-weight:700;
+}
+
+.secondary{
+  background:#eef2ff;
+  color:#1d4ed8;
+  border:0;
+  border-radius:9px;
+  padding:12px 16px;
+  font-weight:700;
+}
+
+.danger{
+  background:#fee2e2;
+  color:#b91c1c;
+  border:0;
+  border-radius:9px;
+  padding:10px 14px;
+  font-weight:700;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid #d1d5db;
+  border-radius:9px;
+  padding:12px;
+  outline:none;
+  background:#fff;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#2563eb;
+}
+
+.auth-screen{
+  min-height:100vh;
   background:#2563eb;
   display:flex;
   align-items:center;
@@ -47,161 +149,62 @@ button{
   padding:20px;
 }
 
-.access-card{
+.auth-box{
   width:100%;
-  max-width:420px;
+  max-width:460px;
   background:#fff;
-  border-radius:22px;
-  padding:28px 22px;
-  text-align:center;
-  box-shadow:0 20px 50px rgba(0,0,0,.22);
+  border-radius:20px;
+  padding:28px;
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
 }
 
-.access-logo{
-  font-size:44px;
-  margin-bottom:8px;
+.auth-logo{
+  color:#2563eb;
+  font-size:28px;
+  font-weight:800;
+  margin-bottom:5px;
 }
 
-.access-card h1{
-  font-size:27px;
-  margin-bottom:7px;
+.auth-box h1{
+  margin-top:25px;
+  font-size:25px;
 }
 
-.access-card p{
-  color:#64748b;
-  font-size:14px;
-  line-height:1.5;
-  margin-bottom:20px;
+.auth-box label{
+  display:block;
+  font-weight:700;
+  margin:20px 0 7px;
 }
 
-.access-card input{
-  width:100%;
-  padding:14px;
-  border:1px solid #d1d5db;
-  border-radius:10px;
-  outline:none;
-}
-
-.access-card input:focus{
-  border-color:#2563eb;
-}
-
-.access-card button{
+.auth-box button{
   width:100%;
   margin-top:12px;
-  padding:14px;
-  border:0;
-  border-radius:10px;
-  background:#2563eb;
-  color:#fff;
-  font-weight:700;
 }
 
-.access-error{
-  color:#dc2626;
-  font-size:13px;
+.error{
   margin-top:10px;
+  color:#dc2626;
+  font-size:14px;
 }
 
-/* =========================
-   HEADER
-========================= */
-
-header{
-  background:#111827;
-  color:#fff;
-  padding:17px 20px;
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
-
-.header-inner{
-  max-width:1100px;
-  margin:auto;
+.dashboard-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:15px;
-}
-
-.brand h1{
-  font-size:22px;
-}
-
-.brand p{
-  color:#cbd5e1;
-  font-size:12px;
-  margin-top:3px;
-}
-
-.header-actions{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.header-actions button{
-  border:0;
-  border-radius:8px;
-  padding:8px 11px;
-  background:#374151;
-  color:#fff;
-  font-size:12px;
-}
-
-/* =========================
-   APP
-========================= */
-
-#app{
-  display:none;
-}
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:18px;
-}
-
-/* =========================
-   WELCOME
-========================= */
-
-.welcome{
-  background:#fff;
-  border:1px solid #e5e7eb;
-  border-radius:18px;
-  padding:20px;
+  gap:12px;
   margin-bottom:16px;
 }
 
-.welcome h2{
-  margin-bottom:6px;
-}
-
-.email{
+.account-email{
   color:#64748b;
-  font-size:13px;
+  margin-top:5px;
 }
 
-.access-status{
-  margin-top:12px;
-  padding:12px;
-  border-radius:10px;
-  background:#eff6ff;
-  color:#1d4ed8;
-  font-size:13px;
+.owner{
+  margin-top:8px;
+  color:#047857;
+  font-weight:700;
 }
-
-.access-status.expired{
-  background:#fff7ed;
-  color:#c2410c;
-}
-
-/* =========================
-   DASHBOARD
-========================= */
 
 .stats{
   display:grid;
@@ -212,59 +215,34 @@ header{
 
 .stat{
   background:#fff;
-  border:1px solid #e5e7eb;
   border-radius:14px;
   padding:16px;
-}
-
-.stat strong{
-  display:block;
-  font-size:24px;
-  margin-bottom:4px;
-}
-
-.stat span{
-  color:#64748b;
-  font-size:12px;
-}
-
-/* =========================
-   SECTIONS
-========================= */
-
-.section{
-  background:#fff;
   border:1px solid #e5e7eb;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:16px;
 }
 
-.section h2{
-  font-size:20px;
-  margin-bottom:6px;
+.stat-number{
+  font-size:25px;
+  font-weight:800;
+  color:#2563eb;
 }
 
-.subtitle{
+.stat-label{
   color:#64748b;
   font-size:13px;
-  margin-bottom:15px;
+  margin-top:4px;
 }
-
-/* =========================
-   FEATURE GRID
-========================= */
 
 .feature-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:12px;
+  margin-top:15px;
 }
 
 .feature{
   border:1px solid #e5e7eb;
-  border-radius:14px;
-  padding:16px;
+  border-radius:13px;
+  padding:15px;
 }
 
 .feature h3{
@@ -272,102 +250,27 @@ header{
   margin-bottom:6px;
 }
 
-.feature p{
-  color:#64748b;
-  font-size:13px;
-  line-height:1.45;
-  margin-bottom:13px;
-}
-
 .feature button{
+  margin-top:12px;
   width:100%;
-  padding:11px;
-  border:0;
-  border-radius:9px;
-  background:#2563eb;
-  color:#fff;
-  font-weight:700;
 }
 
-.feature.premium{
-  border-color:#ddd6fe;
-}
-
-.feature.premium button{
-  background:#7c3aed;
-}
-
-.feature.locked{
-  opacity:.72;
-}
-
-.feature.locked button{
-  background:#64748b;
-}
-
-/* =========================
-   BASIC TOOLS
-========================= */
-
-.tool-box{
-  display:grid;
-  gap:12px;
-}
-
-textarea{
-  width:100%;
-  min-height:160px;
-  padding:13px;
-  border:1px solid #d1d5db;
-  border-radius:10px;
-  resize:vertical;
-  outline:none;
-}
-
-textarea:focus{
-  border-color:#2563eb;
-}
-
-.tool-row{
+.section-title{
   display:flex;
-  gap:8px;
-  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
 }
-
-.primary{
-  background:#2563eb;
-  color:#fff;
-  border:0;
-  border-radius:9px;
-  padding:11px 15px;
-  font-weight:700;
-}
-
-.secondary{
-  background:#e5e7eb;
-  color:#111827;
-  border:0;
-  border-radius:9px;
-  padding:11px 15px;
-  font-weight:700;
-}
-
-/* =========================
-   APPLICATIONS
-========================= */
 
 .form-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:1fr 1fr 1fr;
   gap:10px;
 }
 
-.form-grid input,
-.form-grid select{
-  width:100%;
-  padding:11px;
-  border:1px solid #d1d5db;
-  border-radius:9px;
+.form-grid.two{
+  grid-template-columns:1fr 1fr;
 }
 
 .table-wrap{
@@ -378,138 +281,162 @@ textarea:focus{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:600px;
+  min-width:650px;
 }
 
-th,td{
+th,
+td{
   padding:11px;
-  border-bottom:1px solid #e5e7eb;
   text-align:left;
-  font-size:13px;
+  border-bottom:1px solid #e5e7eb;
+  font-size:14px;
 }
 
 th{
   background:#f8fafc;
 }
 
-/* =========================
-   PAYMENT
-========================= */
+.job-search-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:10px;
+  margin-top:15px;
+}
 
-.price{
+.status-message{
+  margin-top:12px;
+  padding:11px;
+  border-radius:9px;
+  background:#eff6ff;
+  color:#1d4ed8;
+  display:none;
+  font-size:14px;
+}
+
+.status-message.show{
+  display:block;
+}
+
+.job-results{
+  display:grid;
+  gap:12px;
+  margin-top:15px;
+}
+
+.job-card{
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:16px;
+  background:#fff;
+}
+
+.job-company{
+  color:#2563eb;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.job-title{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.job-location{
+  color:#64748b;
+  font-size:14px;
+  margin-bottom:10px;
+}
+
+.job-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+.job-source{
+  color:#64748b;
+  font-size:11px;
+  margin-top:10px;
+}
+
+.payment-price{
   font-size:34px;
   font-weight:800;
-  margin:12px 0 3px;
+  margin:15px 0 3px;
+}
+
+.upi-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:12px;
 }
 
 .upi-box{
-  background:#f8fafc;
-  border:1px dashed #94a3b8;
-  border-radius:12px;
-  padding:15px;
-  margin:15px 0;
-}
-
-.upi-id{
-  display:inline-block;
-  background:#e5e7eb;
-  padding:8px 10px;
-  border-radius:7px;
-  margin-top:8px;
-  font-weight:bold;
+  flex:1;
+  background:#f1f5f9;
+  padding:12px;
+  border-radius:9px;
+  overflow-wrap:anywhere;
 }
 
 .payment-message{
   margin-top:12px;
   padding:12px;
-  background:#eff6ff;
-  color:#1d4ed8;
+  background:#f1f5f9;
   border-radius:9px;
-  font-size:13px;
+  font-size:14px;
 }
 
-/* =========================
-   MODAL
-========================= */
-
-#toolModal{
-  position:fixed;
-  inset:0;
-  z-index:5000;
-  background:rgba(0,0,0,.55);
+.tool-area{
   display:none;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
 }
 
-.modal-card{
-  width:100%;
-  max-width:700px;
-  max-height:90vh;
-  overflow:auto;
-  background:#fff;
-  border-radius:18px;
-  padding:20px;
+.tool-area.active{
+  display:block;
 }
 
-.modal-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:15px;
+.notes-area{
+  min-height:150px;
 }
 
-.close{
-  border:0;
-  background:#e5e7eb;
-  border-radius:8px;
-  padding:7px 10px;
+.empty{
+  text-align:center;
+  padding:28px;
+  color:#64748b;
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 @media(max-width:750px){
 
+  .header-inner,
+  .dashboard-head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
   .stats{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:1fr 1fr;
   }
 
   .feature-grid{
     grid-template-columns:1fr;
   }
 
-  .form-grid{
+  .form-grid,
+  .form-grid.two,
+  .job-search-grid{
     grid-template-columns:1fr;
   }
 
-  .container{
-    padding:10px;
-  }
-
-  .section,
-  .welcome{
-    padding:16px;
-  }
-
-  .header-inner{
-    align-items:flex-start;
-  }
-
-}
-
-@media(max-width:450px){
-
-  .header-actions{
+  .upi-row{
     flex-direction:column;
     align-items:stretch;
   }
 
-  .stats{
-    grid-template-columns:1fr 1fr;
+  .upi-row button{
+    width:100%;
   }
 
 }
@@ -519,40 +446,60 @@ th{
 <body>
 
 <!-- ==================================================
-     ACCESS GATE
+     ACCESS SCREEN
 ================================================== -->
 
-<div id="accessGate">
+<div id="authScreen" class="auth-screen">
 
-  <div class="access-card">
+  <div class="auth-box">
 
-    <div class="access-logo">🚀</div>
+    <div class="auth-logo">
+      🚀 JobFlow AI
+    </div>
 
-    <h1>JobFlow AI</h1>
+    <p class="muted">
+      Your Career Command Center
+    </p>
 
-    <p>
-      Your Career Command Center.<br>
+    <h1>
+      Start your free 48-hour trial
+    </h1>
+
+    <p class="muted" style="margin-top:7px">
       Enter your email address to access JobFlow AI.
     </p>
 
+    <label for="email">
+      Email address
+    </label>
+
     <input
-      id="accessEmail"
+      id="email"
       type="email"
-      placeholder="Enter your email address"
+      placeholder="you@example.com"
       autocomplete="email"
     >
 
     <button
-      id="accessButton"
+      id="trialBtn"
+      class="primary"
       type="button"
     >
-      Continue
+      🚀 Start 48-Hour Free Trial
     </button>
 
     <div
-      id="accessError"
-      class="access-error"
+      id="error"
+      class="error"
     ></div>
+
+    <p
+      class="muted"
+      style="margin-top:14px;font-size:12px"
+    >
+      Basic features are available during your access period.
+      Premium membership is required after the free trial.
+    </p>
 
   </div>
 
@@ -560,59 +507,67 @@ th{
 
 
 <!-- ==================================================
-     APPLICATION
+     MAIN APPLICATION
 ================================================== -->
 
-<div id="app">
+<div id="app" class="hidden">
 
 <header>
 
   <div class="header-inner">
 
-    <div class="brand">
-      <h1>🚀 JobFlow AI</h1>
-      <p>Your Career Command Center</p>
+    <div>
+      <div class="logo">
+        🚀 JobFlow AI
+      </div>
+
+      <div class="tagline">
+        Your Career Command Center
+      </div>
     </div>
 
-    <div class="header-actions">
-
-      <button id="headerDashboard">
-        Dashboard
-      </button>
-
-      <button id="headerSignOut">
-        Sign Out
-      </button>
-
-    </div>
+    <button
+      id="logoutBtn"
+      class="secondary"
+      type="button"
+    >
+      Sign Out
+    </button>
 
   </div>
 
 </header>
 
 
-<div class="container">
-
+<main class="container">
 
 <!-- ==================================================
-     WELCOME
+     ACCOUNT
 ================================================== -->
 
-<section class="welcome">
+<section class="card">
 
-  <h2>
-    Welcome to JobFlow AI
-  </h2>
+  <div class="dashboard-head">
 
-  <div
-    id="currentEmail"
-    class="email"
-  ></div>
+    <div>
 
-  <div
-    id="accessStatus"
-    class="access-status"
-  ></div>
+      <h2>
+        Welcome to JobFlow AI
+      </h2>
+
+      <p
+        id="accountEmail"
+        class="account-email"
+      ></p>
+
+      <p
+        id="accountStatus"
+        class="owner"
+      ></p>
+
+    </div>
+
+  </div>
 
 </section>
 
@@ -624,23 +579,51 @@ th{
 <section class="stats">
 
   <div class="stat">
-    <strong id="totalApplications">0</strong>
-    <span>Total Applications</span>
+    <div
+      id="totalApplications"
+      class="stat-number"
+    >
+      0
+    </div>
+    <div class="stat-label">
+      Total Applications
+    </div>
   </div>
 
   <div class="stat">
-    <strong id="activeApplications">0</strong>
-    <span>Active Applications</span>
+    <div
+      id="activeApplications"
+      class="stat-number"
+    >
+      0
+    </div>
+    <div class="stat-label">
+      Active Applications
+    </div>
   </div>
 
   <div class="stat">
-    <strong id="interviewsCount">0</strong>
-    <span>Interviews</span>
+    <div
+      id="interviews"
+      class="stat-number"
+    >
+      0
+    </div>
+    <div class="stat-label">
+      Interviews
+    </div>
   </div>
 
   <div class="stat">
-    <strong id="offersCount">0</strong>
-    <span>Offers</span>
+    <div
+      id="offers"
+      class="stat-number"
+    >
+      0
+    </div>
+    <div class="stat-label">
+      Offers
+    </div>
   </div>
 
 </section>
@@ -650,25 +633,33 @@ th{
      BASIC FEATURES
 ================================================== -->
 
-<section class="section">
+<section class="card">
 
-  <h2>🆓 Basic Career Tools</h2>
+  <h2>
+    🆓 Basic Career Tools
+  </h2>
 
-  <p class="subtitle">
-    Available to users during their JobFlow AI access period.
+  <p class="muted">
+    Available during your JobFlow AI access period.
   </p>
 
   <div class="feature-grid">
 
     <div class="feature">
 
-      <h3>📋 Application Tracking</h3>
+      <h3>
+        📋 Application Tracking
+      </h3>
 
-      <p>
+      <p class="muted">
         Track companies, positions and application status.
       </p>
 
-      <button id="openApplications">
+      <button
+        class="primary"
+        type="button"
+        data-tool="applications"
+      >
         Open Application Tracker
       </button>
 
@@ -677,13 +668,19 @@ th{
 
     <div class="feature">
 
-      <h3>🏢 Company Tracking</h3>
+      <h3>
+        🏢 Company Tracking
+      </h3>
 
-      <p>
+      <p class="muted">
         Organize companies you are applying to.
       </p>
 
-      <button id="openCompanies">
+      <button
+        class="primary"
+        type="button"
+        data-tool="companies"
+      >
         Open Companies
       </button>
 
@@ -692,13 +689,19 @@ th{
 
     <div class="feature">
 
-      <h3>📝 Job Notes</h3>
+      <h3>
+        📝 Job Notes
+      </h3>
 
-      <p>
+      <p class="muted">
         Save useful notes for your applications.
       </p>
 
-      <button id="openNotes">
+      <button
+        class="primary"
+        type="button"
+        data-tool="notes"
+      >
         Open Job Notes
       </button>
 
@@ -707,13 +710,19 @@ th{
 
     <div class="feature">
 
-      <h3>📊 Basic Dashboard</h3>
+      <h3>
+        📊 Basic Dashboard
+      </h3>
 
-      <p>
+      <p class="muted">
         View your job-search activity.
       </p>
 
-      <button id="openDashboard">
+      <button
+        class="primary"
+        type="button"
+        data-tool="dashboard"
+      >
         Open Dashboard
       </button>
 
@@ -725,30 +734,116 @@ th{
 
 
 <!-- ==================================================
+     REAL JOB SEARCH
+================================================== -->
+
+<section class="card">
+
+  <div class="section-title">
+
+    <div>
+
+      <h2>
+        🔎 Search Jobs
+      </h2>
+
+      <p class="muted">
+        Search published jobs from live job sources.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="job-search-grid">
+
+    <input
+      id="jobKeyword"
+      type="text"
+      placeholder="Job title or keyword"
+    >
+
+    <input
+      id="jobLocation"
+      type="text"
+      placeholder="Location"
+    >
+
+    <select id="jobSource">
+
+      <option value="all">
+        All Sources
+      </option>
+
+      <option value="greenhouse">
+        Company Career Boards
+      </option>
+
+      <option value="remotive">
+        Remote Jobs
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <button
+    id="jobSearchBtn"
+    class="primary"
+    type="button"
+    style="width:100%;margin-top:10px"
+  >
+    🔎 Search Jobs
+  </button>
+
+
+  <div
+    id="jobSearchStatus"
+    class="status-message"
+  ></div>
+
+
+  <div
+    id="jobResults"
+    class="job-results"
+  ></div>
+
+</section>
+
+
+<!-- ==================================================
      PREMIUM FEATURES
 ================================================== -->
 
-<section class="section">
+<section class="card">
 
-  <h2>💎 Premium Career Features</h2>
+  <h2>
+    💎 Premium Career Features
+  </h2>
 
-  <p class="subtitle">
+  <p class="muted">
     Premium tools are available during the 48-hour trial.
     After the trial, ₹499 membership is required.
   </p>
 
+
   <div class="feature-grid">
 
-    <div class="feature premium">
+    <div class="feature">
 
-      <h3>🤖 AI Cover Letter Builder</h3>
+      <h3>
+        🤖 AI Cover Letter Builder
+      </h3>
 
-      <p>
+      <p class="muted">
         Create a professional cover letter from your job and experience.
       </p>
 
       <button
-        class="premium-button"
+        class="primary premium-tool"
+        type="button"
         data-tool="cover"
       >
         Open Cover Letter Builder
@@ -757,16 +852,19 @@ th{
     </div>
 
 
-    <div class="feature premium">
+    <div class="feature">
 
-      <h3>📄 Resume Builder & Optimizer</h3>
+      <h3>
+        📄 Resume Builder & Optimizer
+      </h3>
 
-      <p>
+      <p class="muted">
         Build and improve your resume for a target job.
       </p>
 
       <button
-        class="premium-button"
+        class="primary premium-tool"
+        type="button"
         data-tool="resume"
       >
         Open Resume Builder
@@ -775,16 +873,19 @@ th{
     </div>
 
 
-    <div class="feature premium">
+    <div class="feature">
 
-      <h3>🎯 Interview Coach</h3>
+      <h3>
+        🎯 Interview Coach
+      </h3>
 
-      <p>
+      <p class="muted">
         Practice interview questions and generate answers.
       </p>
 
       <button
-        class="premium-button"
+        class="primary premium-tool"
+        type="button"
         data-tool="interview"
       >
         Open Interview Coach
@@ -793,16 +894,19 @@ th{
     </div>
 
 
-    <div class="feature premium">
+    <div class="feature">
 
-      <h3>📊 Career Insights</h3>
+      <h3>
+        📊 Career Insights
+      </h3>
 
-      <p>
+      <p class="muted">
         Analyze your job-search activity.
       </p>
 
       <button
-        class="premium-button"
+        class="primary premium-tool"
+        type="button"
         data-tool="insights"
       >
         Open Career Insights
@@ -820,73 +924,112 @@ th{
 ================================================== -->
 
 <section
-id="applicationsSection"
-class="section hidden"
+  id="tool-applications"
+  class="card tool-area"
 >
 
-<h2>📋 Application Tracker</h2>
+  <div class="section-title">
 
-<p class="subtitle">
-Add and manage your applications.
-</p>
+    <h2>
+      📋 Application Tracker
+    </h2>
 
-<div class="form-grid">
+    <button
+      class="secondary close-tool"
+      type="button"
+    >
+      Close
+    </button>
 
-<input
-id="jobCompany"
-placeholder="Company name"
->
+  </div>
 
-<input
-id="jobTitle"
-placeholder="Job title"
->
 
-<select id="jobStatus">
+  <div class="form-grid">
 
-<option value="Applied">Applied</option>
-<option value="Interview">Interview</option>
-<option value="Offer">Offer</option>
-<option value="Rejected">Rejected</option>
+    <input
+      id="applicationCompany"
+      type="text"
+      placeholder="Company name"
+    >
 
-</select>
+    <input
+      id="applicationPosition"
+      type="text"
+      placeholder="Job title"
+    >
 
-<input
-id="jobDate"
-type="date"
->
+    <select id="applicationStatus">
 
-</div>
+      <option value="Applied">
+        Applied
+      </option>
 
-<button
-id="addApplication"
-class="primary"
-style="margin-top:10px"
->
-+ Add Application
-</button>
+      <option value="Interview">
+        Interview
+      </option>
 
-<div class="table-wrap">
+      <option value="Offer">
+        Offer
+      </option>
 
-<table>
+      <option value="Rejected">
+        Rejected
+      </option>
 
-<thead>
+    </select>
 
-<tr>
-<th>Company</th>
-<th>Position</th>
-<th>Status</th>
-<th>Date</th>
-<th>Action</th>
-</tr>
+  </div>
 
-</thead>
 
-<tbody id="applicationsBody"></tbody>
+  <button
+    id="addApplication"
+    class="primary"
+    type="button"
+    style="margin-top:10px"
+  >
+    + Add Application
+  </button>
 
-</table>
 
-</div>
+  <div class="table-wrap">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>
+            Company
+          </th>
+
+          <th>
+            Position
+          </th>
+
+          <th>
+            Status
+          </th>
+
+          <th>
+            Date
+          </th>
+
+          <th>
+            Action
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody
+        id="applicationsBody"
+      ></tbody>
+
+    </table>
+
+  </div>
 
 </section>
 
@@ -896,2076 +1039,1842 @@ style="margin-top:10px"
 ================================================== -->
 
 <section
-id="companiesSection"
-class="section hidden"
+  id="tool-companies"
+  class="card tool-area"
 >
 
-<h2>🏢 Company Tracking</h2>
+  <div class="section-title">
 
-<p class="subtitle">
-Save companies you want to research or apply to.
-</p>
+    <h2>
+      🏢 Companies
+    </h2>
 
-<div class="tool-row">
+    <button
+      class="secondary close-tool"
+      type="button"
+    >
+      Close
+    </button>
 
-<input
-id="companyInput"
-placeholder="Company name"
-style="flex:1;min-width:200px;padding:11px;border:1px solid #d1d5db;border-radius:9px"
->
+  </div>
 
-<button
-id="addCompany"
-class="primary"
->
-Add Company
-</button>
 
-</div>
+  <div class="form-grid two">
 
-<div
-id="companiesList"
-style="margin-top:15px"
-></div>
+    <input
+      id="companyName"
+      type="text"
+      placeholder="Company name"
+    >
+
+    <input
+      id="companyWebsite"
+      type="text"
+      placeholder="Website"
+    >
+
+  </div>
+
+
+  <button
+    id="addCompany"
+    class="primary"
+    type="button"
+    style="margin-top:10px"
+  >
+    + Add Company
+  </button>
+
+
+  <div
+    id="companiesList"
+    style="margin-top:15px"
+  ></div>
 
 </section>
 
 
 <!-- ==================================================
-     JOB NOTES
+     NOTES
 ================================================== -->
 
 <section
-id="notesSection"
-class="section hidden"
+  id="tool-notes"
+  class="card tool-area"
 >
 
-<h2>📝 Job Notes</h2>
+  <div class="section-title">
 
-<p class="subtitle">
-Keep your application notes saved in this browser.
-</p>
+    <h2>
+      📝 Job Notes
+    </h2>
 
-<textarea
-id="jobNotes"
-placeholder="Write your job-search notes here..."
-></textarea>
+    <button
+      class="secondary close-tool"
+      type="button"
+    >
+      Close
+    </button>
 
-<div class="tool-row" style="margin-top:10px">
+  </div>
 
-<button
-id="saveNotes"
-class="primary"
->
-Save Notes
-</button>
 
-<button
-id="clearNotes"
-class="secondary"
->
-Clear
-</button>
+  <textarea
+    id="jobNotes"
+    class="notes-area"
+    placeholder="Write your job-search notes here..."
+  ></textarea>
 
-</div>
 
-<div
-id="notesMessage"
-class="payment-message hidden"
-></div>
+  <button
+    id="saveNotes"
+    class="primary"
+    type="button"
+    style="margin-top:10px"
+  >
+    💾 Save Notes
+  </button>
+
+
+  <div
+    id="notesMessage"
+    class="payment-message hidden"
+  ></div>
 
 </section>
+
+
+<!-- ==================================================
+     DASHBOARD
+================================================== -->
+
+<section
+  id="tool-dashboard"
+  class="card tool-area"
+>
+
+  <div class="section-title">
+
+    <h2>
+      📊 Dashboard
+    </h2>
+
+    <button
+      class="secondary close-tool"
+      type="button"
+    >
+      Close
+    </button>
+
+  </div>
+
+
+  <p class="muted">
+    Your JobFlow AI career activity is calculated from
+    your application tracker.
+  </p>
+
+</section>
+
+
+<!-- ==================================================
+     COVER LETTER
+================================================== -->
+
+<section
+  id="tool-cover"
+  class="card tool-area"
+>
+
+  <div class="section-title">
+
+    <h2>
+      🤖 AI Cover Letter Builder
+    </h2>
+
+    <button
+      class="secondary close-tool"
+      type="button"
+    >
+      Close
+    </button>
+
+  </div>
+
+
+  <input
+    id="coverJob"
+    type="text"
+    placeholder="Job title"
+  >
+
+  <input
+    id="coverCompany"
+    type="text"
+    placeholder="Company name"
+    style="margin-top:10px"
+  >
+
+  <textarea
+    id="coverExperience"
+    placeholder="Your skills and experience"
+    style="margin-top:10px;min-height:120px"
+  ></textarea>
+
+
+  <button
+    id="generateCover"
+    class="primary"
+    type="button"
+    style="margin-top:10px"
+  >
+    ✨ Generate Cover Letter
+  </button>
+
+
+  <textarea
+    id="coverOutput"
+    readonly
+    placeholder="Your cover letter will appear here..."
+    style="margin-top:10px;min-height:260px"
+  ></textarea>
+
+</section>
+
+
+<!-- ==================================================
+     RESUME BUILDER
+================================================== -->
+
+<section
+  id="tool-resume"
+  class="card tool-area"
+>
+
+  <div class="section-title">
+
+    <h2>
+      📄 Resume Builder & Optimizer
+    </h2>
+
+    <button
+      class="secondary close-tool"
+      type="button"
+    >
+      Close
+    </button>
+
+  </div>
+
+
+  <input
+    id="resumeName"
+    type="text"
+    placeholder="Full name"
+  >
+
+  <input
+    id="resumeRole"
+    type="text"
+    placeholder="Target job title"
+    style="margin-top:10px"
+  >
+
+  <textarea
+    id="resumeSkills"
+    placeholder="Skills"
+    style="margin-top:10px;min-height:100px"
+  ></textarea>
+
+  <textarea
+    id="resumeExperience"
+    placeholder="Experience"
+    style="margin-top:10px;min-height:120px"
+  ></textarea>
+
+
+  <button
+    id="buildResume"
+    class="primary"
+    type="button"
+    style="margin-top:10px"
+  >
+    📄 Build Resume
+  </button>
+
+
+  <textarea
+    id="resumeOutput"
+    readonly
+    style="margin-top:10px;min-height:300px"
+  ></textarea>
+
+</section>
+
+
+<!-- ==================================================
+     INTERVIEW
+================================================== -->
+
+<section
+  id="tool-interview"
+  class="card tool-area"
+>
+
+  <div class="section-title">
+
+    <h2>
+      🎯 Interview Coach
+    </h2>
+
+    <button
+      class="secondary close-tool"
+      type="button"
+    >
+      Close
+    </button>
+
+  </div>
+
+
+  <input
+    id="interviewRole"
+    type="text"
+    placeholder="Target role e.g. Software Engineer"
+  >
+
+
+  <button
+    id="generateQuestion"
+    class="primary"
+    type="button"
+    style="margin-top:10px"
+  >
+    🎯 Generate Interview Question
+  </button>
+
+
+  <div
+    id="interviewQuestion"
+    class="card"
+    style="margin-top:15px"
+  >
+    Press the button to generate a practice question.
+  </div>
+
+
+  <textarea
+    id="interviewAnswer"
+    placeholder="Write your answer..."
+    style="margin-top:10px;min-height:130px"
+  ></textarea>
+
+
+  <button
+    id="showInterviewTip"
+    class="secondary"
+    type="button"
+    style="margin-top:10px"
+  >
+    💡 Show Answer Tip
+  </button>
+
+
+  <div
+    id="interviewTip"
+    class="payment-message hidden"
+  ></div>
+
+</section>
+
+
+<!-- ==================================================
+     REAL JOB SEARCH
+================================================== -->
+
+<section id="jobs" class="page">
+
+  <div class="hero">
+    <h2>🔎 Search Real Jobs</h2>
+    <p>Find current hiring opportunities from major companies.</p>
+  </div>
+
+  <div class="card">
+
+    <div class="search-row">
+
+      <input
+        type="text"
+        id="jobSearchInput"
+        placeholder="Search jobs, skills or companies..."
+      >
+
+      <select id="jobLocation">
+        <option value="">All Locations</option>
+        <option value="India">India</option>
+        <option value="Remote">Remote</option>
+        <option value="Bengaluru">Bengaluru</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Pune">Pune</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Gurugram">Gurugram</option>
+        <option value="Noida">Noida</option>
+      </select>
+
+      <button
+        type="button"
+        id="searchJobsBtn"
+        class="btn primary"
+      >
+        🔎 Search Jobs
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h3>🚀 Hiring Opportunities</h3>
+
+    <p id="jobsMessage">
+      Select a job below to open the company's official careers page.
+    </p>
+
+    <div id="jobsList"></div>
+
+  </div>
+
+</section>
+
 
 
 <!-- ==================================================
      PAYMENT
 ================================================== -->
 
-<section class="section">
+<section id="payment" class="page">
 
-<h2>💳 JobFlow AI Premium</h2>
+  <div class="hero">
+    <h2>💳 JobFlow AI Premium</h2>
+    <p>
+      Continue using premium career tools after your
+      free 48-hour trial.
+    </p>
+  </div>
 
-<p class="subtitle">
-Continue using premium career tools after your free 48-hour trial.
-</p>
+  <div class="card payment-card">
 
-<div class="price">
-₹499
-</div>
+    <div class="price">
+      ₹499
+    </div>
 
-<p class="muted">
-Premium membership
-</p>
+    <p>
+      Premium membership
+    </p>
 
+    <h3>💳 Pay using UPI</h3>
 
-<div class="upi-box">
+    <p>
+      Pay ₹499 using the UPI ID below.
+    </p>
 
-<strong>
-💳 Pay using UPI
-</strong>
+    <div class="upi-box">
 
-<p
-class="muted"
-style="margin-top:6px"
->
-Replace the placeholder with your actual UPI ID before publishing.
-</p>
+      <strong id="upiText">
+        YOUR-UPI-ID@bank
+      </strong>
 
-<code
-id="upiId"
-class="upi-id"
->
-YOUR-UPI-ID@bank
-</code>
+      <button
+        type="button"
+        id="copyUpi"
+        class="btn"
+      >
+        Copy UPI ID
+      </button>
 
-<br>
+    </div>
 
-<button
-id="copyUpiButton"
-type="button"
-class="secondary"
-style="margin-top:10px"
->
-Copy UPI ID
-</button>
+    <label for="utr">
+      Payment Reference / UTR
+    </label>
 
-</div>
+    <input
+      type="text"
+      id="utr"
+      placeholder="Enter UTR / transaction reference"
+    >
 
+    <button
+      type="button"
+      id="activateBtn"
+      class="btn primary"
+    >
+      ✅ Submit Payment Reference
+    </button>
 
-<label
-for="paymentUTR"
-style="display:block;font-size:13px;font-weight:bold;margin:12px 0 7px"
->
-Payment Reference / UTR
-</label>
+    <p
+      id="paymentMessage"
+      class="message"
+    ></p>
 
-<input
-id="paymentUTR"
-type="text"
-placeholder="Enter UTR / transaction reference"
-style="width:100%;padding:12px;border:1px solid #d1d5db;border-radius:9px"
->
-
-<button
-id="submitPaymentButton"
-type="button"
-class="primary"
-style="width:100%;margin-top:10px"
->
-✅ Submit Payment Reference
-</button>
-
-<div
-id="paymentMessage"
-class="payment-message hidden"
-></div>
+  </div>
 
 </section>
 
-
-</div>
-</div>
 
 
 <!-- ==================================================
      TOOL MODAL
 ================================================== -->
 
-<div id="toolModal">
+<div
+  id="toolModal"
+  class="modal hidden"
+  role="dialog"
+  aria-modal="true"
+>
 
-<div class="modal-card">
-
-  <div class="modal-top">
-
-    <h2 id="modalTitle">
-      Premium Tool
-    </h2>
+  <div class="modal-box">
 
     <button
-      id="closeModal"
-      class="close"
       type="button"
+      id="closeModalBtn"
+      class="modal-close"
+      aria-label="Close"
     >
-      ✕
+      ×
     </button>
+
+    <div id="modalContent"></div>
 
   </div>
 
-  <div id="modalContent"></div>
-
 </div>
 
-</div>
 
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
 
 <script>
-(function(){
+(function () {
 
-"use strict";
-
-
-/* ==================================================
-   CONFIG
-================================================== */
-
-const OWNER_EMAIL =
-"mdnawaz6052@gmail.com";
-
-const STORAGE_KEY =
-"jobflow_ai_complete_v1";
-
-const TRIAL_TIME =
-48 * 60 * 60 * 1000;
-
-const UPI_ID =
-"YOUR-UPI-ID@bank";
+  "use strict";
 
 
-/* ==================================================
-   HELPERS
-================================================== */
+  /* ==================================================
+     HELPERS
+  ================================================== */
 
-function $(id){
-  return document.getElementById(id);
-}
-
-function normalizeEmail(email){
-  return String(email || "")
-    .trim()
-    .toLowerCase();
-}
-
-function validEmail(email){
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function getData(){
-
-  try{
-
-    const data =
-      localStorage.getItem(STORAGE_KEY);
-
-    return data
-      ? JSON.parse(data)
-      : null;
-
-  }catch(e){
-
-    return null;
-
+  function $(id) {
+    return document.getElementById(id);
   }
 
-}
 
-function saveData(data){
+  function escapeHTML(value) {
 
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(data)
-  );
-
-}
-
-function getApplications(){
-
-  const account = getData();
-
-  return account &&
-    Array.isArray(account.applications)
-    ? account.applications
-    : [];
-
-}
-
-function saveApplications(list){
-
-  const account = getData();
-
-  if(!account) return;
-
-  account.applications = list;
-
-  saveData(account);
-
-}
-
-function getCompanies(){
-
-  const account = getData();
-
-  return account &&
-    Array.isArray(account.companies)
-    ? account.companies
-    : [];
-
-}
-
-function saveCompanies(list){
-
-  const account = getData();
-
-  if(!account) return;
-
-  account.companies = list;
-
-  saveData(account);
-
-}
-
-
-/* ==================================================
-   ACCESS
-================================================== */
-
-function openApp(){
-
-  $("accessGate").style.display =
-    "none";
-
-  $("app").style.display =
-    "block";
-
-  updateAccount();
-
-}
-
-function openGate(){
-
-  $("accessGate").style.display =
-    "flex";
-
-  $("app").style.display =
-    "none";
-
-}
-
-
-function startAccess(){
-
-  const input =
-    $("accessEmail");
-
-  const error =
-    $("accessError");
-
-  const email =
-    normalizeEmail(input.value);
-
-  error.textContent = "";
-
-
-  if(!validEmail(email)){
-
-    error.textContent =
-      "Please enter a valid email address.";
-
-    input.focus();
-
-    return;
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
 
   }
 
 
-  /*
-   * OWNER
-   * Unlimited access.
-   */
+  /* ==================================================
+     REAL JOB DATA
+     Official company career links are used.
+  ================================================== */
 
-  if(email === OWNER_EMAIL){
+  const realJobs = [
 
-    saveData({
+    {
+      company: "Google",
+      title: "Software Engineering Jobs",
+      location: "India",
+      url: "https://www.google.com/about/careers/applications/jobs/results/"
+    },
 
-      email: OWNER_EMAIL,
+    {
+      company: "Microsoft",
+      title: "Software & Technology Jobs",
+      location: "India",
+      url: "https://jobs.careers.microsoft.com/global/en/search"
+    },
 
-      owner: true,
+    {
+      company: "Amazon",
+      title: "Jobs in India",
+      location: "India",
+      url: "https://www.amazon.jobs/en/locations/india"
+    },
 
-      paid: true,
+    {
+      company: "Apple",
+      title: "Jobs at Apple",
+      location: "India",
+      url: "https://jobs.apple.com/en-in/search"
+    },
 
-      trialStarted: Date.now(),
+    {
+      company: "Meta",
+      title: "Technology & Business Jobs",
+      location: "India",
+      url: "https://www.metacareers.com/jobs/"
+    },
 
-      trialEnds: 0,
+    {
+      company: "IBM",
+      title: "Technology & Consulting Jobs",
+      location: "India",
+      url: "https://www.ibm.com/careers/search"
+    },
 
-      paymentReference: "",
+    {
+      company: "Adobe",
+      title: "Technology Jobs",
+      location: "India",
+      url: "https://careers.adobe.com/us/en/search-results"
+    },
 
-      paymentPending: false,
+    {
+      company: "Accenture",
+      title: "Technology & Consulting Jobs",
+      location: "India",
+      url: "https://www.accenture.com/in-en/careers/jobsearch"
+    },
 
-      applications: [],
+    {
+      company: "Deloitte",
+      title: "Professional & Technology Jobs",
+      location: "India",
+      url: "https://apply.deloitte.com/"
+    },
 
-      companies: [],
+    {
+      company: "Infosys",
+      title: "Technology Careers",
+      location: "India",
+      url: "https://www.infosys.com/careers/"
+    },
 
-      notes: ""
+    {
+      company: "TCS",
+      title: "Technology Careers",
+      location: "India",
+      url: "https://www.tcs.com/careers"
+    },
 
-    });
+    {
+      company: "Wipro",
+      title: "Technology & Business Careers",
+      location: "India",
+      url: "https://careers.wipro.com/"
+    },
 
-    input.value = "";
+    {
+      company: "HCLTech",
+      title: "Technology Careers",
+      location: "India",
+      url: "https://www.hcltech.com/careers"
+    },
 
-    openApp();
+    {
+      company: "Flipkart",
+      title: "Technology & Corporate Jobs",
+      location: "India",
+      url: "https://www.flipkartcareers.com/"
+    },
 
-    return;
+    {
+      company: "Walmart",
+      title: "Technology Jobs",
+      location: "India",
+      url: "https://careers.walmart.com/"
+    },
 
-  }
+    {
+      company: "Uber",
+      title: "Technology & Operations Jobs",
+      location: "India",
+      url: "https://www.uber.com/us/en/careers/"
+    },
+
+    {
+      company: "Salesforce",
+      title: "Technology & Business Jobs",
+      location: "India",
+      url: "https://careers.salesforce.com/en/jobs/"
+    },
+
+    {
+      company: "Oracle",
+      title: "Technology Jobs",
+      location: "India",
+      url: "https://www.oracle.com/careers/"
+    },
+
+    {
+      company: "NVIDIA",
+      title: "AI & Technology Jobs",
+      location: "India",
+      url: "https://nvidia.wd5.myworkdayjobs.com/en-US/NVIDIAExternalCareerSite"
+    },
+
+    {
+      company: "JPMorgan Chase",
+      title: "Technology & Banking Jobs",
+      location: "India",
+      url: "https://www.jpmorganchase.com/careers"
+    }
+
+  ];
 
 
-  /*
-   * EXISTING ACCOUNT
-   */
+  /* ==================================================
+     JOB SEARCH
+  ================================================== */
 
-  const existing =
-    getData();
+  const jobsList = $("jobsList");
+  const searchJobsBtn = $("searchJobsBtn");
+  const jobSearchInput = $("jobSearchInput");
+  const jobLocation = $("jobLocation");
+  const jobsMessage = $("jobsMessage");
 
 
-  if(existing){
+  function renderJobs() {
 
-    if(
-      normalizeEmail(existing.email) ===
-      email
-    ){
-
-      input.value = "";
-
-      openApp();
-
+    if (!jobsList) {
       return;
-
     }
 
-    error.textContent =
-      "This browser already has another JobFlow account.";
+    const search =
+      jobSearchInput
+        ? jobSearchInput.value
+            .trim()
+            .toLowerCase()
+        : "";
 
-    return;
+    const location =
+      jobLocation
+        ? jobLocation.value
+        : "";
 
-  }
 
+    const filtered = realJobs.filter(function (job) {
 
-  /*
-   * NEW USER
-   * 48-hour trial.
-   */
+      const matchesSearch =
+        !search ||
+        job.company.toLowerCase().includes(search) ||
+        job.title.toLowerCase().includes(search) ||
+        job.location.toLowerCase().includes(search);
 
-  const now =
-    Date.now();
 
+      const matchesLocation =
+        !location ||
+        job.location === location ||
+        location === "Remote";
 
-  saveData({
 
-    email: email,
+      return matchesSearch && matchesLocation;
 
-    owner: false,
-
-    paid: false,
-
-    trialStarted: now,
-
-    trialEnds:
-      now + TRIAL_TIME,
-
-    paymentReference: "",
-
-    paymentPending: false,
-
-    paymentSubmittedAt: null,
-
-    applications: [],
-
-    companies: [],
-
-    notes: ""
-
-  });
-
-
-  input.value = "";
-
-  openApp();
-
-}
-
-
-/* ==================================================
-   ACCOUNT STATUS
-================================================== */
-
-function isPremium(){
-
-  const account =
-    getData();
-
-  if(!account){
-    return false;
-  }
-
-  if(account.owner === true){
-    return true;
-  }
-
-  if(account.paid === true){
-    return true;
-  }
-
-  return Date.now() <
-    Number(account.trialEnds);
-
-}
-
-function timeLeft(end){
-
-  const remaining =
-    Number(end) - Date.now();
-
-  if(remaining <= 0){
-    return "Trial expired";
-  }
-
-  const minutes =
-    Math.ceil(
-      remaining / 60000
-    );
-
-  const days =
-    Math.floor(
-      minutes / 1440
-    );
-
-  const hours =
-    Math.floor(
-      (minutes % 1440) / 60
-    );
-
-  const mins =
-    minutes % 60;
-
-  return (
-    days +
-    "d " +
-       hours +
-    "h " +
-    mins +
-    "m remaining"
-  );
-
-}
-
-
-function updateAccount(){
-
-  const account =
-    getData();
-
-  if(!account){
-
-    openGate();
-
-    return;
-
-  }
-
-  $("currentEmail").textContent =
-    "Email: " + account.email;
-
-  const status =
-    $("accessStatus");
-
-  if(account.owner === true){
-
-    status.className =
-      "access-status";
-
-    status.textContent =
-      "👑 Owner access active — unlimited JobFlow AI access.";
-
-    return;
-
-  }
-
-  if(account.paid === true){
-
-    status.className =
-      "access-status";
-
-    status.textContent =
-      "💎 Premium membership active.";
-
-    return;
-
-  }
-
-  if(
-    Date.now() <
-    Number(account.trialEnds)
-  ){
-
-    status.className =
-      "access-status";
-
-    status.textContent =
-      "🎉 Free trial active — " +
-      timeLeft(account.trialEnds) +
-      ". Premium tools are available during your trial.";
-
-    return;
-
-  }
-
-  status.className =
-    "access-status expired";
-
-  status.textContent =
-    "⏰ Your 48-hour trial has ended. ₹499 Premium membership is required for premium tools.";
-
-}
-
-
-/* ==================================================
-   SIGN OUT
-================================================== */
-
-function signOut(){
-
-  localStorage.removeItem(
-    STORAGE_KEY
-  );
-
-  $("accessEmail").value = "";
-
-  $("accessError").textContent = "";
-
-  openGate();
-
-}
-
-
-/* ==================================================
-   DASHBOARD
-================================================== */
-
-function updateStats(){
-
-  const apps =
-    getApplications();
-
-  $("totalApplications").textContent =
-    apps.length;
-
-  $("activeApplications").textContent =
-    apps.filter(function(item){
-
-      return item.status !== "Rejected" &&
-             item.status !== "Offer";
-
-    }).length;
-
-  $("interviewsCount").textContent =
-    apps.filter(function(item){
-
-      return item.status === "Interview";
-
-    }).length;
-
-  $("offersCount").textContent =
-    apps.filter(function(item){
-
-      return item.status === "Offer";
-
-    }).length;
-
-}
-
-
-/* ==================================================
-   APPLICATION TRACKER
-================================================== */
-
-function renderApplications(){
-
-  const body =
-    $("applicationsBody");
-
-  const apps =
-    getApplications();
-
-  body.innerHTML = "";
-
-  if(!apps.length){
-
-    body.innerHTML =
-      '<tr><td colspan="5">No applications yet.</td></tr>';
-
-    updateStats();
-
-    return;
-
-  }
-
-  apps.forEach(function(app,index){
-
-    const row =
-      document.createElement("tr");
-
-    row.innerHTML =
-      "<td>" +
-      escapeHTML(app.company) +
-      "</td>" +
-
-      "<td>" +
-      escapeHTML(app.title) +
-      "</td>" +
-
-      "<td>" +
-      escapeHTML(app.status) +
-      "</td>" +
-
-      "<td>" +
-      escapeHTML(app.date || "—") +
-      "</td>" +
-
-      "<td>" +
-      "<button class=\"secondary delete-app\" data-index=\"" +
-      index +
-      "\" type=\"button\">" +
-      "Delete" +
-      "</button>" +
-      "</td>";
-
-    body.appendChild(row);
-
-  });
-
-  updateStats();
-
-}
-
-
-function addApplication(){
-
-  const company =
-    $("jobCompany").value.trim();
-
-  const title =
-    $("jobTitle").value.trim();
-
-  const status =
-    $("jobStatus").value;
-
-  const date =
-    $("jobDate").value;
-
-  if(!company || !title){
-
-    alert(
-      "Enter the company name and job title."
-    );
-
-    return;
-
-  }
-
-  const apps =
-    getApplications();
-
-  apps.push({
-
-    company: company,
-
-    title: title,
-
-    status: status,
-
-    date: date
-
-  });
-
-  saveApplications(apps);
-
-  $("jobCompany").value = "";
-
-  $("jobTitle").value = "";
-
-  $("jobDate").value = "";
-
-  renderApplications();
-
-}
-
-
-/* ==================================================
-   ESCAPE HTML
-================================================== */
-
-function escapeHTML(value){
-
-  return String(value || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* ==================================================
-   COMPANY TRACKING
-================================================== */
-
-function renderCompanies(){
-
-  const list =
-    $("companiesList");
-
-  const companies =
-    getCompanies();
-
-  list.innerHTML = "";
-
-  if(!companies.length){
-
-    list.innerHTML =
-      '<p class="muted">No companies added yet.</p>';
-
-    return;
-
-  }
-
-  companies.forEach(function(company,index){
-
-    const box =
-      document.createElement("div");
-
-    box.style.cssText =
-      "display:flex;" +
-      "justify-content:space-between;" +
-      "align-items:center;" +
-      "padding:12px;" +
-      "border:1px solid #e5e7eb;" +
-      "border-radius:10px;" +
-      "margin-bottom:8px;" +
-      "gap:10px;";
-
-    box.innerHTML =
-      "<strong>" +
-      escapeHTML(company) +
-      "</strong>" +
-
-      "<button " +
-      "class=\"secondary delete-company\" " +
-      "data-index=\"" +
-      index +
-      "\" " +
-      "type=\"button\">" +
-      "Delete" +
-      "</button>";
-
-    list.appendChild(box);
-
-  });
-
-}
-
-
-function addCompany(){
-
-  const input =
-    $("companyInput");
-
-  const name =
-    input.value.trim();
-
-  if(!name){
-
-    alert(
-      "Enter a company name."
-    );
-
-    input.focus();
-
-    return;
-
-  }
-
-  const companies =
-    getCompanies();
-
-  companies.push(name);
-
-  saveCompanies(companies);
-
-  input.value = "";
-
-  renderCompanies();
-
-}
-
-
-/* ==================================================
-   JOB NOTES
-================================================== */
-
-function loadNotes(){
-
-  const account =
-    getData();
-
-  $("jobNotes").value =
-    account &&
-    account.notes
-      ? account.notes
-      : "";
-
-}
-
-
-function saveNotes(){
-
-  const account =
-    getData();
-
-  if(!account){
-
-    return;
-
-  }
-
-  account.notes =
-    $("jobNotes").value;
-
-  saveData(account);
-
-  const message =
-    $("notesMessage");
-
-  message.classList.remove(
-    "hidden"
-  );
-
-  message.textContent =
-    "✅ Notes saved successfully.";
-
-}
-
-
-function clearNotes(){
-
-  $("jobNotes").value = "";
-
-  const account =
-    getData();
-
-  if(account){
-
-    account.notes = "";
-
-    saveData(account);
-
-  }
-
-}
-
-
-/* ==================================================
-   SECTION NAVIGATION
-================================================== */
-
-function showSection(id){
-
-  [
-    "applicationsSection",
-    "companiesSection",
-    "notesSection"
-  ].forEach(function(section){
-
-    const element =
-      $(section);
-
-    if(element){
-
-      element.classList.add(
-        "hidden"
-      );
-
-    }
-
-  });
-
-  const target =
-    $(id);
-
-  if(target){
-
-    target.classList.remove(
-      "hidden"
-    );
-
-    target.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
     });
 
-  }
 
-}
+    if (!filtered.length) {
 
+      jobsList.innerHTML =
+        '<div class="empty-state">' +
+        'No matching jobs found. Try another search.' +
+        '</div>';
 
-/* ==================================================
-   PREMIUM ACCESS
-================================================== */
-
-function premiumAllowed(){
-
-  if(isPremium()){
-
-    return true;
-
-  }
-
-  alert(
-    "🔒 Premium is locked. Your 48-hour trial has ended. Upgrade to JobFlow AI Premium for ₹499."
-  );
-
-  return false;
-
-}
-
-
-/* ==================================================
-   MODAL
-================================================== */
-
-function openModal(
-  title,
-  content
-){
-
-  $("modalTitle").textContent =
-    title;
-
-  $("modalContent").innerHTML =
-    content;
-
-  $("toolModal").style.display =
-    "flex";
-
-}
-
-
-function closeModal(){
-
-  $("toolModal").style.display =
-    "none";
-
-}
-
-
-/* ==================================================
-   AI COVER LETTER BUILDER
-================================================== */
-
-function coverLetterTool(){
-
-  openModal(
-
-    "🤖 AI Cover Letter Builder",
-
-    `
-    <p class="muted" style="margin-bottom:12px">
-      Enter the job information and your experience.
-    </p>
-
-    <input
-      id="coverJob"
-      type="text"
-      placeholder="Job title"
-      style="
-        width:100%;
-        padding:12px;
-        border:1px solid #d1d5db;
-        border-radius:9px;
-        margin-bottom:10px;
-      "
-    >
-
-    <input
-      id="coverCompany"
-      type="text"
-      placeholder="Company name"
-      style="
-        width:100%;
-        padding:12px;
-        border:1px solid #d1d5db;
-        border-radius:9px;
-        margin-bottom:10px;
-      "
-    >
-
-    <textarea
-      id="coverExperience"
-      placeholder="Your skills, experience and achievements"
-    ></textarea>
-
-    <button
-      id="generateCover"
-      class="primary"
-      type="button"
-      style="margin-top:10px"
-    >
-      Generate Cover Letter
-    </button>
-
-    <textarea
-      id="coverResult"
-      placeholder="Your generated cover letter will appear here..."
-      style="margin-top:12px"
-    ></textarea>
-    `
-
-  );
-
-}
-
-
-/* ==================================================
-   RESUME BUILDER
-================================================== */
-
-function resumeTool(){
-
-  openModal(
-
-    "📄 Resume Builder & Optimizer",
-
-    `
-    <p class="muted" style="margin-bottom:12px">
-      Enter your details to create a clean resume draft.
-    </p>
-
-    <input
-      id="resumeName"
-      type="text"
-      placeholder="Full name"
-      style="
-        width:100%;
-        padding:12px;
-        border:1px solid #d1d5db;
-        border-radius:9px;
-        margin-bottom:10px;
-      "
-    >
-
-    <input
-      id="resumeRole"
-      type="text"
-      placeholder="Target job title"
-      style="
-        width:100%;
-        padding:12px;
-        border:1px solid #d1d5db;
-        border-radius:9px;
-        margin-bottom:10px;
-      "
-    >
-
-    <textarea
-      id="resumeSkills"
-      placeholder="Skills"
-    ></textarea>
-
-    <textarea
-      id="resumeExperience"
-      placeholder="Experience and achievements"
-      style="margin-top:10px"
-    ></textarea>
-
-    <textarea
-      id="resumeEducation"
-      placeholder="Education"
-      style="margin-top:10px"
-    ></textarea>
-
-    <button
-      id="generateResume"
-      class="primary"
-      type="button"
-      style="margin-top:10px"
-    >
-      Build Resume
-    </button>
-
-    <textarea
-      id="resumeResult"
-      placeholder="Your resume will appear here..."
-      style="
-        margin-top:12px;
-        min-height:300px;
-      "
-    ></textarea>
-    `
-
-  );
-
-}
-
-
-/* ==================================================
-   INTERVIEW COACH
-================================================== */
-
-function interviewTool(){
-
-  openModal(
-
-    "🎯 Interview Coach",
-
-    `
-    <p class="muted">
-      Enter the role you are preparing for.
-    </p>
-
-    <input
-      id="interviewRole"
-      type="text"
-      placeholder="Example: Software Developer"
-      style="
-        width:100%;
-        padding:12px;
-        border:1px solid #d1d5db;
-        border-radius:9px;
-        margin:12px 0;
-      "
-    >
-
-    <button
-      id="generateInterview"
-      class="primary"
-      type="button"
-    >
-      Generate Practice Questions
-    </button>
-
-    <div
-      id="interviewResult"
-      style="margin-top:15px"
-    ></div>
-    `
-
-  );
-
-}
-
-
-/* ==================================================
-   CAREER INSIGHTS
-================================================== */
-
-function insightsTool(){
-
-  const apps =
-    getApplications();
-
-  const total =
-    apps.length;
-
-  const interviews =
-    apps.filter(function(app){
-
-      return app.status === "Interview";
-
-    }).length;
-
-  const offers =
-    apps.filter(function(app){
-
-      return app.status === "Offer";
-
-    }).length;
-
-  const rejected =
-    apps.filter(function(app){
-
-      return app.status === "Rejected";
-
-    }).length;
-
-  const interviewRate =
-    total
-      ? Math.round(
-          (interviews / total) * 100
-        )
-      : 0;
-
-
-  openModal(
-
-    "📊 Career Insights",
-
-    `
-    <div class="stats">
-
-      <div class="stat">
-        <strong>${total}</strong>
-        <span>Applications</span>
-      </div>
-
-      <div class="stat">
-        <strong>${interviews}</strong>
-        <span>Interviews</span>
-      </div>
-
-      <div class="stat">
-        <strong>${offers}</strong>
-        <span>Offers</span>
-      </div>
-
-      <div class="stat">
-        <strong>${interviewRate}%</strong>
-        <span>Interview Rate</span>
-      </div>
-
-    </div>
-
-    <div
-      class="access-status"
-      style="margin-top:15px"
-    >
-
-      ${
-        total === 0
-        ? "Start adding applications to receive career insights."
-        : "You currently have " +
-          total +
-          " applications, " +
-          interviews +
-          " interviews, " +
-          offers +
-          " offers and " +
-          rejected +
-          " rejected applications."
+      if (jobsMessage) {
+        jobsMessage.textContent =
+          "No matching opportunities found.";
       }
 
-    </div>
-    `
-
-  );
-
-}
-
-
-/* ==================================================
-   GENERATED TOOL ACTIONS
-================================================== */
-
-function handleModalAction(event){
-
-  const id =
-    event.target.id;
-
-
-  /* COVER LETTER */
-
-  if(id === "generateCover"){
-
-    const job =
-      $("coverJob").value.trim();
-
-    const company =
-      $("coverCompany").value.trim();
-
-    const experience =
-      $("coverExperience").value.trim();
-
-
-    if(!job || !company){
-
-      alert(
-        "Enter the job title and company."
-      );
-
       return;
-
     }
 
 
-    $("coverResult").value =
-`Dear Hiring Manager,
-
-I am excited to apply for the ${job} position at ${company}.
-
-${experience || "My skills, experience and motivation make me a strong candidate for this opportunity."}
-
-I would welcome the opportunity to discuss how my background and skills can contribute to your team.
-
-Thank you for your consideration.
-
-Sincerely,
-Your Name`;
-
-    return;
-
-  }
-
-
-  /* RESUME */
-
-  if(id === "generateResume"){
-
-    const name =
-      $("resumeName").value.trim();
-
-    const role =
-      $("resumeRole").value.trim();
-
-    const skills =
-      $("resumeSkills").value.trim();
-
-    const experience =
-      $("resumeExperience").value.trim();
-
-    const education =
-      $("resumeEducation").value.trim();
-
-
-    if(!name || !role){
-
-      alert(
-        "Enter your name and target role."
-      );
-
-      return;
-
+    if (jobsMessage) {
+      jobsMessage.textContent =
+        filtered.length +
+        " hiring opportunities available. " +
+        "Open the official company careers page to see current vacancies.";
     }
 
 
-    $("resumeResult").value =
-`${name}
-${role}
-
-PROFESSIONAL SUMMARY
-Motivated professional seeking a ${role} position, bringing relevant skills and practical experience.
-
-SKILLS
-${skills || "Add your key skills here."}
-
-EXPERIENCE
-${experience || "Add your work experience and measurable achievements here."}
-
-EDUCATION
-${education || "Add your education details here."}
-
-JOB APPLICATION TIP
-Customize your summary and achievements for each job before applying.`;
-
-    return;
-
-  }
-
-
-  /* INTERVIEW */
-
-  if(id === "generateInterview"){
-
-    const role =
-      $("interviewRole").value.trim();
-
-
-    if(!role){
-
-      alert(
-        "Enter the job role."
-      );
-
-      return;
-
-    }
-
-
-    const questions = [
-
-      "Tell me about yourself.",
-
-      "Why do you want to work as a " +
-      role +
-      "?",
-
-      "What are your strongest skills for this role?",
-
-      "Tell me about a difficult problem you solved.",
-
-      "Why should we hire you?",
-
-      "Where do you see yourself in the next few years?",
-
-      "What questions do you have for us?"
-
-    ];
-
-
-    $("interviewResult").innerHTML =
-
-      questions.map(function(question,index){
+    jobsList.innerHTML =
+      filtered.map(function (job) {
 
         return `
-          <div
-            style="
-              padding:12px;
-              border:1px solid #e5e7eb;
-              border-radius:10px;
-              margin-bottom:8px;
-            "
-          >
+          <div class="job-card">
 
-            <strong>
-              ${index + 1}.
-              ${escapeHTML(question)}
-            </strong>
+            <div class="job-info">
 
-            <textarea
-              placeholder="Write your answer..."
-              style="
-                margin-top:8px;
-                min-height:90px;
-              "
-            ></textarea>
+              <h3>
+                ${escapeHTML(job.company)}
+              </h3>
+
+              <h4>
+                ${escapeHTML(job.title)}
+              </h4>
+
+              <p>
+                📍 ${escapeHTML(job.location)}
+              </p>
+
+              <small>
+                Official company careers page
+              </small>
+
+            </div>
+
+            <div class="job-actions">
+
+              <a
+                href="${job.url}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn primary"
+              >
+                View Jobs ↗
+              </a>
+
+              <button
+                type="button"
+                class="btn save-job-btn"
+                data-company="${escapeHTML(job.company)}"
+                data-title="${escapeHTML(job.title)}"
+              >
+                💾 Save
+              </button>
+
+            </div>
 
           </div>
         `;
 
       }).join("");
 
+
+    document
+      .querySelectorAll(".save-job-btn")
+      .forEach(function (button) {
+
+        button.addEventListener(
+          "click",
+          function () {
+
+            const company =
+              button.dataset.company;
+
+            const title =
+              button.dataset.title;
+
+            const key =
+              "jobflow_saved_jobs";
+
+            let saved = [];
+
+            try {
+              saved =
+                JSON.parse(
+                  localStorage.getItem(key)
+                ) || [];
+            } catch (e) {
+              saved = [];
+            }
+
+
+            const exists =
+              saved.some(function (job) {
+
+                return (
+                  job.company === company &&
+                  job.title === title
+                );
+
+              });
+
+
+            if (!exists) {
+
+              saved.push({
+                company: company,
+                title: title,
+                savedAt: new Date().toISOString()
+              });
+
+              localStorage.setItem(
+                key,
+                JSON.stringify(saved)
+              );
+
+              button.textContent =
+                "✓ Saved";
+
+            } else {
+
+              button.textContent =
+                "✓ Already Saved";
+
+            }
+
+          }
+        );
+
+      });
+
   }
 
-}
 
+  if (searchJobsBtn) {
 
-/* ==================================================
-   BUTTON EVENTS
-================================================== */
-
-
-/* ACCESS */
-
-$("accessButton").addEventListener(
-  "click",
-  startAccess
-);
-
-
-/* ACCESS ENTER */
-
-$("accessEmail").addEventListener(
-  "keydown",
-  function(event){
-
-    if(event.key === "Enter"){
-
-      event.preventDefault();
-
-      startAccess();
-
-    }
-
-  }
-);
-
-
-/* SIGN OUT */
-
-$("headerSignOut").addEventListener(
-  "click",
-  signOut
-);
-
-
-/* DASHBOARD */
-
-$("headerDashboard").addEventListener(
-  "click",
-  function(){
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
-  }
-);
-
-
-/* APPLICATIONS */
-
-$("openApplications").addEventListener(
-  "click",
-  function(){
-
-    showSection(
-      "applicationsSection"
+    searchJobsBtn.addEventListener(
+      "click",
+      function () {
+        renderJobs();
+      }
     );
 
   }
-);
 
 
-/* COMPANIES */
+  if (jobSearchInput) {
 
-$("openCompanies").addEventListener(
-  "click",
-  function(){
+    jobSearchInput.addEventListener(
+      "keydown",
+      function (event) {
 
-    showSection(
-      "companiesSection"
+        if (event.key === "Enter") {
+          renderJobs();
+        }
+
+      }
     );
 
   }
-);
 
 
-/* NOTES */
+  if (jobLocation) {
 
-$("openNotes").addEventListener(
-  "click",
-  function(){
-
-    showSection(
-      "notesSection"
+    jobLocation.addEventListener(
+      "change",
+      function () {
+        renderJobs();
+      }
     );
 
   }
-);
 
 
-/* DASHBOARD BUTTON */
+  /* Show jobs immediately */
 
-$("openDashboard").addEventListener(
-  "click",
-  function(){
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
-  }
-);
+  renderJobs();
 
 
-/* ADD APPLICATION */
 
-$("addApplication").addEventListener(
-  "click",
-  addApplication
-);
+  /* ==================================================
+     PAYMENT
+  ================================================== */
 
+  const copyUpi =
+    $("copyUpi");
 
-/* ADD COMPANY */
+  const upiText =
+    $("upiText");
 
-$("addCompany").addEventListener(
-  "click",
-  addCompany
-);
+  const activateBtn =
+    $("activateBtn");
 
+  const utrInput =
+    $("utr");
 
-/* SAVE NOTES */
-
-$("saveNotes").addEventListener(
-  "click",
-  saveNotes
-);
+  const paymentMessage =
+    $("paymentMessage");
 
 
-/* CLEAR NOTES */
+  if (copyUpi && upiText) {
 
-$("clearNotes").addEventListener(
-  "click",
-  clearNotes
-);
+    copyUpi.addEventListener(
+      "click",
+      async function () {
 
+        const text =
+          upiText.textContent.trim();
 
-/* COPY UPI */
+        try {
 
-$("copyUpiButton").addEventListener(
-  "click",
-  function(){
+          await navigator.clipboard.writeText(text);
 
-    if(
-      navigator.clipboard &&
-      navigator.clipboard.writeText
-    ){
-
-      navigator.clipboard
-        .writeText(UPI_ID)
-        .then(function(){
-
-          $("copyUpiButton")
-            .textContent =
+          copyUpi.textContent =
             "Copied ✓";
 
-          setTimeout(
-            function(){
+          setTimeout(function () {
 
-              $("copyUpiButton")
-                .textContent =
-                "Copy UPI ID";
+            copyUpi.textContent =
+              "Copy UPI ID";
 
-            },
-            1500
-          );
+          }, 1500);
 
-        })
-        .catch(function(){
+        } catch (error) {
 
-          alert(
-            "UPI ID: " + UPI_ID
-          );
+          paymentMessage.textContent =
+            "Copy failed. Please copy the UPI ID manually.";
 
-        });
+        }
 
-    }else{
-
-      alert(
-        "UPI ID: " + UPI_ID
-      );
-
-    }
-
-  }
-);
-
-
-/* PAYMENT */
-
-$("submitPaymentButton").addEventListener(
-  "click",
-  function(){
-
-    const account =
-      getData();
-
-    const utr =
-      $("paymentUTR")
-        .value
-        .trim();
-
-    const message =
-      $("paymentMessage");
-
-
-    message.classList.remove(
-      "hidden"
+      }
     );
 
-
-    if(!account){
-
-      message.textContent =
-        "Please enter your email address first.";
-
-      return;
-
-    }
-
-
-    if(account.owner === true){
-
-      message.textContent =
-        "👑 Owner account already has unlimited access.";
-
-      return;
-
-    }
-
-
-    if(!utr){
-
-      message.textContent =
-        "Please enter your payment reference / UTR.";
-
-      $("paymentUTR").focus();
-
-      return;
-
-    }
-
-
-    account.paymentReference =
-      utr;
-
-    account.paymentPending =
-      true;
-
-    account.paymentSubmittedAt =
-      Date.now();
-
-
-    /*
-     * A UTR is NOT treated as
-     * proof of payment.
-     */
-
-    account.paid =
-      false;
-
-
-    saveData(account);
-
-
-    message.textContent =
-      "✅ Payment reference submitted. Your ₹499 payment is pending verification.";
-
   }
-);
 
 
-/* PREMIUM BUTTONS */
+  if (activateBtn) {
 
-document
-  .querySelectorAll(".premium-button")
-  .forEach(function(button){
-
-    button.addEventListener(
+    activateBtn.addEventListener(
       "click",
-      function(){
+      function () {
 
-        if(!premiumAllowed()){
+        const utr =
+          utrInput
+            ? utrInput.value.trim()
+            : "";
+
+
+        if (!utr) {
+
+          if (paymentMessage) {
+
+            paymentMessage.textContent =
+              "Please enter your payment reference / UTR.";
+
+          }
 
           return;
 
         }
 
 
-        const tool =
-          button.getAttribute(
-            "data-tool"
-          );
+        localStorage.setItem(
+          "jobflow_payment_reference",
+          utr
+        );
 
 
-        if(tool === "cover"){
+        if (paymentMessage) {
 
-          coverLetterTool();
-
-        }
-
-
-        if(tool === "resume"){
-
-          resumeTool();
-
-        }
-
-
-        if(tool === "interview"){
-
-          interviewTool();
-
-        }
-
-
-        if(tool === "insights"){
-
-          insightsTool();
+          paymentMessage.textContent =
+            "Payment reference submitted. Your ₹499 payment must be verified before Premium is activated.";
 
         }
 
       }
     );
 
-  });
+  }
 
 
-/* CLOSE MODAL */
 
-$("closeModal").addEventListener(
-  "click",
-  closeModal
-);
+  /* ==================================================
+     TOOL MODAL
+  ================================================== */
+
+  const toolModal =
+    $("toolModal");
+
+  const modalContent =
+    $("modalContent");
+
+  const closeModalBtn =
+    $("closeModalBtn");
 
 
-/* MODAL BACKGROUND */
+  function closeModal() {
 
-$("toolModal").addEventListener(
-  "click",
-  function(event){
+    if (toolModal) {
 
-    if(
-      event.target ===
-      $("toolModal")
-    ){
-
-      closeModal();
+      toolModal.classList.add(
+        "hidden"
+      );
 
     }
 
   }
-);
 
 
-/* GENERATED TOOL BUTTONS */
+  function openTool(title, content) {
 
-$("modalContent").addEventListener(
-  "click",
-  handleModalAction
-);
+    if (!toolModal || !modalContent) {
+      return;
+    }
+
+    modalContent.innerHTML =
+      "<h2>" +
+      escapeHTML(title) +
+      "</h2>" +
+      content;
+
+    toolModal.classList.remove(
+      "hidden"
+    );
+
+  }
 
 
-/* ==================================================
-   DELETE APPLICATION
-================================================== */
+  if (closeModalBtn) {
 
-$("applicationsBody").addEventListener(
-  "click",
-  function(event){
+    closeModalBtn.addEventListener(
+      "click",
+      closeModal
+    );
 
-    if(
-      event.target.classList.contains(
-        "delete-app"
-      )
-    ){
+  }
 
-      const index =
-        Number(
-          event.target.getAttribute(
-            "data-index"
-          )
-        );
 
-      const apps =
-        getApplications();
+  /* MODAL BACKGROUND */
 
-      if(
-        index >= 0 &&
-        index < apps.length
-      ){
+  if (toolModal) {
 
-        apps.splice(
-          index,
-          1
-        );
+    toolModal.addEventListener(
+      "click",
+      function (event) {
+
+        if (
+          event.target ===
+          toolModal
+        ) {
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* ==================================================
+     GENERATED TOOL BUTTONS
+  ================================================== */
+
+  document
+    .querySelectorAll("[data-tool]")
+    .forEach(function (button) {
+
+      button.addEventListener(
+        "click",
+        function () {
+
+          const tool =
+            button.getAttribute(
+              "data-tool"
+            );
+
+
+          if (tool === "cover-letter") {
+
+            openTool(
+              "🤖 AI Cover Letter Builder",
+              `
+                <p>Create a professional,
+                job-specific cover letter.</p>
+
+                <textarea
+                  id="coverLetterInput"
+                  placeholder="Enter job title, company and your experience..."
+                  rows="6"
+                ></textarea>
+
+                <button
+                  type="button"
+                  class="btn primary"
+                  id="generateCoverLetter"
+                >
+                  Generate Cover Letter
+                </button>
+
+                <div
+                  id="coverLetterResult"
+                  class="result-box"
+                ></div>
+              `
+            );
+
+
+            const generate =
+              $("generateCoverLetter");
+
+            if (generate) {
+
+              generate.addEventListener(
+                "click",
+                function () {
+
+                  const input =
+                    $("coverLetterInput");
+
+                  const result =
+                    $("coverLetterResult");
+
+                  const value =
+                    input
+                      ? input.value.trim()
+                      : "";
+
+
+                  if (!value) {
+
+                    result.textContent =
+                      "Please enter the job details first.";
+
+                    return;
+
+                  }
+
+
+                  result.textContent =
+                    "Dear Hiring Manager,\n\n" +
+                    "I am excited to apply for the position described below:\n\n" +
+                    value +
+                    "\n\n" +
+                    "My skills, experience and commitment to delivering strong results would allow me to contribute effectively to your team.\n\n" +
+                    "Thank you for considering my application.\n\n" +
+                    "Sincerely,\nJob Applicant";
+
+                }
+              );
+
+            }
+
+          }
+
+
+          else if (tool === "resume") {
+
+            openTool(
+              "📄 Resume Builder & Optimizer",
+              `
+                <p>Build a clean resume for your target job.</p>
+
+                <textarea
+                  id="resumeInput"
+                  placeholder="Enter your skills, education, experience and achievements..."
+                  rows="8"
+                ></textarea>
+
+                <button
+                  type="button"
+                  class="btn primary"
+                  id="buildResume"
+                >
+                  Build Resume
+                </button>
+
+                <div
+                  id="resumeResult"
+                  class="result-box"
+                ></div>
+              `
+            );
+
+
+            const build =
+              $("buildResume");
+
+            if (build) {
+
+              build.addEventListener(
+                "click",
+                function () {
+
+                  const input =
+                    $("resumeInput");
+
+                  const result =
+                    $("resumeResult");
+
+                  const value =
+                    input
+                      ? input.value.trim()
+                      : "";
+
+
+                  if (!value) {
+
+                    result.textContent =
+                      "Please enter your resume information.";
+
+                    return;
+
+                  }
+
+
+                  result.textContent =
+                    "PROFESSIONAL RESUME\n\n" +
+                    value +
+                    "\n\n" +
+                    "Tip: Keep your strongest achievements and job-relevant skills near the top.";
+
+                }
+              );
+
+            }
+
+          }
+
+
+          else if (tool === "interview") {
+
+            openTool(
+              "🎯 Interview Coach",
+              `
+                <p>Practice common interview questions.</p>
+
+                <button
+                  type="button"
+                  class="btn primary"
+                  id="nextQuestion"
+                >
+                  Show Interview Question
+                </button>
+
+                <div
+                  id="interviewQuestion"
+                  class="result-box"
+                >
+                  Click the button to begin.
+                </div>
+              `
+            );
+
+
+            const questions = [
+
+              "Tell me about yourself.",
+
+              "Why do you want to work for this company?",
+
+              "What is your biggest professional achievement?",
+
+              "What is one challenge you faced and how did you solve it?",
+
+              "Why should we hire you?",
+
+              "Where do you see yourself in five years?"
+
+            ];
+
+
+            let questionIndex = 0;
+
+
+            const next =
+              $("nextQuestion");
+
+
+            if (next) {
+
+              next.addEventListener(
+                "click",
+                function () {
+
+                  const box =
+                    $("interviewQuestion");
+
+                  box.textContent =
+                    questions[
+                      questionIndex %
+                      questions.length
+                    ];
+
+                  questionIndex++;
+
+                }
+              );
+
+            }
+
+          }
+
+
+          else if (tool === "insights") {
+
+            openTool(
+              "📊 Career Insights",
+              `
+                <p>
+                  Review your job-search activity
+                  and keep
+improving your job-search activity
+                  and keep improving your application strategy.
+                </p>
+
+                <div class="result-box">
+
+                  <strong>📊 Career Insights</strong>
+
+                  <p>
+                    Use your application history to identify
+                    where you can improve your job search.
+                  </p>
+
+                  <ul>
+                    <li>📋 Track every application.</li>
+                    <li>🎯 Focus on relevant job roles.</li>
+                    <li>📝 Customize your resume for each job.</li>
+                    <li>💬 Follow up after applications.</li>
+                    <li>🎤 Practice interviews regularly.</li>
+                  </ul>
+
+                </div>
+              `
+            );
+
+          }
+
+        }
+      );
+
+    });
+
+
+
+  /* ==================================================
+     CLOSE MODAL WITH ESCAPE
+  ================================================== */
+
+  document.addEventListener(
+    "keydown",
+    function(event){
+
+      if(event.key === "Escape"){
+        closeModal();
+      }
+
+    }
+  );
+
+
+
+  /* ==================================================
+     APPLICATION TRACKER
+  ================================================== */
+
+  const applicationForm =
+    $("applicationForm");
+
+  const applicationList =
+    $("applicationList");
+
+
+  function getApplications(){
+
+    try{
+
+      return JSON.parse(
+        localStorage.getItem(
+          "jobflow_applications"
+        )
+      ) || [];
+
+    }catch(error){
+
+      return [];
+
+    }
+
+  }
+
+
+  function saveApplications(applications){
+
+    localStorage.setItem(
+      "jobflow_applications",
+      JSON.stringify(applications)
+    );
+
+  }
+
+
+  function renderApplications(){
+
+    if(!applicationList){
+      return;
+    }
+
+    const applications =
+      getApplications();
+
+
+    if(!applications.length){
+
+      applicationList.innerHTML =
+        "<p>No applications added yet.</p>";
+
+      return;
+
+    }
+
+
+    applicationList.innerHTML =
+      applications.map(
+        function(app,index){
+
+          return `
+            <div class="application-item">
+
+              <strong>
+                ${escapeHTML(app.company)}
+              </strong>
+
+              <span>
+                ${escapeHTML(app.position)}
+              </span>
+
+              <span>
+                ${escapeHTML(app.status)}
+              </span>
+
+              <small>
+                ${escapeHTML(app.date)}
+              </small>
+
+              <button
+                type="button"
+                class="btn delete-application"
+                data-index="${index}"
+              >
+                Delete
+              </button>
+
+            </div>
+          `;
+
+        }
+      ).join("");
+
+
+    document
+      .querySelectorAll(".delete-application")
+      .forEach(
+        function(button){
+
+          button.addEventListener(
+            "click",
+            function(){
+
+              const index =
+                Number(
+                  button.dataset.index
+                );
+
+              const applications =
+                getApplications();
+
+              applications.splice(
+                index,
+                1
+              );
+
+              saveApplications(
+                applications
+              );
+
+              renderApplications();
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  if(applicationForm){
+
+    applicationForm.addEventListener(
+      "submit",
+      function(event){
+
+        event.preventDefault();
+
+
+        const company =
+          $("applicationCompany")
+            ? $("applicationCompany").value.trim()
+            : "";
+
+        const position =
+          $("applicationPosition")
+            ? $("applicationPosition").value.trim()
+            : "";
+
+        const status =
+          $("applicationStatus")
+            ? $("applicationStatus").value
+            : "Applied";
+
+
+        if(!company || !position){
+
+          alert(
+            "Please enter company and job title."
+          );
+
+          return;
+
+        }
+
+
+        const applications =
+          getApplications();
+
+
+        applications.push({
+
+          company: company,
+
+          position: position,
+
+          status: status,
+
+          date:
+            new Date()
+              .toISOString()
+              .slice(0,10)
+
+        });
+
 
         saveApplications(
-          apps
+          applications
         );
+
+        applicationForm.reset();
 
         renderApplications();
 
       }
+    );
 
+  }
+
+
+  renderApplications();
+
+
+
+  /* ==================================================
+     DASHBOARD COUNTS
+  ================================================== */
+
+  function updateDashboardCounts(){
+
+    const applications =
+      getApplications();
+
+
+    const total =
+      applications.length;
+
+    const active =
+      applications.filter(
+        function(app){
+
+          return (
+            app.status !== "Rejected" &&
+            app.status !== "Offer"
+          );
+
+        }
+      ).length;
+
+    const interviews =
+      applications.filter(
+        function(app){
+
+          return app.status === "Interview";
+
+        }
+      ).length;
+
+    const offers =
+      applications.filter(
+        function(app){
+
+          return app.status === "Offer";
+
+        }
+      ).length;
+
+
+    const totalEl =
+      $("totalApplications");
+
+    const activeEl =
+      $("activeApplications");
+
+    const interviewsEl =
+      $("interviews");
+
+    const offersEl =
+      $("offers");
+
+
+    if(totalEl){
+      totalEl.textContent = total;
+    }
+
+    if(activeEl){
+      activeEl.textContent = active;
+    }
+
+    if(interviewsEl){
+      interviewsEl.textContent =
+        interviews;
+    }
+
+    if(offersEl){
+      offersEl.textContent =
+        offers;
     }
 
   }
-);
 
 
-/* ==================================================
-   DELETE COMPANY
-================================================== */
+  updateDashboardCounts();
 
-$("companiesList").addEventListener(
-  "click",
-  function(event){
 
-    if(
-      event.target.classList.contains(
-        "delete-company"
-      )
-    ){
 
-      const index =
-        Number(
-          event.target.getAttribute(
-            "data-index"
-          )
+  /* ==================================================
+     COMPANY NOTES
+  ================================================== */
+
+  const notesInput =
+    $("jobNotes");
+
+  const saveNotesBtn =
+    $("saveNotes");
+
+
+  if(
+    notesInput &&
+    saveNotesBtn
+  ){
+
+    notesInput.value =
+      localStorage.getItem(
+        "jobflow_job_notes"
+      ) || "";
+
+
+    saveNotesBtn.addEventListener(
+      "click",
+      function(){
+
+        localStorage.setItem(
+          "jobflow_job_notes",
+          notesInput.value
         );
 
-      const companies =
-        getCompanies();
 
-      if(
-        index >= 0 &&
-        index < companies.length
-      ){
+        saveNotesBtn.textContent =
+          "Saved ✓";
 
-        companies.splice(
-          index,
-          1
+
+        setTimeout(
+          function(){
+
+            saveNotesBtn.textContent =
+              "Save Notes";
+
+          },
+          1500
         );
-
-        saveCompanies(
-          companies
-        );
-
-        renderCompanies();
 
       }
-
-    }
-
-  }
-);
-
-
-/* ==================================================
-   INITIAL LOAD
-================================================== */
-
-$("upiId").textContent =
-  UPI_ID;
-
-renderApplications();
-
-renderCompanies();
-
-loadNotes();
-
-
-if(getData()){
-
-  openApp();
-
-}else{
-
-  openGate();
-
-}
-
-
-/* ==================================================
-   LIVE ACCOUNT / TRIAL UPDATE
-================================================== */
-
-setInterval(
-  function(){
-
-    const account =
-      getData();
-
-    if(account){
-
-      updateAccount();
-
-    }
-
-  },
-  60000
-);
-
-
-/* ==================================================
-   PREVENT FORM SUBMISSION
-================================================== */
-
-document.addEventListener(
-  "submit",
-  function(event){
-
-    event.preventDefault();
+    );
 
   }
-);
 
 
-/* ==================================================
-   FINISH
-================================================== */
+
+  /* ==================================================
+     JOB SEARCH OPEN PAGE
+  ================================================== */
+
+  const openJobsButtons =
+    document.querySelectorAll(
+      '[data-page="jobs"]'
+    );
+
+
+  openJobsButtons.forEach(
+    function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          setTimeout(
+            renderJobs,
+            50
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+
+  /* ==================================================
+     PAYMENT STATUS
+  ================================================== */
+
+  const storedPaymentReference =
+    localStorage.getItem(
+      "jobflow_payment_reference"
+    );
+
+
+  if(
+    storedPaymentReference &&
+    utrInput
+  ){
+
+    utrInput.value =
+      storedPaymentReference;
+
+  }
+
+
+
+  /* ==================================================
+     FINAL INITIALIZATION
+  ================================================== */
+
+  renderJobs();
+  renderApplications();
+  updateDashboardCounts();
+
 
 })();
 </script>
+
 
 </body>
 </html>
