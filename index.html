@@ -428,61 +428,132 @@ textarea{
 
 <body>
 
-<!-- =========================
-     TRIAL GATE
-========================= -->
+/* =========================
+   TRIAL GATE
+========================= */
 
-<div id="trialGate">
+function verifyAccess(){
 
-  <div class="gateBox">
+  const input =
+    document.getElementById("gateInput");
 
-    <h1>🚀 JobFlow AI</h1>
+  const message =
+    document.getElementById("gateMessage");
 
-    <p class="muted">
-      Your career command center
-    </p>
+  const gate =
+    document.getElementById("trialGate");
 
-    <div class="passwordBox">
+  const app =
+    document.querySelector(".app");
 
-      <div>
-        Enter the password shown below
-      </div>
+  if(!input){
+    return;
+  }
 
-      <div
-        id="gatePassword"
-        class="password">
-        12345
-      </div>
+  const password =
+    input.value.trim();
 
-    </div>
+  if(password !== "12345"){
 
-    <input
-      id="gateInput"
-      type="password"
-      inputmode="numeric"
-      placeholder="Enter password">
+    if(message){
 
-    <div class="actions">
+      message.textContent =
+        "❌ Incorrect password. Please enter 12345.";
 
-      <button
-        class="btn primary"
-        onclick="verifyAccess()">
-        🔓 Continue
-      </button>
+    }
 
-    </div>
+    input.focus();
 
-    <p
-      id="gateMessage"
-      style="margin-top:12px;color:#dc2626">
-    </p>
-
-  </div>
-
-</div>
+    return;
+  }
 
 
-<div class="app">
+  localStorage.setItem(
+    "jobflow_access_granted",
+    "true"
+  );
+
+
+  if(message){
+
+    message.textContent =
+      "✅ Access granted!";
+
+  }
+
+
+  if(gate){
+
+    gate.style.display =
+      "none";
+
+  }
+
+
+  if(app){
+
+    app.style.display =
+      "block";
+
+  }
+
+}
+
+
+/* =========================
+   RESTORE ACCESS
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    const gate =
+      document.getElementById(
+        "trialGate"
+      );
+
+    const app =
+      document.querySelector(
+        ".app"
+      );
+
+    const access =
+      localStorage.getItem(
+        "jobflow_access_granted"
+      );
+
+
+    if(access === "true"){
+
+      if(gate){
+
+        gate.style.display =
+          "none";
+
+      }
+
+      if(app){
+
+        app.style.display =
+          "block";
+
+      }
+
+    }else{
+
+      if(app){
+
+        app.style.display =
+          "none";
+
+      }
+
+    }
+
+  }
+);
+
 
 <!-- =========================
      SIDEBAR
