@@ -574,34 +574,16 @@ class="status hidden"
 ================================================== -->
 
 <script>
-(function () {
-  "use strict";
+document.addEventListener("DOMContentLoaded", function () {
 
-  /* =========================================
-     JOBFLOW AI - SINGLE CONTROL SYSTEM
-  ========================================= */
-
-  var STORAGE_KEY = "jobflow_ai_account_v1";
-
-  var OWNER_EMAIL = "mdnawaz6052@gmail.com";
-
-  var TRIAL_DURATION = 48 * 60 * 60 * 1000;
-
-  var UPI_ID = "YOUR-UPI-ID@bank";
-
-
-  /* =========================================
-     HELPERS
-  ========================================= */
-
-  function $(id) {
-    return document.getElementById(id);
-  }
+  const OWNER_EMAIL = "mdnawaz6052@gmail.com";
+  const STORAGE_KEY = "jobflow_ai_account_v1";
+  const TRIAL_TIME = 48 * 60 * 60 * 1000;
+  const UPI_ID = "YOUR-UPI-ID@bank";
 
   function getAccount() {
     try {
-      var data = localStorage.getItem(STORAGE_KEY);
-      return data ? JSON.parse(data) : null;
+      return JSON.parse(localStorage.getItem(STORAGE_KEY));
     } catch (e) {
       return null;
     }
@@ -614,68 +596,36 @@ class="status hidden"
     );
   }
 
-  function normalizeEmail(email) {
-    return String(email || "")
-      .trim()
-      .toLowerCase();
-  }
-
   function validEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  function trialActive(account) {
-    if (!account) return false;
-
-    if (account.owner === true) return true;
-
-    if (account.paid === true) return true;
-
-    return Date.now() < Number(account.trialEnds);
-  }
-
-  function timeLeft(endTime) {
-
-    var remaining =
-      Number(endTime) - Date.now();
+  function timeLeft(end) {
+    const remaining = Number(end) - Date.now();
 
     if (remaining <= 0) {
       return "Trial expired";
     }
 
-    var totalMinutes =
-      Math.ceil(remaining / 60000);
+    const minutes = Math.ceil(remaining / 60000);
 
-    var days =
-      Math.floor(totalMinutes / 1440);
+    const days = Math.floor(minutes / 1440);
 
-    var hours =
-      Math.floor(
-        (totalMinutes % 1440) / 60
-      );
-
-    var minutes =
-      totalMinutes % 60;
-
-    return (
-      days +
-      "d " +
-      hours +
-      "h " +
-      minutes +
-      "m remaining"
+    const hours = Math.floor(
+      (minutes % 1440) / 60
     );
+
+    const mins = minutes % 60;
+
+    return days + "d " +
+           hours + "h " +
+           mins + "m remaining";
   }
 
+  function showApp() {
 
-  /* =========================================
-     SHOW APPLICATION
-  ========================================= */
-
-  function openApp() {
-
-    var gate = $("accessGate");
-    var app = $("app");
+    const gate = document.getElementById("accessGate");
+    const app = document.getElementById("app");
 
     if (gate) {
       gate.style.display = "none";
@@ -685,18 +635,13 @@ class="status hidden"
       app.style.display = "block";
     }
 
-    updateAccountScreen();
+    updateAccount();
   }
-
-
-  /* =========================================
-     SHOW LOGIN
-  ========================================= */
 
   function showGate() {
 
-    var gate = $("accessGate");
-    var app = $("app");
+    const gate = document.getElementById("accessGate");
+    const app = document.getElementById("app");
 
     if (gate) {
       gate.style.display = "flex";
@@ -707,22 +652,20 @@ class="status hidden"
     }
   }
 
+  function updateAccount() {
 
-  /* =========================================
-     UPDATE ACCOUNT
-  ========================================= */
-
-  function updateAccountScreen() {
-
-    var account = getAccount();
+    const account = getAccount();
 
     if (!account) {
       showGate();
       return;
     }
 
-    var emailBox = $("currentEmail");
-    var statusBox = $("accessStatus");
+    const emailBox =
+      document.getElementById("currentEmail");
+
+    const statusBox =
+      document.getElementById("accessStatus");
 
     if (emailBox) {
       emailBox.textContent =
@@ -732,9 +675,6 @@ class="status hidden"
     if (!statusBox) {
       return;
     }
-
-
-    /* OWNER */
 
     if (account.owner === true) {
 
@@ -746,9 +686,6 @@ class="status hidden"
       return;
     }
 
-
-    /* PAID */
-
     if (account.paid === true) {
 
       statusBox.className = "status";
@@ -758,9 +695,6 @@ class="status hidden"
 
       return;
     }
-
-
-    /* TRIAL */
 
     if (
       Date.now() <
@@ -777,9 +711,6 @@ class="status hidden"
       return;
     }
 
-
-    /* EXPIRED */
-
     statusBox.className =
       "status warning";
 
@@ -789,366 +720,29 @@ class="status hidden"
   }
 
 
-  /* =========================================
+  /* ======================================
      START TRIAL
-  ========================================= */
+  ====================================== */
 
   function startTrial() {
 
-    var emailInput = $("email");
-    var errorBox = $("trialError");
-
-    if (!emailInput) {
-      return;
-    }
-
-    var email =
-      normalizeEmail(emailInput.value);
-
-    if (errorBox) {
-      errorBox.textContent = "";
-    }
-
-
-    if (!validEmail(email)) {
-
-      if (errorBox) {
-        errorBox.textContent =
-          "Please enter a valid email address.";
-      }
-
-      emailInput.focus();
-
-      return;
-    }
-
-
-    /* OWNER */
-
-    if (email === OWNER_EMAIL) {
-
-      saveAccount({
-
-        email: OWNER_EMAIL,
-
-        owner: true,
-
-        paid: true,
-
-        trialStarted: Date.now(),
-
-        trialEnds: 0,
-
-        paymentReference: "",
-
-        paymentPending: false
-
-      });
-
-      emailInput.value = "";
-
-      openApp();
-
-      return;
-    }
-
-
-    /* EXISTING ACCOUNT */
-
-    var existing = getAccount();
-
-    if (existing) {
-
-      if (
-        normalizeEmail(existing.email) ===
-        email
-      ) {
-
-        openApp();
-
-        return;
-      }
-
-      if (errorBox) {
-        errorBox.textContent =
-          "A JobFlow account already exists on this browser.";
-      }
-
-      return;
-    }
-
-
-    /* NEW 48-HOUR TRIAL */
-
-    var now = Date.now();
-
-    saveAccount({
-
-      email: email,
-
-      owner: false,
-
-      paid: false,
-
-      trialStarted: now,
-
-      trialEnds:
-        now + TRIAL_DURATION,
-
-      paymentReference: "",
-
-      paymentPending: false,
-
-      paymentSubmittedAt: null
-
-    });
-
-    emailInput.value = "";
-
-    openApp();
-  }
-
-
-  /* =========================================
-     SIGN OUT
-  ========================================= */
-
-  function signOut() {
-
-    localStorage.removeItem(
-      STORAGE_KEY
-    );
-
-    var emailInput = $("email");
-
-    var utr = $("paymentUTR");
-
-    var paymentMessage =
-      $("paymentMessage");
-
-    if (emailInput) {
-      emailInput.value = "";
-    }
-
-    if (utr) {
-      utr.value = "";
-    }
-
-    if (paymentMessage) {
-      paymentMessage.classList.add(
-        "hidden"
-      );
-
-      paymentMessage.textContent = "";
-    }
-
-    showGate();
-
-    setTimeout(function () {
-
-      var accessEmail =
-        $("accessEmail");
-
-      if (accessEmail) {
-        accessEmail.value = "";
-        accessEmail.focus();
-      }
-
-    }, 100);
-  }
-
-
-  /* =========================================
-     COPY UPI
-  ========================================= */
-
-  function copyUPI() {
-
-    var button =
-      $("copyUpiButton");
-
-    var upi =
-      UPI_ID;
-
-
-    function copied() {
-
-      if (!button) return;
-
-      var oldText =
-        button.textContent;
-
-      button.textContent =
-        "Copied ✓";
-
-      setTimeout(function () {
-
-        button.textContent =
-          oldText;
-
-      }, 1500);
-    }
-
-
-    if (
-      navigator.clipboard &&
-      navigator.clipboard.writeText
-    ) {
-
-      navigator.clipboard
-        .writeText(upi)
-        .then(copied)
-        .catch(function () {
-
-          window.prompt(
-            "Copy your UPI ID:",
-            upi
-          );
-
-        });
-
-    } else {
-
-      window.prompt(
-        "Copy your UPI ID:",
-        upi
-      );
-
-    }
-  }
-
-
-  /* =========================================
-     SUBMIT PAYMENT REFERENCE
-  ========================================= */
-
-  function submitPayment() {
-
-    var account =
-      getAccount();
-
-    var utrInput =
-      $("paymentUTR");
-
-    var message =
-      $("paymentMessage");
-
-
-    if (!message) {
-      return;
-    }
-
-
-    message.classList.remove(
-      "hidden"
-    );
-
-
-    if (!account) {
-
-      message.textContent =
-        "Please start your JobFlow AI trial first.";
-
-      return;
-    }
-
-
-    if (
-      account.owner === true
-    ) {
-
-      message.textContent =
-        "👑 Owner account already has unlimited access.";
-
-      return;
-    }
-
-
-    if (
-      account.paid === true
-    ) {
-
-      message.textContent =
-        "💎 Premium membership is already active.";
-
-      return;
-    }
-
-
-    var utr =
-      utrInput ?
-      utrInput.value.trim() :
-      "";
-
-
-    if (!utr) {
-
-      message.textContent =
-        "Please enter your payment reference / UTR.";
-
-      if (utrInput) {
-        utrInput.focus();
-      }
-
-      return;
-    }
-
-
-    account.paymentReference =
-      utr;
-
-    account.paymentPending =
-      true;
-
-    account.paymentSubmittedAt =
-      Date.now();
-
-
-    /*
-     * IMPORTANT:
-     * Entering a UTR does NOT automatically
-     * activate Premium.
-     *
-     * Your real payment verification server
-     * must set paid=true after verifying
-     * the ₹499 transaction.
-     */
-
-    account.paid = false;
-
-
-    saveAccount(account);
-
-
-    message.textContent =
-      "✅ Payment reference submitted. Your ₹499 payment is pending verification.";
-  }
-
-
-  /* =========================================
-     ACCESS GATE BUTTON
-  ========================================= */
-
-  function requestAccess() {
-
-    var input =
-      $("accessEmail");
-
-    var error =
-      $("accessError");
+    const input =
+      document.getElementById("email");
+
+    const error =
+      document.getElementById("trialError");
 
     if (!input) {
+      alert("Email field not found.");
       return;
     }
 
-    var email =
-      normalizeEmail(input.value);
-
+    const email =
+      input.value.trim().toLowerCase();
 
     if (error) {
       error.textContent = "";
     }
-
 
     if (!validEmail(email)) {
 
@@ -1187,28 +781,317 @@ class="status hidden"
 
       input.value = "";
 
-      openApp();
+      showApp();
 
       return;
     }
 
 
-    /* EXISTING USER */
+    /* EXISTING ACCOUNT */
 
-    var existing =
-      getAccount();
-
+    const existing = getAccount();
 
     if (existing) {
 
       if (
-        normalizeEmail(existing.email) ===
-        email
+        existing.email === email
+      ) {
+
+        showApp();
+
+        return;
+      }
+
+      if (error) {
+        error.textContent =
+          "An account already exists on this browser.";
+      }
+
+      return;
+    }
+
+
+    /* NEW 48-HOUR TRIAL */
+
+    const now = Date.now();
+
+    saveAccount({
+
+      email: email,
+
+      owner: false,
+
+      paid: false,
+
+      trialStarted: now,
+
+      trialEnds:
+        now + TRIAL_TIME,
+
+      paymentReference: "",
+
+      paymentPending: false,
+
+      paymentSubmittedAt: null
+
+    });
+
+    input.value = "";
+
+    showApp();
+  }
+
+
+  /* ======================================
+     SIGN OUT
+  ====================================== */
+
+  function signOut() {
+
+    localStorage.removeItem(
+      STORAGE_KEY
+    );
+
+    const app =
+      document.getElementById("app");
+
+    const gate =
+      document.getElementById("accessGate");
+
+    if (app) {
+      app.style.display = "none";
+    }
+
+    if (gate) {
+      gate.style.display = "flex";
+    }
+
+    const accessEmail =
+      document.getElementById("accessEmail");
+
+    if (accessEmail) {
+      accessEmail.value = "";
+      accessEmail.focus();
+    }
+  }
+
+
+  /* ======================================
+     COPY UPI
+  ====================================== */
+
+  function copyUPI() {
+
+    const button =
+      document.getElementById("copyUpiButton");
+
+    if (
+      navigator.clipboard &&
+      navigator.clipboard.writeText
+    ) {
+
+      navigator.clipboard
+        .writeText(UPI_ID)
+        .then(function () {
+
+          if (button) {
+
+            const old =
+              button.textContent;
+
+            button.textContent =
+              "Copied ✓";
+
+            setTimeout(function () {
+
+              button.textContent =
+                old;
+
+            }, 1500);
+          }
+
+        })
+        .catch(function () {
+
+          alert(
+            "UPI ID: " + UPI_ID
+          );
+
+        });
+
+    } else {
+
+      alert(
+        "UPI ID: " + UPI_ID
+      );
+
+    }
+  }
+
+
+  /* ======================================
+     PAYMENT REFERENCE
+  ====================================== */
+
+  function submitPayment() {
+
+    const account =
+      getAccount();
+
+    const utrInput =
+      document.getElementById("paymentUTR");
+
+    const message =
+      document.getElementById("paymentMessage");
+
+    if (!message) {
+      return;
+    }
+
+    message.classList.remove("hidden");
+
+
+    if (!account) {
+
+      message.textContent =
+        "Please start your free trial first.";
+
+      return;
+    }
+
+
+    if (account.owner === true) {
+
+      message.textContent =
+        "👑 Owner account already has unlimited access.";
+
+      return;
+    }
+
+
+    const utr =
+      utrInput ?
+      utrInput.value.trim() :
+      "";
+
+
+    if (!utr) {
+
+      message.textContent =
+        "Please enter your payment reference / UTR.";
+
+      if (utrInput) {
+        utrInput.focus();
+      }
+
+      return;
+    }
+
+
+    account.paymentReference = utr;
+
+    account.paymentPending = true;
+
+    account.paymentSubmittedAt =
+      Date.now();
+
+
+    /*
+     * Do NOT automatically make
+     * paid = true from a UTR.
+     */
+
+    account.paid = false;
+
+    saveAccount(account);
+
+
+    message.textContent =
+      "✅ Payment reference submitted. Your ₹499 payment is pending verification.";
+
+  }
+
+
+  /* ======================================
+     ACCESS SCREEN
+  ====================================== */
+
+  function accessUser() {
+
+    const input =
+      document.getElementById("accessEmail");
+
+    const error =
+      document.getElementById("accessError");
+
+    if (!input) {
+      return;
+    }
+
+    const email =
+      input.value.trim().toLowerCase();
+
+    if (error) {
+      error.textContent = "";
+    }
+
+    if (!validEmail(email)) {
+
+      if (error) {
+        error.textContent =
+          "Please enter a valid email address.";
+      }
+
+      input.focus();
+
+      return;
+    }
+
+
+    /* OWNER */
+
+    if (email === OWNER_EMAIL) {
+
+      saveAccount({
+
+        email: OWNER_EMAIL,
+
+        owner: true,
+
+        paid: true,
+
+        trialStarted: Date.now(),
+
+        trialEnds: 0,
+
+        paymentReference: "",
+
+        paymentPending: false
+
+      });
+
+      input.value = "";
+
+      showApp();
+
+      return;
+    }
+
+
+    /* EXISTING */
+
+    const existing =
+      getAccount();
+
+    if (existing) {
+
+      if (
+        existing.email === email
       ) {
 
         input.value = "";
 
-        openApp();
+        showApp();
 
         return;
       }
@@ -1224,9 +1107,7 @@ class="status hidden"
 
     /* NEW USER */
 
-    var now =
-      Date.now();
-
+    const now = Date.now();
 
     saveAccount({
 
@@ -1239,7 +1120,7 @@ class="status hidden"
       trialStarted: now,
 
       trialEnds:
-        now + TRIAL_DURATION,
+        now + TRIAL_TIME,
 
       paymentReference: "",
 
@@ -1249,171 +1130,147 @@ class="status hidden"
 
     });
 
-
     input.value = "";
 
-    openApp();
+    showApp();
   }
 
 
-  /* =========================================
-     EVENT DELEGATION
-     THIS MAKES BUTTONS ROBUST
-  ========================================= */
+  /* ======================================
+     BUTTONS
+  ====================================== */
 
-  document.addEventListener(
-    "click",
-    function (event) {
+  const startButton =
+    document.getElementById(
+      "startTrialButton"
+    );
 
-      var target =
-        event.target;
+  if (startButton) {
 
+    startButton.onclick =
+      startTrial;
 
-      if (!target) {
-        return;
-      }
-
-
-      /* START TRIAL */
-
-      if (
-        target.id ===
-        "startTrialButton"
-      ) {
-
-        event.preventDefault();
-
-        startTrial();
-
-        return;
-      }
+  }
 
 
-      /* ACCESS */
+  const signOutButton =
+    document.getElementById(
+      "signOutButton"
+    );
 
-      if (
-        target.id ===
-        "accessButton"
-      ) {
+  if (signOutButton) {
 
-        event.preventDefault();
+    signOutButton.onclick =
+      signOut;
 
-        requestAccess();
-
-        return;
-      }
+  }
 
 
-      /* SIGN OUT */
+  const copyButton =
+    document.getElementById(
+      "copyUpiButton"
+    );
 
-      if (
-        target.id ===
-        "signOutButton"
-      ) {
+  if (copyButton) {
 
-        event.preventDefault();
+    copyButton.onclick =
+      copyUPI;
 
-        signOut();
-
-        return;
-      }
+  }
 
 
-      /* COPY UPI */
+  const paymentButton =
+    document.getElementById(
+      "submitPaymentButton"
+    );
 
-      if (
-        target.id ===
-        "copyUpiButton"
-      ) {
+  if (paymentButton) {
 
-        event.preventDefault();
+    paymentButton.onclick =
+      submitPayment;
 
-        copyUPI();
-
-        return;
-      }
+  }
 
 
-      /* PAYMENT */
+  /*
+   * Your blue access screen button
+   * MUST have id="accessButton".
+   */
 
-      if (
-        target.id ===
-        "submitPaymentButton"
-      ) {
+  const accessButton =
+    document.getElementById(
+      "accessButton"
+    );
 
-        event.preventDefault();
+  if (accessButton) {
 
-        submitPayment();
+    accessButton.onclick =
+      accessUser;
 
-        return;
-      }
-
-    },
-    false
-  );
-
-
-  /* =========================================
-     ENTER KEY - TRIAL
-  ========================================= */
-
-  document.addEventListener(
-    "keydown",
-    function (event) {
-
-      if (
-        event.key !== "Enter"
-      ) {
-        return;
-      }
+  }
 
 
-      var active =
-        document.activeElement;
+  /* ======================================
+     ENTER KEY
+  ====================================== */
 
+  const accessEmail =
+    document.getElementById(
+      "accessEmail"
+    );
 
-      if (!active) {
-        return;
-      }
+  if (accessEmail) {
 
+    accessEmail.addEventListener(
+      "keydown",
+      function(event) {
 
-      if (
-        active.id === "email"
-      ) {
+        if (event.key === "Enter") {
 
-        event.preventDefault();
+          event.preventDefault();
 
-        startTrial();
+          accessUser();
+
+        }
 
       }
+    );
+
+  }
 
 
-      if (
-        active.id === "accessEmail"
-      ) {
+  const email =
+    document.getElementById(
+      "email"
+    );
 
-        event.preventDefault();
+  if (email) {
 
-        requestAccess();
+    email.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.key === "Enter") {
+
+          event.preventDefault();
+
+          startTrial();
+
+        }
 
       }
+    );
 
-    },
-    false
-  );
+  }
 
 
-  /* =========================================
+  /* ======================================
      INITIALIZE
-  ========================================= */
+  ====================================== */
 
-  var account =
-    getAccount();
+  if (getAccount()) {
 
-
-  if (account) {
-
-    openApp();
+    showApp();
 
   } else {
 
@@ -1422,23 +1279,16 @@ class="status hidden"
   }
 
 
-  /* =========================================
-     COUNTDOWN
-  ========================================= */
+  /* ======================================
+     UPDATE EVERY MINUTE
+  ====================================== */
 
   setInterval(
-    function () {
-
-      if (getAccount()) {
-        updateAccountScreen();
-      }
-
-    },
+    updateAccount,
     60000
   );
 
-
-})();
+});
 </script>
 </body>
 </html>
