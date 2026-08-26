@@ -1,0 +1,1932 @@
+/* =========================================================
+   JOBFLOW AI - ENHANCEMENT ENGINE
+   File: jobflow-enhancements.js
+   ========================================================= */
+
+(function () {
+
+  "use strict";
+
+  /* =======================================================
+     CONFIGURATION
+     ======================================================= */
+
+  const CONFIG = {
+
+    appName: "JobFlow AI",
+
+    trialHours: 48,
+
+    premiumPrice: 299,
+
+    upiId: "9701396945-7@ibl",
+
+    storagePrefix: "jobflow_"
+
+  };
+
+
+  /* =======================================================
+     SAFE STORAGE
+     ======================================================= */
+
+  function getJSON(key, fallback) {
+
+    try {
+
+      const value =
+        localStorage.getItem(
+          CONFIG.storagePrefix + key
+        );
+
+      return value
+        ? JSON.parse(value)
+        : fallback;
+
+    } catch (error) {
+
+      return fallback;
+
+    }
+
+  }
+
+
+  function setJSON(key, value) {
+
+    try {
+
+      localStorage.setItem(
+        CONFIG.storagePrefix + key,
+        JSON.stringify(value)
+      );
+
+      return true;
+
+    } catch (error) {
+
+      return false;
+
+    }
+
+  }
+
+
+  /* =======================================================
+     TOAST
+     ======================================================= */
+
+  function toast(message) {
+
+    if (
+      typeof window.showToast ===
+      "function"
+    ) {
+
+      window.showToast(message);
+      return;
+
+    }
+
+    let box =
+      document.getElementById(
+        "jobflowEnhancementToast"
+      );
+
+    if (!box) {
+
+      box =
+        document.createElement("div");
+
+      box.id =
+        "jobflowEnhancementToast";
+
+      box.style.cssText = `
+        position:fixed;
+        left:50%;
+        bottom:25px;
+        transform:translateX(-50%);
+        background:#111827;
+        color:white;
+        padding:12px 18px;
+        border-radius:12px;
+        z-index:99999;
+        font-size:14px;
+        box-shadow:0 8px 30px rgba(0,0,0,.2);
+      `;
+
+      document.body.appendChild(box);
+
+    }
+
+    box.textContent = message;
+
+    clearTimeout(
+      box._timer
+    );
+
+    box._timer =
+      setTimeout(function () {
+
+        box.remove();
+
+      }, 2500);
+
+  }
+
+
+  /* =======================================================
+     ESCAPE HTML
+     ======================================================= */
+
+  function safe(value) {
+
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* =======================================================
+     48 HOUR TRIAL
+     ======================================================= */
+
+  function getTrialStart() {
+
+    return Number(
+      localStorage.getItem(
+        CONFIG.storagePrefix +
+        "trial_start"
+      ) || 0
+    );
+
+  }
+
+
+  function startTrial() {
+
+    if (getTrialStart()) {
+
+      if (isTrialActive()) {
+
+        toast(
+          "Your 48-hour free access is already active."
+        );
+
+        return;
+
+      }
+
+      toast(
+        "Your free trial has expired."
+      );
+
+      return;
+
+    }
+
+    localStorage.setItem(
+      CONFIG.storagePrefix +
+      "trial_start",
+      Date.now().toString()
+    );
+
+    toast(
+      "🎉 Your 48-hour free access has started!"
+    );
+
+  }
+
+
+  function isTrialActive() {
+
+    const start =
+      getTrialStart();
+
+    if (!start) return false;
+
+    const duration =
+      CONFIG.trialHours *
+      60 *
+      60 *
+      1000;
+
+    return (
+      Date.now() - start <
+      duration
+    );
+
+  }
+
+
+  function getTrialRemaining() {
+
+    const start =
+      getTrialStart();
+
+    if (!start) return 0;
+
+    const total =
+      CONFIG.trialHours *
+      60 *
+      60 *
+      1000;
+
+    return Math.max(
+      0,
+      total - (Date.now() - start)
+    );
+
+  }
+
+
+  function trialStatus() {
+
+    const remaining =
+      getTrialRemaining();
+
+    if (!remaining) {
+
+      return "Trial expired";
+
+    }
+
+    const hours =
+      Math.floor(
+        remaining /
+        (60 * 60 * 1000)
+      );
+
+    const minutes =
+      Math.floor(
+        (remaining %
+          (60 * 60 * 1000)) /
+        (60 * 1000)
+      );
+
+    return (
+      hours +
+      "h " +
+      minutes +
+      "m remaining"
+    );
+
+  }
+
+
+  /* =======================================================
+     PREMIUM
+     ======================================================= */
+
+  function openPremium() {
+
+    if (
+      typeof window.showPage ===
+      "function"
+    ) {
+
+      window.showPage("premium");
+
+      return;
+
+    }
+
+    const premium =
+      document.getElementById(
+        "premium"
+      );
+
+    if (premium) {
+
+      document
+        .querySelectorAll(".page")
+        .forEach(function (page) {
+
+          page.classList.remove(
+            "active"
+          );
+
+        });
+
+      premium.classList.add(
+        "active"
+      );
+
+    }
+
+  }
+
+
+  function payPremium() {
+
+    const amount =
+      CONFIG.premiumPrice;
+
+    const upiURL =
+      "upi://pay?" +
+      "pa=" +
+      encodeURIComponent(
+        CONFIG.upiId
+      ) +
+      "&pn=" +
+      encodeURIComponent(
+        CONFIG.appName
+      ) +
+      "&am=" +
+      encodeURIComponent(
+        amount
+      ) +
+      "&cu=INR";
+
+    localStorage.setItem(
+      CONFIG.storagePrefix +
+      "payment_started",
+      Date.now().toString()
+    );
+
+    window.location.href =
+      upiURL;
+
+  }
+
+
+  function copyUPI() {
+
+    if (
+      navigator.clipboard &&
+      navigator.clipboard.writeText
+    ) {
+
+      navigator.clipboard
+        .writeText(
+          CONFIG.upiId
+        )
+        .then(function () {
+
+          toast(
+            "UPI ID copied!"
+          );
+
+        })
+        .catch(function () {
+
+          alert(
+            "UPI ID: " +
+            CONFIG.upiId
+          );
+
+        });
+
+      return;
+
+    }
+
+    alert(
+      "UPI ID: " +
+      CONFIG.upiId
+    );
+
+  }
+
+
+  /* =======================================================
+     APPLICATIONS
+     ======================================================= */
+
+  function applications() {
+
+    return getJSON(
+      "applications",
+      []
+    );
+
+  }
+
+
+  function saveApplications(data) {
+
+    setJSON(
+      "applications",
+      data
+    );
+
+  }
+
+
+  function addQuickApplication(
+    company,
+    role,
+    status,
+    url
+  ) {
+
+    if (!company || !role) {
+
+      toast(
+        "Company and role are required."
+      );
+
+      return;
+
+    }
+
+    const data =
+      applications();
+
+    data.unshift({
+
+      id: Date.now(),
+
+      company: company,
+
+      role: role,
+
+      status:
+        status ||
+        "Applied",
+
+      url:
+        url ||
+        "",
+
+      date:
+        new Date()
+          .toLocaleDateString(),
+
+      notes: ""
+
+    });
+
+    saveApplications(data);
+
+    if (
+      typeof window.renderApplications ===
+      "function"
+    ) {
+
+      window.renderApplications();
+
+    }
+
+    if (
+      typeof window.updateDashboard ===
+      "function"
+    ) {
+
+      window.updateDashboard();
+
+    }
+
+    toast(
+      "✅ Application added."
+    );
+
+  }
+
+
+  function deleteEnhancedApplication(id) {
+
+    const data =
+      applications()
+        .filter(function (item) {
+
+          return item.id !== id;
+
+        });
+
+    saveApplications(data);
+
+    if (
+      typeof window.renderApplications ===
+      "function"
+    ) {
+
+      window.renderApplications();
+
+    }
+
+    toast(
+      "Application deleted."
+    );
+
+  }
+
+
+  /* =======================================================
+     APPLICATION SEARCH
+     ======================================================= */
+
+  function filterApplications() {
+
+    const input =
+      document.getElementById(
+        "applicationSearch"
+      );
+
+    if (!input) return;
+
+    const query =
+      input.value
+        .toLowerCase()
+        .trim();
+
+    const list =
+      applications();
+
+    const filtered =
+      list.filter(function (item) {
+
+        return (
+          String(
+            item.company || ""
+          )
+          .toLowerCase()
+          .includes(query) ||
+
+          String(
+            item.role || ""
+          )
+          .toLowerCase()
+          .includes(query) ||
+
+          String(
+            item.status || ""
+          )
+          .toLowerCase()
+          .includes(query)
+        );
+
+      });
+
+    const container =
+      document.getElementById(
+        "applicationsList"
+      );
+
+    if (!container) return;
+
+    if (!filtered.length) {
+
+      container.innerHTML = `
+        <div class="empty">
+          🔎<br><br>
+          No matching applications.
+        </div>
+      `;
+
+      return;
+
+    }
+
+    container.innerHTML =
+      filtered.map(function (app) {
+
+        return `
+          <div class="job">
+
+            <div class="jobTop">
+
+              <div>
+
+                <h3>
+                  ${safe(app.role)}
+                </h3>
+
+                <p>
+                  🏢
+                  ${safe(app.company)}
+                </p>
+
+                <p>
+                  Applied:
+                  ${safe(app.date)}
+                </p>
+
+              </div>
+
+              <span class="badge">
+                ${safe(app.status)}
+              </span>
+
+            </div>
+
+            <div class="actions">
+
+              ${
+                app.url
+                ? `
+                  <a
+                    class="btn primary"
+                    href="${safe(app.url)}"
+                    target="_blank"
+                    rel="noopener">
+                    Open Job
+                  </a>
+                `
+                : ""
+              }
+
+              <button
+                type="button"
+                class="btn danger"
+                onclick="JobFlowEnhancements.deleteApplication(${app.id})">
+                🗑️ Delete
+              </button>
+
+            </div>
+
+          </div>
+        `;
+
+      }).join("");
+
+  }
+
+
+  /* =======================================================
+     JOB SOURCES
+     ======================================================= */
+
+  function searchAllJobs() {
+
+    const queryInput =
+      document.getElementById(
+        "jobQuery"
+      );
+
+    const locationInput =
+      document.getElementById(
+        "jobLocation"
+      );
+
+    const query =
+      queryInput
+        ? queryInput.value.trim()
+        : "Software Developer";
+
+    const location =
+      locationInput
+        ? locationInput.value.trim()
+        : "India";
+
+    if (!query) {
+
+      toast(
+        "Enter a job title or skill."
+      );
+
+      return;
+
+    }
+
+    const q =
+      encodeURIComponent(query);
+
+    const loc =
+      encodeURIComponent(
+        location || "India"
+      );
+
+    const sources = [
+
+      {
+        name: "LinkedIn Jobs",
+        url:
+          "https://www.linkedin.com/jobs/search/?keywords=" +
+          q +
+          "&location=" +
+          loc
+      },
+
+      {
+        name: "Indeed India",
+        url:
+          "https://in.indeed.com/jobs?q=" +
+          q +
+          "&l=" +
+          loc
+      },
+
+      {
+        name: "Naukri",
+        url:
+          "https://www.naukri.com/" +
+          encodeURIComponent(
+            query
+          ) +
+          "-jobs-in-" +
+          encodeURIComponent(
+            location || "india"
+          )
+      },
+
+      {
+        name: "Google Jobs Search",
+        url:
+          "https://www.google.com/search?q=" +
+          q +
+          "+jobs+" +
+          loc
+      },
+
+      {
+        name: "Foundit",
+        url:
+          "https://www.foundit.in/srp/results?query=" +
+          q +
+          "&locations=" +
+          loc
+      }
+
+    ];
+
+    const container =
+      document.getElementById(
+        "jobResults"
+      );
+
+    if (!container) return;
+
+    container.innerHTML =
+      sources.map(function (source) {
+
+        return `
+          <div class="job">
+
+            <div class="jobTop">
+
+              <div>
+
+                <h3>
+                  💼
+                  ${safe(source.name)}
+                </h3>
+
+                <p>
+                  Search
+                  <strong>
+                    ${safe(query)}
+                  </strong>
+                  jobs in
+                  <strong>
+                    ${safe(location || "India")}
+                  </strong>
+                </p>
+
+              </div>
+
+              <span class="badge">
+                Job Source
+              </span>
+
+            </div>
+
+            <div class="actions">
+
+              <a
+                class="btn primary"
+                href="${source.url}"
+                target="_blank"
+                rel="noopener">
+                🔎 Search Jobs
+              </a>
+
+              <button
+                type="button"
+                class="btn secondary"
+                onclick="JobFlowEnhancements.rememberSearch(
+                  '${safe(source.name)}',
+                  '${safe(query)}',
+                  '${source.url}'
+                )">
+                ⭐ Save
+              </button>
+
+            </div>
+
+          </div>
+        `;
+
+      }).join("");
+
+    toast(
+      "🌐 Job sources loaded."
+    );
+
+  }
+
+
+  function rememberSearch(
+    source,
+    query,
+    url
+  ) {
+
+    const searches =
+      getJSON(
+        "job_searches",
+        []
+      );
+
+    searches.unshift({
+
+      id: Date.now(),
+
+      source: source,
+
+      query: query,
+
+      url: url,
+
+      date:
+        new Date()
+          .toLocaleDateString()
+
+    });
+
+    setJSON(
+      "job_searches",
+      searches.slice(0, 50)
+    );
+
+    toast(
+      "⭐ Job search saved."
+    );
+
+  }
+
+
+  /* =======================================================
+     JOB MATCH SCORE
+     ======================================================= */
+
+  function calculateMatchScore(
+    jobText,
+    skills
+  ) {
+
+    const text =
+      String(jobText || "")
+        .toLowerCase();
+
+    const skillList =
+      String(skills || "")
+        .toLowerCase()
+        .split(",")
+        .map(function (item) {
+
+          return item.trim();
+
+        })
+        .filter(Boolean);
+
+    if (!skillList.length) {
+
+      return 0;
+
+    }
+
+    let matches = 0;
+
+    skillList.forEach(function (skill) {
+
+      if (
+        text.includes(skill)
+      ) {
+
+        matches++;
+
+      }
+
+    });
+
+    return Math.round(
+      (
+        matches /
+        skillList.length
+      ) * 100
+    );
+
+  }
+
+
+  /* =======================================================
+     INTERVIEW QUESTIONS
+     ======================================================= */
+
+  const interviewQuestions = [
+
+    "Tell me about yourself.",
+
+    "Why do you want to work for this company?",
+
+    "What are your strongest skills?",
+
+    "Tell me about a difficult problem you solved.",
+
+    "Why should we hire you?",
+
+    "Where do you see yourself in five years?",
+
+    "Tell me about a time you worked in a team.",
+
+    "What is your biggest professional achievement?",
+
+    "How do you handle pressure?",
+
+    "Do you have any questions for us?"
+
+  ];
+
+
+  function randomInterviewQuestion() {
+
+    const question =
+      interviewQuestions[
+        Math.floor(
+          Math.random() *
+          interviewQuestions.length
+        )
+      ];
+
+    const element =
+      document.getElementById(
+        "interviewQuestion"
+      );
+
+    if (element) {
+
+      element.textContent =
+        question;
+
+    }
+
+    return question;
+
+  }
+
+
+  /* =======================================================
+     INTERVIEW SCORE
+     ======================================================= */
+
+  function scoreInterviewAnswer() {
+
+    const answer =
+      document.getElementById(
+        "interviewAnswer"
+      );
+
+    if (!answer) return;
+
+    const text =
+      answer.value.trim();
+
+    if (!text) {
+
+      toast(
+        "Write your answer first."
+      );
+
+      return;
+
+    }
+
+    const words =
+      text.split(/\s+/)
+        .filter(Boolean)
+        .length;
+
+    let score = 40;
+
+    if (words >= 30) score += 15;
+
+    if (words >= 60) score += 15;
+
+    if (words >= 100) score += 10;
+
+    if (
+      /\b(example|result|experience|learned|achieved)\b/i
+        .test(text)
+    ) {
+
+      score += 10;
+
+    }
+
+    if (score > 100) {
+
+      score = 100;
+
+    }
+
+    const result =
+      document.getElementById(
+        "interviewResults"
+      );
+
+    if (result) {
+
+      result.innerHTML = `
+        <h3>
+          🎯 Interview Score
+        </h3>
+
+        <div
+          style="
+            font-size:42px;
+            font-weight:800;
+            margin-top:12px;
+          ">
+          ${score}/100
+        </div>
+
+        <p style="margin-top:10px">
+          ${
+            score >= 80
+            ? "Excellent answer. Keep it focused and specific."
+            : score >= 60
+            ? "Good answer. Add a concrete example and measurable result."
+            : "Try giving a structured answer with an example and result."
+          }
+        </p>
+      `;
+
+    }
+
+    const history =
+      getJSON(
+        "interview_history",
+        []
+      );
+
+    history.unshift({
+
+      id: Date.now(),
+
+      score: score,
+
+      words: words,
+
+      date:
+        new Date()
+          .toLocaleDateString()
+
+    });
+
+    setJSON(
+      "interview_history",
+      history.slice(0, 50)
+    );
+
+    toast(
+      "Interview answer evaluated."
+    );
+
+  }
+
+
+  /* =======================================================
+     RESUME STORAGE
+     ======================================================= */
+
+  function saveResumeData() {
+
+    const fields = [
+
+      "resumeName",
+
+      "resumeTitle",
+
+      "resumeSkills",
+
+      "resumeExperience"
+
+    ];
+
+    const data = {};
+
+    fields.forEach(function (id) {
+
+      const element =
+        document.getElementById(id);
+
+      if (element) {
+
+        data[id] =
+          element.value;
+
+      }
+
+    });
+
+    setJSON(
+      "resume_data",
+      data
+    );
+
+    toast(
+      "📄 Resume data saved."
+    );
+
+  }
+
+
+  function loadResumeData() {
+
+    const data =
+      getJSON(
+        "resume_data",
+        {}
+      );
+
+    Object.keys(data)
+      .forEach(function (id) {
+
+        const element =
+          document.getElementById(id);
+
+        if (element) {
+
+          element.value =
+            data[id];
+
+        }
+
+      });
+
+  }
+
+
+  /* =======================================================
+     COVER LETTER
+     ======================================================= */
+
+  function generateEnhancedCoverLetter() {
+
+    const name =
+      document.getElementById(
+        "clName"
+      )?.value.trim();
+
+    const job =
+      document.getElementById(
+        "clJobTitle"
+      )?.value.trim();
+
+    const company =
+      document.getElementById(
+        "clCompany"
+      )?.value.trim();
+
+    const skills =
+      document.getElementById(
+        "clSkills"
+      )?.value.trim();
+
+    if (!name || !job || !company) {
+
+      toast(
+        "Enter your name, job title and company."
+      );
+
+      return;
+
+    }
+
+    const letter = `Dear Hiring Manager,
+
+I am writing to apply for the ${job} position at ${company}. I am very interested in the opportunity and believe my skills in ${skills || "relevant professional skills"} would allow me to contribute positively to your team.
+
+I am motivated to learn, solve problems and deliver meaningful results. I would welcome the opportunity to discuss how my background and skills could support ${company}.
+
+Thank you for considering my application.
+
+Sincerely,
+${name}`;
+
+    localStorage.setItem(
+      CONFIG.storagePrefix +
+      "enhanced_cover_letter",
+      letter
+    );
+
+    const preview =
+      document.getElementById(
+        "coverLetterPreview"
+      );
+
+    if (preview) {
+
+      preview.innerHTML = `
+        <h3>✉️ Cover Letter</h3>
+
+        <div
+          style="
+            white-space:pre-wrap;
+            line-height:1.7;
+            margin-top:16px;
+          ">
+          ${safe(letter)}
+        </div>
+      `;
+
+    }
+
+    toast(
+      "✉️ Cover letter generated."
+    );
+
+  }
+
+
+/* =======================================================
+   DARK MODE
+======================================================= */
+
+function toggleDarkMode(){
+
+  const enabled =
+    localStorage.getItem(
+      CONFIG.storagePrefix + "dark_mode"
+    ) === "true";
+
+  localStorage.setItem(
+    CONFIG.storagePrefix + "dark_mode",
+    String(!enabled)
+  );
+
+  applyDarkMode();
+
+  toast(
+    !enabled
+      ? "🌙 Dark mode enabled."
+      : "☀️ Light mode enabled."
+  );
+
+}
+
+
+function applyDarkMode(){
+
+  const enabled =
+    localStorage.getItem(
+      CONFIG.storagePrefix + "dark_mode"
+    ) === "true";
+
+  document.body.classList.toggle(
+    "jobflow-dark",
+    enabled
+  );
+
+}
+
+
+/* =======================================================
+   DATA EXPORT
+======================================================= */
+
+function exportData(){
+
+  const data = {};
+
+  for(
+    let i = 0;
+    i < localStorage.length;
+    i++
+  ){
+
+    const key =
+      localStorage.key(i);
+
+    if(
+      key &&
+      key.startsWith(
+        CONFIG.storagePrefix
+      )
+    ){
+
+      data[key] =
+        localStorage.getItem(key);
+
+    }
+
+  }
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:"application/json"
+      }
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("a");
+
+  link.href = url;
+
+  link.download =
+    "JobFlow-AI-Backup.json";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
+
+  toast(
+    "📦 JobFlow data exported."
+  );
+
+}
+
+
+/* =======================================================
+   DASHBOARD STATISTICS
+======================================================= */
+
+function updateEnhancedStats(){
+
+  const apps =
+    applications();
+
+  const interviews =
+    getJSON(
+      "interview_history",
+      []
+    );
+
+  const offers =
+    apps.filter(function(app){
+
+      return String(
+        app.status || ""
+      ).toLowerCase() === "offer";
+
+    });
+
+  const rejected =
+    apps.filter(function(app){
+
+      return String(
+        app.status || ""
+      ).toLowerCase() === "rejected";
+
+    });
+
+
+  const values = {
+
+    analyticsApplications:
+      apps.length,
+
+    analyticsInterviews:
+      interviews.length,
+
+    analyticsOffers:
+      offers.length,
+
+    analyticsRejected:
+      rejected.length
+
+  };
+
+
+  Object.keys(values)
+    .forEach(function(id){
+
+      const element =
+        document.getElementById(id);
+
+      if(element){
+
+        element.textContent =
+          values[id];
+
+      }
+
+    });
+
+}
+
+
+/* =======================================================
+   APPLICATION FOLLOW-UP
+======================================================= */
+
+function addFollowUp(id){
+
+  const apps =
+    applications();
+
+  const app =
+    apps.find(function(item){
+
+      return item.id === id;
+
+    });
+
+  if(!app){
+
+    toast(
+      "Application not found."
+    );
+
+    return;
+
+  }
+
+
+  const date =
+    prompt(
+      "Enter follow-up date (example: 28/08/2026):"
+    );
+
+  if(!date) return;
+
+
+  app.followUp =
+    date;
+
+  saveApplications(
+    apps
+  );
+
+  toast(
+    "🔔 Follow-up saved."
+  );
+
+
+  if(
+    typeof window.renderApplications ===
+    "function"
+  ){
+
+    window.renderApplications();
+
+  }
+
+}
+
+
+/* =======================================================
+   APPLICATION NOTES
+======================================================= */
+
+function addApplicationNote(id){
+
+  const apps =
+    applications();
+
+  const app =
+    apps.find(function(item){
+
+      return item.id === id;
+
+    });
+
+  if(!app){
+
+    toast(
+      "Application not found."
+    );
+
+    return;
+
+  }
+
+
+  const note =
+    prompt(
+      "Add a note for this application:",
+      app.notes || ""
+    );
+
+  if(note === null) return;
+
+
+  app.notes =
+    note;
+
+  saveApplications(
+    apps
+  );
+
+  toast(
+    "📝 Application note saved."
+  );
+
+}
+
+
+/* =======================================================
+   PROFILE QUICK SAVE
+======================================================= */
+
+function saveQuickProfile(){
+
+  const name =
+    document.getElementById(
+      "profileName"
+    );
+
+  const email =
+    document.getElementById(
+      "profileEmail"
+    );
+
+  if(!name || !email){
+
+    toast(
+      "Profile fields not found."
+    );
+
+    return;
+
+  }
+
+
+  const profile = {
+
+    name:
+      name.value.trim(),
+
+    email:
+      email.value.trim(),
+
+    phone:
+      document.getElementById(
+        "profilePhone"
+      )?.value.trim() || "",
+
+    title:
+      document.getElementById(
+        "profileTitle"
+      )?.value.trim() || ""
+
+  };
+
+
+  setJSON(
+    "profile",
+    profile
+  );
+
+
+  localStorage.setItem(
+    CONFIG.storagePrefix + "name",
+    profile.name
+  );
+
+
+  toast(
+    "👤 Profile saved."
+  );
+
+}
+
+
+/* =======================================================
+   LOAD PROFILE
+======================================================= */
+
+function loadQuickProfile(){
+
+  const profile =
+    getJSON(
+      "profile",
+      {}
+    );
+
+
+  const fields = {
+
+    profileName:
+      profile.name || "",
+
+    profileEmail:
+      profile.email || "",
+
+    profilePhone:
+      profile.phone || "",
+
+    profileTitle:
+      profile.title || ""
+
+  };
+
+
+  Object.keys(fields)
+    .forEach(function(id){
+
+      const element =
+        document.getElementById(id);
+
+      if(element){
+
+        element.value =
+          fields[id];
+
+      }
+
+    });
+
+}
+
+
+/* =======================================================
+   PREMIUM STATUS
+======================================================= */
+
+function isPremium(){
+
+  return (
+    localStorage.getItem(
+      CONFIG.storagePrefix +
+      "premium"
+    ) === "true"
+  );
+
+}
+
+
+function activatePremium(){
+
+  /*
+   * This function should only be called
+   * after your payment system confirms
+   * a successful payment.
+   */
+
+  localStorage.setItem(
+    CONFIG.storagePrefix +
+    "premium",
+    "true"
+  );
+
+  toast(
+    "🎉 Premium activated."
+  );
+
+}
+
+
+/* =======================================================
+   PREMIUM CHECK
+======================================================= */
+
+function requirePremium(){
+
+  if(isPremium()){
+
+    return true;
+
+  }
+
+
+  if(isTrialActive()){
+
+    return true;
+
+  }
+
+
+  openPremium();
+
+  toast(
+    "🔒 Your free access has expired. Upgrade to continue."
+  );
+
+  return false;
+
+}
+
+
+/* =======================================================
+   FREE TRIAL DISPLAY
+======================================================= */
+
+function updateTrialDisplay(){
+
+  const elements =
+    document.querySelectorAll(
+      "[data-jobflow-trial]"
+    );
+
+  elements.forEach(function(element){
+
+    if(isPremium()){
+
+      element.textContent =
+        "👑 Premium Member";
+
+      return;
+
+    }
+
+
+    if(isTrialActive()){
+
+      element.textContent =
+        "⏱️ " +
+        trialStatus();
+
+    }else{
+
+      element.textContent =
+        "🔒 Trial Expired";
+
+    }
+
+  });
+
+}
+
+
+/* =======================================================
+   KEYBOARD SHORTCUTS
+======================================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    /*
+     * Ctrl + K = focus job search
+     */
+
+    if(
+      event.ctrlKey &&
+      event.key.toLowerCase() === "k"
+    ){
+
+      event.preventDefault();
+
+      const search =
+        document.getElementById(
+          "jobQuery"
+        );
+
+      if(search){
+
+        search.focus();
+
+      }
+
+    }
+
+  }
+);
+
+
+/* =======================================================
+   GLOBAL API
+======================================================= */
+
+window.JobFlowEnhancements = {
+
+  startTrial:
+    startTrial,
+
+  isTrialActive:
+    isTrialActive,
+
+  trialStatus:
+    trialStatus,
+
+  openPremium:
+    openPremium,
+
+  payPremium:
+    payPremium,
+
+  copyUPI:
+    copyUPI,
+
+  addApplication:
+    addQuickApplication,
+
+  deleteApplication:
+    deleteEnhancedApplication,
+
+  filterApplications:
+    filterApplications,
+
+  searchAllJobs:
+    searchAllJobs,
+
+  rememberSearch:
+    rememberSearch,
+
+  calculateMatchScore:
+    calculateMatchScore,
+
+  nextInterviewQuestion:
+    randomInterviewQuestion,
+
+  scoreInterview:
+    scoreInterviewAnswer,
+
+  saveResume:
+    saveResumeData,
+
+  loadResume:
+    loadResumeData,
+
+  generateCoverLetter:
+    generateEnhancedCoverLetter,
+
+  toggleDarkMode:
+    toggleDarkMode,
+
+  exportData:
+    exportData,
+
+  updateStats:
+    updateEnhancedStats,
+
+  addFollowUp:
+    addFollowUp,
+
+  addApplicationNote:
+    addApplicationNote,
+
+  saveProfile:
+    saveQuickProfile,
+
+  loadProfile:
+    loadQuickProfile,
+
+  isPremium:
+    isPremium,
+
+  activatePremium:
+    activatePremium,
+
+  requirePremium:
+    requirePremium
+
+};
+
+
+/* =======================================================
+   INITIALIZATION
+======================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    applyDarkMode();
+
+    loadResumeData();
+
+    loadQuickProfile();
+
+    updateEnhancedStats();
+
+    updateTrialDisplay();
+
+
+    /*
+     * Refresh dashboard information
+     * periodically without reloading page.
+     */
+
+    setInterval(
+      function(){
+
+        updateEnhancedStats();
+
+        updateTrialDisplay();
+
+      },
+      30000
+    );
+
+  }
+);
+
+
+/* =======================================================
+   END JOBFLOW AI ENHANCEMENT ENGINE
+======================================================= */
+
+})();
+  
