@@ -1669,10 +1669,43 @@ function startJobFlow(){
   }
 
 }
+document.getElementById("startTrialButton").onclick=function(){
 
-</script>
-</script>
+  const email=document.getElementById("trialEmail").value.trim();
 
+  if(!email){
+    alert("Please enter your email");
+    return;
+  }
+
+  if(!email.includes("@")){
+    alert("Enter a valid email");
+    return;
+  }
+
+  localStorage.setItem("jobflow_email",email);
+  localStorage.setItem("jobflow_trial_start",Date.now());
+
+  document.getElementById("trialGate").style.display="none";
+
+  document.querySelector(".app").style.display="block";
+
+  const dashboard=document.getElementById("dashboard");
+
+  if(dashboard){
+    document.querySelectorAll(".page").forEach(p=>{
+      p.style.display="none";
+      p.classList.remove("active");
+    });
+
+    dashboard.style.display="block";
+    dashboard.classList.add("active");
+  }
+
+  alert("✅ 48-hour trial started!");
+
+};
+</script>
 </body>
 </html>
 
