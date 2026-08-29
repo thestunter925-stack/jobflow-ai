@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#2563eb">
-<meta name="description" content="JobFlow AI - Your Career Command Center">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1.0"
+>
+
+<meta
+  name="theme-color"
+  content="#2563eb"
+>
+
+<meta
+  name="description"
+  content="JobFlow AI - Your Career Command Center"
+>
+
 <title>JobFlow AI</title>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-}
-
-:root{
-  --primary:#2563eb;
-  --primary-dark:#1d4ed8;
-  --bg:#f5f7fb;
-  --card:#ffffff;
-  --text:#111827;
-  --muted:#6b7280;
-  --border:#e5e7eb;
-  --dark:#111827;
-  --success:#16a34a;
-  --danger:#dc2626;
-  --warning:#d97706;
 }
 
 html{
@@ -33,16 +38,21 @@ html{
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:#f5f7fb;
+  color:#111827;
+
   line-height:1.5;
 }
 
 button,
 input,
-textarea,
-select{
+select,
+textarea{
   font:inherit;
 }
 
@@ -58,132 +68,69 @@ a{
   display:none!important;
 }
 
-/* =========================
-   AUTH
-========================= */
 
-.auth-screen{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+
+  --bg:#f5f7fb;
+  --card:#ffffff;
+
+  --text:#111827;
+  --muted:#6b7280;
+
+  --border:#e5e7eb;
+
+  --dark:#111827;
+
+  --success:#16a34a;
+  --danger:#dc2626;
+  --warning:#d97706;
+
+  --shadow:
+    0 5px 20px rgba(0,0,0,.05);
+
+}
+
+
+/* =========================================================
+   COMMON
+========================================================= */
+
+.card{
+
+  background:var(--card);
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:16px;
+
   padding:20px;
-  background:linear-gradient(
-    135deg,
-    #eff6ff,
-    #f8fafc
-  );
+
+  margin-bottom:18px;
+
+  box-shadow:var(--shadow);
+
 }
 
-.auth-box{
-  width:min(440px,100%);
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:30px;
-  box-shadow:0 15px 45px rgba(0,0,0,.08);
+.card h2,
+.card h3{
+  margin-bottom:8px;
 }
 
-.logo-large{
-  font-size:28px;
-  font-weight:800;
-  text-align:center;
-}
-
-.auth-subtitle{
-  text-align:center;
+.muted{
   color:var(--muted);
-  margin:8px 0 24px;
 }
 
-.auth-tabs{
-  display:flex;
-  gap:8px;
-  margin-bottom:20px;
-}
-
-.auth-tabs button{
-  flex:1;
-  border:1px solid var(--border);
-  background:#fff;
-  padding:10px;
-  border-radius:9px;
-}
-
-.auth-tabs button.active{
-  background:var(--primary);
-  color:#fff;
-  border-color:var(--primary);
-}
-
-label{
-  display:block;
-  font-weight:700;
-  margin:12px 0 7px;
-}
-
-input,
-select,
-textarea{
-  width:100%;
-  border:1px solid #d1d5db;
-  border-radius:10px;
-  padding:11px 12px;
-  background:#fff;
-  color:var(--text);
-  outline:none;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(37,99,235,.1);
-}
-
-textarea{
-  min-height:120px;
-  resize:vertical;
-}
-
-.btn{
-  border:0;
-  border-radius:10px;
-  padding:10px 15px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  text-decoration:none;
-}
-
-.btn-primary{
-  background:var(--primary);
-  color:#fff;
-}
-
-.btn-primary:hover{
-  background:var(--primary-dark);
-}
-
-.btn-secondary{
-  background:#e5e7eb;
-  color:#111827;
-}
-
-.btn-success{
-  background:var(--success);
-  color:#fff;
-}
-
-.btn-danger{
-  background:var(--danger);
-  color:#fff;
-}
-
-.btn-warning{
-  background:var(--warning);
-  color:#fff;
+.small{
+  font-size:13px;
 }
 
 .full{
@@ -202,80 +149,428 @@ textarea{
   margin-top:10px;
 }
 
-.small{
-  font-size:13px;
-}
-
-.muted{
-  color:var(--muted);
-}
-
 .notice{
+
   background:#eff6ff;
-  border:1px solid #bfdbfe;
-  border-radius:10px;
-  padding:12px;
+
+  border:
+    1px solid
+    #bfdbfe;
+
+  border-radius:11px;
+
+  padding:13px;
+
   margin-top:14px;
+
 }
 
-/* =========================
+.empty{
+
+  text-align:center;
+
+  padding:35px 15px;
+
+  color:var(--muted);
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn{
+
+  border:0;
+
+  border-radius:10px;
+
+  padding:
+    10px
+    15px;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:7px;
+
+  text-decoration:none;
+
+  transition:
+    transform .15s,
+    opacity .15s,
+    background .15s;
+
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+.btn:active{
+  transform:translateY(0);
+}
+
+.btn-primary{
+
+  background:
+    var(--primary);
+
+  color:white;
+
+}
+
+.btn-primary:hover{
+  background:
+    var(--primary-dark);
+}
+
+.btn-secondary{
+
+  background:#e5e7eb;
+
+  color:#111827;
+
+}
+
+.btn-success{
+
+  background:
+    var(--success);
+
+  color:white;
+
+}
+
+.btn-danger{
+
+  background:
+    var(--danger);
+
+  color:white;
+
+}
+
+.btn-warning{
+
+  background:
+    var(--warning);
+
+  color:white;
+
+}
+
+.actions{
+
+  display:flex;
+
+  gap:9px;
+
+  flex-wrap:wrap;
+
+  margin-top:15px;
+
+}
+
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+label{
+
+  display:block;
+
+  font-weight:700;
+
+  margin:
+    13px
+    0
+    7px;
+
+}
+
+input,
+select,
+textarea{
+
+  width:100%;
+
+  border:
+    1px solid
+    #d1d5db;
+
+  border-radius:10px;
+
+  padding:
+    11px
+    12px;
+
+  background:white;
+
+  color:#111827;
+
+  outline:none;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+  border-color:
+    var(--primary);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(37,99,235,.1);
+
+}
+
+textarea{
+
+  min-height:120px;
+
+  resize:vertical;
+
+}
+
+
+/* =========================================================
+   AUTH SCREEN
+========================================================= */
+
+.auth-screen{
+
+  min-height:100vh;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eff6ff,
+      #f8fafc
+    );
+
+}
+
+.auth-box{
+
+  width:
+    min(
+      450px,
+      100%
+    );
+
+  background:white;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:20px;
+
+  padding:30px;
+
+  box-shadow:
+    0 18px 55px
+    rgba(0,0,0,.09);
+
+}
+
+.logo-large{
+
+  font-size:29px;
+
+  font-weight:800;
+
+  text-align:center;
+
+}
+
+.auth-subtitle{
+
+  text-align:center;
+
+  color:var(--muted);
+
+  margin:
+    8px
+    0
+    24px;
+
+}
+
+.auth-tabs{
+
+  display:flex;
+
+  gap:8px;
+
+  margin-bottom:20px;
+
+}
+
+.auth-tabs button{
+
+  flex:1;
+
+  border:
+    1px solid
+    var(--border);
+
+  background:white;
+
+  padding:10px;
+
+  border-radius:9px;
+
+}
+
+.auth-tabs button.active{
+
+  background:
+    var(--primary);
+
+  color:white;
+
+  border-color:
+    var(--primary);
+
+}
+
+.auth-loading{
+
+  text-align:center;
+
+  color:var(--muted);
+
+  margin-top:12px;
+
+}
+
+
+/* =========================================================
    APP
-========================= */
+========================================================= */
 
 .app{
+
   display:none;
+
   min-height:100vh;
+
 }
 
 .sidebar{
+
   position:fixed;
+
   left:0;
   top:0;
   bottom:0;
+
   width:245px;
-  background:var(--dark);
-  color:#fff;
-  padding:20px 15px;
+
+  background:
+    var(--dark);
+
+  color:white;
+
+  padding:
+    20px
+    15px;
+
   overflow-y:auto;
+
   z-index:1000;
+
 }
 
 .brand{
+
   font-size:22px;
+
   font-weight:800;
-  padding:8px 10px 22px;
+
+  padding:
+    8px
+    10px
+    22px;
+
 }
 
 .nav-button{
+
   display:block;
+
   width:100%;
+
   border:0;
+
   background:transparent;
+
   color:#d1d5db;
+
   text-align:left;
-  padding:11px 12px;
-  margin:3px 0;
+
+  padding:
+    11px
+    12px;
+
+  margin:
+    3px
+    0;
+
   border-radius:9px;
+
 }
 
 .nav-button:hover,
 .nav-button.active{
-  background:var(--primary);
-  color:#fff;
+
+  background:
+    var(--primary);
+
+  color:white;
+
 }
 
 .sidebar-user{
-  border-top:1px solid #374151;
+
+  border-top:
+    1px solid
+    #374151;
+
   margin-top:18px;
+
   padding:15px 10px;
+
   font-size:13px;
+
   color:#d1d5db;
+
 }
 
 .main{
+
   margin-left:245px;
+
   padding:25px;
+
   max-width:1500px;
+
 }
 
 .page{
@@ -286,227 +581,384 @@ textarea{
   display:block;
 }
 
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
 .topbar{
+
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   gap:15px;
+
   margin-bottom:22px;
+
 }
 
 .topbar h1{
   font-size:27px;
 }
 
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:20px;
-  margin-bottom:18px;
-  box-shadow:0 3px 14px rgba(0,0,0,.035);
-}
 
-.card h2,
-.card h3{
-  margin-bottom:8px;
-}
+/* =========================================================
+   GRIDS
+========================================================= */
 
 .grid-2{
+
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0,1fr)
+    );
+
   gap:16px;
+
 }
 
 .grid-3{
+
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0,1fr)
+    );
+
   gap:16px;
+
 }
 
 .grid-4{
+
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(0,1fr)
+    );
+
   gap:16px;
+
 }
 
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
 .stat-card{
-  background:#fff;
-  border:1px solid var(--border);
+
+  background:
+    var(--card);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:15px;
+
   padding:18px;
+
+  box-shadow:var(--shadow);
+
 }
 
 .stat-number{
+
   font-size:30px;
+
   font-weight:800;
+
   margin-top:5px;
+
 }
 
 .stat-label{
-  color:var(--muted);
+
+  color:
+    var(--muted);
+
   font-size:14px;
+
 }
 
-.actions{
-  display:flex;
-  gap:9px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
 
-.badge{
-  display:inline-flex;
-  align-items:center;
-  border-radius:999px;
-  padding:4px 9px;
-  font-size:12px;
-  font-weight:700;
-  background:#dbeafe;
-  color:#1d4ed8;
-}
-
-.badge-green{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.badge-red{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.badge-yellow{
-  background:#fef3c7;
-  color:#92400e;
-}
-
-/* =========================
-   JOBS
-========================= */
+/* =========================================================
+   JOB CARDS
+========================================================= */
 
 .job-card{
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:13px;
+
   padding:17px;
+
   margin-top:12px;
-  background:#fff;
+
+  background:
+    var(--card);
+
 }
 
 .job-head{
+
   display:flex;
+
   justify-content:space-between;
+
   align-items:flex-start;
+
   gap:12px;
+
 }
 
 .job-title{
+
   font-size:18px;
+
   font-weight:800;
+
 }
 
 .job-meta{
-  color:var(--muted);
+
+  color:
+    var(--muted);
+
   font-size:14px;
+
   margin-top:4px;
+
 }
 
 .job-description{
+
   margin-top:12px;
+
   color:#4b5563;
+
 }
 
 .tags{
+
   display:flex;
+
   gap:7px;
+
   flex-wrap:wrap;
+
   margin-top:11px;
+
 }
 
 .tag{
+
   background:#f3f4f6;
+
   border-radius:999px;
-  padding:4px 8px;
+
+  padding:
+    4px
+    8px;
+
   font-size:12px;
+
 }
 
-.empty{
-  text-align:center;
-  padding:30px 15px;
-  color:var(--muted);
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  border-radius:999px;
+
+  padding:
+    4px
+    9px;
+
+  font-size:12px;
+
+  font-weight:700;
+
+  background:#dbeafe;
+
+  color:#1d4ed8;
+
 }
 
-/* =========================
+.badge-green{
+
+  background:#dcfce7;
+
+  color:#166534;
+
+}
+
+.badge-red{
+
+  background:#fee2e2;
+
+  color:#991b1b;
+
+}
+
+.badge-yellow{
+
+  background:#fef3c7;
+
+  color:#92400e;
+
+}
+
+
+/* =========================================================
    PIPELINE
-========================= */
+========================================================= */
 
 .pipeline{
+
   display:grid;
-  grid-template-columns:repeat(5,minmax(180px,1fr));
+
+  grid-template-columns:
+    repeat(
+      5,
+      minmax(180px,1fr)
+    );
+
   gap:12px;
+
   overflow-x:auto;
+
 }
 
 .pipeline-column{
+
   background:#f9fafb;
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:12px;
+
   padding:12px;
+
   min-height:200px;
+
 }
 
 .pipeline-column h3{
+
   font-size:15px;
+
   margin-bottom:10px;
+
 }
 
 .pipeline-item{
-  background:#fff;
-  border:1px solid var(--border);
+
+  background:
+    var(--card);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:9px;
+
   padding:10px;
+
   margin-top:8px;
+
   font-size:13px;
+
 }
 
-/* =========================
+
+/* =========================================================
    TABLE
-========================= */
+========================================================= */
 
 .table-wrap{
   overflow-x:auto;
 }
 
 table{
+
   width:100%;
+
   border-collapse:collapse;
+
 }
 
 th,
 td{
+
   text-align:left;
+
   padding:11px;
-  border-bottom:1px solid var(--border);
+
+  border-bottom:
+    1px solid
+    var(--border);
+
   font-size:14px;
+
 }
 
 th{
   background:#f9fafb;
 }
 
-/* =========================
+
+/* =========================================================
    MODAL
-========================= */
+========================================================= */
 
 .modal{
+
   position:fixed;
+
   inset:0;
+
   display:none;
+
   align-items:center;
+
   justify-content:center;
+
   padding:18px;
-  background:rgba(17,24,39,.6);
+
+  background:
+    rgba(
+      17,
+      24,
+      39,
+      .6
+    );
+
   z-index:5000;
+
 }
 
 .modal.show{
@@ -514,88 +966,153 @@ th{
 }
 
 .modal-box{
-  background:#fff;
-  width:min(720px,100%);
+
+  background:
+    var(--card);
+
+  width:
+    min(
+      720px,
+      100%
+    );
+
   max-height:90vh;
+
   overflow:auto;
+
   border-radius:17px;
+
   padding:22px;
+
 }
 
 .modal-header{
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   gap:10px;
+
 }
 
 .close{
+
   border:0;
+
   background:#e5e7eb;
+
   border-radius:8px;
-  padding:7px 10px;
+
+  padding:
+    7px
+    10px;
+
 }
 
-/* =========================
+
+/* =========================================================
    PREMIUM
-========================= */
+========================================================= */
 
 .premium-card{
-  border:2px solid #2563eb;
-  background:linear-gradient(
-    135deg,
-    #eff6ff,
-    #fff
-  );
+
+  border:
+    2px solid
+    #2563eb;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eff6ff,
+      #ffffff
+    );
+
 }
 
 .price{
+
   font-size:38px;
+
   font-weight:800;
-  margin:10px 0;
+
+  margin:
+    10px
+    0;
+
 }
 
 .feature-list{
-  margin:15px 0 0 20px;
+
+  margin:
+    15px
+    0
+    0
+    20px;
+
   line-height:2;
+
 }
 
-/* =========================
+
+/* =========================================================
    PROFILE
-========================= */
+========================================================= */
 
 .profile-avatar{
+
   width:65px;
+
   height:65px;
+
   border-radius:50%;
+
   background:#dbeafe;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   font-size:25px;
+
   font-weight:800;
+
   color:#1d4ed8;
-  margin-bottom:18px;
+
+  margin-bottom:15px;
+
 }
 
-/* =========================
-   MOBILE
-========================= */
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
 
 .mobile-nav{
   display:none;
 }
 
-/* =========================
+
+/* =========================================================
    DARK MODE
-========================= */
+========================================================= */
 
 .dark-mode{
+
   --bg:#0f172a;
+
   --card:#1e293b;
+
   --text:#f8fafc;
+
   --muted:#94a3b8;
+
   --border:#334155;
+
 }
 
 .dark-mode .job-card,
@@ -605,40 +1122,65 @@ th{
 .dark-mode input,
 .dark-mode select,
 .dark-mode textarea,
-.dark-mode th,
-.dark-mode .modal-box{
+.dark-mode th{
+
   background:#1e293b;
+
   color:#f8fafc;
+
 }
 
 .dark-mode .btn-secondary{
+
   background:#334155;
-  color:#fff;
+
+  color:white;
+
 }
 
 .dark-mode .tag{
+
   background:#334155;
+
 }
 
 .dark-mode .notice{
+
   background:#172554;
+
   border-color:#1e40af;
+
 }
 
-/* =========================
+
+/* =========================================================
    RESPONSIVE
-========================= */
+========================================================= */
 
 @media(max-width:1000px){
 
   .grid-4{
-    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0,1fr)
+      );
+
   }
 
   .pipeline{
-    grid-template-columns:repeat(5,190px);
+
+    grid-template-columns:
+      repeat(
+        5,
+        190px
+      );
+
   }
+
 }
+
 
 @media(max-width:750px){
 
@@ -647,66 +1189,161 @@ th{
   }
 
   .main{
+
     margin-left:0;
-    padding:17px;
-    padding-bottom:80px;
+
+    padding:
+      17px;
+
+    padding-bottom:
+      80px;
+
   }
 
   .grid-2,
   .grid-3,
   .grid-4{
+
     grid-template-columns:1fr;
+
   }
 
   .mobile-nav{
+
     display:flex;
+
     position:fixed;
+
     left:0;
     right:0;
     bottom:0;
+
     height:64px;
+
     background:#111827;
+
     z-index:3000;
+
   }
 
   .mobile-nav button{
+
     flex:1;
+
     border:0;
+
     background:transparent;
-    color:#fff;
+
+    color:white;
+
     font-size:11px;
+
   }
 
   .mobile-nav button.active{
+
     background:#2563eb;
+
   }
 
   .topbar{
+
     align-items:flex-start;
+
   }
 
   .topbar h1{
+
     font-size:22px;
+
   }
 
   .job-head{
+
     flex-direction:column;
+
   }
 
   .auth-box{
+
     padding:22px;
+
   }
+
 }
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+#toast{
+
+  position:fixed;
+
+  left:50%;
+
+  bottom:25px;
+
+  transform:
+    translate(
+      -50%,
+      120px
+    );
+
+  background:#111827;
+
+  color:white;
+
+  padding:
+    12px
+    18px;
+
+  border-radius:10px;
+
+  z-index:10000;
+
+  opacity:0;
+
+  transition:
+    .25s;
+
+  max-width:
+    calc(
+      100% - 30px
+    );
+
+  text-align:center;
+
+}
+
+#toast.show{
+
+  opacity:1;
+
+  transform:
+    translate(
+      -50%,
+      0
+    );
+
+}
+
 </style>
+
 </head>
 
 <body>
 
-<!-- =====================================================
-     AUTH SCREEN
-===================================================== -->
 
-<div id="authScreen" class="auth-screen">
+<!-- =========================================================
+     AUTH SCREEN
+========================================================= -->
+
+<div
+  id="authScreen"
+  class="auth-screen"
+>
 
   <div class="auth-box">
 
@@ -717,6 +1354,7 @@ th{
     <p class="auth-subtitle">
       Your Career Command Center
     </p>
+
 
     <div class="auth-tabs">
 
@@ -737,9 +1375,15 @@ th{
 
     </div>
 
-    <form id="authForm">
 
-      <label for="authEmail">
+    <form
+      id="authForm"
+      novalidate
+    >
+
+      <label
+        for="authEmail"
+      >
         Email address
       </label>
 
@@ -751,7 +1395,10 @@ th{
         required
       >
 
-      <label for="authPassword">
+
+      <label
+        for="authPassword"
+      >
         Password
       </label>
 
@@ -759,10 +1406,32 @@ th{
         id="authPassword"
         type="password"
         placeholder="Minimum 6 characters"
-        minlength="6"
         autocomplete="current-password"
+        minlength="6"
         required
       >
+
+
+      <div
+        id="confirmPasswordWrap"
+        class="hidden"
+      >
+
+        <label
+          for="confirmPassword"
+        >
+          Confirm Password
+        </label>
+
+        <input
+          id="confirmPassword"
+          type="password"
+          placeholder="Confirm password"
+          autocomplete="new-password"
+        >
+
+      </div>
+
 
       <button
         id="authButton"
@@ -773,12 +1442,23 @@ th{
         🚀 Login
       </button>
 
+
+      <div
+        id="authLoading"
+        class="auth-loading hidden"
+      >
+        Please wait...
+      </div>
+
     </form>
+
 
     <div
       id="authMessage"
       class="error"
+      role="alert"
     ></div>
+
 
     <div class="notice small">
 
@@ -803,13 +1483,14 @@ th{
 </div>
 
 
-<!-- =====================================================
+<!-- =========================================================
      MAIN APPLICATION
-===================================================== -->
+========================================================= -->
 
-<div id="app" class="app">
-
-  <!-- SIDEBAR -->
+<div
+  id="app"
+  class="app"
+>
 
   <aside class="sidebar">
 
@@ -817,101 +1498,114 @@ th{
       🚀 JobFlow AI
     </div>
 
+
     <button
-      class="nav-button active"
       type="button"
+      class="nav-button active"
       data-page="dashboard"
     >
       🏠 Dashboard
     </button>
 
+
     <button
-      class="nav-button"
       type="button"
+      class="nav-button"
       data-page="jobs"
     >
       💼 Find Jobs
     </button>
 
+
     <button
-      class="nav-button"
       type="button"
+      class="nav-button"
       data-page="saved"
     >
       ⭐ Saved Jobs
     </button>
 
+
     <button
-      class="nav-button"
       type="button"
+      class="nav-button"
       data-page="applications"
     >
       📋 Applications
     </button>
 
+
     <button
-      class="nav-button"
       type="button"
+      class="nav-button"
       data-page="pipeline"
     >
       🔄 Pipeline
     </button>
 
+
     <button
-      class="nav-button"
       type="button"
+      class="nav-button"
       data-page="analytics"
     >
       📊 Analytics
     </button>
 
+
     <button
-      class="nav-button"
       type="button"
+      class="nav-button"
       data-page="resume"
     >
       📄 Resume
     </button>
 
+
     <button
-      class="nav-button"
       type="button"
+      class="nav-button"
       data-page="cover"
     >
       ✉️ Cover Letter
     </button>
 
+
     <button
-      class="nav-button"
       type="button"
+      class="nav-button"
       data-page="interview"
     >
       🎤 Interview
     </button>
 
+
     <button
-      class="nav-button"
       type="button"
+      class="nav-button"
       data-page="premium"
     >
       💳 Premium
     </button>
 
+
     <button
-      class="nav-button"
       type="button"
+      class="nav-button"
       data-page="profile"
     >
       👤 Profile
     </button>
 
+
     <button
-      class="nav-button"
       type="button"
+      class="nav-button"
       data-page="settings"
     >
       ⚙️ Settings
     </button>
+
 
     <div class="sidebar-user">
 
@@ -926,28 +1620,17 @@ th{
         Free Trial
       </div>
 
-      <button
-        id="logoutButton"
-        type="button"
-        class="nav-button"
-        style="margin-top:12px"
-      >
-        🚪 Logout
-      </button>
-
     </div>
 
   </aside>
 
 
-  <!-- MAIN -->
-
   <main class="main">
 
 
-    <!-- =================================================
+    <!-- =====================================================
          DASHBOARD
-    ================================================== -->
+    ====================================================== -->
 
     <section
       id="dashboard"
@@ -968,9 +1651,10 @@ th{
 
         </div>
 
+
         <button
-          class="btn btn-primary"
           type="button"
+          class="btn btn-primary"
           data-page-link="jobs"
         >
           🔎 Find Jobs
@@ -1055,37 +1739,39 @@ th{
 
         <p class="muted">
           Find opportunities, prepare applications
-          and track your career journey from one place.
+          and manage your complete job search.
         </p>
+
 
         <div
           id="trialBanner"
           class="notice"
         >
-          Loading trial status...
         </div>
+
 
         <div class="actions">
 
           <button
-            class="btn btn-primary"
             type="button"
+            class="btn btn-primary"
             data-page-link="jobs"
           >
             💼 Search Jobs
           </button>
 
+
           <button
-            class="btn btn-secondary"
             type="button"
+            class="btn btn-secondary"
             data-page-link="applications"
           >
             📋 Track Applications
           </button>
 
-          <button
-            class="btn btn-secondary"
+                   <button
             type="button"
+            class="btn btn-secondary"
             data-page-link="premium"
           >
             💳 View Premium
@@ -1133,8 +1819,7 @@ th{
           </h1>
 
           <p class="muted">
-            Search opportunities through your
-            JobFlow AI backend.
+            Search for opportunities using JobFlow AI.
           </p>
 
         </div>
@@ -1149,11 +1834,12 @@ th{
           <div>
 
             <label for="jobQuery">
-              Job title / skill
+              Job Title / Skill
             </label>
 
             <input
               id="jobQuery"
+              type="text"
               placeholder="Software Engineer, React, Marketing..."
             >
 
@@ -1168,6 +1854,7 @@ th{
 
             <input
               id="jobLocation"
+              type="text"
               value="India"
               placeholder="India, Hyderabad, Bengaluru..."
             >
@@ -1181,16 +1868,16 @@ th{
 
           <button
             id="searchJobsButton"
-            class="btn btn-primary"
             type="button"
+            class="btn btn-primary"
           >
-            🔎 Search Real Jobs
+            🔎 Search Jobs
           </button>
 
           <button
-            id="clearJobSearch"
-            class="btn btn-secondary"
+            id="clearJobsButton"
             type="button"
+            class="btn btn-secondary"
           >
             Clear
           </button>
@@ -1198,16 +1885,11 @@ th{
         </div>
 
 
-        <div class="notice small">
-
-          <strong>
-            Backend:
-          </strong>
-
-          JobFlow AI can send job-search
-          requests to your configured backend.
-
-        </div>
+        <div
+          id="jobSearchMessage"
+          class="small"
+          style="margin-top:10px"
+        ></div>
 
       </div>
 
@@ -1215,7 +1897,7 @@ th{
       <div id="jobResults">
 
         <div class="empty">
-          Search for jobs to see results.
+          Enter a job title and search to see opportunities.
         </div>
 
       </div>
@@ -1241,7 +1923,7 @@ th{
           </h1>
 
           <p class="muted">
-            Opportunities you've saved.
+            Keep track of jobs you want to apply for.
           </p>
 
         </div>
@@ -1281,15 +1963,16 @@ th{
           </h1>
 
           <p class="muted">
-            Track every opportunity.
+            Track your applications and their status.
           </p>
 
         </div>
 
+
         <button
           id="addApplicationOpen"
-          class="btn btn-primary"
           type="button"
+          class="btn btn-primary"
         >
           ➕ Add Application
         </button>
@@ -1331,9 +2014,19 @@ th{
 
             </thead>
 
-            <tbody
-              id="applicationsTable"
-            >
+
+            <tbody id="applicationsTable">
+
+              <tr>
+
+                <td
+                  colspan="5"
+                  class="empty"
+                >
+                  No applications yet.
+                </td>
+
+              </tr>
 
             </tbody>
 
@@ -1347,229 +2040,1066 @@ th{
 
 
     <!-- =================================================
-         APPLICATION MODAL
+         PIPELINE
     ================================================== -->
 
-        <div
-      id="applicationModal"
-      class="modal"
-      aria-hidden="true"
+    <section
+      id="pipeline"
+      class="page"
     >
 
-      <div class="modal-box">
+      <div class="topbar">
 
-        <div class="modal-header">
+        <div>
 
-          <div>
-            <h2>Add Application</h2>
-            <p class="muted small">
-              Track a job application in your pipeline.
-            </p>
+          <h1>
+            🔄 Application Pipeline
+          </h1>
+
+          <p class="muted">
+            Track your progress from application to offer.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="pipelineBoard"
+        class="pipeline"
+      ></div>
+
+    </section>
+
+
+    <!-- =================================================
+         ANALYTICS
+    ================================================== -->
+
+    <section
+      id="analytics"
+      class="page"
+    >
+
+      <div class="topbar">
+
+        <div>
+
+          <h1>
+            📊 Analytics
+          </h1>
+
+          <p class="muted">
+            Understand your job-search performance.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="grid-4">
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Total Applications
           </div>
 
-          <button
-            id="closeApplicationModal"
-            type="button"
-            class="close"
-            aria-label="Close"
+          <div
+            id="analyticsTotal"
+            class="stat-number"
           >
-            ✕
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Interviews
+          </div>
+
+          <div
+            id="analyticsInterview"
+            class="stat-number"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Offers
+          </div>
+
+          <div
+            id="analyticsOffer"
+            class="stat-number"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Rejected
+          </div>
+
+          <div
+            id="analyticsRejected"
+            class="stat-number"
+          >
+            0
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>
+          Offer Conversion Rate
+        </h3>
+
+        <p
+          id="conversionText"
+          style="font-size:28px;font-weight:800;margin-top:10px"
+        >
+          0%
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         RESUME BUILDER
+    ================================================== -->
+
+    <section
+      id="resume"
+      class="page"
+    >
+
+      <div class="topbar">
+
+        <div>
+
+          <h1>
+            📄 Resume Builder
+          </h1>
+
+          <p class="muted">
+            Build a professional resume draft.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="grid-2">
+
+        <div class="card">
+
+          <label for="resumeName">
+            Full Name
+          </label>
+
+          <input
+            id="resumeName"
+            type="text"
+            placeholder="Your Name"
+          >
+
+
+          <label for="resumeTitle">
+            Professional Title
+          </label>
+
+          <input
+            id="resumeTitle"
+            type="text"
+            placeholder="Software Engineer"
+          >
+
+
+          <label for="resumeSkills">
+            Skills
+          </label>
+
+          <textarea
+            id="resumeSkills"
+            placeholder="JavaScript, React, SQL..."
+          ></textarea>
+
+
+          <label for="resumeExperience">
+            Experience
+          </label>
+
+          <textarea
+            id="resumeExperience"
+            placeholder="Describe your experience..."
+          ></textarea>
+
+
+          <button
+            id="generateResumeButton"
+            type="button"
+            class="btn btn-primary"
+            style="margin-top:12px"
+          >
+            📄 Generate Resume
           </button>
 
         </div>
 
-        <form id="applicationForm">
 
-          <label for="applicationCompany">
-            Company
-          </label>
+        <div
+          id="resumePreview"
+          class="card"
+        >
 
-          <input
-            id="applicationCompany"
-            type="text"
-            placeholder="Company name"
-            required
-          >
-
-          <label for="applicationRole">
-            Job Role
-          </label>
-
-          <input
-            id="applicationRole"
-            type="text"
-            placeholder="Software Engineer"
-            required
-          >
-
-          <label for="applicationDate">
-            Application Date
-          </label>
-
-          <input
-            id="applicationDate"
-            type="date"
-            required
-          >
-
-          <label for="applicationStatus">
-            Status
-          </label>
-
-          <select id="applicationStatus">
-            <option value="Applied">
-              Applied
-            </option>
-
-            <option value="Screening">
-              Screening
-            </option>
-
-            <option value="Interview">
-              Interview
-            </option>
-
-            <option value="Offer">
-              Offer
-            </option>
-
-            <option value="Rejected">
-              Rejected
-            </option>
-
-            <option value="Withdrawn">
-              Withdrawn
-            </option>
-          </select>
-
-          <label for="applicationNotes">
-            Notes
-          </label>
-
-          <textarea
-            id="applicationNotes"
-            placeholder="Add notes about this application..."
-          ></textarea>
-
-          <div class="actions">
-
-            <button
-              id="cancelApplicationButton"
-              type="button"
-              class="btn btn-secondary"
-            >
-              Cancel
-            </button>
-
-            <button
-              type="submit"
-              class="btn btn-primary"
-            >
-              💾 Save Application
-            </button>
-
+          <div class="empty">
+            Your resume preview will appear here.
           </div>
 
-        </form>
+        </div>
 
       </div>
 
-    </div>
+    </section>
 
 
     <!-- =================================================
-         NOTIFICATION
+         COVER LETTER
     ================================================== -->
 
-    <div
-      id="toast"
-      style="
-        position:fixed;
-        left:50%;
-        bottom:25px;
-        transform:translateX(-50%);
-        z-index:9999;
-        display:none;
-        max-width:90%;
-        padding:12px 18px;
-        border-radius:10px;
-        background:#111827;
-        color:white;
-        box-shadow:0 8px 30px rgba(0,0,0,.2);
-        font-size:14px;
-      "
-    ></div>
-
-
-    <!-- =================================================
-         MOBILE NAVIGATION
-    ================================================== -->
-
-    <nav
-      class="mobile-nav"
-      aria-label="Mobile navigation"
+    <section
+      id="cover"
+      class="page"
     >
 
-      <button
-        type="button"
-        data-page="dashboard"
-      >
-        🏠
-        <br>
-        Home
-      </button>
+      <div class="topbar">
 
-      <button
-        type="button"
-        data-page="jobs"
-      >
-        💼
-        <br>
-        Jobs
-      </button>
+        <div>
 
-      <button
-        type="button"
-        data-page="applications"
-      >
-        📋
-        <br>
-        Apps
-      </button>
+          <h1>
+            ✉️ Cover Letter
+          </h1>
 
-      <button
-        type="button"
-        data-page="resume"
-      >
-        📄
-        <br>
-        Resume
-      </button>
+          <p class="muted">
+            Create a job-specific cover letter.
+          </p>
 
-      <button
-        type="button"
-        data-page="profile"
-      >
-        👤
-        <br>
-        Profile
-      </button>
+        </div>
 
-    </nav>
+      </div>
+
+
+      <div class="card">
+
+        <div class="grid-2">
+
+          <div>
+
+            <label for="coverName">
+              Your Name
+            </label>
+
+            <input
+              id="coverName"
+              type="text"
+            >
+
+          </div>
+
+
+          <div>
+
+            <label for="coverRole">
+              Job Title
+            </label>
+
+            <input
+              id="coverRole"
+              type="text"
+            >
+
+          </div>
+
+
+          <div>
+
+            <label for="coverCompany">
+              Company
+            </label>
+
+            <input
+              id="coverCompany"
+              type="text"
+            >
+
+          </div>
+
+
+          <div>
+
+            <label for="coverSkills">
+              Key Skills
+            </label>
+
+            <input
+              id="coverSkills"
+              type="text"
+            >
+
+          </div>
+
+        </div>
+
+
+        <label for="coverDescription">
+          Job Description
+        </label>
+
+        <textarea
+          id="coverDescription"
+          placeholder="Paste the job description..."
+        ></textarea>
+
+
+        <button
+          id="generateCoverButton"
+          type="button"
+          class="btn btn-primary"
+          style="margin-top:12px"
+        >
+          ✉️ Generate Cover Letter
+        </button>
+
+      </div>
+
+
+      <div
+        id="coverPreview"
+        class="card"
+      >
+
+        <div class="empty">
+          Your cover letter will appear here.
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         INTERVIEW
+    ================================================== -->
+
+    <section
+      id="interview"
+      class="page"
+    >
+
+      <div class="topbar">
+
+        <div>
+
+          <h1>
+            🎤 Interview Practice
+          </h1>
+
+          <p class="muted">
+            Practice common interview questions.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2 id="interviewQuestion">
+          Tell me about yourself.
+        </h2>
+
+
+        <label for="interviewAnswer">
+          Your Answer
+        </label>
+
+        <textarea
+          id="interviewAnswer"
+          placeholder="Write your answer..."
+        ></textarea>
+
+
+        <div class="actions">
+
+          <button
+            id="submitInterview"
+            type="button"
+            class="btn btn-primary"
+          >
+            ✅ Check Answer
+          </button>
+
+
+          <button
+            id="nextInterview"
+            type="button"
+            class="btn btn-secondary"
+          >
+            ➡️ Next Question
+          </button>
+
+        </div>
+
+
+        <div
+          id="interviewFeedback"
+          style="margin-top:15px"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PREMIUM
+    ================================================== -->
+
+    <section
+      id="premium"
+      class="page"
+    >
+
+      <div class="topbar">
+
+        <div>
+
+          <h1>
+            💳 JobFlow AI Premium
+          </h1>
+
+          <p class="muted">
+            Unlock advanced career features.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="card premium-card">
+
+        <h2>
+          JobFlow AI Premium
+        </h2>
+
+        <div class="price">
+          ₹499
+        </div>
+
+        <p class="muted">
+          Premium access
+        </p>
+
+
+        <ul class="feature-list">
+
+          <li>
+            Advanced job discovery
+          </li>
+
+          <li>
+            AI-powered application assistance
+          </li>
+
+          <li>
+            Advanced resume tools
+          </li>
+
+          <li>
+            Advanced cover letters
+          </li>
+
+          <li>
+            Application automation where supported
+          </li>
+
+          <li>
+            Advanced career analytics
+          </li>
+
+        </ul>
+
+
+        <div class="notice">
+
+          <strong>
+            Secure activation:
+          </strong>
+
+          Premium access is activated only after
+          backend verification of the payment.
+
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            id="premiumPaymentButton"
+            type="button"
+            class="btn btn-primary"
+          >
+            💳 Continue to Payment
+          </button>
+
+        </div>
+
+
+        <div
+          id="paymentArea"
+          class="hidden"
+        >
+
+          <div class="card">
+
+            <h3>
+              Payment Verification
+            </h3>
+
+            <p class="muted">
+              Complete the payment using your configured
+              payment method, then submit the transaction reference.
+            </p>
+
+
+            <label for="upiId">
+              UPI ID
+            </label>
+
+            <input
+              id="upiId"
+              type="text"
+              placeholder="yourupi@bank"
+            >
+
+
+            <label for="paymentReference">
+              Payment Reference / UTR
+            </label>
+
+            <input
+              id="paymentReference"
+              type="text"
+              placeholder="Enter transaction reference"
+            >
+
+
+            <button
+              id="submitPaymentReference"
+              type="button"
+              class="btn btn-success"
+              style="margin-top:12px"
+            >
+              ✅ Submit Payment Reference
+            </button>
+
+
+            <div
+              id="paymentMessage"
+              style="margin-top:10px"
+            ></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PROFILE
+    ================================================== -->
+
+    <section
+      id="profile"
+      class="page"
+    >
+
+      <div class="topbar">
+
+        <div>
+
+          <h1>
+            👤 Profile
+          </h1>
+
+          <p class="muted">
+            Manage your reusable career information.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div
+          id="profileAvatar"
+          class="profile-avatar"
+        >
+          ?
+        </div>
+
+
+        <div class="grid-2">
+
+          <div>
+
+            <label for="profileName">
+              Full Name
+            </label>
+
+            <input
+              id="profileName"
+              type="text"
+            >
+
+          </div>
+
+
+          <div>
+
+            <label for="profileEmail">
+              Email
+            </label>
+
+            <input
+              id="profileEmail"
+              type="email"
+            >
+
+          </div>
+
+
+          <div>
+
+            <label for="profilePhone">
+              Phone
+            </label>
+
+            <input
+              id="profilePhone"
+              type="tel"
+            >
+
+          </div>
+
+
+          <div>
+
+            <label for="profileLocation">
+              Location
+            </label>
+
+            <input
+              id="profileLocation"
+              type="text"
+            >
+
+          </div>
+
+        </div>
+
+
+        <label for="profileSkills">
+          Skills
+        </label>
+
+        <textarea
+          id="profileSkills"
+        ></textarea>
+
+
+        <label for="profileExperience">
+          Experience
+        </label>
+
+        <textarea
+          id="profileExperience"
+        ></textarea>
+
+
+        <label for="profileLinkedIn">
+          LinkedIn
+        </label>
+
+        <input
+          id="profileLinkedIn"
+          type="url"
+          placeholder="https://linkedin.com/in/..."
+        >
+
+
+        <label for="profilePortfolio">
+          Portfolio
+        </label>
+
+        <input
+          id="profilePortfolio"
+          type="url"
+          placeholder="https://..."
+        >
+
+
+        <button
+          id="saveProfileButton"
+          type="button"
+          class="btn btn-primary"
+          style="margin-top:12px"
+        >
+          💾 Save Profile
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SETTINGS
+    ================================================== -->
+
+    <section
+      id="settings"
+      class="page"
+    >
+
+      <div class="topbar">
+
+        <div>
+
+          <h1>
+            ⚙️ Settings
+          </h1>
+
+          <p class="muted">
+            Manage your JobFlow AI preferences.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>
+          Appearance
+        </h3>
+
+        <p class="muted">
+          Switch between light and dark mode.
+        </p>
+
+
+        <button
+          id="darkModeButton"
+          type="button"
+          class="btn btn-secondary"
+          style="margin-top:12px"
+        >
+          🌙 Switch to Dark Mode
+        </button>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>
+          Account
+        </h3>
+
+        <p
+          id="settingsEmail"
+          class="muted"
+        >
+          Not signed in
+        </p>
+
+
+        <p
+          id="settingsPlan"
+          class="muted"
+          style="margin-top:5px"
+        >
+          Free Trial
+        </p>
+
+
+        <button
+          id="settingsLogoutButton"
+          type="button"
+          class="btn btn-danger"
+          style="margin-top:12px"
+        >
+          🚪 Logout
+        </button>
+
+      </div>
+
+    </section>
+
 
   </main>
+
+
+  <!-- =================================================
+       MOBILE NAVIGATION
+  ================================================== -->
+
+  <nav
+    class="mobile-nav"
+    aria-label="Mobile navigation"
+  >
+
+    <button
+      type="button"
+      data-page="dashboard"
+    >
+      🏠
+      <br>
+      Home
+    </button>
+
+
+    <button
+      type="button"
+      data-page="jobs"
+    >
+      💼
+      <br>
+      Jobs
+    </button>
+
+
+    <button
+      type="button"
+      data-page="applications"
+    >
+      📋
+      <br>
+      Apps
+    </button>
+
+
+    <button
+      type="button"
+      data-page="resume"
+    >
+      📄
+      <br>
+      Resume
+    </button>
+
+
+    <button
+      type="button"
+      data-page="profile"
+    >
+      👤
+      <br>
+      Profile
+    </button>
+
+  </nav>
+
 
 </div>
 
 
 <!-- =====================================================
-     JAVASCRIPT
+     APPLICATION MODAL
 ====================================================== -->
 
+<div
+  id="applicationModal"
+  class="modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="applicationModalTitle"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2 id="applicationModalTitle">
+        Add Application
+      </h2>
+
+      <button
+        id="closeApplicationModal"
+        type="button"
+        class="close"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <form id="applicationForm">
+
+      <label for="applicationCompany">
+        Company
+      </label>
+
+      <input
+        id="applicationCompany"
+        type="text"
+        required
+      >
+
+
+      <label for="applicationRole">
+        Role
+      </label>
+
+      <input
+        id="applicationRole"
+        type="text"
+        required
+      >
+
+
+      <label for="applicationDate">
+        Application Date
+      </label>
+
+      <input
+        id="applicationDate"
+        type="date"
+        required
+      >
+
+
+      <label for="applicationStatus">
+        Status
+      </label>
+
+      <select
+               id="applicationStatus"
+        required
+      >
+
+        <option value="Applied">
+          Applied
+        </option>
+
+        <option value="Screening">
+          Screening
+        </option>
+
+        <option value="Interview">
+          Interview
+        </option>
+
+        <option value="Offer">
+          Offer
+        </option>
+
+        <option value="Rejected">
+          Rejected
+        </option>
+
+        <option value="Withdrawn">
+          Withdrawn
+        </option>
+
+      </select>
+
+
+      <label for="applicationNotes">
+        Notes
+      </label>
+
+      <textarea
+        id="applicationNotes"
+        placeholder="Add notes about this application..."
+      ></textarea>
+
+
+      <div class="actions">
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+        >
+          💾 Save Application
+        </button>
+
+        <button
+          type="button"
+          id="cancelApplicationButton"
+          class="btn btn-secondary"
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     NOTIFICATION
+===================================================== -->
+
+<div
+  id="toast"
+  class="toast"
+  role="status"
+  aria-live="polite"
+></div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script>
-
-"use strict";
-
 
 /* =====================================================
    CONFIGURATION
@@ -1577,18 +3107,41 @@ th{
 
 const CONFIG = {
 
-  TRIAL_HOURS: 48,
+  APP_NAME: "JobFlow AI",
 
   PREMIUM_PRICE: 499,
+
+  TRIAL_HOURS: 48,
 
   OWNER_EMAIL:
     "mdnawaz6052@gmail.com",
 
   SUPABASE_URL:
-    "https://gpzkuewosylwotymqeub.supabase.co",
+    "",
 
-  SUPABASE_FUNCTION:
-    "jobs-api"
+  SUPABASE_ANON_KEY:
+    "",
+
+  JOBS_ENDPOINT:
+    "",
+
+  PAYMENT_ENDPOINT:
+    "",
+
+  PROFILE_STORAGE:
+    "jobflow_profile",
+
+  USER_STORAGE:
+    "jobflow_user",
+
+  SAVED_STORAGE:
+    "jobflow_saved_jobs",
+
+  APPLICATION_STORAGE:
+    "jobflow_applications",
+
+  DARK_STORAGE:
+    "jobflow_dark_mode"
 
 };
 
@@ -1608,7 +3161,6 @@ let applications = [];
 let interviewIndex = 0;
 
 let selectedJob = null;
-
 
 const interviewQuestions = [
 
@@ -1635,7 +3187,7 @@ const interviewQuestions = [
    SHORTCUT
 ===================================================== */
 
-function $(id) {
+function $(id){
 
   return document.getElementById(id);
 
@@ -1643,10 +3195,10 @@ function $(id) {
 
 
 /* =====================================================
-   SAFE HTML
+   ESCAPE HTML
 ===================================================== */
 
-function escapeHTML(value) {
+function escapeHTML(value){
 
   return String(value ?? "")
     .replace(/&/g,"&amp;")
@@ -1659,14 +3211,14 @@ function escapeHTML(value) {
 
 
 /* =====================================================
-   NOTIFICATION
+   TOAST
 ===================================================== */
 
-function notify(message, success=true) {
+function notify(message, success = true){
 
   const toast = $("toast");
 
-  if (!toast) {
+  if(!toast){
 
     alert(message);
 
@@ -1676,22 +3228,22 @@ function notify(message, success=true) {
 
   toast.textContent = message;
 
-  toast.style.display = "block";
+  toast.className =
+    "toast " +
+    (success
+      ? "toast-success"
+      : "toast-error");
 
-  toast.style.background =
-    success
-      ? "#111827"
-      : "#991b1b";
+  toast.classList.add("show");
 
   clearTimeout(
-    window.__jobflowToast
+    window.__jobflowToastTimer
   );
 
-  window.__jobflowToast =
+  window.__jobflowToastTimer =
     setTimeout(function(){
 
-      toast.style.display =
-        "none";
+      toast.classList.remove("show");
 
     },3000);
 
@@ -1699,22 +3251,22 @@ function notify(message, success=true) {
 
 
 /* =====================================================
-   LOCAL STORAGE HELPERS
+   SAFE JSON
 ===================================================== */
 
-function readJSON(key, fallback) {
+function readStorage(key, fallback){
 
-  try {
+  try{
 
     const value =
       localStorage.getItem(key);
 
-    if (!value)
+    if(!value)
       return fallback;
 
     return JSON.parse(value);
 
-  } catch(error) {
+  }catch(error){
 
     console.error(
       "Storage read error:",
@@ -1728,9 +3280,9 @@ function readJSON(key, fallback) {
 }
 
 
-function writeJSON(key,value) {
+function writeStorage(key,value){
 
-  try {
+  try{
 
     localStorage.setItem(
       key,
@@ -1739,7 +3291,7 @@ function writeJSON(key,value) {
 
     return true;
 
-  } catch(error) {
+  }catch(error){
 
     console.error(
       "Storage write error:",
@@ -1747,7 +3299,7 @@ function writeJSON(key,value) {
     );
 
     notify(
-      "Unable to save data.",
+      "Unable to save data on this device.",
       false
     );
 
@@ -1762,20 +3314,20 @@ function writeJSON(key,value) {
    AUTH STORAGE
 ===================================================== */
 
-function getStoredUser() {
+function getStoredUser(){
 
-  return readJSON(
-    "jobflow_user",
+  return readStorage(
+    CONFIG.USER_STORAGE,
     null
   );
 
 }
 
 
-function saveStoredUser(user) {
+function saveStoredUser(user){
 
-  writeJSON(
-    "jobflow_user",
+  return writeStorage(
+    CONFIG.USER_STORAGE,
     user
   );
 
@@ -1786,106 +3338,97 @@ function saveStoredUser(user) {
    TRIAL
 ===================================================== */
 
-function getTrialStart(user) {
+function getTrialStart(){
 
-  if (!user)
+  if(!currentUser)
     return null;
 
   return Number(
-    user.trialStart || 0
+    currentUser.trialStart || 0
   );
 
 }
 
 
-function getTrialEnd(user) {
+function getTrialRemaining(){
 
   const start =
-    getTrialStart(user);
+    getTrialStart();
 
-  if (!start)
+  if(!start)
     return 0;
 
-  return start +
+  const end =
+    start +
     CONFIG.TRIAL_HOURS *
     60 *
     60 *
     1000;
 
-}
-
-
-function isTrialActive(user) {
-
-  if (!user)
-    return false;
-
-  if (user.premium === true)
-    return false;
-
-  const end =
-    getTrialEnd(user);
-
-  return end > Date.now();
+  return Math.max(
+    0,
+    end - Date.now()
+  );
 
 }
 
 
-function trialHoursRemaining(user) {
+function isOwner(){
 
-  if (!user)
-    return 0;
+  if(!currentUser)
+    return false;
 
-  const remaining =
-    getTrialEnd(user) -
-    Date.now();
+  return String(
+    currentUser.email || ""
+  ).toLowerCase()
+  ===
+  CONFIG.OWNER_EMAIL.toLowerCase();
 
-  if (remaining <= 0)
-    return 0;
+}
 
-  return Math.ceil(
-    remaining /
-    (60 * 60 * 1000)
+
+function isPremium(){
+
+  if(!currentUser)
+    return false;
+
+  return Boolean(
+    currentUser.premium === true
+    || isOwner()
+  );
+
+}
+
+
+function hasTrialAccess(){
+
+  return (
+    getTrialRemaining() > 0
+    || isPremium()
   );
 
 }
 
 
 /* =====================================================
-   PREMIUM
+   UPDATE USER
 ===================================================== */
 
-function isOwner(user) {
+function updateCurrentUser(data){
 
-  return !!(
-    user &&
-    String(user.email || "")
-      .toLowerCase() ===
-    CONFIG.OWNER_EMAIL
-      .toLowerCase()
-  );
+  if(!currentUser)
+    return;
 
-}
+  currentUser = {
 
+    ...currentUser,
 
-function isPremium(user) {
+    ...data
 
-  if (!user)
-    return false;
+  };
 
-  if (isOwner(user))
-    return true;
-
-  return user.premium === true;
-
-}
-
-
-function hasPremiumAccess() {
-
-  return (
-    isOwner(currentUser) ||
-    isPremium(currentUser)
+  saveStoredUser(
+    currentUser
   );
 
 }
@@ -1895,357 +3438,163 @@ function hasPremiumAccess() {
    AUTH UI
 ===================================================== */
 
-function updateAuthUI() {
+function updateAuthUI(){
 
-  const authScreen =
+  const auth =
     $("authScreen");
 
   const app =
     $("app");
 
-  if (!currentUser) {
-
-    if (authScreen)
-      authScreen.style.display =
-        "flex";
-
-    if (app)
-      app.style.display =
-        "none";
-
+  if(!auth || !app)
     return;
 
-  }
 
-  if (authScreen)
-    authScreen.style.display =
+  if(currentUser){
+
+    auth.style.display =
       "none";
 
-  if (app)
     app.style.display =
       "block";
 
-
-  const email =
-    currentUser.email || "";
-
-  if ($("sidebarEmail"))
-    $("sidebarEmail")
-      .textContent = email;
-
-
-  let plan =
-    "Free Trial";
-
-  if (isOwner(currentUser)) {
-
-    plan =
-      "Owner • Unlimited";
-
-  } else if (isPremium(currentUser)) {
-
-    plan =
-      "Premium • ₹499";
-
-  } else if (isTrialActive(currentUser)) {
-
-    plan =
-      "Trial • " +
-      trialHoursRemaining(currentUser) +
-      "h remaining";
-
-  } else {
-
-    plan =
-      "Trial Expired";
-
-  }
-
-
-  if ($("sidebarPlan"))
-    $("sidebarPlan")
-      .textContent = plan;
-
-
-  updateTrialBanner();
-
-}
-
-
-/* =====================================================
-   TRIAL BANNER
-===================================================== */
-
-function updateTrialBanner() {
-
-  const banner =
-    $("trialBanner");
-
-  if (!banner)
-    return;
-
-
-  if (!currentUser) {
-
-    banner.innerHTML =
-      "Please sign in.";
-
-    return;
-
-  }
-
-
-  if (isOwner(currentUser)) {
-
-    banner.innerHTML = `
-      <strong>👑 Owner Access</strong><br>
-      Unlimited access is enabled for the owner account.
-    `;
-
-    return;
-
-  }
-
-
-  if (isPremium(currentUser)) {
-
-    banner.innerHTML = `
-      <strong>⭐ Premium Active</strong><br>
-      Your Premium access is active.
-    `;
-
-    return;
-
-  }
-
-
-  if (isTrialActive(currentUser)) {
-
-    const hours =
-      trialHoursRemaining(
-        currentUser
-      );
-
-    banner.innerHTML = `
-      <strong>🎁 48-hour free trial</strong><br>
-      Approximately ${hours} hour(s) remaining.
-      Premium features require verified Premium activation.
-    `;
-
-    return;
-
-  }
-
-
-  banner.innerHTML = `
-    <strong>Trial expired.</strong><br>
-    Upgrade to Premium for ₹499 to unlock Premium features.
-  `;
-
-}
-
-
-/* =====================================================
-   PAGE NAVIGATION
-===================================================== */
-
-function showPage(pageName) {
-
-  if (!pageName)
-    return;
-
-
-  document
-    .querySelectorAll(".page")
-    .forEach(function(page){
-
-      page.classList.toggle(
-        "active",
-        page.id === pageName
-      );
-
-    });
-
-
-  document
-    .querySelectorAll(
-      ".nav-button[data-page]"
-    )
-    .forEach(function(button){
-
-      button.classList.toggle(
-        "active",
-        button.dataset.page ===
-        pageName
-      );
-
-    });
-
-
-  document
-    .querySelectorAll(
-      ".mobile-nav button"
-    )
-    .forEach(function(button){
-
-      button.classList.toggle(
-        "active",
-        button.dataset.page ===
-        pageName
-      );
-
-    });
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-document.addEventListener(
-  "click",
-  function(event){
-
-    const nav =
-      event.target.closest(
-        "[data-page-link]"
-      );
-
-    if (nav) {
-
-      showPage(
-        nav.dataset.pageLink
-      );
-
-      return;
+    if($("sidebarEmail")){
+
+      $("sidebarEmail")
+        .textContent =
+        currentUser.email || "";
 
     }
 
+    if($("sidebarPlan")){
 
-    const pageButton =
-      event.target.closest(
-        "[data-page]"
-      );
-
-    if (
-      pageButton &&
-      !pageButton.classList.contains(
-        "delete-application"
-      )
-    ) {
-
-      showPage(
-        pageButton.dataset.page
-      );
+      $("sidebarPlan")
+        .textContent =
+        isPremium()
+          ? "⭐ Premium"
+          : getTrialRemaining() > 0
+            ? "🎁 48-hour Trial"
+            : "🔒 Trial Expired";
 
     }
 
+    updateTrialBanner();
+
+    loadProfile();
+
+  }else{
+
+    auth.style.display =
+      "flex";
+
+    app.style.display =
+      "none";
+
   }
-);
+
+}
 
 
 /* =====================================================
    AUTH TABS
 ===================================================== */
 
-if ($("loginTab")) {
+function setAuthMode(mode){
 
-  $("loginTab")
-    .addEventListener(
-      "click",
-      function(){
+  authMode =
+    mode === "signup"
+      ? "signup"
+      : "login";
 
-        authMode = "login";
 
-        this.classList.add(
-          "active"
-        );
+  const loginTab =
+    $("loginTab");
 
-        if ($("signupTab"))
-          $("signupTab")
-            .classList.remove(
-              "active"
-            );
+  const signupTab =
+    $("signupTab");
 
-        if ($("authButton"))
-          $("authButton")
-            .textContent =
-            "🚀 Login";
+  const authButton =
+    $("authButton");
 
-        if ($("authMessage"))
-          $("authMessage")
-            .textContent = "";
+  if(loginTab){
 
-      }
+    loginTab.classList.toggle(
+      "active",
+      authMode === "login"
     );
 
-}
+  }
 
+  if(signupTab){
 
-if ($("signupTab")) {
-
-  $("signupTab")
-    .addEventListener(
-      "click",
-      function(){
-
-        authMode = "signup";
-
-        this.classList.add(
-          "active"
-        );
-
-        if ($("loginTab"))
-          $("loginTab")
-            .classList.remove(
-              "active"
-            );
-
-        if ($("authButton"))
-          $("authButton")
-            .textContent =
-            "🚀 Create Account";
-
-        if ($("authMessage"))
-          $("authMessage")
-            .textContent = "";
-
-      }
+    signupTab.classList.toggle(
+      "active",
+      authMode === "signup"
     );
 
+  }
+
+  if(authButton){
+
+    authButton.textContent =
+      authMode === "signup"
+        ? "🚀 Create Account"
+        : "🚀 Login";
+
+  }
+
+  if($("authMessage")){
+
+    $("authMessage")
+      .textContent = "";
+
+  }
+
 }
 
 
-/* =====================================================
-   EMAIL VALIDATION
-===================================================== */
+function initAuthTabs(){
 
-function validEmail(email) {
+  if($("loginTab")){
 
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    .test(email);
+    $("loginTab")
+      .addEventListener(
+        "click",
+        function(){
 
-}
+          setAuthMode("login");
+
+        }
+      );
+
+  }
 
 
-function validPassword(password) {
+  if($("signupTab")){
 
-  return String(password).length >= 6;
+    $("signupTab")
+      .addEventListener(
+        "click",
+        function(){
+
+          setAuthMode("signup");
+
+        }
+      );
+
+  }
 
 }
 
 
 /* =====================================================
    LOCAL DEMO AUTH
-   ==================================================== */
+===================================================== */
 
-function localSignup(email,password) {
+function localSignup(email,password){
 
   const users =
-    readJSON(
+    readStorage(
       "jobflow_accounts",
       []
     );
@@ -2255,12 +3604,13 @@ function localSignup(email,password) {
     users.some(
       user =>
         String(user.email)
-          .toLowerCase() ===
+          .toLowerCase()
+        ===
         email.toLowerCase()
     );
 
 
-  if (exists) {
+  if(exists){
 
     throw new Error(
       "An account with this email already exists."
@@ -2275,26 +3625,24 @@ function localSignup(email,password) {
       "user_" +
       Date.now(),
 
-    email:
-      email,
+    email,
 
-    password:
-      password,
+    password,
+
+    createdAt:
+      Date.now(),
 
     trialStart:
       Date.now(),
 
-    premium:
-      isOwner({
-        email:email
-      })
+    premium:false
 
   };
 
 
   users.push(user);
 
-  writeJSON(
+  writeStorage(
     "jobflow_accounts",
     users
   );
@@ -2306,10 +3654,10 @@ function localSignup(email,password) {
 }
 
 
-function localLogin(email,password) {
+function localLogin(email,password){
 
   const users =
-    readJSON(
+    readStorage(
       "jobflow_accounts",
       []
     );
@@ -2319,17 +3667,22 @@ function localLogin(email,password) {
     users.find(
       item =>
         String(item.email)
-          .toLowerCase() ===
-        email.toLowerCase() &&
+          .toLowerCase()
+        ===
+        email.toLowerCase()
+        &&
         item.password ===
         password
     );
 
 
-  if (!user)
+  if(!user){
+
     throw new Error(
       "Incorrect email or password."
     );
+
+  }
 
 
   saveStoredUser(user);
@@ -2343,152 +3696,437 @@ function localLogin(email,password) {
    AUTH FORM
 ===================================================== */
 
-if ($("authForm")) {
+function initAuthForm(){
 
-  $("authForm")
-    .addEventListener(
-      "submit",
-      async function(event){
+  const form =
+    $("authForm");
 
-        event.preventDefault();
-
-
-        const email =
-          $("authEmail")
-            .value
-            .trim();
-
-        const password =
-          $("authPassword")
-            .value;
+  if(!form)
+    return;
 
 
-        if (!validEmail(email)) {
+  form.addEventListener(
+    "submit",
+    async function(event){
 
-          if ($("authMessage"))
-            $("authMessage")
-              .textContent =
-              "Please enter a valid email address.";
+      event.preventDefault();
 
-          return;
+      const email =
+        $("authEmail")
+          .value
+          .trim();
+
+      const password =
+        $("authPassword")
+          .value;
+
+
+      const message =
+        $("authMessage");
+
+
+      if(message)
+        message.textContent = "";
+
+
+      if(!email){
+
+        if(message)
+          message.textContent =
+            "Enter your email address.";
+
+        return;
+
+      }
+
+
+      if(password.length < 6){
+
+        if(message)
+          message.textContent =
+            "Password must contain at least 6 characters.";
+
+        return;
+
+      }
+
+
+      const button =
+        $("authButton");
+
+
+      if(button){
+
+        button.disabled = true;
+
+        button.textContent =
+          "Please wait...";
+
+      }
+
+
+      try{
+
+        let user;
+
+
+        /*
+         * If Supabase is configured,
+         * this section can be replaced with
+         * your production authentication call.
+         *
+         * Empty configuration intentionally
+         * falls back to local testing mode.
+         */
+
+        if(
+          CONFIG.SUPABASE_URL &&
+          CONFIG.SUPABASE_ANON_KEY
+        ){
+
+          /*
+           * Backend/Supabase authentication
+           * should be connected here.
+           *
+           * Do NOT place a service-role key
+           * in this HTML file.
+           */
+
+          throw new Error(
+            "Supabase authentication endpoint is not configured in this HTML version."
+          );
 
         }
 
 
-        if (!validPassword(password)) {
+        if(authMode === "signup"){
 
-          if ($("authMessage"))
-            $("authMessage")
-              .textContent =
-              "Password must contain at least 6 characters.";
+          user =
+            localSignup(
+              email,
+              password
+            );
 
-          return;
+          notify(
+            "✅ Account created. Your 48-hour trial has started."
+          );
+
+        }else{
+
+          user =
+            localLogin(
+              email,
+              password
+            );
+
+          notify(
+            "✅ Login successful."
+          );
 
         }
 
 
-        const button =
-          $("authButton");
+        currentUser =
+          user;
 
-        if (button) {
 
-          button.disabled = true;
+        updateAuthUI();
+
+        initializeAppData();
+
+
+      }catch(error){
+
+        console.error(
+          error
+        );
+
+        if(message){
+
+          message.textContent =
+            error.message ||
+            "Authentication failed.";
+
+        }
+
+      }finally{
+
+        if(button){
+
+          button.disabled =
+            false;
 
           button.textContent =
-            "Please wait...";
-
-        }
-
-
-        try {
-
-          let user;
-
-
-          if (authMode === "signup") {
-
-            user =
-              localSignup(
-                email,
-                password
-              );
-
-            notify(
-              "✅ Account created. Your 48-hour trial has started."
-            );
-
-          } else {
-
-            user =
-              localLogin(
-                email,
-                password
-              );
-
-            notify(
-              "✅ Login successful."
-            );
-
-          }
-
-
-          currentUser =
-            user;
-
-
-          if (
-            $("authMessage")
-          ) {
-
-            $("authMessage")
-              .textContent = "";
-
-          }
-
-
-          updateAuthUI();
-
-          loadProfile();
-
-          renderAll();
-
-        } catch(error) {
-
-          console.error(error);
-
-          if ($("authMessage"))
-            $("authMessage")
-              .textContent =
-              error.message ||
-              "Authentication failed.";
-
-        } finally {
-
-          if (button) {
-
-            button.disabled =
-              false;
-
-            button.textContent =
-              authMode === "signup"
-                ? "🚀 Create Account"
-                : "🚀 Login";
-
-          }
+            authMode === "signup"
+              ? "🚀 Create Account"
+              : "🚀 Login";
 
         }
 
       }
-    );
+
+    }
+  );
 
 }
 
 
 /* =====================================================
-   JOB DATA NORMALIZATION
+   PAGE NAVIGATION
 ===================================================== */
 
-function normalizeJob(job,index) {
+function showPage(pageId){
+
+  if(!pageId)
+    return;
+
+
+  const pages =
+    document.querySelectorAll(
+      ".page"
+    );
+
+
+  pages.forEach(
+    page => {
+
+      page.classList.toggle(
+        "active",
+        page.id === pageId
+      );
+
+    }
+  );
+
+
+  const buttons =
+    document.querySelectorAll(
+      ".nav-button[data-page]"
+    );
+
+
+  buttons.forEach(
+    button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.page ===
+        pageId
+      );
+
+    }
+  );
+
+
+  const mobileButtons =
+    document.querySelectorAll(
+      ".mobile-nav [data-page]"
+    );
+
+
+  mobileButtons.forEach(
+    button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.page ===
+        pageId
+      );
+
+    }
+  );
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =====================================================
+   NAVIGATION EVENTS
+===================================================== */
+
+function initNavigation(){
+
+  document.addEventListener(
+    "click",
+    function(event){
+
+      const button =
+        event.target.closest(
+          "[data-page-link]"
+        );
+
+
+      if(button){
+
+        event.preventDefault();
+
+        showPage(
+          button.dataset.pageLink
+        );
+
+        return;
+
+      }
+
+
+      const nav =
+        event.target.closest(
+          "[data-page]"
+        );
+
+
+      if(
+        nav &&
+        (
+          nav.classList.contains(
+            "nav-button"
+          )
+          ||
+          nav.closest(
+            ".mobile-nav"
+          )
+        )
+      ){
+
+        event.preventDefault();
+
+        showPage(
+          nav.dataset.page
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   TRIAL BANNER
+===================================================== */
+
+function updateTrialBanner(){
+
+  const banner =
+    $("trialBanner");
+
+  if(!banner)
+    return;
+
+
+  if(isOwner()){
+
+    banner.innerHTML = `
+      <strong>👑 Owner Access</strong><br>
+      Unlimited JobFlow AI access is enabled.
+    `;
+
+    return;
+
+  }
+
+
+  if(isPremium()){
+
+    banner.innerHTML = `
+      <strong>⭐ Premium Active</strong><br>
+      Premium features are unlocked.
+    `;
+
+    return;
+
+  }
+
+
+  const remaining =
+    getTrialRemaining();
+
+
+  if(remaining <= 0){
+
+    banner.innerHTML = `
+      <strong>🔒 Trial expired</strong><br>
+      Your 48-hour trial has ended.
+      Activate Premium to continue using locked features.
+    `;
+
+    return;
+
+  }
+
+
+  const hours =
+    Math.floor(
+      remaining /
+      (60*60*1000)
+    );
+
+
+  const minutes =
+    Math.floor(
+      (remaining %
+      (60*60*1000))
+      /
+      (60*1000)
+    );
+
+
+  banner.innerHTML = `
+    <strong>🎁 48-hour free trial</strong><br>
+    Approximately
+    <strong>${hours}h ${minutes}m</strong>
+    remaining.
+    Premium features require verified activation.
+  `;
+
+}
+
+
+/* =====================================================
+   PREMIUM GUARD
+===================================================== */
+
+function requirePremium(){
+
+  if(isPremium())
+    return true;
+
+
+  if(getTrialRemaining() > 0){
+
+    notify(
+      "🎁 Your trial is active. This feature requires Premium activation.",
+      false
+    );
+
+  }else{
+
+    notify(
+      "🔒 Premium activation required.",
+      false
+    );
+
+  }
+
+
+  showPage("premium");
+
+  return false;
+
+}
+
+
+/* =====================================================
+   JOB DATA
+===================================================== */
+
+function normalizeJob(job,index){
 
   job =
     job || {};
@@ -2496,24 +4134,28 @@ function normalizeJob(job,index) {
 
   const id =
     job.id ||
-    job.job_id ||
-    job.url ||
-    (
-      "job_" +
-      index +
-      "_" +
-      Date.now()
-    );
+    job.jobId ||
+    "job_" +
+    Date.now() +
+    "_" +
+    index;
+
+
+  const tags =
+    Array.isArray(job.tags)
+      ? job.tags
+      : Array.isArray(job.skills)
+        ? job.skills
+        : [];
 
 
   return {
 
-    id:
-      String(id),
+    id:String(id),
 
     title:
       job.title ||
-      job.job_title ||
+      job.role ||
       "Untitled Position",
 
     company:
@@ -2523,30 +4165,208 @@ function normalizeJob(job,index) {
 
     location:
       job.location ||
-      job.city ||
-      "Remote / India",
-
-    description:
-      job.description ||
-      job.job_description ||
-      "",
+      "Location not specified",
 
     url:
       job.url ||
+      job.applyUrl ||
       job.apply_url ||
       job.link ||
       "#",
 
-    source:
-      job.source ||
-      "JobFlow AI",
+    description:
+      job.description ||
+      "",
 
     tags:
-      Array.isArray(job.tags)
-        ? job.tags
-        : []
+
+      tags
+        .slice(0,10)
+        .map(
+          item =>
+            String(item)
+        )
 
   };
+
+}
+
+
+/* =====================================================
+   JOB SEARCH
+===================================================== */
+
+async function searchJobs(){
+
+  const query =
+    $("jobQuery")
+      ? $("jobQuery")
+          .value
+          .trim()
+      : "";
+
+  const location =
+    $("jobLocation")
+      ? $("jobLocation")
+          .value
+          .trim()
+      : "India";
+
+
+  const results =
+    $("jobResults");
+
+
+  if(!results)
+    return;
+
+
+  if(!query){
+
+    notify(
+      "Enter a job title or skill first.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  results.innerHTML =
+    `
+      <div class="loading">
+        🔎 Searching jobs...
+      </div>
+    `;
+
+
+  try{
+
+    /*
+     * Production:
+     * connect this request to your backend.
+     *
+     * The browser must never contain private
+     * API keys or service-role keys.
+     */
+
+    if(CONFIG.JOBS_ENDPOINT){
+
+      const response =
+        await fetch(
+          CONFIG.JOBS_ENDPOINT,
+          {
+
+            method:"POST",
+
+            headers:{
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify({
+                query,
+                location
+              })
+
+          }
+        );
+
+
+      if(!response.ok){
+
+        throw new Error(
+          "Job search request failed."
+        );
+
+      }
+
+
+      const data =
+        await response.json();
+
+
+      const jobs =
+        Array.isArray(data)
+          ? data
+          : Array.isArray(data.jobs)
+            ? data.jobs
+            : [];
+
+
+      renderJobResults(
+        jobs.map(
+          normalizeJob
+        )
+      );
+
+      return;
+
+    }
+
+
+    /*
+     * Demo fallback.
+     * This keeps the interface functional
+     * when no backend endpoint is configured.
+     */
+
+    const demoJobs = [
+
+      {
+        id:"demo_1",
+        title:query,
+        company:"Demo Technology Company",
+        location:location || "India",
+        url:"#",
+        description:
+          "Demo opportunity. Connect your backend jobs API to display live vacancies.",
+        tags:[query]
+      },
+
+      {
+        id:"demo_2",
+        title:
+          query +
+          " - Associate",
+        company:"Demo Startup",
+        location:location || "India",
+        url:"#",
+        description:
+          "Example job result for testing the JobFlow AI interface.",
+        tags:["Career","Technology"]
+      }
+
+    ];
+
+
+    renderJobResults(
+      demoJobs.map(
+        normalizeJob
+      )
+    );
+
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+    results.innerHTML = `
+      <div class="card">
+        <div class="error">
+          ❌ ${escapeHTML(
+            error.message ||
+            "Unable to search jobs."
+          )}
+        </div>
+      </div>
+    `;
+
+  }
 
 }
 
@@ -2555,18 +4375,18 @@ function normalizeJob(job,index) {
    RENDER JOBS
 ===================================================== */
 
-function renderJobs(jobs) {
+function renderJobResults(jobs){
 
-  const container =
+  const results =
     $("jobResults");
 
-  if (!container)
+  if(!results)
     return;
 
 
-  if (!jobs || !jobs.length) {
+  if(!jobs.length){
 
-    container.innerHTML = `
+    results.innerHTML = `
       <div class="card empty">
         No jobs found.
       </div>
@@ -2577,143 +4397,129 @@ function renderJobs(jobs) {
   }
 
 
-  container.innerHTML =
+  results.innerHTML =
     jobs
-      .map(function(raw,index){
+      .map(
+        job => {
 
-        const job =
-          normalizeJob(
-            raw,
-            index
-          );
-
-
-        const saved =
-          savedJobs.some(
-            item =>
-              String(item.id) ===
-              String(job.id)
-          );
+          const saved =
+            savedJobs.some(
+              item =>
+                String(item.id) ===
+                String(job.id)
+            );
 
 
-        return `
+          return `
 
-          <div class="job-card">
+            <div class="job-card">
 
-            <div class="job-head">
+              <div class="job-head">
 
-              <div>
+                <div>
 
-                <div class="job-title">
-                  ${escapeHTML(
-                    job.title
-                  )}
+                  <div class="job-title">
+                    ${escapeHTML(
+                      
+                                           job.title
+                    )}
+                  </div>
+
+                  <div class="job-meta">
+                    ${escapeHTML(job.company || "Company not specified")}
+                  </div>
+
+                  <div class="job-meta">
+                    📍 ${escapeHTML(job.location || "Location not specified")}
+                  </div>
+
                 </div>
 
-                <div class="job-meta">
-                  ${escapeHTML(
-                    job.company
-                  )}
-                  •
-                  ${escapeHTML(
-                    job.location
-                  )}
-                </div>
+                <span class="badge">
+                  ${escapeHTML(job.source || "JobFlow AI")}
+                </span>
 
               </div>
 
-              <span class="badge">
-                ${escapeHTML(
-                  job.source
-                )}
-              </span>
-
-            </div>
-
-
-            ${
-              job.description
-              ?
-              `
-                <p class="job-description">
-                  ${escapeHTML(
-                    job.description
-                      .slice(0,600)
-                  )}
-                </p>
-              `
-              :
-              ""
-            }
-
-
-            ${
-              job.tags.length
-              ?
-              `
-                <div class="tags">
-
-                  ${              job.tags
-                .map(
-                  tag =>
-                    `
-                      <span class="tag">
-                        ${escapeHTML(tag)}
-                      </span>
-                    `
-                )
-                .join("")}
-
-                </div>
-              `
-              :
-              ""
-            }
-
-
-            <div class="actions">
-
-              <button
-                type="button"
-                class="btn btn-primary apply-job-button"
-                data-id="${escapeHTML(job.id)}"
-              >
-                📋 Apply / Track
-              </button>
-
-
-              <button
-                type="button"
-                class="btn btn-secondary save-job-button"
-                data-id="${escapeHTML(job.id)}"
-              >
-                ⭐ Save
-              </button>
-
-
               ${
-                job.url
+                job.description
                 ?
                 `
-                  <a
-                    class="btn btn-secondary"
-                    href="${escapeHTML(job.url)}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    🔗 View Job
-                  </a>
+                  <p class="job-description">
+                    ${escapeHTML(
+                      String(job.description).slice(0,600)
+                    )}
+                  </p>
                 `
                 :
                 ""
               }
 
+              ${
+                Array.isArray(job.tags) && job.tags.length
+                ?
+                `
+                  <div class="tags">
+                    ${
+                      job.tags
+                        .slice(0,8)
+                        .map(
+                          tag => `
+                            <span class="tag">
+                              ${escapeHTML(tag)}
+                            </span>
+                          `
+                        )
+                        .join("")
+                    }
+                  </div>
+                `
+                :
+                ""
+              }
+
+              <div class="actions">
+
+                ${
+                  job.url
+                  ?
+                  `
+                    <a
+                      class="btn btn-primary"
+                      href="${escapeHTML(job.url)}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      🔗 View Job
+                    </a>
+                  `
+                  :
+                  ""
+                }
+
+                <button
+                  type="button"
+                  class="btn btn-secondary save-job-button"
+                  data-id="${escapeHTML(job.id)}"
+                >
+                  ${saved ? "⭐ Saved" : "☆ Save"}
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-success apply-job-button"
+                  data-id="${escapeHTML(job.id)}"
+                >
+                  📋 Add Application
+                </button>
+
+              </div>
+
             </div>
 
-          </div>
-        `
-      )
-      .join("");
+          `;
+        })
+        .join("");
 }
 
 
@@ -2723,91 +4529,136 @@ function renderJobs(jobs) {
 
 document.addEventListener(
   "click",
-  function(event) {
+  function(event){
 
     const button =
       event.target.closest(
         ".save-job-button"
       );
 
-    if (!button) return;
+    if(!button) return;
 
     const id =
-      String(button.dataset.id || "");
-
-    if (!id) {
-      notify(
-        "Unable to save this job.",
-        false
-      );
-      return;
-    }
-
-    const existing =
-      savedJobs.find(
-        job =>
-          String(job.id) === id
-      );
-
-    if (existing) {
-      notify(
-        "⭐ Job is already saved."
-      );
-      return;
-    }
+      String(button.dataset.id);
 
     const job =
-      window.jobResultsData
-        ? window.jobResultsData.find(
-            item =>
-              String(item.id) === id
-          )
-        : null;
+      jobResults.find(
+        item =>
+          String(item.id) === id
+      );
 
-    if (!job) {
+    if(!job){
+
       notify(
-        "Job data is unavailable.",
+        "Job could not be found.",
         false
       );
+
       return;
     }
 
-    savedJobs.push({
-      ...job,
-      savedAt: Date.now()
-    });
+    const alreadySaved =
+      savedJobs.some(
+        item =>
+          String(item.id) === id
+      );
+
+    if(alreadySaved){
+
+      savedJobs =
+        savedJobs.filter(
+          item =>
+            String(item.id) !== id
+        );
+
+      notify(
+        "⭐ Job removed from saved jobs."
+      );
+
+    }else{
+
+      savedJobs.push(job);
+
+      notify(
+        "⭐ Job saved."
+      );
+    }
 
     localStorage.setItem(
       "jobflow_saved_jobs",
       JSON.stringify(savedJobs)
     );
 
+    renderJobs(
+      jobResults
+    );
+
     renderSavedJobs();
     renderDashboard();
 
-    notify(
-      "⭐ Job saved successfully."
-    );
   }
 );
 
 
 /* =========================================================
-   REMOVE SAVED JOB
+   APPLY FROM JOB
 ========================================================= */
 
-function renderSavedJobs() {
+document.addEventListener(
+  "click",
+  function(event){
+
+    const button =
+      event.target.closest(
+        ".apply-job-button"
+      );
+
+    if(!button) return;
+
+    const id =
+      String(button.dataset.id);
+
+    const job =
+      jobResults.find(
+        item =>
+          String(item.id) === id
+      );
+
+    if(!job){
+
+      notify(
+        "Job could not be found.",
+        false
+      );
+
+      return;
+    }
+
+    openApplicationModal(job);
+
+  }
+);
+
+
+/* =========================================================
+   SAVED JOBS
+========================================================= */
+
+function renderSavedJobs(){
 
   const container =
     $("savedJobs");
 
-  if (!container) return;
+  if(!container) return;
 
-  if (!savedJobs.length) {
+  if(!savedJobs.length){
 
     container.innerHTML = `
       <div class="empty">
         ⭐ No saved jobs yet.
+        <br><br>
+        Search for jobs and save opportunities
+        you want to apply to.
       </div>
     `;
 
@@ -2816,8 +4667,6 @@ function renderSavedJobs() {
 
   container.innerHTML =
     savedJobs
-      .slice()
-      .reverse()
       .map(
         job => `
 
@@ -2829,25 +4678,20 @@ function renderSavedJobs() {
 
                 <div class="job-title">
                   ${escapeHTML(
-                    job.title ||
-                    job.role ||
-                    "Untitled Job"
+                    job.title || "Untitled Job"
                   )}
                 </div>
 
                 <div class="job-meta">
                   ${escapeHTML(
-                    job.company ||
-                    "Company"
+                    job.company || "Company"
                   )}
-                  ${
-                    job.location
-                    ? " • " +
-                      escapeHTML(
-                        job.location
-                      )
-                    : ""
-                  }
+                </div>
+
+                <div class="job-meta">
+                  📍 ${escapeHTML(
+                    job.location || "Not specified"
+                  )}
                 </div>
 
               </div>
@@ -2864,9 +4708,7 @@ function renderSavedJobs() {
               `
                 <p class="job-description">
                   ${escapeHTML(
-                    String(
-                      job.description
-                    ).slice(0,600)
+                    String(job.description).slice(0,500)
                   )}
                 </p>
               `
@@ -2898,7 +4740,7 @@ function renderSavedJobs() {
                 class="btn btn-success apply-saved-button"
                 data-id="${escapeHTML(job.id)}"
               >
-                📋 Track Application
+                📋 Apply / Track
               </button>
 
               <button
@@ -2919,19 +4761,23 @@ function renderSavedJobs() {
 }
 
 
+/* =========================================================
+   REMOVE SAVED JOB
+========================================================= */
+
 document.addEventListener(
   "click",
-  function(event) {
+  function(event){
 
     const button =
       event.target.closest(
         ".remove-saved-button"
       );
 
-    if (!button) return;
+    if(!button) return;
 
     const id =
-      String(button.dataset.id || "");
+      String(button.dataset.id);
 
     savedJobs =
       savedJobs.filter(
@@ -2950,27 +4796,28 @@ document.addEventListener(
     notify(
       "🗑️ Saved job removed."
     );
+
   }
 );
 
 
 /* =========================================================
-   APPLY FROM SAVED JOB
+   APPLY SAVED JOB
 ========================================================= */
 
 document.addEventListener(
   "click",
-  function(event) {
+  function(event){
 
     const button =
       event.target.closest(
         ".apply-saved-button"
       );
 
-    if (!button) return;
+    if(!button) return;
 
     const id =
-      String(button.dataset.id || "");
+      String(button.dataset.id);
 
     const job =
       savedJobs.find(
@@ -2978,15 +4825,12 @@ document.addEventListener(
           String(item.id) === id
       );
 
-    if (!job) {
-      notify(
-        "Saved job not found.",
-        false
-      );
-      return;
+    if(job){
+
+      openApplicationModal(job);
+
     }
 
-    openApplicationModal(job);
   }
 );
 
@@ -2997,70 +4841,77 @@ document.addEventListener(
 
 function openApplicationModal(
   job = {}
-) {
+){
 
   const modal =
     $("applicationModal");
 
-  if (!modal) {
+  if(!modal){
+
     notify(
       "Application form is unavailable.",
       false
     );
+
     return;
   }
 
-  modal.classList.add("show");
+  modal.classList.add(
+    "show"
+  );
 
-  if ($("applicationCompany"))
+  if($("applicationCompany"))
     $("applicationCompany").value =
       job.company || "";
 
-  if ($("applicationRole"))
+  if($("applicationRole"))
     $("applicationRole").value =
       job.title ||
       job.role ||
       "";
 
-  if ($("applicationDate"))
+  if($("applicationDate"))
     $("applicationDate").value =
       new Date()
         .toISOString()
         .slice(0,10);
 
-  if ($("applicationStatus"))
+  if($("applicationStatus"))
     $("applicationStatus").value =
       "Applied";
 
-  if ($("applicationNotes"))
+  if($("applicationNotes"))
     $("applicationNotes").value =
       "";
 
   window.selectedJob =
     job;
+
 }
 
 
-function closeApplicationModal() {
+function closeApplicationModal(){
 
   const modal =
     $("applicationModal");
 
-  if (modal) {
+  if(modal){
+
     modal.classList.remove(
       "show"
     );
+
   }
 
 }
 
 
-if ($("addApplicationOpen")) {
+if($("addApplicationOpen")){
 
   $("addApplicationOpen")
     .addEventListener(
       "click",
-      function() {
+      function(){
 
         openApplicationModal();
 
@@ -3070,7 +4921,7 @@ if ($("addApplicationOpen")) {
 }
 
 
-if ($("closeApplicationModal")) {
+if($("closeApplicationModal")){
 
   $("closeApplicationModal")
     .addEventListener(
@@ -3081,7 +4932,7 @@ if ($("closeApplicationModal")) {
 }
 
 
-if ($("cancelApplicationButton")) {
+if($("cancelApplicationButton")){
 
   $("cancelApplicationButton")
     .addEventListener(
@@ -3092,18 +4943,20 @@ if ($("cancelApplicationButton")) {
 }
 
 
-if ($("applicationModal")) {
+if($("applicationModal")){
 
   $("applicationModal")
     .addEventListener(
       "click",
-      function(event) {
+      function(event){
 
-        if (
+        if(
           event.target ===
           $("applicationModal")
-        ) {
+        ){
+
           closeApplicationModal();
+
         }
 
       }
@@ -3116,33 +4969,26 @@ if ($("applicationModal")) {
    SAVE APPLICATION
 ========================================================= */
 
-if ($("applicationForm")) {
+if($("applicationForm")){
 
   $("applicationForm")
     .addEventListener(
       "submit",
-      function(event) {
+      function(event){
 
         event.preventDefault();
 
         const company =
           $("applicationCompany")
-            ? $("applicationCompany")
-                .value
-                .trim()
-            : "";
+            ?.value
+            .trim() || "";
 
         const role =
           $("applicationRole")
-            ? $("applicationRole")
-                .value
-                .trim()
-            : "";
+            ?.value
+            .trim() || "";
 
-        if (
-          !company ||
-          !role
-        ) {
+        if(!company || !role){
 
           notify(
             "Please enter company and role.",
@@ -3165,36 +5011,23 @@ if ($("applicationForm")) {
             role,
 
           date:
-            $("applicationDate")
-              ? (
-                  $("applicationDate")
-                    .value ||
-                  new Date()
-                    .toISOString()
-                    .slice(0,10)
-                )
-              :
-                new Date()
-                  .toISOString()
-                  .slice(0,10),
+            $("applicationDate")?.value ||
+            new Date()
+              .toISOString()
+              .slice(0,10),
 
           status:
-            $("applicationStatus")
-              ? (
-                  $("applicationStatus")
-                    .value ||
-                  "Applied"
-                )
-              :
-                "Applied",
+            $("applicationStatus")?.value ||
+            "Applied",
 
           notes:
             $("applicationNotes")
-              ? $("applicationNotes")
-                  .value
-                  .trim()
-              :
-                "",
+              ?.value
+              .trim() || "",
+
+          jobUrl:
+            window.selectedJob?.url ||
+            "",
 
           createdAt:
             Date.now()
@@ -3230,17 +5063,17 @@ if ($("applicationForm")) {
 
 
 /* =========================================================
-   APPLICATIONS TABLE
+   APPLICATIONS
 ========================================================= */
 
-function renderApplications() {
+function renderApplications(){
 
   const table =
     $("applicationsTable");
 
-  if (!table) return;
+  if(!table) return;
 
-  if (!applications.length) {
+  if(!applications.length){
 
     table.innerHTML = `
       <tr>
@@ -3286,77 +5119,31 @@ function renderApplications() {
                 )}"
               >
 
-                <option
-                  value="Applied"
-                  ${
-                    app.status ===
-                    "Applied"
-                    ? "selected"
-                    : ""
-                  }
-                >
-                  Applied
-                </option>
-
-                <option
-                  value="Screening"
-                  ${
-                    app.status ===
-                    "Screening"
-                    ? "selected"
-                    : ""
-                  }
-                >
-                  Screening
-                </option>
-
-                <option
-                  value="Interview"
-                  ${
-                    app.status ===
-                    "Interview"
-                    ? "selected"
-                    : ""
-                  }
-                >
-                  Interview
-                </option>
-
-                <option
-                  value="Offer"
-                  ${
-                    app.status ===
-                    "Offer"
-                    ? "selected"
-                    : ""
-                  }
-                >
-                  Offer
-                </option>
-
-                <option
-                  value="Rejected"
-                  ${
-                    app.status ===
-                    "Rejected"
-                    ? "selected"
-                    : ""
-                  }
-                >
-                  Rejected
-                </option>
-
-                <option
-                  value="Withdrawn"
-                  ${
-                    app.status ===
+                ${
+                  [
+                    "Applied",
+                    "Screening",
+                    "Interview",
+                    "Offer",
+                    "Rejected",
                     "Withdrawn"
-                    ? "selected"
-                    : ""
-                  }
-                >
-                  Withdrawn
-                </option>
+                  ]
+                  .map(
+                    status => `
+                      <option
+                        value="${status}"
+                        ${
+                          app.status === status
+                          ? "selected"
+                          : ""
+                        }
+                      >
+                        ${status}
+                      </option>
+                    `
+                  )
+                  .join("")
+                }
 
               </select>
 
@@ -3369,6 +5156,23 @@ function renderApplications() {
             </td>
 
             <td>
+
+              ${
+                app.jobUrl
+                ?
+                `
+                  <a
+                    class="btn btn-secondary"
+                    href="${escapeHTML(app.jobUrl)}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View
+                  </a>
+                `
+                :
+                ""
+              }
 
               <button
                 type="button"
@@ -3396,19 +5200,21 @@ function renderApplications() {
 
 document.addEventListener(
   "change",
-  function(event) {
+  function(event){
 
-    if (
+    if(
       !event.target.classList.contains(
         "application-status"
       )
-    ) {
+    ){
+
       return;
+
     }
 
     const id =
       String(
-        event.target.dataset.id || ""
+        event.target.dataset.id
       );
 
     const application =
@@ -3417,7 +5223,7 @@ document.addEventListener(
           String(app.id) === id
       );
 
-    if (!application) return;
+    if(!application) return;
 
     application.status =
       event.target.value;
@@ -3447,19 +5253,17 @@ document.addEventListener(
 
 document.addEventListener(
   "click",
-  function(event) {
+  function(event){
 
     const button =
       event.target.closest(
         ".delete-application"
       );
 
-    if (!button) return;
+    if(!button) return;
 
     const id =
-      String(
-        button.dataset.id || ""
-      );
+      String(button.dataset.id);
 
     applications =
       applications.filter(
@@ -3491,12 +5295,12 @@ document.addEventListener(
    PIPELINE
 ========================================================= */
 
-function renderPipeline() {
+function renderPipeline(){
 
   const board =
     $("pipelineBoard");
 
-  if (!board) return;
+  if(!board) return;
 
   const statuses = [
     "Applied",
@@ -3514,8 +5318,7 @@ function renderPipeline() {
           const items =
             applications.filter(
               app =>
-                app.status ===
-                status
+                app.status === status
             );
 
           return `
@@ -3525,9 +5328,7 @@ function renderPipeline() {
             >
 
               <h3>
-                ${escapeHTML(
-                  status
-                )}
+                ${escapeHTML(status)}
                 (${items.length})
               </h3>
 
@@ -3548,9 +5349,7 @@ function renderPipeline() {
                           )}
                         </strong>
 
-                        <div
-                          class="muted"
-                        >
+                        <div class="muted">
                           ${escapeHTML(
                             app.company
                           )}
@@ -3572,9 +5371,7 @@ function renderPipeline() {
                   .join("")
                 :
                 `
-                  <div
-                    class="muted small"
-                  >
+                  <div class="muted small">
                     No applications
                   </div>
                 `
@@ -3594,7 +5391,7 @@ function renderPipeline() {
    ANALYTICS
 ========================================================= */
 
-function renderAnalytics() {
+function renderAnalytics(){
 
   const total =
     applications.length;
@@ -3620,37 +5417,39 @@ function renderAnalytics() {
         "Rejected"
     ).length;
 
-  if ($("analyticsTotal"))
+  if($("analyticsTotal"))
     $("analyticsTotal")
       .textContent =
-        total;
+      total;
 
-  if ($("analyticsInterview"))
+  if($("analyticsInterview"))
     $("analyticsInterview")
       .textContent =
-        interviews;
+      interviews;
 
-  if ($("analyticsOffer"))
+  if($("analyticsOffer"))
     $("analyticsOffer")
       .textContent =
-        offers;
+      offers;
 
-  if ($("analyticsRejected"))
+  if($("analyticsRejected"))
     $("analyticsRejected")
       .textContent =
-        rejected;
+      rejected;
 
   const conversion =
     total
-      ? Math.round(
-          (offers / total) * 100
-        )
-      : 0;
+    ?
+    Math.round(
+      (offers / total) * 100
+    )
+    :
+    0;
 
-  if ($("conversionText"))
+  if($("conversionText"))
     $("conversionText")
       .textContent =
-        conversion + "%";
+      conversion + "%";
 }
 
 
@@ -3658,42 +5457,42 @@ function renderAnalytics() {
    DASHBOARD
 ========================================================= */
 
-function renderDashboard() {
+function renderDashboard(){
 
-  if ($("statSaved"))
+  if($("statSaved"))
     $("statSaved")
       .textContent =
-        savedJobs.length;
+      savedJobs.length;
 
-  if ($("statApplications"))
+  if($("statApplications"))
     $("statApplications")
       .textContent =
-        applications.length;
+      applications.length;
 
-  if ($("statInterviews"))
+  if($("statInterviews"))
     $("statInterviews")
       .textContent =
-        applications.filter(
-          app =>
-            app.status ===
-            "Interview"
-        ).length;
+      applications.filter(
+        app =>
+          app.status ===
+          "Interview"
+      ).length;
 
-  if ($("statOffers"))
+  if($("statOffers"))
     $("statOffers")
       .textContent =
-        applications.filter(
-          app =>
-            app.status ===
-            "Offer"
-        ).length;
+      applications.filter(
+        app =>
+          app.status ===
+          "Offer"
+      ).length;
 
   const recent =
     $("recentApplications");
 
-  if (!recent) return;
+  if(!recent) return;
 
-  if (!applications.length) {
+  if(!applications.length){
 
     recent.innerHTML = `
       <div class="empty">
@@ -3702,6 +5501,7 @@ function renderDashboard() {
     `;
 
     return;
+
   }
 
   recent.innerHTML =
@@ -3716,32 +5516,23 @@ function renderDashboard() {
             style="
               padding:12px 0;
               border-bottom:
-                1px solid
+                             1px solid
                 var(--border)
             "
           >
-
             <strong>
-              ${escapeHTML(
-                app.role
-              )}
+              ${escapeHTML(app.role)}
             </strong>
 
-            <div
-              class="muted small"
-            >
-              ${escapeHTML(
-                app.company
-              )}
+            <div class="muted small">
+              ${escapeHTML(app.company)}
             </div>
 
-            <span
-              class="badge"
-            >
-              ${escapeHTML(
-                app.status
-              )}
-            </span>
+            <div style="margin-top:6px">
+              <span class="badge">
+                ${escapeHTML(app.status)}
+              </span>
+            </div>
 
           </div>
 
@@ -3759,40 +5550,40 @@ function loadProfile(){
 
   if(!currentUser) return;
 
-  let data={};
-
-  try{
-    data=JSON.parse(
+  const data =
+    JSON.parse(
       localStorage.getItem("jobflow_profile") || "{}"
     );
-  }catch(e){
-    data={};
-  }
 
   if($("profileName"))
-    $("profileName").value=data.name || "";
+    $("profileName").value = data.name || "";
 
   if($("profileEmail"))
-    $("profileEmail").value=
+    $("profileEmail").value =
       data.email || currentUser.email || "";
 
   if($("profilePhone"))
-    $("profilePhone").value=data.phone || "";
+    $("profilePhone").value = data.phone || "";
 
   if($("profileLocation"))
-    $("profileLocation").value=data.location || "";
+    $("profileLocation").value =
+      data.location || "";
 
   if($("profileSkills"))
-    $("profileSkills").value=data.skills || "";
+    $("profileSkills").value =
+      data.skills || "";
 
   if($("profileExperience"))
-    $("profileExperience").value=data.experience || "";
+    $("profileExperience").value =
+      data.experience || "";
 
   if($("profileLinkedIn"))
-    $("profileLinkedIn").value=data.linkedin || "";
+    $("profileLinkedIn").value =
+      data.linkedin || "";
 
   if($("profilePortfolio"))
-    $("profilePortfolio").value=data.portfolio || "";
+    $("profilePortfolio").value =
+      data.portfolio || "";
 
   updateProfileAvatar();
 }
@@ -3800,32 +5591,72 @@ function loadProfile(){
 
 function updateProfileAvatar(){
 
-  const avatar=$("profileAvatar");
-
+  const avatar = $("profileAvatar");
   if(!avatar) return;
 
-  const name=$("profileName")?.value.trim() || "";
+  const name =
+    $("profileName")
+      ? $("profileName").value.trim()
+      : "";
 
-  avatar.textContent=
-    name ? name.charAt(0).toUpperCase() : "?";
+  avatar.textContent =
+    name
+      ? name.charAt(0).toUpperCase()
+      : "?";
 }
 
 
-if($("saveProfileButton")){
+const saveProfileButton =
+  $("saveProfileButton");
 
-  $("saveProfileButton").addEventListener(
+if(saveProfileButton){
+
+  saveProfileButton.addEventListener(
     "click",
     function(){
 
-      const data={
-        name:$("profileName")?.value.trim() || "",
-        email:$("profileEmail")?.value.trim() || "",
-        phone:$("profilePhone")?.value.trim() || "",
-        location:$("profileLocation")?.value.trim() || "",
-        skills:$("profileSkills")?.value.trim() || "",
-        experience:$("profileExperience")?.value.trim() || "",
-        linkedin:$("profileLinkedIn")?.value.trim() || "",
-        portfolio:$("profilePortfolio")?.value.trim() || ""
+      const data = {
+
+        name:
+          $("profileName")
+            ? $("profileName").value.trim()
+            : "",
+
+        email:
+          $("profileEmail")
+            ? $("profileEmail").value.trim()
+            : "",
+
+        phone:
+          $("profilePhone")
+            ? $("profilePhone").value.trim()
+            : "",
+
+        location:
+          $("profileLocation")
+            ? $("profileLocation").value.trim()
+            : "",
+
+        skills:
+          $("profileSkills")
+            ? $("profileSkills").value.trim()
+            : "",
+
+        experience:
+          $("profileExperience")
+            ? $("profileExperience").value.trim()
+            : "",
+
+        linkedin:
+          $("profileLinkedIn")
+            ? $("profileLinkedIn").value.trim()
+            : "",
+
+        portfolio:
+          $("profilePortfolio")
+            ? $("profilePortfolio").value.trim()
+            : ""
+
       };
 
       localStorage.setItem(
@@ -3836,6 +5667,7 @@ if($("saveProfileButton")){
       updateProfileAvatar();
 
       notify("✅ Profile saved.");
+
     }
   );
 
@@ -3848,58 +5680,110 @@ if($("saveProfileButton")){
 
 function generateResume(){
 
-  const name=
-    $("resumeName")?.value.trim() ||
-    "Your Name";
+  const name =
+    $("resumeName")
+      ? $("resumeName").value.trim()
+      : "";
 
-  const title=
-    $("resumeTitle")?.value.trim() ||
-    "Professional";
+  const title =
+    $("resumeTitle")
+      ? $("resumeTitle").value.trim()
+      : "";
 
-  const skills=
-    $("resumeSkills")?.value.trim() ||
-    "Add your skills";
+  const skills =
+    $("resumeSkills")
+      ? $("resumeSkills").value.trim()
+      : "";
 
-  const experience=
-    $("resumeExperience")?.value.trim() ||
-    "Add your professional experience.";
+  const experience =
+    $("resumeExperience")
+      ? $("resumeExperience").value.trim()
+      : "";
 
-  const preview=$("resumePreview");
+  if(!name){
+
+    notify(
+      "Please enter your name.",
+      false
+    );
+
+    return;
+  }
+
+  const skillsHTML =
+    escapeHTML(skills)
+      .split(",")
+      .map(
+        skill =>
+          skill.trim()
+            ? `<span class="tag">${skill.trim()}</span>`
+            : ""
+      )
+      .join("");
+
+  const preview =
+    $("resumePreview");
 
   if(!preview) return;
 
-  preview.innerHTML=`
+  preview.innerHTML = `
 
-    <h2>${escapeHTML(name)}</h2>
+    <h2>
+      ${escapeHTML(name)}
+    </h2>
 
-    <p class="muted">
-      ${escapeHTML(title)}
+    <p
+      class="muted"
+      style="margin-top:4px"
+    >
+      ${escapeHTML(title || "Professional")}
     </p>
 
-    <hr style="margin:15px 0;border:0;border-top:1px solid var(--border)">
+    <hr
+      style="
+        margin:15px 0;
+        border:0;
+        border-top:1px solid var(--border)
+      "
+    >
 
     <h3>Skills</h3>
 
-    <p style="margin-top:8px">
-      ${escapeHTML(skills)}
-    </p>
+    <div class="tags">
+      ${skillsHTML || "<span class='muted'>No skills added.</span>"}
+    </div>
 
-    <h3 style="margin-top:18px">
+    <h3 style="margin-top:20px">
       Experience
     </h3>
 
-    <p style="margin-top:8px;white-space:pre-wrap">
-      ${escapeHTML(experience)}
+    <p
+      style="
+        white-space:pre-wrap;
+        margin-top:8px
+      "
+    >
+      ${escapeHTML(
+        experience || "No experience added."
+      )}
     </p>
 
     <div class="actions">
 
       <button
         type="button"
+        class="btn btn-secondary"
+        id="copyResumeButton"
+      >
+        📋 Copy
+      </button>
+
+      <button
+        type="button"
         class="btn btn-primary"
         id="printResumeButton"
       >
-        🖨️ Print / Save PDF
+        🖨️ Print
       </button>
 
     </div>
@@ -3916,36 +5800,124 @@ function generateResume(){
     })
   );
 
+  const copyButton =
+    $("copyResumeButton");
+
+  if(copyButton){
+
+    copyButton.addEventListener(
+      "click",
+      async function(){
+
+        const text =
+`${name}
+${title}
+
+SKILLS
+${skills}
+
+EXPERIENCE
+${experience}`;
+
+        try{
+
+          await navigator.clipboard.writeText(text);
+
+          notify("📋 Resume copied.");
+
+        }catch(error){
+
+          notify(
+            "Copy failed. Please copy manually.",
+            false
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+  const printButton =
+    $("printResumeButton");
+
+  if(printButton){
+
+    printButton.addEventListener(
+      "click",
+      function(){
+
+        const printWindow =
+          window.open("", "_blank");
+
+        if(!printWindow){
+
+          notify(
+            "Popup blocked by browser.",
+            false
+          );
+
+          return;
+        }
+
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Resume - ${escapeHTML(name)}</title>
+            <style>
+              body{
+                font-family:Arial,sans-serif;
+                max-width:800px;
+                margin:40px auto;
+                padding:20px;
+                line-height:1.6;
+              }
+              h1{margin-bottom:4px}
+              h2{margin-top:25px}
+            </style>
+          </head>
+          <body>
+            <h1>${escapeHTML(name)}</h1>
+            <p>${escapeHTML(title)}</p>
+
+            <h2>Skills</h2>
+            <p>${escapeHTML(skills)}</p>
+
+            <h2>Experience</h2>
+            <p style="white-space:pre-wrap">
+              ${escapeHTML(experience)}
+            </p>
+          </body>
+          </html>
+        `);
+
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+
+      }
+    );
+
+  }
+
   notify("📄 Resume generated.");
 
 }
 
 
-if($("generateResumeButton")){
+const generateResumeButton =
+  $("generateResumeButton");
 
-  $("generateResumeButton").addEventListener(
+if(generateResumeButton){
+
+  generateResumeButton.addEventListener(
     "click",
     generateResume
   );
 
 }
-
-
-document.addEventListener(
-  "click",
-  function(event){
-
-    const button=
-      event.target.closest(
-        "#printResumeButton"
-      );
-
-    if(!button) return;
-
-    window.print();
-
-  }
-);
 
 
 /* =========================================================
@@ -3954,33 +5926,27 @@ document.addEventListener(
 
 function loadResume(){
 
-  let data={};
-
-  try{
-
-    data=JSON.parse(
+  const data =
+    JSON.parse(
       localStorage.getItem(
         "jobflow_resume"
       ) || "{}"
     );
 
-  }catch(e){
-
-    data={};
-
-  }
-
   if($("resumeName"))
-    $("resumeName").value=data.name || "";
+    $("resumeName").value =
+      data.name || "";
 
   if($("resumeTitle"))
-    $("resumeTitle").value=data.title || "";
+    $("resumeTitle").value =
+      data.title || "";
 
   if($("resumeSkills"))
-    $("resumeSkills").value=data.skills || "";
+    $("resumeSkills").value =
+      data.skills || "";
 
   if($("resumeExperience"))
-    $("resumeExperience").value=
+    $("resumeExperience").value =
       data.experience || "";
 
 }
@@ -3992,150 +5958,160 @@ function loadResume(){
 
 function generateCoverLetter(){
 
-  const name=
-    $("coverName")?.value.trim() ||
-    "Your Name";
+  const name =
+    $("coverName")
+      ? $("coverName").value.trim()
+      : "Your Name";
 
-  const role=
-    $("coverRole")?.value.trim() ||
-    "the position";
+  const role =
+    $("coverRole")
+      ? $("coverRole").value.trim()
+      : "the position";
 
-  const company=
-    $("coverCompany")?.value.trim() ||
-    "your company";
+  const company =
+    $("coverCompany")
+      ? $("coverCompany").value.trim()
+      : "the company";
 
-  const skills=
-    $("coverSkills")?.value.trim() ||
-    "relevant skills";
+  const skills =
+    $("coverSkills")
+      ? $("coverSkills").value.trim()
+      : "";
 
-  const description=
-    $("coverDescription")?.value.trim() ||
-    "";
+  const description =
+    $("coverDescription")
+      ? $("coverDescription").value.trim()
+      : "";
 
-  const letter=`
+  if(!name){
+
+    notify(
+      "Please enter your name.",
+      false
+    );
+
+    return;
+  }
+
+  const letter = `
 
 Dear Hiring Manager,
 
 I am writing to express my interest in the ${role} position at ${company}.
 
-My background and skills in ${skills} make me excited about the opportunity to contribute to your team.
+I believe my skills in ${skills || "the relevant areas"} would allow me to contribute effectively to your team.
 
-${description
-  ? "After reviewing the job description, I believe my experience and capabilities align well with the requirements of this role."
-  : "I would welcome the opportunity to discuss how my skills could contribute to your organization."
-}
+I am particularly interested in this opportunity because it aligns with my career goals and professional interests.
+
+Based on the job description, I understand that this role requires strong skills and the ability to deliver high-quality work. I would welcome the opportunity to bring my experience and enthusiasm to your organization.
+
+I would be grateful for the opportunity to discuss how my background could contribute to ${company}.
 
 Thank you for considering my application.
 
 Sincerely,
 
 ${name}
-  `.trim();
 
-  const preview=$("coverPreview");
+`;
+
+  const preview =
+    $("coverPreview");
 
   if(!preview) return;
 
-  preview.innerHTML=`
+  preview.innerHTML = `
 
     <h3>
-      Generated Cover Letter
+      ✉️ Generated Cover Letter
     </h3>
 
-    <div
+    <p
       style="
-        margin-top:15px;
         white-space:pre-wrap;
-        line-height:1.8
+        margin-top:15px
       "
     >
-      ${escapeHTML(letter)}
-    </div>
+      ${escapeHTML(letter.trim())}
+    </p>
 
     <div class="actions">
 
       <button
         type="button"
+        class="btn btn-secondary"
         id="copyCoverButton"
-        class="btn btn-primary"
       >
         📋 Copy
-      </button>
-
-      <button
-        type="button"
-        id="printCoverButton"
-        class="btn btn-secondary"
-      >
-        🖨️ Print
       </button>
 
     </div>
 
   `;
 
-  notify("✉️ Cover letter generated.");
+  const copyButton =
+    $("copyCoverButton");
 
-}
+  if(copyButton){
 
+    copyButton.addEventListener(
+      "click",
+      async function(){
 
-if($("generateCoverButton")){
+        try{
 
-  $("generateCoverButton").addEventListener(
-    "click",
-    generateCoverLetter
+          await navigator.clipboard.writeText(
+            letter.trim()
+          );
+
+          notify(
+            "📋 Cover letter copied."
+          );
+
+        }catch(error){
+
+          notify(
+            "Copy failed.",
+            false
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+  localStorage.setItem(
+    "jobflow_cover_letter",
+    JSON.stringify({
+      name,
+      role,
+      company,
+      skills,
+      description,
+      letter:letter.trim()
+    })
+  );
+
+  notify(
+    "✉️ Cover letter generated."
   );
 
 }
 
 
-document.addEventListener(
-  "click",
-  async function(event){
+const generateCoverButton =
+  $("generateCoverButton");
 
-    const copyButton=
-      event.target.closest(
-        "#copyCoverButton"
-      );
+if(generateCoverButton){
 
-    if(copyButton){
+  generateCoverButton.addEventListener(
+    "click",
+    generateCoverLetter
+  );
 
-      const text=
-        $("coverPreview")
-          ?.innerText || "";
-
-      try{
-
-        await navigator.clipboard.writeText(text);
-
-        notify("📋 Cover letter copied.");
-
-      }catch(e){
-
-        notify(
-          "Copy is not available on this browser.",
-          false
-        );
-
-      }
-
-      return;
-    }
-
-
-    const printButton=
-      event.target.closest(
-        "#printCoverButton"
-      );
-
-    if(printButton){
-
-      window.print();
-
-    }
-
-  }
-);
+}
 
 
 /* =========================================================
@@ -4144,96 +6120,120 @@ document.addEventListener(
 
 function showInterviewQuestion(){
 
-  const question=
+  const question =
+    $("interviewQuestion");
+
+  if(!question) return;
+
+  question.textContent =
     interviewQuestions[
-      interviewIndex %
-      interviewQuestions.length
+      interviewIndex
     ];
-
-  if($("interviewQuestion"))
-    $("interviewQuestion").textContent=
-      question;
-
-  if($("interviewAnswer"))
-    $("interviewAnswer").value="";
-
-  if($("interviewFeedback"))
-    $("interviewFeedback").innerHTML="";
 
 }
 
 
-function submitInterviewAnswer(){
+function nextInterviewQuestion(){
 
-  const answer=
+  interviewIndex++;
+
+  if(
+    interviewIndex >=
+    interviewQuestions.length
+  ){
+
+    interviewIndex = 0;
+
+  }
+
+  if($("interviewAnswer"))
+    $("interviewAnswer").value = "";
+
+  if($("interviewFeedback"))
+    $("interviewFeedback").innerHTML = "";
+
+  showInterviewQuestion();
+
+}
+
+
+function checkInterviewAnswer(){
+
+  const answer =
     $("interviewAnswer")
-      ?.value.trim() || "";
+      ? $("interviewAnswer")
+          .value
+          .trim()
+      : "";
 
   if(!answer){
 
     notify(
-      "Write your answer first.",
+      "Write an answer first.",
       false
     );
 
     return;
   }
 
-  let score=0;
+  let score = 0;
 
-  if(answer.length>=50)
-    score+=30;
+  if(answer.length >= 50)
+    score += 30;
 
-  if(answer.length>=120)
-    score+=20;
+  if(answer.length >= 120)
+    score += 20;
 
-  const keywords=[
-    "experience",
-    "skill",
-    "team",
-    "project",
-    "result",
-    "learn"
-  ];
+  if(
+    /experience|project|result|learn|team|skill/i
+      .test(answer)
+  ){
 
-  keywords.forEach(
-    word=>{
+    score += 25;
 
-      if(
-        answer
-          .toLowerCase()
-          .includes(word)
-      ){
+  }
 
-        score+=8;
+  if(
+    /because|example|situation|challenge/i
+      .test(answer)
+  ){
 
-      }
+    score += 25;
 
-    }
-  );
+  }
 
-  score=Math.min(100,score);
+  score =
+    Math.min(100,score);
+
+  let message =
+    "Keep developing your answer.";
+
+  if(score >= 80)
+    message =
+      "Excellent structure. Add specific measurable results where possible.";
+
+  else if(score >= 60)
+    message =
+      "Good answer. Add a concrete example and outcome.";
+
+  else
+    message =
+      "Try using the STAR method: Situation, Task, Action, Result.";
 
   if($("interviewFeedback")){
 
-    $("interviewFeedback").innerHTML=`
+    $("interviewFeedback").innerHTML = `
 
       <div class="notice">
 
         <strong>
-          Interview Score: ${score}/100
+          Score: ${score}/100
         </strong>
 
-        <p style="margin-top:8px">
-
-          ${
-            score>=75
-            ? "Excellent answer. Keep it concise and support your points with measurable examples."
-            : score>=50
-            ? "Good start. Add a specific example, your actions and the result."
-            : "Try using a clear example and explain the result you achieved."
-          }
-
+        <p
+          style="margin-top:7px"
+        >
+          ${escapeHTML(message)}
         </p>
 
       </div>
@@ -4242,48 +6242,26 @@ function submitInterviewAnswer(){
 
   }
 
-  saveInterviewResult(
-    $("interviewQuestion")?.textContent || "",
-    answer,
-    score
-  );
-
-}
-
-
-function saveInterviewResult(
-  question,
-  answer,
-  score
-){
-
-  let history=[];
-
-  try{
-
-    history=JSON.parse(
+  const history =
+    JSON.parse(
       localStorage.getItem(
         "jobflow_interviews"
       ) || "[]"
     );
 
-  }catch(e){
-
-    history=[];
-
-  }
-
   history.push({
 
-    id:"interview_"+Date.now(),
-
-    question,
+    question:
+      interviewQuestions[
+        interviewIndex
+      ],
 
     answer,
 
     score,
 
-    date:new Date().toISOString()
+    date:
+      new Date().toISOString()
 
   });
 
@@ -4292,251 +6270,134 @@ function saveInterviewResult(
     JSON.stringify(history)
   );
 
-}
-
-
-if($("submitInterview")){
-
-  $("submitInterview").addEventListener(
-    "click",
-    submitInterviewAnswer
+  notify(
+    "🎤 Answer evaluated."
   );
 
 }
 
 
-if($("nextInterview")){
+const submitInterview =
+  $("submitInterview");
 
-  $("nextInterview").addEventListener(
+if(submitInterview){
+
+  submitInterview.addEventListener(
+    "click",
+    checkInterviewAnswer
+  );
+
+}
+
+
+const nextInterview =
+  $("nextInterview");
+
+if(nextInterview){
+
+  nextInterview.addEventListener(
+    "click",
+    nextInterviewQuestion
+  );
+
+}
+
+
+/* =========================================================
+   PREMIUM
+========================================================= */
+
+function updatePremiumUI(){
+
+  const plan =
+    currentUser &&
+    currentUser.premium
+      ? "Premium"
+      : "Free Trial";
+
+  if($("sidebarPlan"))
+    $("sidebarPlan").textContent =
+      plan;
+
+  const banner =
+    $("trialBanner");
+
+  if(!banner) return;
+
+  if(
+    currentUser &&
+    currentUser.premium
+  ){
+
+    banner.innerHTML = `
+      <strong>⭐ Premium Active</strong><br>
+      Your Premium career tools are unlocked.
+    `;
+
+    return;
+  }
+
+  const created =
+    currentUser &&
+    currentUser.trialStartedAt
+      ? currentUser.trialStartedAt
+      : Date.now();
+
+  const remaining =
+    Math.max(
+      0,
+      (TRIAL_HOURS * 60 * 60 * 1000) -
+      (Date.now() - created)
+    );
+
+  if(remaining <= 0){
+
+    banner.innerHTML = `
+      <strong>⏰ Free trial ended.</strong><br>
+      Activate Premium to continue using Premium features.
+    `;
+
+  }else{
+
+    const hours =
+      Math.ceil(
+        remaining /
+        (60 * 60 * 1000)
+      );
+
+    banner.innerHTML = `
+      <strong>🎁 48-hour free trial</strong><br>
+      Approximately ${hours} hour(s) remaining.
+    `;
+
+  }
+
+}
+
+
+const premiumPaymentButton =
+  $("premiumPaymentButton");
+
+if(premiumPaymentButton){
+
+  premiumPaymentButton.addEventListener(
     "click",
     function(){
 
-      interviewIndex=
-        (
-          interviewIndex+1
-        ) %
-        interviewQuestions.length;
+      const paymentArea =
+        $("paymentArea");
 
-      showInterviewQuestion();
+      if(paymentArea)
+        paymentArea.classList.remove(
+          "hidden"
+        );
+
+      notify(
+        "💳 Payment area opened."
+      );
 
     }
   );
-
-}
-
-
-/* =========================================================
-   TRIAL / PREMIUM UI
-========================================================= */
-
-function getMembership(){
-
-  if(!currentUser){
-
-    return {
-      premium:false,
-      trial:false,
-      trialEnd:null
-    };
-
-  }
-
-  let users={};
-
-  try{
-
-    users=JSON.parse(
-      localStorage.getItem(
-        "jobflow_memberships"
-      ) || "{}"
-    );
-
-  }catch(e){
-
-    users={};
-
-  }
-
-  const email=
-    String(currentUser.email || "")
-      .toLowerCase();
-
-  const membership=
-    users[email] || {};
-
-  const trialEnd=
-    Number(membership.trialEnd || 0);
-
-  const premium=
-    membership.premium === true;
-
-  const trial=
-    !premium &&
-    trialEnd > Date.now();
-
-  return {
-    premium,
-    trial,
-    trialEnd
-  };
-
-}
-
-
-function updateMembershipUI(){
-
-  const membership=
-    getMembership();
-
-  const plan=
-    membership.premium
-      ? "Premium"
-      : membership.trial
-      ? "48-hour Free Trial"
-      : "Free";
-
-  if($("sidebarPlan"))
-    $("sidebarPlan").textContent=
-      plan;
-
-
-  if($("trialBanner")){
-
-    if(membership.premium){
-
-      $("trialBanner").innerHTML=`
-        <strong>⭐ Premium active</strong><br>
-        Your Premium access is active.
-      `;
-
-    }else if(membership.trial){
-
-      const remaining=
-        Math.max(
-          0,
-          membership.trialEnd -
-          Date.now()
-        );
-
-      const hours=
-        Math.ceil(
-          remaining /
-          3600000
-        );
-
-      $("trialBanner").innerHTML=`
-        <strong>🎁 Free trial active</strong><br>
-        Approximately ${hours} hour(s) remaining.
-      `;
-
-    }else{
-
-      $("trialBanner").innerHTML=`
-        <strong>Premium required</strong><br>
-        Your trial has ended. Upgrade to continue using Premium features.
-      `;
-
-    }
-
-  }
-
-}
-
-
-function activateLocalTrial(){
-
-  if(!currentUser) return;
-
-  let users={};
-
-  try{
-
-    users=JSON.parse(
-      localStorage.getItem(
-        "jobflow_memberships"
-      ) || "{}"
-    );
-
-  }catch(e){
-
-    users={};
-
-  }
-
-  const email=
-    String(currentUser.email || "")
-      .toLowerCase();
-
-  if(
-    !users[email] ||
-    !users[email].trialEnd
-  ){
-
-    users[email]={
-      premium:false,
-      trialEnd:
-        Date.now() +
-        (48*60*60*1000)
-    };
-
-    localStorage.setItem(
-      "jobflow_memberships",
-      JSON.stringify(users)
-    );
-
-  }
-
-  updateMembershipUI();
-
-}
-
-
-/* =========================================================
-   PREMIUM PAYMENT REQUEST
-========================================================= */
-
-if($("premiumPaymentButton")){
-
-  $("premiumPaymentButton")
-    .addEventListener(
-      "click",
-      function(){
-
-        if(!currentUser){
-
-          notify(
-            "Please login first.",
-            false
-          );
-
-          return;
-        }
-
-        if(getMembership().premium){
-
-          notify(
-            "⭐ Premium is already active."
-          );
-
-          return;
-        }
-
-        if($("paymentArea")){
-
-          $("paymentArea")
-            .classList
-            .remove("hidden");
-
-          $("paymentArea")
-            .scrollIntoView({
-              behavior:"smooth",
-              block:"center"
-            });
-
-        }
-
-      }
-    );
 
 }
 
@@ -4545,324 +6406,202 @@ if($("premiumPaymentButton")){
    PAYMENT REFERENCE
 ========================================================= */
 
-if($("submitPaymentReference")){
+const submitPaymentReference =
+  $("submitPaymentReference");
 
-  $("submitPaymentReference")
-    .addEventListener(
-      "click",
-      async function(){
+if(submitPaymentReference){
 
-        if(!currentUser){
+  submitPaymentReference.addEventListener(
+    "click",
+    async function(){
 
-          notify(
-            "Please login first.",
-            false
-          );
+      if(!currentUser){
 
-          return;
-        }
+        notify(
+          "Please login first.",
+          false
+        );
 
-        const reference=
-          $("paymentReference")
-            ?.value.trim() || "";
+        return;
+      }
 
-        const upi=
-          $("upiId")
-            ?.value.trim() || "";
+      const reference =
+        $("paymentReference")
+          ? $("paymentReference")
+              .value
+              .trim()
+          : "";
 
-        if(!reference){
+      if(!reference){
 
-          notify(
-            "Enter your payment reference / UTR.",
-            false
-          );
+        notify(
+          "Enter your payment reference.",
+          false
+        );
 
-          return;
-        }
+        return;
+      }
 
-        if(!upi){
+      /*
+       * IMPORTANT:
+       * This client-side code does NOT grant Premium.
+       * Your backend must verify the payment and
+       * update the authenticated user's Premium
+       * entitlement.
+       */
 
-          notify(
-            "Enter the configured UPI ID.",
-            false
-          );
+      const endpoint =
+        CONFIG.paymentEndpoint;
 
-          return;
-        }
+      if(!endpoint){
 
+        notify(
+          "Payment verification backend is not configured.",
+          false
+        );
 
-        /*
-         * IMPORTANT:
-         *
-         * The browser must NOT decide that a payment
-         * was successful.
-         *
-         * This request is only a payment-verification
-         * request. Your backend must verify the ₹499
-         * transaction before Premium is granted.
-         */
+        return;
+      }
 
-        if($("paymentMessage")){
+      try{
 
-          $("paymentMessage")
-            .className="notice";
+        const response =
+          await fetch(
+            endpoint,
+            {
+              method:"POST",
+              headers:{
+                "Content-Type":
+                  "application/json"
+              },
+              body:JSON.stringify({
 
-          $("paymentMessage")
-            .textContent=
-              "Payment reference submitted. Waiting for secure backend verification.";
-
-        }
-
-
-        try{
-
-          const response=
-            await fetch(
-              BACKEND_URL +
-              "/api/payment/verify",
-              {
-                method:"POST",
-                headers:{
-                  "Content-Type":
-                    "application/json"
-                },
-                body:JSON.stringify({
-
-                  email:
-                    currentUser.email,
-
+                paymentReference:
                   reference,
 
-                  upi,
+                email:
+                  currentUser.email
 
-                  amount:499,
-
-                  currency:"INR"
-
-                })
-
-              }
-            );
-
-
-          if(!response.ok){
-
-            throw new Error(
-              "Verification request failed."
-            );
-
-          }
-
-
-          const result=
-            await response.json();
-
-
-          if(result.verified){
-
-            setPremiumFromServer();
-
-            notify(
-              "⭐ Premium activated."
-            );
-
-          }else{
-
-            if($("paymentMessage")){
-
-              $("paymentMessage")
-                .className="error";
-
-              $("paymentMessage")
-                .textContent=
-                result.message ||
-                "Payment could not be verified yet.";
+              })
 
             }
-
-          }
-
-        }catch(error){
-
-          console.error(
-            "Payment verification:",
-            error
           );
 
-          if($("paymentMessage")){
+        const data =
+          await response
+            .json()
+            .catch(
+              () => ({})
+            );
 
-            $("paymentMessage")
-              .className="error";
-
-            $("paymentMessage")
-              .textContent=
-                "Backend verification is unavailable. No Premium access was granted.";
-
-          }
+        if(
+          !response.ok ||
+          !data.success
+        ){
 
           notify(
+            data.message ||
             "Payment verification failed.",
             false
           );
 
+          return;
         }
+
+        notify(
+          "✅ Payment verified. Please refresh your account."
+        );
+
+        await refreshCurrentUser();
+
+      }catch(error){
+
+        console.error(
+          "Payment verification error:",
+          error
+        );
+
+        notify(
+          "Could not connect to payment verification backend.",
+          false
+        );
 
       }
-    );
-
-}
-
-
-/* =========================================================
-   SERVER PREMIUM STATUS
-========================================================= */
-
-async function refreshPremiumStatus(){
-
-  if(!currentUser) return;
-
-  try{
-
-    const response=
-      await fetch(
-        BACKEND_URL +
-        "/api/membership/status?email=" +
-        encodeURIComponent(
-          currentUser.email
-        ),
-        {
-          method:"GET",
-          headers:{
-            "Accept":
-              "application/json"
-          }
-        }
-      );
-
-
-    if(!response.ok)
-      return;
-
-    const data=
-      await response.json();
-
-
-    if(data.premium){
-
-      setPremiumFromServer();
 
     }
-
-  }catch(error){
-
-    console.warn(
-      "Premium status unavailable:",
-      error
-    );
-
-  }
-
-}
-
-
-function setPremiumFromServer(){
-
-  if(!currentUser) return;
-
-  let users={};
-
-  try{
-
-    users=JSON.parse(
-      localStorage.getItem(
-        "jobflow_memberships"
-      ) || "{}"
-    );
-
-  }catch(e){
-
-    users={};
-
-  }
-
-  const email=
-    String(currentUser.email || "")
-      .toLowerCase();
-
-  users[email]={
-    ...(users[email] || {}),
-    premium:true,
-    premiumActivatedAt:
-      Date.now()
-  };
-
-  localStorage.setItem(
-    "jobflow_memberships",
-    JSON.stringify(users)
   );
-
-  updateMembershipUI();
 
 }
 
 
 /* =========================================================
-   PROFILE / RESUME DATA LOAD
+   SETTINGS / DARK MODE
 ========================================================= */
 
-function loadAllUserData(){
+function applyDarkMode(){
 
-  loadProfile();
-  loadResume();
-  loadInterviewData();
+  const enabled =
+    localStorage.getItem(
+      "jobflow_dark_mode"
+    ) === "1";
+
+  document.body.classList.toggle(
+    "dark-mode",
+    enabled
+  );
+
+  const button =
+    $("darkModeButton");
+
+  if(button){
+
+    button.textContent =
+      enabled
+        ? "☀️ Switch to Light Mode"
+        : "🌙 Switch to Dark Mode";
+
+  }
 
 }
 
 
-function loadInterviewData(){
+const darkModeButton =
+  $("darkModeButton");
 
-  let history=[];
+if(darkModeButton){
 
-  try{
+  darkModeButton.addEventListener(
+    "click",
+    function(){
 
-    history=JSON.parse(
-      localStorage.getItem(
-        "jobflow_interviews"
-      ) || "[]"
-    );
+      const enabled =
+        !document.body.classList.contains(
+          "dark-mode"
+        );
 
-  }catch(e){
+      document.body.classList.toggle(
+        "dark-mode",
+        enabled
+      );
 
-    history=[];
+      localStorage.setItem(
+        "jobflow_dark_mode",
+        enabled ? "1" : "0"
+      );
 
-  }
+      this.textContent =
+        enabled
+          ? "☀️ Switch to Light Mode"
+          : "🌙 Switch to Dark Mode";
 
-  if(
-    history.length &&
-    $("interviewFeedback")
-  ){
+      notify(
+        enabled
+          ? "🌙 Dark mode enabled."
+          : "☀️ Light mode enabled."
+      );
 
-    const latest=
-      history[
-        history.length-1
-      ];
-
-    $("interviewFeedback").innerHTML=`
-
-      <div class="notice">
-
-        Last score:
-        <strong>
-          ${escapeHTML(
-            String(latest.score)
-          )}/100
-        </strong>
-
-      </div>
-
-    `;
-
-  }
+    }
+  );
 
 }
 
@@ -4873,75 +6612,60 @@ function loadInterviewData(){
 
 function logoutUser(){
 
+  /*
+   * If Supabase is configured, sign out there too.
+   */
+
+  if(
+    window.supabaseClient &&
+    typeof window.supabaseClient.auth?.signOut ===
+      "function"
+  ){
+
+    window.supabaseClient.auth
+      .signOut()
+      .catch(
+        error =>
+          console.error(
+            "Supabase logout:",
+            error
+          )
+      );
+
+  }
+
   localStorage.removeItem(
     "jobflow_user"
   );
 
-  currentUser=null;
-
-  savedJobs=[];
-  applications=[];
+  currentUser = null;
 
   if($("app"))
-    $("app").style.display="none";
+    $("app").style.display =
+      "none";
 
   if($("authScreen"))
-    $("authScreen").style.display="flex";
+    $("authScreen").style.display =
+      "flex";
 
   if($("authEmail"))
-    $("authEmail").value="";
+    $("authEmail").value = "";
 
   if($("authPassword"))
-    $("authPassword").value="";
+    $("authPassword").value = "";
 
   if($("authMessage"))
-    $("authMessage").textContent="";
+    $("authMessage").textContent = "";
 
 }
 
 
-/* =========================================================
-   LOGOUT BUTTON
-========================================================= */
+const logoutButton =
+  $("logoutButton");
 
-function createLogoutButton(){
+if(logoutButton){
 
-  if($("logoutButton"))
-    return;
-
-  const sidebar=
-    document.querySelector(
-      ".sidebar"
-    );
-
-  if(!sidebar)
-    return;
-
-  const button=
-    document.createElement(
-      "button"
-    );
-
-  button.id=
-    "logoutButton";
-
-  button.type=
-    "button";
-
-  button.className=
-    "nav-button";
-
-  button.textContent=
-    "🚪 Logout";
-
-  button.style.marginTop=
-    "10px";
-
-  sidebar.appendChild(
-    button
-  );
-
-  button.addEventListener(
+  logoutButton.addEventListener(
     "click",
     logoutUser
   );
@@ -4953,60 +6677,59 @@ function createLogoutButton(){
    MOBILE NAV
 ========================================================= */
 
-function createMobileNav(){
+function setupMobileNavigation(){
 
-  if(
+  let mobile =
     document.querySelector(
       ".mobile-nav"
-    )
-  )
-    return;
-
-  const mobile=
-    document.createElement(
-      "div"
     );
 
-  mobile.className=
-    "mobile-nav";
+  if(!mobile){
 
-  mobile.innerHTML=`
+    mobile =
+      document.createElement(
+        "div"
+      );
 
-    <button
-      type="button"
-      data-page="dashboard"
-    >
-      🏠<br>Home
-    </button>
+    mobile.className =
+      "mobile-nav";
 
-    <button
-      type="button"
-      data-page="jobs"
-    >
-      💼<br>Jobs
-    </button>
+    mobile.innerHTML = `
 
-    <button
-      type="button"
-      data-page="applications"
-    >
-      📋<br>Apps
-    </button>
+      <button
+        type="button"
+        data-page="dashboard"
+      >
+        🏠<br>Home
+      </button>
 
-    <button
-      data-page="resume"
-    >
-      📄<br>Resume
-    </button>
+      <button
+        type="button"
+        data-page="jobs"
+      >
+        💼<br>Jobs
+      </button>
 
-    <button
-      type="button"
-      data-page="profile"
-    >
-      👤<br>Profile
-    </button>
+      <button
+        type="button"
+        data-page="applications"
+      >
+        📋<br>Apps
+      </button>
 
-  `;
+      <button
+        type="button"
+        data-page="resume"
+      >
+        📄<br>
+        <button
+          type="button"
+          data-page="profile"
+        >
+          👤<br>Profile
+        </button>
+
+      `;
 
   document.body.appendChild(mobile);
 
@@ -5016,11 +6739,26 @@ function createMobileNav(){
 
       button.addEventListener(
         "click",
-        function(){
+        function () {
 
-          showPage(
-            this.dataset.page
-          );
+          if (
+            typeof showPage ===
+            "function"
+          ) {
+            showPage(
+              this.dataset.page
+            );
+          }
+
+          mobile
+            .querySelectorAll("button")
+            .forEach(btn =>
+              btn.classList.remove(
+                "active"
+              )
+            );
+
+          this.classList.add("active");
 
         }
       );
@@ -5031,12 +6769,12 @@ function createMobileNav(){
 
 
 /* =========================================================
-   FINAL INITIALIZATION
+   PAGE INITIALIZATION
 ========================================================= */
 
-function initializeJobFlow(){
+function initializeJobFlow() {
 
-  try{
+  try {
 
     savedJobs =
       JSON.parse(
@@ -5045,23 +6783,18 @@ function initializeJobFlow(){
         ) || "[]"
       );
 
-    if(!Array.isArray(savedJobs)){
-      savedJobs=[];
+    if (!Array.isArray(savedJobs)) {
+      savedJobs = [];
     }
 
-  }catch(error){
+  } catch (error) {
 
-    console.error(
-      "Saved jobs loading error:",
-      error
-    );
-
-    savedJobs=[];
+    savedJobs = [];
 
   }
 
 
-  try{
+  try {
 
     applications =
       JSON.parse(
@@ -5070,46 +6803,40 @@ function initializeJobFlow(){
         ) || "[]"
       );
 
-    if(!Array.isArray(applications)){
-      applications=[];
+    if (!Array.isArray(applications)) {
+      applications = [];
     }
 
-  }catch(error){
+  } catch (error) {
 
-    console.error(
-      "Applications loading error:",
-      error
-    );
-
-    applications=[];
+    applications = [];
 
   }
 
 
-  try{
+  const storedUser =
+    localStorage.getItem(
+      "jobflow_user"
+    );
 
-    const storedUser =
-      localStorage.getItem(
-        "jobflow_user"
-      );
+  if (storedUser) {
 
-    if(storedUser){
+    try {
 
       currentUser =
         JSON.parse(
           storedUser
         );
 
+    } catch (error) {
+
+      currentUser = null;
+
+      localStorage.removeItem(
+        "jobflow_user"
+      );
+
     }
-
-  }catch(error){
-
-    console.error(
-      "User loading error:",
-      error
-    );
-
-    currentUser=null;
 
   }
 
@@ -5120,86 +6847,55 @@ function initializeJobFlow(){
   renderPipeline();
   renderAnalytics();
 
-  loadResume();
   applyDarkMode();
 
-  createLogoutButton();
-  createMobileNav();
+  if (currentUser) {
+    loadProfile();
+  }
 
   updateAuthUI();
 
-  if(currentUser){
-
-    loadAllUserData();
-
-    activateLocalTrial();
-
-    refreshPremiumStatus();
-
-    showApp();
-
-  }else{
-
-    showAuth();
-
+  if (
+    typeof showInterviewQuestion ===
+    "function"
+  ) {
+    showInterviewQuestion();
   }
 
 }
 
 
 /* =========================================================
-   START APPLICATION
+   SAFE START
 ========================================================= */
 
-function startJobFlow(){
-
-  try{
-
-    initializeJobFlow();
-
-  }catch(error){
-
-    console.error(
-      "JobFlow initialization error:",
-      error
-    );
-
-    if($("authScreen"))
-      $("authScreen").style.display="flex";
-
-    if($("app"))
-      $("app").style.display="none";
-
-  }
-
-}
-
-
-if(
+if (
   document.readyState ===
   "loading"
-){
+) {
 
   document.addEventListener(
     "DOMContentLoaded",
-    startJobFlow,
-    {once:true}
+    initializeJobFlow,
+    {
+      once: true
+    }
   );
 
-}else{
+} else {
 
-  startJobFlow();
+  initializeJobFlow();
 
 }
 
 
 /* =========================================================
-   GLOBAL ERROR HANDLING
+   GLOBAL ERROR HANDLER
 ========================================================= */
 
 window.addEventListener(
   "error",
-  function(event){
+  function (event) {
 
     console.error(
       "JobFlow AI error:",
@@ -5211,9 +6907,13 @@ window.addEventListener(
 );
 
 
+/* =========================================================
+   UNHANDLED PROMISE ERROR
+========================================================= */
+
 window.addEventListener(
   "unhandledrejection",
-  function(event){
+  function (event) {
 
     console.error(
       "JobFlow AI promise error:",
@@ -5225,31 +6925,32 @@ window.addEventListener(
 
 
 /* =========================================================
-   SAFETY: PREVENT ACCIDENTAL FORM RELOAD
+   PREVENT ACCIDENTAL FORM SUBMISSION
 ========================================================= */
 
 document.addEventListener(
   "keydown",
-  function(event){
+  function (event) {
 
-    if(
+    if (
       event.key !== "Enter"
-    ){
+    ) {
       return;
     }
 
     const target =
       event.target;
 
-    if(
+    if (
       target &&
       target.tagName === "INPUT" &&
-      target.type !== "submit"
-    ){
+      target.type !== "submit" &&
+      target.type !== "button"
+    ) {
 
       /*
-       * Do not prevent typing.
-       * Buttons/forms handle their own submission.
+       * Keep normal input behavior.
+       * Forms have their own submit handlers.
        */
 
     }
@@ -5259,65 +6960,118 @@ document.addEventListener(
 
 
 /* =========================================================
-   PAGE VISIBILITY REFRESH
-========================================================= */
-
-document.addEventListener(
-  "visibilitychange",
-  function(){
-
-    if(
-      !document.hidden &&
-      currentUser
-    ){
-
-      updateMembershipUI();
-
-      refreshPremiumStatus();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   FINAL AUTO-SAVE PROFILE AVATAR
-========================================================= */
-
-if($("profileName")){
-
-  $("profileName").addEventListener(
-    "input",
-    updateProfileAvatar
-  );
-
-}
-
-
-/* =========================================================
    CLOSE MODALS WITH ESCAPE
 ========================================================= */
 
 document.addEventListener(
   "keydown",
-  function(event){
+  function (event) {
 
-    if(
+    if (
       event.key !== "Escape"
-    ){
+    ) {
       return;
     }
 
-    const modal =
-      document.querySelector(
-        ".modal.show"
+    document
+      .querySelectorAll(".modal.show")
+      .forEach(
+        modal =>
+          modal.classList.remove(
+            "show"
+          )
       );
 
-    if(modal){
+  }
+);
 
-      modal.classList.remove(
-        "show"
+
+/* =========================================================
+   CLICK OUTSIDE MODALS
+========================================================= */
+
+document.addEventListener(
+  "click",
+  function (event) {
+
+    if (
+      !event.target.classList.contains(
+        "modal"
+      )
+    ) {
+      return;
+    }
+
+    event.target.classList.remove(
+      "show"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   PAGE LINK BUTTONS
+========================================================= */
+
+document.addEventListener(
+  "click",
+  function (event) {
+
+    const button =
+      event.target.closest(
+        "[data-page-link]"
+      );
+
+    if (!button) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const page =
+      button.dataset.pageLink;
+
+    if (
+      page &&
+      typeof showPage ===
+      "function"
+    ) {
+
+      showPage(page);
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+========================================================= */
+
+document.addEventListener(
+  "click",
+  function (event) {
+
+    const button =
+      event.target.closest(
+        ".nav-button[data-page]"
+      );
+
+    if (!button) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (
+      typeof showPage ===
+      "function"
+    ) {
+
+      showPage(
+        button.dataset.page
       );
 
     }
@@ -5327,63 +7081,75 @@ document.addEventListener(
 
 
 /* =========================================================
-   PRINT SUPPORT
+   KEEP PROFILE AVATAR UPDATED
 ========================================================= */
 
-const printStyle =
-  document.createElement("style");
+if ($("profileName")) {
 
-printStyle.textContent=`
+  $("profileName")
+    .addEventListener(
+      "input",
+      updateProfileAvatar
+    );
 
-  @media print {
+}
 
-    body{
-      background:white!important;
-    }
 
-    .sidebar,
-    .mobile-nav,
-    .topbar button,
-    .actions,
-    .auth-screen{
-      display:none!important;
-    }
+/* =========================================================
+   ONLINE / OFFLINE STATUS
+========================================================= */
 
-    .main{
-      margin:0!important;
-      padding:20px!important;
-      max-width:none!important;
-    }
+window.addEventListener(
+  "online",
+  function () {
 
-    .page{
-      display:none!important;
-    }
+    if (
+      typeof notify ===
+      "function"
+    ) {
 
-    #resume.page,
-    #cover.page{
-      display:block!important;
-    }
+      notify(
+        "🌐 Internet connection restored."
+      );
 
-    .card{
-      box-shadow:none!important;
-      border:0!important;
     }
 
   }
+);
 
-`;
 
-document.head.appendChild(
-  printStyle
+window.addEventListener(
+  "offline",
+  function () {
+
+    if (
+      typeof notify ===
+      "function"
+    ) {
+
+      notify(
+        "📡 You're offline. Local features still work."
+      );
+
+    }
+
+  }
 );
 
 
 /* =========================================================
-   END OF JOBFLOW AI
+   FINAL SAFETY CHECK
 ========================================================= */
+
+console.log(
+  "🚀 JobFlow AI initialized successfully."
+);
 
 </script>
 
 </body>
 </html>
+
+              
+          
      
