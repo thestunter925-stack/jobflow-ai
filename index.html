@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StockPro | Inventory Management System</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>StockPro</h2>
+            <span>Inventory System</span>
+        </div>
+
+        <ul>
+            <li class="active">🏠 Dashboard</li>
+            <li>📦 Products</li>
+            <li>🛒 Orders</li>
+            <li>👥 Customers</li>
+            <li>🚚 Suppliers</li>
+            <li>📊 Analytics</li>
+            <li>⚙ Settings</li>
+        </ul>
+
+    </aside>
+
+
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <h1>Inventory Management System</h1>
+                <p id="date"></p>
+            </div>
+
+            <div class="admin">
+                👤 Admin
+            </div>
+
+        </header>
+
+
+
+        <!-- Dashboard Cards -->
+        <section class="cards">
+
+            <div class="card">
+                <h3>Total Products</h3>
+                <h1 id="totalProducts">250</h1>
+                <button onclick="viewProducts()">View Products</button>
+            </div>
+
+
+            <div class="card">
+                <h3>Low Stock</h3>
+                <h1 id="lowStock">12</h1>
+                <button onclick="checkStock()">Check Stock</button>
+            </div>
+
+
+            <div class="card">
+                <h3>Today's Sales</h3>
+                <h1 id="todaySales">₹12,500</h1>
+                <button onclick="salesReport()">Sales Report</button>
+            </div>
+
+
+            <div class="card">
+                <h3>Total Orders</h3>
+                <h1 id="totalOrders">85</h1>
+                <button onclick="viewOrders()">View Orders</button>
+            </div>
+
+
+        </section>
+
+
+
+
+        <!-- Analytics -->
+
+        <section class="analytics">
+
+
+            <div class="box">
+
+                <h2>Sales Overview</h2>
+
+                <div class="chart">
+                    Monthly Sales Chart
+                </div>
+
+            </div>
+
+
+
+            <div class="box">
+
+                <h2>Stock Categories</h2>
+
+                <div class="stock">
+                    Electronics : 120
+                </div>
+
+                <div class="stock">
+                    Accessories : 80
+                </div>
+
+                <div class="stock">
+                    Furniture : 50
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+
+
+        <!-- Products Table -->
+
+      <section class="products">
+
+    <div class="title">
+        <h2>Product Inventory</h2>
+    </div>
+
+    <div class="product-form">
+
+        <input type="text" id="productName" placeholder="Product Name">
+
+        <input type="text" id="category" placeholder="Category">
+
+        <input type="number" id="price" placeholder="Price">
+
+        <input type="number" id="stock" placeholder="Stock">
+
+        <button id="saveProduct">
+            Save Product
+        </button>
+
+    </div>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Status</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="productTable">
+
+        </tbody>
+
+    </table>
+
+</section>
+
+
+
+
+        <!-- Recent Orders -->
+
+        <section class="orders">
+
+            <h2>Recent Orders</h2>
+
+            <p>Order #1001 - Laptop - Completed</p>
+            <p>Order #1002 - Mouse - Processing</p>
+            <p>Order #1003 - Keyboard - Delivered</p>
+
+        </section>
+
+
+
+    </main>
+
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
