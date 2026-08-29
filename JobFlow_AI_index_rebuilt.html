@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#2563eb">
+<meta name="description" content="JobFlow AI - Find, prepare and track job applications in one place.">
+<title>JobFlow AI</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#111827}
+button,input,select,textarea{font:inherit}button,a{cursor:pointer}
+.app{display:none;min-height:100vh}.sidebar{position:fixed;left:0;top:0;bottom:0;width:245px;background:#111827;color:#fff;padding:20px;overflow:auto}
+.brand{font-size:22px;font-weight:800;margin-bottom:24px}.nav button{display:block;width:100%;border:0;background:transparent;color:#d1d5db;text-align:left;padding:12px;border-radius:9px;margin:3px 0}
+.nav button:hover,.nav button.active{background:#2563eb;color:#fff}.main{margin-left:245px;padding:28px;max-width:1450px}
+.hero{margin-bottom:20px}.hero h1,.hero h2{margin-bottom:8px}.muted{color:#6b7280}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 4px 16px rgba(0,0,0,.04)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+label{display:block;font-weight:700;margin:10px 0 7px}input,select,textarea{width:100%;border:1px solid #d1d5db;border-radius:9px;padding:11px;background:#fff;color:#111827}
+textarea{min-height:110px;resize:vertical}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{display:inline-block;border:0;border-radius:9px;padding:10px 14px;text-decoration:none}.primary{background:#2563eb;color:#fff}.secondary{background:#e5e7eb;color:#111827}.danger{background:#dc2626;color:#fff}
+.stat{font-size:28px;font-weight:800;margin-top:8px}.job{border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin-top:12px;background:#fff}
+.jobTop{display:flex;justify-content:space-between;gap:12px}.badge{background:#dbeafe;color:#1d4ed8;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700;height:max-content;white-space:nowrap}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.tag{background:#f3f4f6;border-radius:999px;padding:5px 9px;font-size:12px}.empty{text-align:center;color:#6b7280;padding:28px}
+.page{display:none}.page.active{display:block}
+#trialGate{position:fixed;inset:0;background:#f5f7fb;display:flex;align-items:center;justify-content:center;padding:20px;z-index:9999}
+.gate{background:#fff;width:min(420px,100%);padding:30px;border-radius:18px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.12)}
+.mobileNav{display:none}.modal{position:fixed;inset:0;background:rgba(17,24,39,.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:9000}
+.modalBox{background:#fff;border-radius:16px;width:min(720px,100%);max-height:90vh;overflow:auto;padding:22px}.modalHead{display:flex;justify-content:space-between;align-items:center}
+.close{border:0;background:#e5e7eb;border-radius:8px;padding:7px 11px}
+.dark{background:#111827;color:#f9fafb}.dark .card,.dark .modalBox,.dark input,.dark select,.dark textarea,.dark .job{background:#1f2937;color:#f9fafb;border-color:#374151}.dark .muted{color:#9ca3af}
+.notice{background:#eff6ff;border:1px solid #bfdbfe;padding:12px;border-radius:10px;margin-top:12px}
+@media(max-width:800px){.sidebar{display:none}.main{margin-left:0;padding:18px;padding-bottom:80px}.grid2,.grid4{grid-template-columns:1fr}.mobileNav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#111827;z-index:1000}.mobileNav button{flex:1;border:0;background:transparent;color:#fff;padding:12px 5px;font-size:11px}}
+</style>
+</head>
+<body>
+
+<div id="trialGate">
+<div class="gate">
+<h1>🚀 JobFlow AI</h1><p class="muted">Your Career Command Center</p>
+<p style="margin-top:18px">Enter your access password</p>
+<input id="gateInput" type="password" placeholder="Access password" style="margin-top:10px">
+<div class="actions" style="justify-content:center"><button id="gateButton" class="btn primary">🔓 Continue</button></div>
+<p id="gateMessage" style="margin-top:12px;color:#dc2626"></p>
+</div>
+</div>
+
+<div class="app" id="app">
+<aside class="sidebar">
+<div class="brand">🚀 JobFlow AI</div>
+<div class="nav">
+<button data-page="dashboard">🏠 Dashboard</button>
+<button data-page="jobs">💼 Find Jobs</button>
+<button data-page="saved">⭐ Saved Jobs</button>
+<button data-page="applications">📋 Applications</button>
+<button data-page="pipeline">🔄 Pipeline</button>
+<button data-page="analytics">📊 Analytics</button>
+<button data-page="resume">📄 Resume</button>
+<button data-page="interview">🎤 Interview</button>
+<button data-page="coverLetter">✉️ Cover Letter</button>
+<button data-page="premium">💳 Premium</button>
+<button data-page="profile">👤 Profile</button>
+<button data-page="settings">⚙️ Settings</button>
+</div>
+</aside>
+
+<main class="main">
+
+<section id="dashboard" class="page">
+<div class="hero"><h1>Welcome to JobFlow AI 👋</h1><p class="muted">Find → Match → Prepare → Apply → Track.</p></div>
+<div class="grid4">
+<div class="card"><b>⭐ Saved Jobs</b><div id="statSaved" class="stat">0</div></div>
+<div class="card"><b>📋 Applications</b><div id="statApps" class="stat">0</div></div>
+<div class="card"><b>🎤 Interviews</b><div id="statInterviews" class="stat">0</div></div>
+<div class="card"><b>🎁 Offers</b><div id="statOffers" class="stat">0</div></div>
+</div>
+<div class="card"><h3>Career Command Center</h3><p class="muted" style="margin-top:8px">Keep your job search in one place.</p>
+<div class="actions">
+<button class="btn primary" data-go="jobs">🔎 Find Jobs</button>
+<button class="btn secondary" data-go="applications">📋 Applications</button>
+<button class="btn secondary" data-go="resume">📄 Resume</button>
+<button class="btn secondary" data-go="coverLetter">✉️ Cover Letter</button>
+</div></div>
+<div class="card"><h3>Recent Applications</h3><div id="recentApps"></div></div>
+</section>
+
+<section id="jobs" class="page">
+<div class="hero"><h2>💼 Find Jobs</h2><p class="muted">Search opportunities inside JobFlow AI.</p></div>
+<div class="card">
+<div class="grid2">
+<div><label>Job title / skill</label><input id="jobQuery" placeholder="Software Engineer, React, Sales..."></div>
+<div><label>Location</label><input id="jobLocation" placeholder="Hyderabad, Bengaluru, Remote..."></div>
+<div><label>Experience</label><select id="jobExperience"><option value="">Any experience</option><option>Fresher</option><option>1-3 years</option><option>3-5 years</option><option>5+ years</option></select></div>
+<div><label>Work mode</label><select id="jobMode"><option value="">Any mode</option><option>Remote</option><option>Hybrid</option><option>On-site</option></select></div>
+</div>
+<div class="actions"><button id="searchJobsBtn" class="btn primary">🔎 Search Jobs</button></div>
+<div class="notice">Live job aggregation will be connected through the backend in the next build. This version provides the complete internal search/apply interface without sending users to random job websites.</div>
+</div>
+<div id="jobResults"><div class="empty">Enter your criteria and search.</div></div>
+</section>
+
+<section id="saved" class="page">
+<div class="hero"><h2>⭐ Saved Jobs</h2><p class="muted">Your saved opportunities.</p></div>
+<div class="card"><div id="savedJobs"></div></div>
+</section>
+
+<section id="applications" class="page">
+<div class="hero"><h2>📋 Applications</h2><p class="muted">Track applications from Applied to Offer.</p></div>
+<div class="card">
+<h3>➕ Add Application</h3>
+<div class="grid2">
+<div><label>Company</label><input id="applicationCompany" placeholder="Company name"></div>
+<div><label>Job Role</label><input id="applicationRole" placeholder="Software Engineer"></div>
+</div>
+<label>Status</label><select id="applicationStatus"><option>Applied</option><option>Screening</option><option>Interview</option><option>Offer</option><option>Rejected</option></select>
+<div class="actions"><button id="addApplicationBtn" class="btn primary">➕ Add Application</button></div>
+</div>
+<div class="card"><h3>My Applications</h3><div id="applicationsList"></div></div>
+</section>
+
+<section id="pipeline" class="page">
+<div class="hero"><h2>🔄 Application Pipeline</h2><p class="muted">See every application stage.</p></div>
+<div id="pipelineBoard" class="grid2"></div>
+</section>
+
+<section id="analytics" class="page">
+<div class="hero"><h2>📊 Career Analytics</h2><p class="muted">Understand your job-search progress.</p></div>
+<div class="grid4">
+<div class="card"><b>Applications</b><div id="analyticsApplications" class="stat">0</div></div>
+<div class="card"><b>Interviews</b><div id="analyticsInterviews" class="stat">0</div></div>
+<div class="card"><b>Offers</b><div id="analyticsOffers" class="stat">0</div></div>
+<div class="card"><b>Rejected</b><div id="analyticsRejected" class="stat">0</div></div>
+</div>
+</section>
+
+<section id="resume" class="page">
+<div class="hero"><h2>📄 Resume Builder</h2><p class="muted">Create your basic professional resume.</p></div>
+<div class="card">
+<label>Full Name</label><input id="resumeName" placeholder="Your full name">
+<label>Professional Title</label><input id="resumeTitle" placeholder="Software Engineer">
+<label>Skills</label><textarea id="resumeSkills" placeholder="JavaScript, React, Python..."></textarea>
+<label>Experience</label><textarea id="resumeExperience" placeholder="Describe your experience..."></textarea>
+<div class="actions"><button id="generateResumeBtn" class="btn primary">📄 Generate Resume</button></div>
+</div>
+<div id="resumePreview" class="card"><div class="empty">Your resume preview will appear here.</div></div>
+</section>
+
+<section id="interview" class="page">
+<div class="hero"><h2>🎤 Interview Practice</h2><p class="muted">Practice common interview questions.</p></div>
+<div class="card">
+<h3>Interview Question</h3><div id="interviewQuestion" style="margin-top:16px;font-size:18px;font-weight:700"></div>
+<textarea id="interviewAnswer" placeholder="Type your answer..." style="margin-top:16px"></textarea>
+<div class="actions"><button id="submitInterviewBtn" class="btn primary">Submit Answer</button><button id="nextQuestionBtn" class="btn secondary">Next Question</button></div>
+</div>
+<div id="interviewResults" class="card"></div>
+</section>
+
+<section id="coverLetter" class="page">
+<div class="hero"><h2>✉️ AI Cover Letter</h2><p class="muted">Generate a job-specific cover letter from the job description.</p></div>
+<div class="card">
+<div class="grid2">
+<div><label>Your Name</label><input id="clName" placeholder="Your name"></div>
+<div><label>Job Title</label><input id="clJobTitle" placeholder="Software Engineer"></div>
+<div><label>Company</label><input id="clCompany" placeholder="Company name"></div>
+<div><label>Skills</label><input id="clSkills" placeholder="Your skills"></div>
+</div>
+<label>Job Description</label><textarea id="clDescription" placeholder="Paste the job description..."></textarea>
+<div class="actions"><button id="generateCLBtn" class="btn primary">✉️ Generate</button><button id="copyCLBtn" class="btn secondary">📋 Copy</button></div>
+</div>
+<div id="coverLetterPreview" class="card"><div class="empty">Your cover letter will appear here.</div></div>
+</section>
+
+<section id="premium" class="page">
+<div class="hero"><h2>💳 JobFlow Premium</h2><p class="muted">Advanced career features.</p></div>
+<div class="card">
+<h3>🚀 Premium — ₹499</h3>
+<p style="margin-top:8px">Planned Premium features:</p>
+<ul style="margin:12px 0 0 20px;line-height:1.9">
+<li>Advanced job aggregation</li><li>AI job matching</li><li>AI cover letters</li><li>Application profile autofill</li><li>Supported in-site applications</li><li>Advanced application tracking</li>
+</ul>
+<div class="notice">Payment verification should be moved to the backend before production. Do not grant Premium based only on browser storage.</div>
+</div>
+</section>
+
+<section id="profile" class="page">
+<div class="hero"><h2>👤 Application Profile</h2><p class="muted">Save information for faster supported applications.</p></div>
+<div class="card">
+<div class="grid2">
+<div><label>Full Name</label><input id="profileName"></div>
+<div><label>Email</label><input id="profileEmail" type="email"></div>
+<div><label>Phone</label><input id="profilePhone"></div>
+<div><label>Location</label><input id="profileLocation"></div>
+</div>
+<label>Skills</label><textarea id="profileSkills"></textarea>
+<label>Experience</label><textarea id="profileExperience"></textarea>
+<label>LinkedIn / Portfolio</label><input id="profileLink" placeholder="https://...">
+<div class="actions"><button id="saveProfileBtn" class="btn primary">💾 Save Profile</button></div>
+</div>
+</section>
+
+<section id="settings" class="page">
+<div class="hero"><h2>⚙️ Settings</h2><p class="muted">Manage your JobFlow AI preferences.</p></div>
+<div class="card"><button id="darkModeBtn" class="btn secondary">🌙 Toggle Dark Mode</button><button id="logoutBtn" class="btn danger" style="margin-left:8px">🔒 Lock App</button></div>
+</section>
+
+</main>
+</div>
+
+<div class="mobileNav">
+<button data-page="dashboard">🏠</button><button data-page="jobs">💼</button><button data-page="saved">⭐</button><button data-page="applications">📋</button><button data-page="resume">📄</button><button data-page="premium">💳</button>
+</div>
+
+<div id="applyModal" class="modal">
+<div class="modalBox">
+<div class="modalHead"><h2>🚀 Apply on JobFlow AI</h2><button class="close" id="closeApplyBtn">✕</button></div>
+<div id="applyJobInfo" style="margin-top:14px"></div>
+<div class="card" style="margin-top:16px">
+<label>Full Name</label><input id="applyName">
+<label>Email</label><input id="applyEmail">
+<label>Phone</label><input id="applyPhone">
+<label>Resume</label><input id="applyResume" type="file" accept=".pdf,.doc,.docx">
+<label>Cover Letter</label><textarea id="applyCover"></textarea>
+<div class="actions"><button id="applyGenerateCL" class="btn secondary">✉️ Generate Cover Letter</button><button id="submitApplyBtn" class="btn primary">🚀 Submit Application</button></div>
+<div class="notice">This native application form is ready for backend/company/ATS integration. Until that integration is connected, submission is saved to your JobFlow application tracker only.</div>
+</div>
+</div>
+</div>
+
+<script>
+"use strict";
+
+const ACCESS_PASSWORD="12345";
+const JOBS=[
+{id:"j1",title:"Frontend Developer",company:"TechNova",location:"Hyderabad, India",mode:"Hybrid",experience:"1-3 years",salary:"₹5-8 LPA",skills:["JavaScript","React","HTML","CSS"],description:"Build responsive web applications with React and JavaScript and work with product and design teams.",apply:true},
+{id:"j2",title:"Software Engineer",company:"CloudWorks",location:"Bengaluru, India",mode:"Remote",experience:"1-3 years",salary:"₹6-10 LPA",skills:["JavaScript","Node.js","APIs","Git"],description:"Develop scalable software services, build APIs and write maintainable code.",apply:true},
+{id:"j3",title:"Sales Development Representative",company:"GrowthLabs",location:"Remote, India",mode:"Remote",experience:"Fresher",salary:"₹3-6 LPA",skills:["Sales","Lead Generation","Communication","CRM"],description:"Research prospects, qualify leads, communicate with customers and maintain CRM records.",apply:true},
+{id:"j4",title:"Product Designer",company:"PixelCraft",location:"Pune, India",mode:"On-site",experience:"3-5 years",salary:"₹7-12 LPA",skills:["Figma","UX","UI","Prototyping"],description:"Design user experiences, create prototypes and improve usability through research and testing.",apply:false}
+];
+
+const $=id=>document.getElementById(id);
+const read=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))}catch{return d}};
+const write=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const esc=v=>String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+const getApps=()=>read("jobflow_applications",[]);
+const getSaved=()=>read("jobflow_saved_jobs",[]);
+const getProfile=()=>read("jobflow_profile",{});
+const toast=msg=>{let t=$("toast");if(!t){t=document.createElement("div");t.id="toast";t.style="position:fixed;right:18px;bottom:75px;background:#111827;color:#fff;padding:12px 16px;border-radius:9px;z-index:10000";document.body.appendChild(t)}t.textContent=msg;t.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display="none",2200)};
+
+function showPage(id){
+ document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));
+ document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===id));
+ if(id==="saved")renderSaved();if(id==="applications")renderApplications();if(id==="pipeline")renderPipeline();if(id==="analytics")renderAnalytics();
+ window.scrollTo(0,0);
+}
+
+function updateStats(){
+ const a=getApps(),s=getSaved();
+ $("statSaved").textContent=s.length;$("statApps").textContent=a.length;
+ $("statInterviews").textContent=a.filter(x=>x.status==="Interview").length;
+ $("statOffers").textContent=a.filter(x=>x.status==="Offer").length;
+ $("recentApps").innerHTML=a.slice(0,5).map(x=>`<div class="job"><b>${esc(x.role)}</b> — ${esc(x.company)} <span class="badge">${esc(x.status)}</span></div>`).join("")||'<div class="empty">No applications yet.</div>';
+}
+
+function matchJob(j){
+ const q=$("jobQuery").value.trim().toLowerCase(),l=$("jobLocation").value.trim().toLowerCase(),e=$("jobExperience").value,m=$("jobMode").value;
+ const text=(j.title+" "+j.company+" "+j.location+" "+j.mode+" "+j.skills.join(" ")).toLowerCase();
+ return(!q||text.includes(q))&&(!l||j.location.toLowerCase().includes(l)||j.mode.toLowerCase().includes(l))&&(!e||j.experience===e)&&(!m||j.mode===m);
+}
+function score(j){
+ const p=getProfile(),skills=(p.skills||"").toLowerCase().split(/[, ]+/).filter(Boolean);
+ if(!skills.length)return"Set profile";
+ const hits=j.skills.filter(s=>skills.some(x=>s.toLowerCase().includes(x)||x.includes(s.toLowerCase()))).length;
+ return Math.min(99,Math.round(50+(hits/j.skills.length)*49))+"%";
+}
+function renderJobs(){
+ const list=JOBS.filter(matchJob),c=$("jobResults");
+ if(!list.length){c.innerHTML='<div class="empty">No matching jobs found. Try broader criteria.</div>';return}
+ c.innerHTML=list.map(j=>`<div class="job">
+ <div class="jobTop"><div><h3>${esc(j.title)}</h3><p>🏢 ${esc(j.company)} · 📍 ${esc(j.location)}</p></div><span class="badge">${esc(score(j))} Match</span></div>
+ <p style="margin-top:10px">${esc(j.salary)} · ${esc(j.mode)} · ${esc(j.experience)}</p>
+ <div class="tags">${j.skills.map(s=>`<span class="tag">${esc(s)}</span>`).join("")}</div>
+ <p class="muted" style="margin-top:12px">${esc(j.description)}</p>
+ <div class="actions"><button class="btn primary" onclick="openApply('${j.id}')">🚀 ${j.apply?"Apply on JobFlow":"Integration needed"}</button>
+ <button class="btn secondary" onclick="saveJob('${j.id}')">⭐ Save</button>
+ <button class="btn secondary" onclick="loadCover('${j.id}')">✉️ Cover Letter</button></div>
+ </div>`).join("");
+}
+function saveJob(id){const j=JOBS.find(x=>x.id===id);let a=getSaved().filter(x=>x.id!==id);a.unshift(j);write("jobflow_saved_jobs",a);updateStats();toast("⭐ Job saved")}
+function renderSaved(){
+ const a=getSaved();$("savedJobs").innerHTML=a.length?a.map(j=>`<div class="job"><div class="jobTop"><div><h3>${esc(j.title)}</h3><p>🏢 ${esc(j.company)} · 📍 ${esc(j.location)}</p></div><span class="badge">Saved</span></div><div class="actions"><button class="btn primary" onclick="openApply('${j.id}')">🚀 Apply</button><button class="btn danger" onclick="removeSaved('${j.id}')">Delete</button></div></div>`).join(""):'<div class="empty">⭐<br><br>No saved jobs yet.</div>';
+}
+function removeSaved(id){write("jobflow_saved_jobs",getSaved().filter(x=>x.id!==id));renderSaved();updateStats();toast("Saved job deleted")}
+
+let currentJob=null;
+function openApply(id){
+ currentJob=JOBS.find(x=>x.id===id)||getSaved().find(x=>x.id===id);if(!currentJob)return;
+ if(!currentJob.apply){toast("This employer integration is not connected yet.");return}
+ const p=getProfile();
+ $("applyJobInfo").innerHTML=`<h3>${esc(currentJob.title)}</h3><p class="muted">🏢 ${esc(currentJob.company)} · 📍 ${esc(currentJob.location)}</p><p style="margin-top:8px">${esc(currentJob.description)}</p>`;
+ $("applyName").value=p.name||"";$("applyEmail").value=p.email||"";$("applyPhone").value=p.phone||"";$("applyCover").value="";
+ $("applyModal").style.display="flex";
+}
+function closeApply(){$("applyModal").style.display="none";currentJob=null}
+function makeCover(j,name){
+ const p=getProfile(),skills=p.skills||j.skills.join(", ");
+ return`Dear Hiring Manager,
+
+I am excited to apply for the ${j.title} position at ${j.company}. My skills in ${skills} align well with this opportunity.
+
+I am particularly interested in this role because it involves ${j.description.toLowerCase()} I would bring a practical, results-focused approach and a strong willingness to contribute to the team.
+
+Thank you for considering my application. I would welcome the opportunity to discuss how I can contribute.
+
+Sincerely,
+${name}`;
+}
+function submitApply(){
+ if(!currentJob)return;
+ const name=$("applyName").value.trim(),email=$("applyEmail").value.trim();
+ if(!name||!email){toast("Please enter name and email.");return}
+ let a=getApps();a.unshift({id:Date.now(),company:currentJob.company,role:currentJob.title,status:"Applied",date:new Date().toLocaleDateString(),jobId:currentJob.id});
+ write("jobflow_applications",a);closeApply();updateStats();renderApplications();toast("🚀 Application saved");
+}
+function loadCover(id){
+ const j=JOBS.find(x=>x.id===id);if(!j)return;
+ $("clJobTitle").value=j.title;$("clCompany").value=j.company;$("clSkills").value=j.skills.join(", ");$("clDescription").value=j.description;showPage("coverLetter");
+}
+
+function addApplication(){
+ const company=$("applicationCompany").value.trim(),role=$("applicationRole").value.trim(),status=$("applicationStatus").value;
+ if(!company||!role){toast("Enter company and role.");return}
+ let a=getApps();a.unshift({id:Date.now(),company,role,status,date:new Date().toLocaleDateString()});write("jobflow_applications",a);
+ $("applicationCompany").value="";$("applicationRole").value="";renderApplications();renderPipeline();updateStats();toast("Application added");
+}
+function renderApplications(){
+ const a=getApps();$("applicationsList").innerHTML=a.length?a.map(x=>`<div class="job"><div class="jobTop"><div><h3>${esc(x.role)}</h3><p>🏢 ${esc(x.company)}</p><p class="muted">${esc(x.date)}</p></div><span class="badge">${esc(x.status)}</span></div><div class="actions"><button class="btn danger" onclick="deleteApplication(${x.id})">🗑️ Delete</button></div></div>`).join(""):'<div class="empty">📋<br><br>No applications yet.</div>';
+}
+function deleteApplication(id){write("jobflow_applications",getApps().filter(x=>x.id!==id));renderApplications();renderPipeline();updateStats();toast("Application deleted")}
+function renderPipeline(){
+ const states=["Applied","Screening","Interview","Offer","Rejected"],a=getApps();
+ $("pipelineBoard").innerHTML=states.map(s=>`<div class="card"><h3>${s}</h3><div style="margin-top:10px">${a.filter(x=>x.status===s).map(x=>`<div class="job"><b>${esc(x.role)}</b><p>${esc(x.company)}</p></div>`).join("")||'<p class="muted">No applications</p>'}</div></div>`).join("");
+}
+function renderAnalytics(){
+ const a=getApps();$("analyticsApplications").textContent=a.length;$("analyticsInterviews").textContent=a.filter(x=>x.status==="Interview").length;$("analyticsOffers").textContent=a.filter(x=>x.status==="Offer").length;$("analyticsRejected").textContent=a.filter(x=>x.status==="Rejected").length;
+}
+
+const questions=["Tell me about yourself.","Why should we hire you?","What are your strengths?","Tell me about a difficult problem you solved?","Where do you see yourself in five years?"];let qi=0;
+function showQuestion(){$("interviewQuestion").textContent=questions[qi%questions.length]}
+function generateResume(){
+ const n=$("resumeName").value.trim()||"Your Name",t=$("resumeTitle").value.trim()||"Professional",s=$("resumeSkills").value.trim(),e=$("resumeExperience").value.trim();
+ $("resumePreview").innerHTML=`<h2>${esc(n)}</h2><h3 style="margin-top:6px">${esc(t)}</h3><hr style="margin:16px 0"><h3>Skills</h3><p style="margin-top:8px">${esc(s)||"Add your skills."}</p><h3 style="margin-top:16px">Experience</h3><p style="margin-top:8px">${esc(e)||"Add your experience."}</p>`;toast("Resume generated");
+}
+function generateCL(){
+ const n=$("clName").value.trim()||"Your Name",j=$("clJobTitle").value.trim()||"the position",c=$("clCompany").value.trim()||"the company",s=$("clSkills").value.trim()||"relevant skills",d=$("clDescription").value.trim()||"the responsibilities of this role";
+ const text=`Dear Hiring Manager,
+
+I am excited to apply for ${j} at ${c}. My skills in ${s} align well with this opportunity.
+
+Based on the job description, I am particularly interested in ${d} I would bring a practical, results-focused approach and a strong willingness to contribute.
+
+Thank you for considering my application. I would welcome the opportunity to discuss how I can contribute.
+
+Sincerely,
+${n}`;
+ $("coverLetterPreview").innerHTML=`<h3>Cover Letter</h3><p style="white-space:pre-wrap;margin-top:16px">${esc(text)}</p>`;toast("Cover letter generated");
+}
+
+function loadProfile(){
+ const p=getProfile();$("profileName").value=p.name||"";$("profileEmail").value=p.email||"";$("profilePhone").value=p.phone||"";$("profileLocation").value=p.location||"";$("profileSkills").value=p.skills||"";$("profileExperience").value=p.experience||"";$("profileLink").value=p.link||"";
+}
+function saveProfile(){
+ write("jobflow_profile",{name:$("profileName").value.trim(),email:$("profileEmail").value.trim(),phone:$("profilePhone").value.trim(),location:$("profileLocation").value.trim(),skills:$("profileSkills").value.trim(),experience:$("profileExperience").value.trim(),link:$("profileLink").value.trim()});
+ toast("💾 Profile saved");renderJobs();
+}
+
+function unlock(){
+ if($("gateInput").value!==ACCESS_PASSWORD){$("gateMessage").textContent="Incorrect password.";return}
+ localStorage.setItem("jobflow_unlocked","1");$("trialGate").style.display="none";$("app").style.display="block";showPage("dashboard");updateStats();loadProfile();showQuestion();
+}
+function lock(){localStorage.removeItem("jobflow_unlocked");location.reload()}
+
+document.addEventListener("DOMContentLoaded",()=>{
+ $("gateButton").onclick=unlock;$("gateInput").addEventListener("keydown",e=>{if(e.key==="Enter")unlock()});
+ document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+ document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>showPage(b.dataset.go));
+ $("searchJobsBtn").onclick=renderJobs;$("addApplicationBtn").onclick=addApplication;
+ $("generateResumeBtn").onclick=generateResume;$("submitInterviewBtn").onclick=()=>{if($("interviewAnswer").value.trim()){$("interviewResults").innerHTML="<h3>✅ Answer submitted</h3><p style='margin-top:8px'>Good start. Make your answer specific and focused on results.</p>"}else toast("Write an answer first.")};
+ $("nextQuestionBtn").onclick=()=>{qi++;showQuestion();$("interviewAnswer").value=""};
+ $("generateCLBtn").onclick=generateCL;$("copyCLBtn").onclick=()=>navigator.clipboard?.writeText($("coverLetterPreview").innerText).then(()=>toast("Cover letter copied"));
+ $("saveProfileBtn").onclick=saveProfile;$("darkModeBtn").onclick=()=>document.body.classList.toggle("dark");$("logoutBtn").onclick=lock;
+ $("closeApplyBtn").onclick=closeApply;$("submitApplyBtn").onclick=submitApply;
+ $("applyGenerateCL").onclick=()=>{if(currentJob)$("applyCover").value=makeCover(currentJob,$("applyName").value||"Your Name")};
+ if(localStorage.getItem("jobflow_unlocked")==="1"){$("trialGate").style.display="none";$("app").style.display="block";showPage("dashboard");updateStats();loadProfile();showQuestion()}
+});
+</script>
+</body>
+</html>
