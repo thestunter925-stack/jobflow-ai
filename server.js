@@ -3206,3 +3206,114 @@ app.listen(
 
   }
 );
+/* ======================================================
+   PROCESS ERROR HANDLERS
+   Keep server from silently failing
+====================================================== */
+
+process.on(
+  "uncaughtException",
+  function(error) {
+
+    console.error(
+      "UNCAUGHT EXCEPTION:",
+      error
+    );
+
+  }
+);
+
+
+process.on(
+  "unhandledRejection",
+  function(reason) {
+
+    console.error(
+      "UNHANDLED PROMISE REJECTION:",
+      reason
+    );
+
+  }
+);
+
+
+/* ======================================================
+   GRACEFUL SHUTDOWN
+====================================================== */
+
+process.on(
+  "SIGTERM",
+  async function() {
+
+    console.log(
+      "SIGTERM received. Shutting down..."
+    );
+
+
+    if (postgresPool) {
+
+      try {
+
+        await postgresPool.end();
+
+        console.log(
+          "PostgreSQL connection closed."
+        );
+
+      }
+
+      catch(error) {
+
+        console.error(
+          "PostgreSQL shutdown error:",
+          error
+        );
+
+      }
+
+    }
+
+
+    process.exit(0);
+
+  }
+);
+
+
+process.on(
+  "SIGINT",
+  async function() {
+
+    console.log(
+      "SIGINT received. Shutting down..."
+    );
+
+
+    if (postgresPool) {
+
+      try {
+
+        await postgresPool.end();
+
+        console.log(
+          "PostgreSQL connection closed."
+        );
+
+      }
+
+      catch(error) {
+
+        console.error(
+          "PostgreSQL shutdown error:",
+          error
+        );
+
+      }
+
+    }
+
+
+    process.exit(0);
+
+  }
+);
