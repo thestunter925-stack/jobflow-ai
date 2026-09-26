@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="JobFlow AI — one career workspace for training, job discovery, applications, interview preparation and career progress.">
+<title>JobFlow AI</title>
+<style>
+:root{
+  --bg:#07111f;--panel:#0d1a2b;--panel2:#102239;--line:#20344d;--text:#f4f8ff;
+  --muted:#91a4bb;--primary:#4f8cff;--primary2:#7c5cff;--good:#22c55e;--warn:#f59e0b;
+  --bad:#ef4444;--cyan:#22d3ee;--shadow:0 18px 55px rgba(0,0,0,.25)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(135deg,#06101d,#091a2c 55%,#07111f);color:var(--text);min-height:100vh}
+button,input,select,textarea{font:inherit}
+button,a{cursor:pointer}
+button{border:0}
+a{text-decoration:none;color:inherit}
+.app{display:none;min-height:100vh}
+.sidebar{position:fixed;z-index:50;left:0;top:0;bottom:0;width:255px;padding:20px 14px;background:rgba(7,17,31,.94);border-right:1px solid var(--line);backdrop-filter:blur(20px);overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:10px 12px 22px;font-size:21px;font-weight:900}
+.brandMark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--primary2));box-shadow:0 8px 25px rgba(79,140,255,.25)}
+.brand small{display:block;color:var(--muted);font-size:10px;font-weight:600;margin-top:2px}
+.nav button{display:flex;align-items:center;gap:10px;width:100%;color:#b9c8da;background:transparent;text-align:left;padding:11px 12px;border-radius:12px;margin:3px 0;transition:.2s}
+.nav button:hover,.nav button.active{background:linear-gradient(90deg,rgba(79,140,255,.18),rgba(124,92,255,.1));color:#fff}
+.main{margin-left:255px;padding:26px;max-width:1500px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}
+.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 12px var(--good)}
+.page{display:none}.page.active{display:block}
+.hero{padding:8px 0 22px}.hero h1{font-size:clamp(28px,5vw,46px);line-height:1.05;margin-bottom:10px}.hero h2{font-size:30px;margin-bottom:8px}.muted{color:var(--muted)}
+.card{background:linear-gradient(180deg,rgba(16,34,57,.94),rgba(11,27,45,.94));border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+label{display:block;color:#cbd8e7;font-size:13px;font-weight:800;margin:12px 0 7px}
+input,select,textarea{width:100%;background:#081523;color:var(--text);border:1px solid #29405d;border-radius:12px;padding:12px 13px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(79,140,255,.12)}
+textarea{min-height:120px;resize:vertical}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.btn{padding:10px 14px;border-radius:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.2s}
+.btn:hover{transform:translateY(-1px)}.primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff}.secondary{background:#14263c;color:#dce8f7;border:1px solid #29405d}.good{background:#123722;color:#86efac;border:1px solid #1d6b3b}.danger{background:#421b22;color:#fca5a5;border:1px solid #7f2935}
+.stat{font-size:30px;font-weight:900;margin-top:8px}.statLabel{color:var(--muted);font-size:13px}
+.badge{display:inline-flex;align-items:center;gap:5px;background:#132c4b;border:1px solid #28517f;color:#8fc1ff;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900}
+.job,.course,.lesson,.appRow{background:#0a1828;border:1px solid #203b59;border-radius:15px;padding:16px;margin-top:12px}
+.jobTop{display:flex;justify-content:space-between;gap:14px}.job h3,.course h3{margin-bottom:5px}.job p,.course p{color:var(--muted);font-size:13px}
+.jobMeta{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.jobMeta span{background:#10243a;border:1px solid #213c59;padding:6px 8px;border-radius:8px;font-size:11px;color:#b8c9dc}
+.empty{text-align:center;color:var(--muted);padding:35px 18px}
+.progress{height:9px;background:#0a1421;border-radius:99px;overflow:hidden;margin-top:9px}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--cyan));border-radius:99px}
+.kpi{font-size:12px;color:var(--muted);margin-top:7px}
+.heroPanel{background:radial-gradient(circle at 90% 10%,rgba(79,140,255,.25),transparent 35%),linear-gradient(135deg,#10294a,#0c1829);border:1px solid #294b72;border-radius:22px;padding:24px;margin-bottom:18px}
+.heroActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.iconBox{width:42px;height:42px;border-radius:13px;background:#132943;display:grid;place-items:center;font-size:20px}
+.row{display:flex;align-items:center;gap:12px}.between{justify-content:space-between}
+.notice{padding:12px 14px;border-radius:12px;background:#102943;border:1px solid #2b527b;color:#bcd4ed;margin-top:12px;font-size:13px}
+.success{color:#86efac}.warning{color:#fcd34d}.error{color:#fca5a5}
+.tabs{display:flex;gap:7px;overflow:auto;margin-bottom:15px}.tabs button{white-space:nowrap;padding:9px 12px;border-radius:10px;background:#102239;color:#9fb3c9;border:1px solid #203a57}.tabs button.active{background:#244b83;color:#fff}
+.lock{opacity:.72}
+#gate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 20% 10%,rgba(79,140,255,.2),transparent 30%),#06101d}
+.gate{width:min(440px,100%);background:#0d1a2b;border:1px solid #29415e;border-radius:24px;padding:30px;box-shadow:var(--shadow);text-align:center}
+.gateLogo{width:70px;height:70px;border-radius:22px;display:grid;place-items:center;margin:0 auto 16px;background:linear-gradient(135deg,var(--primary),var(--primary2));font-size:32px}
+.password{font-size:27px;letter-spacing:7px;font-weight:900;color:#8db9ff;margin:15px}
+.mobileNav{display:none}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:500;display:none;align-items:flex-end;justify-content:center;padding:14px}
+.modalBox{width:min(720px,100%);max-height:90vh;overflow:auto;background:#0d1a2b;border:1px solid #2b4665;border-radius:22px;padding:20px}
+.close{float:right;border:1px solid #29405d;background:#12263c;color:#fff;border-radius:9px;padding:6px 10px}
+.check{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid #20344d}.check input{width:auto;margin-top:3px}
+.courseGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.mini{font-size:12px;color:var(--muted)}
+.tag{font-size:10px;font-weight:900;color:#9cc6ff;background:#102a48;padding:5px 8px;border-radius:8px}
+@media(max-width:1050px){.grid4{grid-template-columns:repeat(2,1fr)}.grid3,.courseGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:800px){
+ .sidebar{display:none}.main{margin:0;padding:15px;padding-bottom:86px}.grid2,.grid3,.grid4,.courseGrid{grid-template-columns:1fr}.topbar{margin-bottom:12px}
+ .mobileNav{position:fixed;display:flex;z-index:100;bottom:0;left:0;right:0;padding:7px 5px calc(7px + env(safe-area-inset-bottom));background:rgba(7,17,31,.97);border-top:1px solid #20344d;overflow:auto}
+ .mobileNav button{min-width:70px;flex:1;background:transparent;color:#9eb0c5;font-size:10px;padding:7px 3px}.mobileNav button.active{color:#fff}.hero h1{font-size:31px}.hero h2{font-size:25px}
+ .jobTop{flex-direction:column}.modal{align-items:flex-end}
+}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate">
+    <div class="gateLogo">🚀</div>
+    <h1>JobFlow AI</h1>
+    <p class="muted" style="margin-top:6px">Learn skills. Become job-ready. Apply. Track.</p>
+    <p style="margin-top:20px">Enter access password</p>
+    <div class="password">12345</div>
+    <input id="gateInput" type="password" inputmode="numeric" placeholder="Enter password">
+    <button id="gateBtn" class="btn primary" style="width:100%;margin-top:12px">🔓 Enter JobFlow</button>
+    <p id="gateMsg" class="error" style="margin-top:10px"></p>
+  </div>
+</div>
+
+<div class="app" id="app">
+<aside class="sidebar">
+  <div class="brand"><span class="brandMark">🚀</span><span>JobFlow AI<small>Career operating system</small></span></div>
+  <div class="nav" id="nav">
+    <button data-page="home">🏠 <span>Command Center</span></button>
+    <button data-page="training">🎓 <span>Training</span></button>
+    <button data-page="jobs">💼 <span>Jobs</span></button>
+    <button data-page="saved">⭐ <span>Saved Jobs</span></button>
+    <button data-page="applications">📋 <span>Applications</span></button>
+    <button data-page="pipeline">🔄 <span>Pipeline</span></button>
+    <button data-page="analytics">📊 <span>Analytics</span></button>
+    <button data-page="resume">📄 <span>Resume</span></button>
+    <button data-page="interview">🎤 <span>Interview</span></button>
+    <button data-page="coverLetter">✉️ <span>Cover Letter</span></button>
+    <button data-page="portfolio">🧑‍💻 <span>Engineering</span></button>
+    <button data-page="premium">💳 <span>Premium</span></button>
+    <button data-page="profile">👤 <span>Profile</span></button>
+    <button data-page="settings">⚙️ <span>Settings</span></button>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="status"><span class="dot"></span><span id="memberStatus">Free workspace</span></div>
+    <button class="btn secondary" id="quickApply">⚡ Quick Apply</button>
+  </div>
+
+  <section id="home" class="page">
+    <div class="heroPanel">
+      <span class="badge">CAREER OS • ONE WORKSPACE</span>
+      <div class="hero">
+        <h1>From learning a skill to landing the job.</h1>
+        <p class="muted">Train inside JobFlow, prove your skills, discover matching roles, apply, and manage every application without leaving your career workspace.</p>
+      </div>
+      <div class="heroActions">
+        <button class="btn primary" data-go="training">🎓 Start Training</button>
+        <button class="btn secondary" data-go="jobs">💼 Explore Jobs</button>
+        <button class="btn secondary" data-go="applications">📋 Track Applications</button>
+      </div>
+    </div>
+
+    <div class="grid4">
+      <div class="card"><div class="stat" id="homeApps">0</div><div class="statLabel">Applications</div></div>
+      <div class="card"><div class="stat" id="homeSaved">0</div><div class="statLabel">Saved Jobs</div></div>
+      <div class="card"><div class="stat" id="homeProgress">0%</div><div class="statLabel">Training Progress</div></div>
+      <div class="card"><div class="stat" id="homeOffers">0</div><div class="statLabel">Offers</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="row between"><div><h3>🎯 Your Job-Ready Score</h3><p class="mini">Training + resume + interview preparation</p></div><b id="readyScore">0%</b></div>
+        <div class="progress"><i id="readyBar" style="width:0%"></i></div>
+        <div class="actions"><button class="btn primary" data-go="training">Improve Score</button></div>
+      </div>
+      <div class="card">
+        <h3>⚡ Recommended Next Step</h3>
+        <p id="nextStep" class="muted" style="margin-top:8px">Choose a training track to start.</p>
+        <div class="actions"><button class="btn secondary" id="nextStepBtn">Open Training</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row between"><div><h3>🔥 Matching Opportunities</h3><p class="mini">Roles connected to your current learning track</p></div><button class="btn secondary" data-go="jobs">View all</button></div>
+      <div id="homeJobs"></div>
+    </div>
+  </section>
+
+  <section id="training" class="page">
+    <div class="hero"><h2>🎓 Training Hub</h2><p class="muted">Build practical skills through structured tracks, lessons, quizzes and projects — all inside JobFlow.</p></div>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <label>Choose your career track</label>
+          <select id="trackSelect"></select>
+        </div>
+        <div>
+          <label>Target job location</label>
+          <input id="trainingLocation" placeholder="India / Hyderabad / Remote">
+        </div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="row between"><div><h3 id="trackTitle">Full Stack Developer</h3><p id="trackDesc" class="mini"></p></div><span class="badge" id="trackPct">0%</span></div>
+        <div class="progress"><i id="trackBar" style="width:0%"></i></div>
+        <div id="trackStats" class="kpi"></div>
+        <div class="actions"><button class="btn primary" id="continueTraining">▶ Continue Learning</button><button class="btn secondary" id="resetTraining">Reset Progress</button></div>
+      </div>
+      <div class="card">
+        <h3>🚀 Career Bridge</h3>
+        <p class="muted" style="margin-top:8px">When you finish lessons and projects, JobFlow can use the selected skill track to filter matching roles.</p>
+        <div class="actions"><button class="btn primary" id="findTrackJobs">💼 Find Matching Jobs</button><button class="btn secondary" data-go="resume">📄 Improve Resume</button></div>
+      </div>
+    </div>
+    <div class="card"><h3>📚 Learning Path</h3><div id="courseList" class="courseGrid"></div></div>
+    <div class="card"><h3>🧪 Practical Projects</h3><div id="projectList"></div></div>
+  </section>
+
+  <section id="jobs" class="page">
+    <div class="hero"><h2>💼 Job Market</h2><p class="muted">Search the JobFlow opportunity interface, inspect roles, save them, and apply through the built-in application workflow.</p></div>
+    <div class="heroPanel">
+      <div class="grid2">
+        <div><label>Role / skill</label><input id="jobQuery" placeholder="React Developer, Full Stack, JavaScript..."></div>
+        <div><label>Location</label><input id="jobLocation" placeholder="India, Hyderabad, Remote..."></div>
+      </div>
+      <div class="actions"><button class="btn primary" id="searchJobs">🔎 Search Opportunities</button><button class="btn secondary" id="skillJobs">🎯 Use My Training Skill</button></div>
+      <div class="notice">JobFlow keeps the discovery and application workflow in this interface. Employer-side submission is only possible when a real employer/ATS endpoint is connected; otherwise the application is recorded here and the employer link is available as an optional next step.</div>
+    </div>
+    <div class="tabs" id="jobFilters">
+      <button class="active" data-filter="all">All</button><button data-filter="remote">Remote</button><button data-filter="hybrid">Hybrid</button><button data-filter="entry">Entry Level</button>
+    </div>
+    <div id="jobResults"></div>
+  </section>
+
+  <section id="saved" class="page">
+    <div class="hero"><h2>⭐ Saved Jobs</h2><p class="muted">Opportunities you want to revisit.</p></div>
+    <div class="card"><div id="savedList"></div></div>
+  </section>
+
+  <section id="applications" class="page">
+    <div class="hero"><h2>📋 Applications</h2><p class="muted">Your applications are stored in JobFlow and move through a visual pipeline.</p></div>
+    <div class="grid4">
+      <div class="card"><div class="stat" id="aApplied">0</div><div class="statLabel">Applied</div></div>
+      <div class="card"><div class="stat" id="aScreening">0</div><div class="statLabel">Screening</div></div>
+      <div class="card"><div class="stat" id="aInterview">0</div><div class="statLabel">Interview</div></div>
+      <div class="card"><div class="stat" id="aOffer">0</div><div class="statLabel">Offers</div></div>
+    </div>
+    <div class="card">
+      <h3>➕ Add an application</h3>
+      <div class="grid2">
+        <div><label>Company</label><input id="appCompany" placeholder="Company name"></div>
+        <div><label>Role</label><input id="appRole" placeholder="Software Engineer"></div>
+      </div>
+      <div class="grid2">
+        <div><label>Status</label><select id="appStatus"><option>Applied</option><option>Screening</option><option>Interview</option><option>Offer</option><option>Rejected</option></select></div>
+        <div><label>Application source</label><input id="appSource" placeholder="JobFlow / company / referral"></div>
+      </div>
+      <div class="actions"><button class="btn primary" id="addApp">➕ Add Application</button></div>
+    </div>
+    <div class="card"><h3>My Applications</h3><div id="applicationList"></div></div>
+  </section>
+
+  <section id="pipeline" class="page">
+    <div class="hero"><h2>🔄 Application Pipeline</h2><p class="muted">Move your applications from first submission to offer.</p></div>
+    <div id="pipelineGrid" class="grid3"></div>
+  </section>
+
+  <section id="analytics" class="page">
+    <div class="hero"><h2>📊 Career Analytics</h2><p class="muted">A simple view of your job search activity.</p></div>
+    <div class="grid4">
+      <div class="card"><div class="stat" id="anApps">0</div><div class="statLabel">Total applications</div></div>
+      <div class="card"><div class="stat" id="anInterviews">0</div><div class="statLabel">Interviews</div></div>
+      <div class="card"><div class="stat" id="anOffers">0</div><div class="statLabel">Offers</div></div>
+      <div class="card"><div class="stat" id="anRejected">0</div><div class="statLabel">Rejected</div></div>
+    </div>
+    <div class="card"><h3>📈 Search Activity</h3><div id="analyticsText" class="muted" style="margin-top:10px"></div></div>
+  </section>
+
+  <section id="resume" class="page">
+    <div class="hero"><h2>📄 Resume Studio</h2><p class="muted">Create a focused resume from the same workspace where you train and apply.</p></div>
+    <div class="grid2">
+      <div class="card">
+        <label>Full name</label><input id="resumeName" placeholder="Your name">
+        <label>Target title</label><input id="resumeTitle" placeholder="Full Stack Developer">
+        <label>Skills</label><textarea id="resumeSkills" placeholder="JavaScript, React, Node.js, SQL..."></textarea>
+        <label>Experience / projects</label><textarea id="resumeExperience" placeholder="Projects, internships, freelance work, achievements..."></textarea>
+        <div class="actions"><button class="btn primary" id="generateResume">✨ Generate Preview</button><button class="btn secondary" id="saveResume">💾 Save</button></div>
+      </div>
+      <div class="card" id="resumePreview"><div class="empty">Your resume preview will appear here.</div></div>
+    </div>
+  </section>
+
+  <section id="interview" class="page">
+    <div class="hero"><h2>🎤 Interview Coach</h2><p class="muted">Practice common questions and build confidence before applying.</p></div>
+    <div class="card">
+      <span class="badge" id="questionCount">Question 1</span>
+      <h3 id="question" style="font-size:21px;margin-top:14px"></h3>
+      <textarea id="answer" placeholder="Write your answer here..."></textarea>
+      <div class="actions"><button class="btn primary" id="submitAnswer">Submit Answer</button><button class="btn secondary" id="nextQuestion">Next Question</button></div>
+      <div id="feedback" class="notice">Your feedback will appear here.</div>
+    </div>
+  </section>
+
+  <section id="coverLetter" class="page">
+    <div class="hero"><h2>✉️ Cover Letter Studio</h2><p class="muted">Generate a role-specific draft from the job information you enter.</p></div>
+    <div class="grid2">
+      <div class="card">
+        <label>Your name</label><input id="clName" placeholder="Your name">
+        <label>Job title</label><input id="clRole" placeholder="Software Engineer">
+        <label>Company</label><input id="clCompany" placeholder="Company">
+        <label>Skills</label><input id="clSkills" placeholder="React, Node.js, SQL">
+        <label>Job description</label><textarea id="clDesc" placeholder="Paste important job requirements..."></textarea>
+        <label>Tone</label><select id="clTone"><option>Professional</option><option>Confident</option><option>Friendly</option><option>Concise</option></select>
+        <div class="actions"><button class="btn primary" id="generateCL">✨ Generate</button><button class="btn secondary" id="copyCL">📋 Copy</button></div>
+      </div>
+      <div class="card" id="clPreview"><div class="empty">Your cover letter will appear here.</div></div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="page">
+    <div class="hero"><h2>🧑‍💻 Engineering View</h2><p class="muted">The product architecture behind this career workspace.</p></div>
+    <div class="grid3">
+      <div class="card"><div class="iconBox">🎨</div><h3 style="margin-top:12px">Frontend</h3><p class="muted" style="margin-top:8px">Responsive single-file HTML, CSS and JavaScript interface designed for phone, tablet and desktop.</p></div>
+      <div class="card"><div class="iconBox">⚙️</div><h3 style="margin-top:12px">Backend Ready</h3><p class="muted" style="margin-top:8px">The existing JobFlow API can handle membership, trial and payment verification workflows.</p></div>
+      <div class="card"><div class="iconBox">🔗</div><h3 style="margin-top:12px">Career Flow</h3><p class="muted" style="margin-top:8px">Training → job matching → application → pipeline → analytics is connected in one product experience.</p></div>
+    </div>
+    <div class="card"><h3>System Flow</h3><pre style="white-space:pre-wrap;margin-top:14px;background:#06101c;border:1px solid #1f3854;border-radius:14px;padding:16px;color:#b9d1e9;overflow:auto">Learner
+  ↓
+Training Tracks → Lessons → Quiz → Projects
+  ↓
+Job-Ready Score
+  ↓
+JobFlow Opportunity Interface
+  ↓
+Job Details → Apply in JobFlow
+  ↓
+Application Record → Pipeline → Analytics
+  ↓
+Interview / Resume / Cover Letter</pre></div>
+  </section>
+
+  <section id="premium" class="page">
+    <div class="hero"><h2>💳 Premium</h2><p class="muted">Advanced career features and membership verification.</p></div>
+    <div class="heroPanel">
+      <span class="badge">₹499 / 30 DAYS</span>
+      <h2 style="margin-top:12px">Unlock your career toolkit</h2>
+      <p class="muted" style="margin-top:8px">Premium access is intended to be verified by the JobFlow backend.</p>
+    </div>
+    <div class="card">
+      <h3>UPI Payment</h3>
+      <div class="notice">UPI ID: <strong id="upi">8374506945@fam</strong><br>Use a supported UPI app to make the payment.</div>
+      <div class="actions"><button class="btn secondary" id="copyUPI">📋 Copy UPI ID</button><a class="btn primary" href="upi://pay?pa=8374506945%40fam&pn=JobFlow%20AI&am=499.00&cu=INR">💳 Pay ₹499</a></div>
+      <label>Payment ID</label><input id="paymentId" placeholder="Create payment request">
+      <label>UPI transaction / UTR reference</label><input id="utr" placeholder="Enter actual transaction reference">
+      <div class="actions"><button class="btn primary" id="createPayment">Create Payment Request</button><button class="btn secondary" id="submitPayment">Submit for Verification</button><button class="btn secondary" id="refreshMembership">Refresh Status</button></div>
+      <div id="paymentMsg"></div><div id="membership" class="notice">Membership status will appear here.</div>
+    </div>
+  </section>
+
+  <section id="profile" class="page">
+    <div class="hero"><h2>👤 Profile</h2><p class="muted">Your profile powers job matching and career readiness.</p></div>
+    <div class="card"><div class="grid2"><div><label>Name</label><input id="profileName" placeholder="Your name"></div><div><label>Email</label><input id="profileEmail" type="email" placeholder="you@example.com"></div></div><label>Primary career skill</label><input id="profileSkill" placeholder="Full Stack Developer"><div class="actions"><button class="btn primary" id="saveProfile">💾 Save Profile</button></div></div>
+  </section>
+
+  <section id="settings" class="page">
+    <div class="hero"><h2>⚙️ Settings</h2><p class="muted">Control your local JobFlow experience.</p></div>
+    <div class="card"><div class="actions"><button class="btn secondary" id="darkMode">🌙 Toggle Theme</button><button class="btn danger" id="lockApp">🔒 Lock App</button><button class="btn secondary" id="clearLocal">Reset Local Career Data</button></div><div class="notice">Resetting local data removes saved jobs, applications, training progress and profile information from this browser.</div></div>
+  </section>
+</main>
+</div>
+
+<div class="mobileNav" id="mobileNav">
+ <button data-page="home">🏠<br>Home</button><button data-page="training">🎓<br>Learn</button><button data-page="jobs">💼<br>Jobs</button><button data-page="applications">📋<br>Apps</button><button data-page="profile">👤<br>Profile</button><button data-page="settings">⚙️<br>More</button>
+</div>
+
+<div class="modal" id="jobModal">
+ <div class="modalBox">
+  <button class="close" id="closeModal">✕</button>
+  <div id="modalContent"></div>
+ </div>
+</div>
+
+<script>
+"use strict";
+
+/* ========================= CONFIG ========================= */
+const PASSWORD="12345";
+const TRIAL_HOURS=48;
+const API_BASE_URL="https://jobflow-ai-re2u.onrender.com";
+const PREMIUM_PRICE=499;
+const PREMIUM_DAYS=30;
+const UPI_ID="8374506945@fam";
+
+/* ========================= DATA ========================= */
+const TRACKS={
+ fullstack:{
+  title:"Full Stack Developer",desc:"Build web applications across frontend, backend and databases.",
+  skills:["HTML & CSS","JavaScript","React","Node.js","REST APIs","SQL"],
+  lessons:[
+   ["HTML & CSS Foundations","Build responsive pages and understand layout, forms and accessibility.",10],
+   ["JavaScript Core","Variables, functions, arrays, objects, DOM and asynchronous JavaScript.",15],
+   ["React Essentials","Components, state, props and practical UI architecture.",15],
+   ["Node.js & Express","Create APIs, routes, validation and backend workflows.",15],
+   ["Databases & SQL","Understand tables, queries, relationships and persistence.",15],
+   ["Full Stack Project","Connect frontend, API and database into one working product.",20]
+  ],
+  projects:["Responsive portfolio","REST API with authentication","Full-stack job tracker"]
+ },
+ frontend:{
+  title:"Frontend Developer",desc:"Learn to create responsive, accessible and interactive web experiences.",
+  skills:["HTML","CSS","JavaScript","React","Responsive UI"],
+  lessons:[
+   ["HTML Structure","Semantic pages, forms, links and accessibility.",15],
+   ["Modern CSS","Flexbox, Grid, responsive layouts and component styling.",15],
+   ["JavaScript UI","DOM events, state, storage and asynchronous requests.",20],
+   ["React UI","Components, props, state and reusable interfaces.",20],
+   ["Frontend Project","Build and deploy a polished responsive application.",30]
+  ],
+  projects:["Responsive dashboard","Interactive portfolio","React product interface"]
+ },
+ backend:{
+  title:"Backend Developer",desc:"Build APIs, authentication, databases and reliable server workflows.",
+  skills:["Node.js","Express","REST API","SQL","Authentication"],
+  lessons:[
+   ["Node.js Foundations","Runtime, modules, packages and server architecture.",15],
+   ["Express APIs","Routes, middleware, validation and error handling.",20],
+   ["Authentication","Sessions, tokens, authorization and secure workflows.",20],
+   ["SQL & Data","Tables, joins, CRUD and application persistence.",20],
+   ["Backend Project","Build a production-style REST API.",25]
+  ],
+  projects:["REST API","Authentication service","Database-backed backend"]
+ },
+}
+const JOBS=[
+ {id:"jf1",title:"Junior Full Stack Developer",company:"TechNova Labs",location:"Hyderabad / Remote",type:"Remote",level:"Entry Level",salary:"₹4–7 LPA",skills:["JavaScript","React","Node.js"],description:"Build responsive web features, connect APIs and work with a product engineering team.",applyMode:"JobFlow application"},
+ {id:"jf2",title:"Frontend Developer",company:"PixelGrid Technologies",location:"India / Remote",type:"Remote",level:"Entry Level",salary:"₹3.5–6 LPA",skills:["HTML","CSS","JavaScript","React"],description:"Create accessible responsive interfaces and collaborate with designers and engineers.",applyMode:"JobFlow application"},
+ {id:"jf3",title:"React Developer",company:"CloudStack Systems",location:"Hyderabad",type:"Hybrid",level:"Entry Level",salary:"₹4–8 LPA",skills:["React","JavaScript","REST API"],description:"Develop reusable React components and integrate backend services.",applyMode:"JobFlow application"},
+ {id:"jf4",title:"Node.js Developer",company:"DataBridge Software",location:"Bengaluru / Remote",type:"Remote",level:"Entry Level",salary:"₹4–8 LPA",skills:["Node.js","Express","SQL"],description:"Build REST APIs and backend services with validation and database integration.",applyMode:"JobFlow application"},
+ {id:"jf5",title:"Software Developer Trainee",company:"CodeForge Technologies",location:"India",type:"Hybrid",level:"Entry Level",salary:"₹2.5–5 LPA",skills:["JavaScript","SQL","Git"],description:"Learn through practical engineering tasks and contribute to production-oriented software.",applyMode:"JobFlow application"},
+ {id:"jf6",title:"Web Developer",company:"BrightWeb Studio",location:"Remote India",type:"Remote",level:"Entry Level",salary:"₹3–6 LPA",skills:["HTML","CSS","JavaScript"],description:"Build websites and interactive web experiences for digital products.",applyMode:"JobFlow application"}
+]
+const QUESTIONS=[
+ "Tell me about yourself.",
+ "Why do you want this role?",
+ "Describe a difficult technical problem you solved.",
+ "What is one project you are proud of?",
+ "How do you debug a problem when your code is not working?",
+ "Why should a company hire you as a junior developer?"
+]
+let currentTrack=localStorage.getItem("jf_track")||"fullstack";
+let currentQuestion=Number(localStorage.getItem("jf_question")||0);
+let currentJobs=[...JOBS];
+let currentFilter="all";
+
+/* ========================= HELPERS ========================= */
+const $=id=>document.getElementById(id);
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function read(key,fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch{return fallback}}
+function write(key,val){localStorage.setItem(key,JSON.stringify(val))}
+function toast(msg){
+ let t=$("toast");if(!t){t=document.createElement("div");t.id="toast";t.style="position:fixed;right:16px;bottom:80px;z-index:9999;background:#14263c;border:1px solid #315273;color:#fff;padding:12px 15px;border-radius:12px;box-shadow:0 12px 30px #0008";document.body.appendChild(t)}
+ t.textContent=msg;t.style.display="block";clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.style.display="none",2500)
+}
+function apps(){return read("jf_apps",[])}
+function saves(){return read("jf_saved",[])}
+function training(){return read("jf_training",{})}
+function showPage(id){
+ document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));
+ document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===id));
+ window.scrollTo({top:0,behavior:"smooth"});
+ if(id==="home")renderHome();
+ if(id==="training")renderTraining();
+ if(id==="jobs")renderJobs();
+ if(id==="saved")renderSaved();
+ if(id==="applications")renderApps();
+ if(id==="pipeline")renderPipeline();
+ if(id==="analytics")renderAnalytics();
+}
+function jobScore(j){
+ const t=TRACKS[currentTrack],skills=t.skills.map(x=>x.toLowerCase());
+ const hits=j.skills.filter(s=>skills.includes(s.toLowerCase())).length;
+ return Math.round((hits/Math.max(1,j.skills.length))*100);
+}
+function trackPercent(track=currentTrack){
+ const t=TRACKS[track],state=training()[track]||{lessons:{},projects:{}};
+ const lessonDone=Object.values(state.lessons||{}).filter(Boolean).length;
+ const projectDone=Object.values(state.projects||{}).filter(Boolean).length;
+ const total=t.lessons.length+t.projects.length;
+ return Math.round(((lessonDone+projectDone)/Math.max(1,total))*100);
+}
+function readyScore(){
+ const tr=trackPercent(),resume=read("jf_resume",null)?15:0,profile=$("profileSkill")?.value?.trim()?10:0;
+ const interview=localStorage.getItem("jf_interview_done")==="1"?15:0;
+ return Math.min(100,tr+resume+profile+interview)
+}
+
+/* ========================= NAVIGATION ========================= */
+function bindNavigation(){
+ document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+ document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.go)));
+ $("quickApply").onclick=()=>{showPage("jobs");setTimeout(()=>$("jobQuery").focus(),100)}
+ $("nextStepBtn").onclick=()=>showPage(trackPercent()? "jobs":"training");
+}
+
+/* ========================= HOME ========================= */
+function renderHome(){
+ const a=apps(),s=saves(),tp=trackPercent(),rs=readyScore();
+ $("homeApps").textContent=a.length;$("homeSaved").textContent=s.length;$("homeProgress").textContent=tp+"%";$("homeOffers").textContent=a.filter(x=>x.status==="Offer").length;
+ $("readyScore").textContent=rs+"%";$("readyBar").style.width=rs+"%";
+ $("nextStep").textContent=tp<100?`Continue ${TRACKS[currentTrack].title} training — ${tp}% complete.`:"Your selected training track is complete. Explore matching jobs.";
+ $("memberStatus").textContent=localStorage.getItem("jf_premium")==="true"?"Premium workspace":"Free workspace";
+ const matches=[...JOBS].sort((a,b)=>jobScore(b)-jobScore(a)).slice(0,3);
+ $("homeJobs").innerHTML=matches.map(jobCard).join("");
+}
+
+/* ========================= TRAINING ========================= */
+function setupTracks(){
+ $("trackSelect").innerHTML=Object.entries(TRACKS).map(([id,t])=>`<option value="${id}">${esc(t.title)}</option>`).join("");
+ $("trackSelect").value=currentTrack;
+ $("trackSelect").onchange=()=>{currentTrack=$("trackSelect").value;localStorage.setItem("jf_track",currentTrack);renderTraining();renderHome()}
+ $("continueTraining").onclick=()=>openLesson(currentTrack,firstUndoneLesson());
+ $("findTrackJobs").onclick=()=>{showPage("jobs");$("jobQuery").value=TRACKS[currentTrack].title;$("jobLocation").value=$("trainingLocation").value||"India";renderJobs()}
+ $("skillJobs").onclick=()=>{showPage("jobs");$("jobQuery").value=TRACKS[currentTrack].title;renderJobs()}
+ $("resetTraining").onclick=()=>{if(confirm("Reset this training track?")){let x=training();delete x[currentTrack];write("jf_training",x);renderTraining();renderHome();toast("Training progress reset")}}
+}
+function firstUndoneLesson(){
+ const t=TRACKS[currentTrack],st=training()[currentTrack]||{lessons:{},projects:{}};
+ return t.lessons.findIndex((_,i)=>!st.lessons?.[i])>=0?t.lessons.findIndex((_,i)=>!st.lessons?.[i]):0
+}
+function renderTraining(){
+ const t=TRACKS[currentTrack],p=trackPercent(),st=training()[currentTrack]||{lessons:{},projects:{}};
+ $("trackTitle").textContent=t.title;$("trackDesc").textContent=t.desc;$("trackPct").textContent=p+"%";$("trackBar").style.width=p+"%";
+ $("trackStats").textContent=`${Object.values(st.lessons||{}).filter(Boolean).length}/${t.lessons.length} lessons • ${Object.values(st.projects||{}).filter(Boolean).length}/${t.projects.length} projects completed`;
+ $("courseList").innerHTML=t.lessons.map((l,i)=>`<div class="course"><div class="row between"><span class="tag">${i+1}</span><span class="badge">${st.lessons?.[i]?"✓ Complete":l[2]+" min"}</span></div><h3 style="margin-top:12px">${esc(l[0])}</h3><p>${esc(l[1])}</p><button class="btn ${st.lessons?.[i]?"good":"primary"}" style="margin-top:13px" onclick="openLesson('${currentTrack}',${i})">${st.lessons?.[i]?"Review Lesson":"Start Lesson"}</button></div>`).join("");
+ $("projectList").innerHTML=t.projects.map((p,i)=>`<div class="check"><input type="checkbox" ${st.projects?.[i]?"checked":""} onchange="toggleProject(${i},this.checked)"><div><b>${esc(p)}</b><div class="mini">Build this project and mark it complete when you can explain how it works.</div></div></div>`).join("");
+}
+function toggleProject(i,val){let all=training(),st=all[currentTrack]||{lessons:{},projects:{}};st.projects=st.projects||{};st.projects[i]=val;all[currentTrack]=st;write("jf_training",all);renderTraining();renderHome()}
+function openLesson(track,index){
+ const t=TRACKS[track],l=t.lessons[index],st=training()[track]||{lessons:{},projects:{}};
+ $("modalContent").innerHTML=`<button class="close" onclick="closeModal()">✕</button><span class="badge">LESSON ${index+1} • ${l[2]} MIN</span><h2 style="margin-top:14px">${esc(l[0])}</h2><p class="muted" style="margin-top:8px">${esc(l[1])}</p>
+ <div class="lesson"><h3>What to learn</h3><p class="muted" style="margin-top:8px">Understand the concept, build a small example, test it, and explain the result in your own words. This lesson is connected to the ${esc(t.title)} track.</p>
+ <h3 style="margin-top:18px">Practice checklist</h3>
+ <div class="check"><input type="checkbox" id="lessonPractice"><div><b>Build a small practical example</b><div class="mini">Do not just read — write and test the concept.</div></div></div>
+ <div class="check"><input type="checkbox" id="lessonExplain"><div><b>Explain what you learned</b><div class="mini">Be able to explain it in an interview.</div></div></div>
+ <div class="actions"><button class="btn primary" onclick="completeLesson('${track}',${index})">${st.lessons?.[index]?"✓ Completed":"Mark Lesson Complete"}</button><button class="btn secondary" onclick="closeModal()">Close</button></div></div>`;
+ $("jobModal").style.display="flex";
+}
+function completeLesson(track,index){
+ let all=training(),st=all[track]||{lessons:{},projects:{}};st.lessons=st.lessons||{};st.lessons[index]=true;all[track]=st;write("jf_training",all);closeModal();renderTraining();renderHome();toast("🎓 Lesson completed")}
+function closeModal(){$("jobModal").style.display="none"}
+
+/* ========================= JOBS ========================= */
+function jobCard(j){
+ const score=jobScore(j);
+ return `<div class="job"><div class="jobTop"><div><span class="tag">${esc(j.type)}</span> <span class="tag">${esc(j.level)}</span><h3 style="margin-top:10px">${esc(j.title)}</h3><p>${esc(j.company)} • ${esc(j.location)}</p></div><span class="badge">${score}% skill match</span></div>
+ <div class="jobMeta"><span>💰 ${esc(j.salary)}</span>${j.skills.map(s=>`<span>${esc(s)}</span>`).join("")}</div>
+ <p style="margin-top:12px;line-height:1.6">${esc(j.description)}</p>
+ <div class="actions"><button class="btn primary" onclick="viewJob('${j.id}')">View & Apply</button><button class="btn secondary" onclick="saveJob('${j.id}')">⭐ Save</button></div></div>`
+}
+function renderJobs(){
+ const q=($("jobQuery").value||"").trim().toLowerCase(),loc=($("jobLocation").value||"").trim().toLowerCase();
+ currentJobs=JOBS.filter(j=>{
+  const text=[j.title,j.company,j.location,...j.skills].join(" ").toLowerCase();
+  const queryOk=!q||text.includes(q)||j.skills.some(s=>q.includes(s.toLowerCase())||s.toLowerCase().includes(q));
+  const locOk=!loc||j.location.toLowerCase().includes(loc)||loc.includes("india")||loc.includes("remote");
+  const f=currentFilter;
+  const filterOk=f==="all"||(f==="remote"&&j.type==="Remote")||(f==="hybrid"&&j.type==="Hybrid")||(f==="entry"&&j.level==="Entry Level");
+  return queryOk&&locOk&&filterOk
+ });
+ currentJobs.sort((a,b)=>jobScore(b)-jobScore(a));
+ $("jobResults").innerHTML=currentJobs.length?currentJobs.map(jobCard).join(""):`<div class="card empty">No matching opportunities in the current JobFlow catalog.<br><br>Try a broader skill such as <b>JavaScript</b>, <b>React</b>, <b>Node.js</b> or <b>Full Stack</b>.</div>`;
+}
+function viewJob(id){
+ const j=JOBS.find(x=>x.id===id);if(!j)return;
+ const already=apps().some(x=>x.jobId===id);
+ $("modalContent").innerHTML=`<button class="close" onclick="closeModal()">✕</button><span class="badge">${esc(j.type)} • ${esc(j.level)}</span><h2 style="margin-top:13px">${esc(j.title)}</h2><p class="muted" style="margin-top:6px">${esc(j.company)} • ${esc(j.location)}</p>
+ <div class="jobMeta"><span>💰 ${esc(j.salary)}</span>${j.skills.map(s=>`<span>${esc(s)}</span>`).join("")}</div>
+ <div class="lesson"><h3>Role overview</h3><p class="muted" style="margin-top:8px;line-height:1.7">${esc(j.description)}</p><h3 style="margin-top:18px">Application mode</h3><p class="muted" style="margin-top:8px">This role can be recorded and managed through the JobFlow application workflow. A real employer submission requires an authorized employer/ATS endpoint; this single-file interface does not pretend to submit data to an employer when no such endpoint exists.</p></div>
+ <div class="actions">${already?'<button class="btn good" disabled>✓ Already Applied</button>':`<button class="btn primary" onclick="applyJob('${j.id}')">⚡ Apply in JobFlow</button>`}<button class="btn secondary" onclick="saveJob('${j.id}')">⭐ Save Job</button></div>`;
+ $("jobModal").style.display="flex";
+}
+function applyJob(id){
+ const j=JOBS.find(x=>x.id===id);if(!j)return;
+ let a=apps();if(a.some(x=>x.jobId===id)){toast("Already applied");closeModal();return}
+ a.unshift({id:Date.now(),jobId:id,company:j.company,role:j.title,status:"Applied",source:"JobFlow",date:new Date().toLocaleDateString(),skills:j.skills});
+ write("jf_apps",a);closeModal();renderApps();renderHome();renderJobs();toast("⚡ Application added to your JobFlow pipeline");
+}
+function saveJob(id){
+ const j=JOBS.find(x=>x.id===id);if(!j)return;let s=saves();if(s.some(x=>x.id===id)){toast("Already saved");return}s.unshift({id:j.id,title:j.title,company:j.company,date:new Date().toLocaleDateString()});write("jf_saved",s);renderSaved();renderHome();toast("⭐ Job saved")}
+function renderSaved(){
+ const s=saves();$("savedList").innerHTML=s.length?s.map(x=>`<div class="job"><div class="jobTop"><div><h3>${esc(x.title)}</h3><p>${esc(x.company)} • Saved ${esc(x.date)}</p></div><span class="badge">Saved</span></div><div class="actions"><button class="btn primary" onclick="viewJob('${x.id}')">View & Apply</button><button class="btn danger" onclick="removeSaved('${x.id}')">Remove</button></div></div>`).join(""):`<div class="empty">⭐<br><br>No saved jobs yet.</div>`
+}
+function removeSaved(id){write("jf_saved",saves().filter(x=>x.id!==id));renderSaved();renderHome();toast("Saved job removed")}
+function bindJobFilters(){
+ document.querySelectorAll("#jobFilters button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#jobFilters button").forEach(x=>x.classList.remove("active"));b.classList.add("active");currentFilter=b.dataset.filter;renderJobs()})
+ $("searchJobs").onclick=renderJobs;$("skillJobs").onclick=()=>{$("jobQuery").value=TRACKS[currentTrack].title;renderJobs()}
+}
+
+/* ========================= APPLICATIONS ========================= */
+function addApplication(){
+ const company=$("appCompany").value.trim(),role=$("appRole").value.trim(),status=$("appStatus").value,source=$("appSource").value.trim()||"Manual";
+ if(!company||!role){toast("Enter company and role");return}
+ let a=apps();a.unshift({id:Date.now(),company,role,status,source,date:new Date().toLocaleDateString()});write("jf_apps",a);
+ $("appCompany").value="";$("appRole").value="";$("appSource").value="";renderApps();renderPipeline();renderAnalytics();renderHome();toast("Application added")}
+function renderApps(){
+ const a=apps();$("aApplied").textContent=a.filter(x=>x.status==="Applied").length;$("aScreening").textContent=a.filter(x=>x.status==="Screening").length;$("aInterview").textContent=a.filter(x=>x.status==="Interview").length;$("aOffer").textContent=a.filter(x=>x.status==="Offer").length;
+ $("applicationList").innerHTML=a.length?a.map(x=>`<div class="appRow"><div class="row between"><div><b>${esc(x.role)}</b><div class="mini">${esc(x.company)} • ${esc(x.source)} • ${esc(x.date)}</div></div><span class="badge">${esc(x.status)}</span></div><div class="actions"><select onchange="changeAppStatus(${x.id},this.value)"><option ${x.status==="Applied"?"selected":""}>Applied</option><option ${x.status==="Screening"?"selected":""}>Screening</option><option ${x.status==="Interview"?"selected":""}>Interview</option><option ${x.status==="Offer"?"selected":""}>Offer</option><option ${x.status==="Rejected"?"selected":""}>Rejected</option></select><button class="btn danger" onclick="deleteApp(${x.id})">Delete</button></div></div>`).join(""):`<div class="empty">📋<br><br>No applications yet. Find a role and tap <b>Apply in JobFlow</b>.</div>`
+}
+function changeAppStatus(id,status){let a=apps(),x=a.find(y=>y.id===id);if(x)x.status=status;write("jf_apps",a);renderApps();renderPipeline();renderAnalytics();renderHome();toast("Application updated")}
+function deleteApp(id){write("jf_apps",apps().filter(x=>x.id!==id));renderApps();renderPipeline();renderAnalytics();renderHome();toast("Application deleted")}
+function renderPipeline(){
+ const statuses=["Applied","Screening","Interview","Offer","Rejected"],a=apps();
+ $("pipelineGrid").innerHTML=statuses.map(s=>`<div class="card"><div class="row between"><h3>${s}</h3><span class="badge">${a.filter(x=>x.status===s).length}</span></div>${a.filter(x=>x.status===s).map(x=>`<div class="appRow"><b>${esc(x.role)}</b><div class="mini">${esc(x.company)}</div></div>`).join("")||'<p class="mini" style="margin-top:16px">No applications</p>'}</div>`).join("")
+}
+function renderAnalytics(){
+ const a=apps();$("anApps").textContent=a.length;$("anInterviews").textContent=a.filter(x=>x.status==="Interview").length;$("anOffers").textContent=a.filter(x=>x.status==="Offer").length;$("anRejected").textContent=a.filter(x=>x.status==="Rejected").length;
+ const total=a.length,inter=a.filter(x=>x.status==="Interview"||x.status==="Offer").length;
+ $("analyticsText").textContent=total?`You have ${total} recorded application${total===1?"":"s"}. ${inter} have reached interview or offer stage. Keep your application records updated so your dashboard stays useful.`:"Start by applying to a role from the Jobs page."
+}
+
+/* ========================= RESUME ========================= */
+function loadResume(){
+ const r=read("jf_resume",{});$("resumeName").value=r.name||"";$("resumeTitle").value=r.title||"";$("resumeSkills").value=r.skills||"";$("resumeExperience").value=r.experience||""
+}
+function resumeObject(){return{name:$("resumeName").value.trim(),title:$("resumeTitle").value.trim(),skills:$("resumeSkills").value.trim(),experience:$("resumeExperience").value.trim()}}
+function renderResume(){
+ const r=resumeObject();$("resumePreview").innerHTML=`<div style="padding:6px"><h2>${esc(r.name||"Your Name")}</h2><p style="color:#8db9ff;font-weight:800;margin-top:5px">${esc(r.title||"Target Role")}</p><hr style="border:0;border-top:1px solid #29405d;margin:18px 0"><h3>Skills</h3><p class="muted" style="margin-top:7px;line-height:1.7">${esc(r.skills||"Add your skills")}</p><h3 style="margin-top:18px">Experience & Projects</h3><p class="muted" style="margin-top:7px;white-space:pre-wrap;line-height:1.7">${esc(r.experience||"Add projects, internships or experience")}</p></div>`}
+function saveResume(){write("jf_resume",resumeObject());renderResume();renderHome();toast("Resume saved")}
+
+/* ========================= INTERVIEW ========================= */
+function renderQuestion(){$("question").textContent=QUESTIONS[currentQuestion%QUESTIONS.length];$("questionCount").textContent=`Question ${(currentQuestion%QUESTIONS.length)+1} of ${QUESTIONS.length}`}
+function submitAnswer(){
+ const a=$("answer").value.trim();if(!a){toast("Write an answer first");return}
+ localStorage.setItem("jf_interview_done","1");$("feedback").innerHTML=`<b class="success">Answer recorded.</b><br><span class="muted">Try to answer with a clear situation, the action you took, and the result. For technical questions, mention your reasoning and testing.</span>`;renderHome();toast("🎤 Practice answer saved")}
+function nextQuestion(){currentQuestion=(currentQuestion+1)%QUESTIONS.length;localStorage.setItem("jf_question",currentQuestion);$("answer").value="";renderQuestion()}
+
+/* ========================= COVER LETTER ========================= */
+function generateCL(){
+ const n=$("clName").value.trim()||"Your Name",r=$("clRole").value.trim()||"the role",c=$("clCompany").value.trim()||"your company",s=$("clSkills").value.trim()||"relevant technical skills";
+ $("clPreview").innerHTML=`<h3>Cover Letter Draft</h3><p style="white-space:pre-wrap;line-height:1.8;margin-top:14px">Dear Hiring Manager,
+
+I am writing to apply for the ${esc(r)} position at ${esc(c)}. I am particularly interested in the opportunity to contribute through my skills in ${esc(s)}.
+
+${$("clDesc").value.trim()?"I reviewed the role requirements and would be excited to contribute to the responsibilities described while continuing to grow through practical engineering work.":"I would welcome the opportunity to discuss how my technical skills, projects and learning experience could contribute to your team."}
+
+Thank you for your consideration.
+
+Sincerely,
+${esc(n)}</p>`;toast("✉️ Cover letter generated")}
+function copyCL(){navigator.clipboard?.writeText($("clPreview").innerText).then(()=>toast("Copied to clipboard")).catch(()=>toast("Copy not available"))}
+
+/* ========================= PROFILE / MEMBERSHIP ========================= */
+function loadProfile(){
+ $("profileName").value=localStorage.getItem("jf_name")||"";$("profileEmail").value=localStorage.getItem("jf_email")||"";$("profileSkill").value=localStorage.getItem("jf_skill")||TRACKS[currentTrack].title
+}
+function saveProfile(){
+ localStorage.setItem("jf_name",$("profileName").value.trim());localStorage.setItem("jf_email",$("profileEmail").value.trim().toLowerCase());localStorage.setItem("jf_skill",$("profileSkill").value.trim());toast("Profile saved");renderHome();startTrial()
+}
+async function api(path,options={}){
+ const r=await fetch(API_BASE_URL+path,{...options,headers:{"Content-Type":"application/json",...(options.headers||{})}});
+ const text=await r.text();let d={};try{d=text?JSON.parse(text):{}}catch{d={message:text}}
+ if(!r.ok)throw new Error(d.message||"Request failed");return d
+}
+async function startTrial(){
+ const email=localStorage.getItem("jf_email");if(!email)return;
+ try{const d=await api("/api/trial/start",{method:"POST",body:JSON.stringify({email})});if(d.membership)write("jf_membership",d.membership)}catch(_){}
+}
+async function refreshMembership(){
+ const email=localStorage.getItem("jf_email");if(!email){$("membership").textContent="Save your email in Profile first.";return}
+ try{const d=await api("/api/membership?email="+encodeURIComponent(email));const m=d.membership||d;write("jf_membership",m);$("membership").innerHTML=m.owner?"👑 Owner access — unlimited.":m.premium?"⭐ Premium is active.":m.trial?"🎁 Trial is active.":"🔒 No active membership."}
+ catch(e){$("membership").textContent="Membership status could not be refreshed: "+e.message}
+}
+async function createPayment(){
+ const email=localStorage.getItem("jf_email");if(!email){toast("Save your email in Profile first");return}
+ try{const d=await api("/api/payment/create-request",{method:"POST",body:JSON.stringify({email,amount:PREMIUM_PRICE,upiId:UPI_ID})});$("paymentId").value=d.paymentId||"";$("paymentMsg").innerHTML='<div class="notice">Payment request created. Complete the payment, then enter the actual transaction reference.</div>'}
+ catch(e){$("paymentMsg").innerHTML='<div class="notice error">'+esc(e.message)+'</div>'}
+}
+async function submitPayment(){
+ const email=localStorage.getItem("jf_email"),paymentId=$("paymentId").value.trim(),reference=$("utr").value.trim();if(!email||reference.length<6){toast("Enter email and transaction reference");return}
+ try{const d=await api("/api/payment/submit-reference",{method:"POST",body:JSON.stringify({email,paymentId,reference})});$("paymentMsg").innerHTML='<div class="notice">'+esc(d.message||"Submitted for verification")+"</div>";refreshMembership()}
+ catch(e){$("paymentMsg").innerHTML='<div class="notice error">'+esc(e.message)+'</div>'}
+}
+
+/* ========================= SETTINGS ========================= */
+function theme(){
+ document.body.classList.toggle("light");const light=document.body.classList.contains("light");
+ if(light){document.body.style.background="#eef3f9";document.documentElement.style.setProperty("--text","#102033");document.documentElement.style.setProperty("--muted","#60758d")}
+ else{document.body.style.background="";document.documentElement.style.setProperty("--text","#f4f8ff");document.documentElement.style.setProperty("--muted","#91a4bb")}
+ localStorage.setItem("jf_light",light?"1":"0")
+}
+function clearData(){
+ if(!confirm("Reset local career data?"))return;
+ ["jf_apps","jf_saved","jf_training","jf_resume","jf_name","jf_email","jf_skill","jf_interview_done","jf_trial_start","jf_membership"].forEach(k=>localStorage.removeItem(k));
+ location.reload()
+}
+
+/* ========================= BOOT ========================= */
+function bindEvents(){
+ bindNavigation();bindJobFilters();setupTracks();loadProfile();loadResume();renderQuestion();
+ $("addApp").onclick=addApplication;$("generateResume").onclick=renderResume;$("saveResume").onclick=saveResume;
+ $("submitAnswer").onclick=submitAnswer;$("nextQuestion").onclick=nextQuestion;$("generateCL").onclick=generateCL;$("copyCL").onclick=copyCL;
+ $("saveProfile").onclick=saveProfile;$("copyUPI").onclick=()=>navigator.clipboard?.writeText(UPI_ID).then(()=>toast("UPI ID copied"));
+ $("createPayment").onclick=createPayment;$("submitPayment").onclick=submitPayment;$("refreshMembership").onclick=refreshMembership;
+ $("darkMode").onclick=theme;$("clearLocal").onclick=clearData;$("lockApp").onclick=()=>{localStorage.removeItem("jf_access");showGate()};
+ $("closeModal").onclick=closeModal;$("jobModal").onclick=e=>{if(e.target.id==="jobModal")closeModal()};
+ if(localStorage.getItem("jf_light")==="1")theme();
+ renderHome();renderTraining();renderJobs();renderSaved();renderApps();renderPipeline();renderAnalytics();renderResume();
+ refreshMembership();
+}
+function showGate(){$("gate").style.display="flex";$("app").style.display="none"}
+function showApp(){$("gate").style.display="none";$("app").style.display="block";bindEvents();showPage("home")}
+function verify(){
+ if($("gateInput").value.trim()!==PASSWORD){$("gateMsg").textContent="Incorrect password. Use 12345.";return}
+ const premium=localStorage.getItem("jf_premium")==="true";let start=Number(localStorage.getItem("jf_trial_start")||0);
+ if(!premium&&!start){start=Date.now();localStorage.setItem("jf_trial_start",String(start))}
+ if(!premium&&Date.now()-start>=TRIAL_HOURS*3600000){$("gateMsg").innerHTML="Your local 48-hour trial has expired.<br>Use Premium membership verification to continue.";return}
+ localStorage.setItem("jf_access","1");showApp()
+}
+$("gateBtn").onclick=verify;$("gateInput").addEventListener("keydown",e=>{if(e.key==="Enter")verify()});
+(function boot(){const p=localStorage.getItem("jf_premium")==="true",a=localStorage.getItem("jf_access")==="1",s=Number(localStorage.getItem("jf_trial_start")||0),active=s&&Date.now()-s<TRIAL_HOURS*3600000;if(p||(a&&active))showApp();else showGate()})();
+</script>
+</body>
+</html>
